@@ -9,9 +9,10 @@ const Navbar = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Annual Plan', href: '/annualplan' },
-    { name: 'Q-League', href: '/qleague' },
-    { name: 'Sponsorship', href: '/sponsorship' },
+    { name: 'About', href: '/about' },
+    { name: 'Annual Package', href: '/annualpackage' },
+    { name: 'Quarterly Package', href: '/quarterly' },
+    { name: ' Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Clients', href: '/clients' },
     { name: 'Contact', href: '/contact' },

@@ -3,6 +3,18 @@ import { motion } from 'framer-motion';
 import { Trophy, Mail, Phone, MapPin, Linkedin, Instagram, Twitter } from 'lucide-react';
 
 const Footer = () => {
+
+  const footer = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Annual Package', href: '/annualpackage' },
+    { name: 'Quarterly Package', href: '/quarterly' },
+    { name: ' Sponsor Dashboard', href: '/sponsor' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Clients', href: '/clients' },
+    { name: 'Contact', href: '/contact' },
+  ]
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -76,7 +88,7 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {['Home', 'Annual Plan', 'Q-League', 'Sponsorship', 'Gallery', 'Clients', 'Contact'].map((item) => (
+              {footer.map((item) => (
                 <motion.li
                   key={item}
                   whileHover={{ x: 10 }}
@@ -87,10 +99,10 @@ const Footer = () => {
                   }}
                 >
                   <a
-                    href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                    href={item.href}
                     className="text-gray-400 hover:text-red-400 transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </a>
                 </motion.li>
               ))}

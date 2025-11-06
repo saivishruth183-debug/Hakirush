@@ -14,94 +14,116 @@ const heroSlides = [
   { id: 4, image: Yoga, title: "Yoga" },
 ];
 
+// Shared Button Styles (Improved feel — same color)
+const baseButton =
+  "rounded-lg px-6 py-3 text-lg font-semibold transition-all duration-300 relative overflow-hidden group";
+const primaryButton =
+  `${baseButton} text-white bg-[#C21807] hover:bg-[#a91206] hover:shadow-lg hover:scale-[1.03]`;
+const secondaryButton =
+  `${baseButton} border-2 border-[#C21807] text-[#C21807] hover:bg-[#C21807] hover:text-white hover:shadow-lg hover:scale-[1.03]`;
+
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = () =>
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-
-  // 🔁 Auto change slide every 0.5s
   useEffect(() => {
-    const interval = setInterval(nextSlide, 10000);
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-28 sm:pt-24 md:pt-20 bg-gradient-to-br from-red-50 via-white to-red-100">
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-100/30 via-transparent to-red-200/30" />
+    <section className="relative min-h-screen flex items-center py-20 bg-white">
+      {/* Soft clean gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-red-50/20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          {/* Text Section */}
           <motion.div
-            initial={{ opacity: 0, x: -80, rotateY: -15 }}
-            animate={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
             className="text-left"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-              <span className="text-red-600 block drop-shadow-md">UNLEASHING</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A1A2F] leading-tight">
+              <span className="text-[#C21807]">UNLEASHING</span><br />
               TEAM SPIRIT THROUGH SPORTS
             </h1>
 
-            <p className="text-lg lg:text-xl text-gray-700 mb-8 max-w-xl">
+            <p className="text-lg text-gray-600 mt-6 max-w-lg">
               Corporate sports experiences that keep your teams active, engaged, and connected — all year round.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              {[
-                { href: "/services", label: "Explore Annual Subscription", primary: true },
-                { href: "/contact", label: "Explore Quarterly Tournaments", primary: false },
-              ].map((btn, idx) => (
-                <Link to={btn.href} key={idx}>
-                  <motion.button
-                    whileHover={{
-                      scale: 1.08,
-                      boxShadow: "0 10px 20px rgba(255, 0, 0, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                    className={`w-60 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 ${
-                      btn.primary
-                        ? "bg-red-600 text-white hover:bg-white hover:text-red-600 hover:border-2 hover:border-red-600"
-                        : "border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                    }`}
-                  >
-                    {btn.label}
-                  </motion.button>
-                </Link>
-              ))}
+            <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <Link to="/annualpackage">
+                <motion.button whileHover={{ scale: 1.05 }} className={primaryButton}>
+                  Explore Annual Subscription
+                </motion.button>
+              </Link>
+
+              <Link to="/quarterly">
+                <motion.button whileHover={{ scale: 1.05 }} className={secondaryButton}>
+                  Explore Quarterly Tournaments
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
 
-          {/* Right Slideshow */}
+          {/* Image Slideshow */}
           <motion.div
-            className="relative h-64 sm:h-80 md:h-[500px] rounded-3xl overflow-hidden bg-white shadow-2xl border border-gray-200 cursor-pointer"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 150 }}
-            style={{ perspective: 1000 }}
+            className="relative h-72 sm:h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
           >
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentSlide}
                 src={heroSlides[currentSlide].image}
                 alt={heroSlides[currentSlide].title}
-                initial={{ opacity: 0, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 1.07 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.6 }}
                 className="w-full h-full object-cover"
               />
             </AnimatePresence>
 
-            <div className="absolute bottom-8 left-4 right-4 text-red-600 bg-white/70 p-3 rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-center">
-                {heroSlides[currentSlide].title}
-              </h3>
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white/85 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200 text-center text-[#C21807] font-semibold shadow-sm">
+              {heroSlides[currentSlide].title}
             </div>
           </motion.div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
+          {[
+            { icon: "🏢", label: "Companies Engaged", value: 20 },
+            { icon: "⚽", label: "Events Organized", value: 50 },
+            { icon: "🎖", label: "Employees Impacted", value: 1000 },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="group bg-white rounded-xl shadow-md border border-gray-100 py-10 hover:shadow-xl hover:scale-[1.03] hover:bg-[#C21807] transition-all cursor-pointer"
+            >
+              <div className="text-4xl mb-2 group-hover:text-white transition-colors">
+                {stat.icon}
+              </div>
+
+              <div className="text-3xl font-bold text-[#C21807] group-hover:text-white transition-colors">
+                {stat.value}+
+              </div>
+
+              <p className="text-sm mt-1 text-gray-600 group-hover:text-white transition-colors">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

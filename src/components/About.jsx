@@ -12,10 +12,19 @@ const aboutimg = [
   { image: Trophy }
 ]
 
+const about = [
+  { title:"Vision", describitin:"To be India’s leading corporate sports experience brand, inspiring teams through competition and collaboration."},
+  { title:"Mission", describitin:"To unleash the spirit of teamwork, fitness, and camaraderie through organized sports experiences."}
+]
+
 const About = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="relative py-28 bg-[#FFF5F5] overflow-hidden">
+
+      {/* Decorative Background Accent */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#C21807]/15 via-transparent to-transparent blur-3xl -z-10"></div>
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
 
         {/* LEFT TEXT CONTENT */}
         <motion.div
@@ -23,42 +32,20 @@ const About = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
+          className="space-y-6"
         >
-          <h2 className="text-5xl font-extrabold mb-6" style={{ color: '#C21807' }}>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[#C21807]">
             Who We Are
           </h2>
 
-          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+          <p className="text-lg text-gray-600 leading-relaxed">
             HAKIRUSH SPORTS AND EVENTS LLP is a corporate sports and wellness management company.
             We build experiences that inspire teamwork, wellness, and motivation — through sports.
           </p>
 
-          <p className="text-lg text-gray-700 leading-relaxed mb-8">
+          <p className="text-lg text-gray-600 leading-relaxed">
             Active in Bangalore, Hyderabad, and other metros, HAKIRUSH is redefining corporate engagement.
           </p>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-xl font-bold" style={{ color: '#C21807' }}>Vision</h3>
-              <p className="text-gray-700">
-                To be India’s leading corporate sports experience brand, inspiring teams through competition and collaboration.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold" style={{ color: '#C21807' }}>Mission</h3>
-              <p className="text-gray-700">
-                To unleash the spirit of teamwork, fitness, and camaraderie through organized sports experiences.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold" style={{ color: '#C21807' }}>Tagline</h3>
-              <p className="font-semibold italic text-gray-800">
-                “Unleashing Team Spirit Through Sports.”
-              </p>
-            </div>
-          </div>
         </motion.div>
 
         {/* RIGHT IMAGE COLLAGE */}
@@ -67,7 +54,7 @@ const About = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 gap-4"
+          className="grid grid-cols-2 gap-5"
         >
           {aboutimg.map((item, index) => (
             <motion.div
@@ -76,16 +63,36 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               viewport={{ once: true }}
+              className="rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.04] transition transform"
             >
               <img
                 src={item.image}
                 alt="Hakirush Team"
-                className="w-full h-56 rounded-xl shadow-md object-cover object-center transition-transform duration-300 hover:shadow-xl hover:scale-[1.03]"
+                className="w-full h-56 md:h-60 object-cover"
               />
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* VISION & MISSION */}
+      <div className="mt-24 px-6 flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-14">
+        {about.map((item,index)=>(
+          <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                whileHover={{ scale: 1.05, rotateY: 10 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                viewport={{ once: true }}
+                className="w-full md:w-1/3 bg-white shadow-lg px-10 py-14 rounded-2xl hover:shadow-red-500 transition cursor-pointer"
+        >
+          <h3 className="text-2xl font-semibold mb-3 text-[#C21807] transition">{item.title}</h3>
+          <p className="text-gray-600 transition leading-relaxed">{item.describitin}</p>
+        </motion.div>
+        ))}
+      </div>
+
     </section>
   )
 }

@@ -3,21 +3,25 @@ import { motion } from "framer-motion";
 
 const sponsorTiers = [
   {
+    href:"/sponsor/titlesponser",
     icon: "🏆",
     title: "Title Sponsor",
     desc: "Premium branding across kits, trophies, and reels",
   },
   {
+    href:"/sponsor/cosponser",
     icon: "🤝",
     title: "Co-Sponsor",
     desc: "Prominent logo placement, shoutouts, and banners",
   },
   {
+    href:"/sponsor/stallsponser",
     icon: "🏬",
     title: "Stall Partner",
     desc: "On-site product demos, samplings, and branding space",
   },
   {
+    href:"/sponsor/merchandisepartner",
     icon: "👕",
     title: "Merchandise Partner",
     desc: "Co-branded event kits and corporate giveaways",
@@ -26,12 +30,13 @@ const sponsorTiers = [
 
 const Sponsorship = () => {
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-[#FFF5F5] overflow-hidden">
 
       {/* Header Section */}
       <motion.section
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
         className="text-center py-24 px-6"
       >
@@ -46,59 +51,71 @@ const Sponsorship = () => {
 
       {/* Sponsor Tiers */}
       <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0  }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
         className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 px-6 pb-24"
       >
         {sponsorTiers.map((tier, i) => (
-          <motion.div
+          <motion.a
+            href={tier.href}
             whileHover={{ y: -6 }}
             key={i}
-            className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all"
+            className="group p-8 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-red-600 hover:shadow-lg transition-all cursor-pointer"
           >
             <div className="text-4xl mb-4">{tier.icon}</div>
-            <h3 className="text-xl font-semibold text-[#0A1A2F]">{tier.title}</h3>
-            <p className="text-gray-600 mt-2">{tier.desc}</p>
-          </motion.div>
+            <h3 className="text-xl font-semibold text-[#0A1A2F] group-hover:text-white">{tier.title}</h3>
+            <p className="text-gray-600 mt-2 group-hover:text-white">{tier.desc}</p>
+          </motion.a>
         ))}
       </motion.section>
 
-      {/* Sponsor Dashboard Features */}
-      <section className="bg-[#0A1A2F] text-white py-20 px-6">
-        <h2 className="text-3xl font-bold text-center">Sponsor Dashboard Features</h2>
-
-        <div className="max-w-5xl mx-auto mt-12 grid md:grid-cols-2 gap-6 text-lg">
-          <p>• Real-time analytics of reach & impressions</p>
-          <p>• Brand exposure tracking</p>
-          <p>• Highlight reels showcasing sponsor placements</p>
-          <p>• Dedicated logo placement in media posts</p>
-        </div>
-      </section>
-
-      {/* Why Sponsor */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+      {/* Dashboard & Why Sponsor Cards Row */}
+      <motion.section
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center py-24 px-6"
+        className="max-w-7xl mx-auto px-6 pb-24 grid sm:grid-cols-2 gap-8"
       >
-        <h2 className="text-3xl font-bold text-[#0A1A2F]">Why Sponsor HAKIRUSH?</h2>
-        <div className="max-w-3xl mx-auto mt-8 space-y-3 text-lg text-gray-700">
-          <p>✅ Access 1000+ professionals per tournament</p>
-          <p>✅ Multi-city exposure</p>
-          <p>✅ Social media amplification (LinkedIn, Instagram, YouTube)</p>
-          <p>✅ Premium association with fitness & corporate engagement</p>
-        </div>
-
-        <a
-          href="/contact"
-          className="mt-12 inline-block px-10 py-4 rounded-lg font-semibold text-white bg-gradient-to-r from-[#C21807] to-red-500 hover:from-red-500 hover:to-[#C21807] transition-all shadow-lg"
+        {/* Dashboard Card */}
+        <motion.div
+          whileHover={{ y: -6 }}
+          className="group p-10 bg-white text-white rounded-xl shadow-lg hover:shadow-red-800 transition-all cursor-pointer"
         >
-          Join as a Sponsor
-        </a>
-      </motion.section>
+          <h2 className="text-3xl text-[#C21807] font-bold mb-6">Sponsor Dashboard Features</h2>
 
+          <ul className="space-y-3 text-lg text-gray-700">
+            <li>✅ Real-time analytics of reach & impressions</li>
+            <li>✅ Brand exposure tracking</li>
+            <li>✅ Highlight reels showcasing sponsor placements</li>
+            <li>✅ Dedicated logo placement in media posts</li>
+          </ul>
+        </motion.div>
+
+        {/* Why Sponsor Card */}
+        <motion.div
+          whileHover={{ y: -6 }}
+          className="group p-10 bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-red-800 transition-all cursor-pointer"
+        >
+          <h2 className="text-3xl font-bold text-[#C21807] mb-6">Why Sponsor HAKIRUSH?</h2>
+      
+          <ul className="space-y-3 text-lg text-gray-700">
+            <li>✅ Access 1000+ professionals per tournament</li>
+            <li>✅ Multi-city exposure</li>
+            <li>✅ Social media amplification</li>
+            <li>✅ Premium association with fitness & team culture</li>
+          </ul>
+
+          <a
+            href="/contact"
+            className="mt-8 inline-block px-8 py-3 rounded-lg font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-md"
+          >
+            Join as a Sponsor
+          </a>
+        </motion.div>
+      </motion.section>
     </div>
   );
 };

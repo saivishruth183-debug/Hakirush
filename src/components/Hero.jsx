@@ -14,7 +14,6 @@ const heroSlides = [
   { id: 4, image: Yoga, title: "Yoga" },
 ];
 
-// Shared Button Styles (Improved feel — same color)
 const baseButton =
   "rounded-lg px-6 py-3 text-lg font-semibold transition-all duration-300 relative overflow-hidden group";
 const primaryButton =
@@ -33,17 +32,15 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center py-20 bg-white">
-      {/* Soft clean gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-red-50/20" />
+    <section className="relative min-h-screen flex items-center py-20 bg-[#FAF6F4]">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F4] to-red-50/30" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-          {/* Text Section */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             className="text-left"
           >
@@ -71,12 +68,11 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Image Slideshow */}
           <motion.div
             className="relative h-72 sm:h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
           >
             <AnimatePresence mode="wait">
               <motion.img
@@ -91,13 +87,12 @@ const Hero = () => {
               />
             </AnimatePresence>
 
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white/85 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200 text-center text-[#C21807] font-semibold shadow-sm">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-blur backdrop-blur-sm px-4 py-2 rounded-lg text-center text-[#C21807] font-bold shadow-sm">
               {heroSlides[currentSlide].title}
             </div>
           </motion.div>
         </div>
 
-        {/* Stats Section */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
           {[
             { icon: "🏢", label: "Companies Engaged", value: 20 },

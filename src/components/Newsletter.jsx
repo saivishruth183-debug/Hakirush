@@ -10,22 +10,24 @@ const Newsletter = () => {
         whileHover={{ scale: 1.05, rotateY: 5 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-7xl flex items-center justify-between gap-5 mx-auto px-12 py-20 rounded-xl relative z-10 bg-white shadow-xl hover:shadow-2xl hover:shadow-red-400"
+        className="max-w-7xl flex flex-col md:flex-row items-center justify-between gap-8 mx-auto px-6 md:px-12 py-12 md:py-20 rounded-xl relative z-10 bg-white shadow-xl hover:shadow-2xl hover:shadow-red-400"
       >
-        <div className="flex flex-col gap-5">
-             <h2 className="text-4xl font-extrabold text-gray-900">
-             Ready to Transform Your{" "}
-             <span className="text-red-600 px-2 rounded-lg">Workplace</span>?
-           </h2>
+        {/* Text Section */}
+        <div className="flex flex-col gap-5 text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug">
+            Ready to Transform Your{" "}
+            <span className="text-red-600 px-2">Workplace</span>?
+          </h2>
 
-           <p className="text-lg text-gray-700 max-w-2xl">
-             Join leading companies who trust{" "}
-             <span className="font-semibold text-red-600">HAKIRUSH</span> to boost
-             employee morale and build stronger teams through sports.
-           </p>
+          <p className="text-base md:text-lg text-gray-700 max-w-2xl">
+            Join leading companies who trust{" "}
+            <span className="font-semibold text-red-600">HAKIRUSH</span> to boost
+            employee morale and build stronger teams through sports.
+          </p>
         </div>
 
-        <a href="/contact">
+        {/* Button */}
+        <a href="/contact" className="mt-4 md:mt-0">
           <motion.button
             whileHover={{
               scale: 1.1,
@@ -34,7 +36,7 @@ const Newsletter = () => {
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-red-600 text-white font-bold px-12 py-4 rounded-xl text-xl hover:bg-red-700 transition cursor-pointer"
+            className="bg-red-600 text-white font-bold px-10 md:px-12 py-4 rounded-xl text-lg md:text-xl hover:bg-red-700 transition"
           >
             Book a Free Consultation
           </motion.button>

@@ -1,11 +1,15 @@
 import React from "react";
-import Yoga from "../assets/yoga.jpg"; // replace with real tournament images
+import { motion } from 'framer-motion'
+import Cricket from '../assets/cricket.webp'
+import Badminton from '../assets/badminton.jpg'
+import Football from '../assets/football.webp'
+import Multi from "../assets/multisports.jpeg";
 
 const quarters = [
-  { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Yoga },
-  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image: Yoga },
-  { id: 3, quarter: "Q3", name: "GoalRush", sport: "Football", image: Yoga },
-  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image: Yoga },
+  { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Cricket },
+  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image: Badminton },
+  { id: 3, quarter: "Q3", name: "GoalRush", sport: "Football", image: Football },
+  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image: Multi },
 ];
 
 const features = [
@@ -25,20 +29,30 @@ const benefits = [
 
 const QLeague = () => {
   return (
-    <div className="bg-white pt-24 pb-32">
+    <div className="bg-[#FFF5F5] pt-24 pb-32">
 
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto px-4">
+      <motion.div 
+      initial={{ opacity: 0, y: -60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="text-center max-w-3xl mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A]">
           Q-League — <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
         </h1>
         <p className="mt-5 text-gray-600 text-lg md:text-xl">
           Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
         </p>
-      </div>
+      </motion.div>
 
       {/* Timeline Cards */}
-      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-20">
+      <motion.div 
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-20">
         {quarters.map((item) => (
           <div key={item.id} className="group rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-2xl transition-all duration-500">
             <div className="relative h-64 overflow-hidden">
@@ -50,19 +64,29 @@ const QLeague = () => {
             </div>
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* What's Included + Benefits */}
       <div className="mt-24 grid md:grid-cols-2 gap-12 px-6 md:px-20">
         
-        <div className="p-8 bg-white shadow-lg rounded-2xl border border-gray-100">
+        <motion.div 
+        initial={{ opacity: 0, x: -60 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="p-8 bg-white shadow-lg rounded-2xl border border-gray-100">
           <h2 className="text-2xl font-bold text-[#C21807] mb-4">What’s Included:</h2>
           <ul className="space-y-3 text-gray-700 list-disc list-inside">
             {features.map((text, i) => <li key={i}>{text}</li>)}
           </ul>
-        </div>
+        </motion.div>
 
-        <div className="p-8 bg-white shadow-lg rounded-2xl border border-gray-100">
+        <motion.div 
+        initial={{ opacity: 0, x: 60 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="p-8 bg-white shadow-lg rounded-2xl border border-gray-100">
           <h2 className="text-2xl font-bold text-[#C21807] mb-4">Benefits:</h2>
           <ul className="space-y-3 text-gray-700 list-disc list-inside">
             {benefits.map((text, i) => <li key={i}>{text}</li>)}
@@ -75,7 +99,7 @@ const QLeague = () => {
           >
             Register for Quarterly Package
           </a>
-        </div>
+        </motion.div>
 
       </div>
 

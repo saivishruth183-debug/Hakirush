@@ -1,8 +1,9 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import Marathon from '../assets/Run.jpeg'
 import Football from '../assets/football.webp'
-import Badminton from '../assets/badminton.jpg'
-import Cricket from '../assets/cricket.webp'
+import Badminton from '../assets/doublebadmention.png'
+import Cricket from '../assets/cricket6s.webp'
 import Table from '../assets/Tabletennis.avif'
 import Yoga from '../assets/yoga.jpg'
 import Volleyball from '../assets/Volleyball.jpg'
@@ -50,7 +51,7 @@ const details = [
 
 const Annualplan = () => {
   return (
-    <div className="py-24 bg-gray-50 relative">
+    <div className="py-24 bg-[#FFF5F5] relative">
 
       {/* Parallax celebration background */}
       <div className="absolute inset-0 bg-cover bg-center bg-fixed opacity-20"
@@ -59,7 +60,12 @@ const Annualplan = () => {
       <div className="absolute inset-0 bg-red-600/10 backdrop-blur-sm" />
 
       {/* Header */}
-      <div className="text-center max-w-4xl mx-auto px-4 relative z-10">
+      <motion.div 
+      initial={{ opacity: 0, y: -60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="text-center max-w-4xl mx-auto px-4 relative z-10">
         <h1 className="text-4xl font-extrabold text-gray-800">
           Annual Package — <span className="text-red-600">12 Months. 12 Sports.</span> One Unstoppable Team.
         </h1>
@@ -69,13 +75,18 @@ const Annualplan = () => {
           consistent team connection and active employee culture.
           Each month brings a new sport, a new challenge, and a stronger team.
         </p>
-      </div>
+      </motion.div>
 
       {/* Monthly Schedule */}
-      <div className="px-10 sm:px-20 mt-16 relative z-10">
+      <motion.div 
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="px-10 sm:px-20 mt-16 relative z-10">
         <h2 className="text-2xl font-bold text-red-600 mb-8">Monthly Activity Calendar</h2>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
           {plans.map((item, index) => (
             <div key={index} className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
               <img src={item.image} alt={item.title} className="h-48 w-full object-cover" />
@@ -86,28 +97,38 @@ const Annualplan = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Benefits */}
-      <div className="px-10 sm:px-20 mt-20 relative z-10">
+      <motion.div 
+      initial={{ opacity: 0, x: -60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="px-10 sm:px-20 mt-20 relative z-10">
         <div className="grid md:grid-cols-2 gap-10">
           {details.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">{item.title}</h3>
+              <h3 className="text-xl font-bold text-red-600 mb-4">{item.title}</h3>
               <ul className="space-y-2 text-gray-600 list-disc list-inside">
                 {Object.values(item).slice(2).map((line, i) => <li key={i}>{line}</li>)}
               </ul>
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* CTA */}
-      <div className="text-center mt-16 relative z-10">
-        <button className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg">
+      <motion.div 
+      initial={{ opacity: 0, x: 60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="text-center mt-16 relative z-10">
+        <a href='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer">
           Subscribe to Annual Package
-        </button>
-      </div>
+        </a>
+      </motion.div>
     </div>
   )
 }

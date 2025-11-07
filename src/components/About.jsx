@@ -87,7 +87,7 @@ const About = () => {
                 viewport={{ once: true }}
                 className="w-full md:w-1/3 bg-white shadow-lg px-10 py-14 rounded-2xl hover:shadow-red-500 transition cursor-pointer"
         >
-          <h3 className="text-2xl font-semibold mb-3 text-[#C21807] transition">{item.title}</h3>
+          <h3 className="text-2xl font-bold mb-3 text-[#C21807] transition">{item.title}</h3>
           <p className="text-gray-600 transition leading-relaxed">{item.describitin}</p>
         </motion.div>
         ))}

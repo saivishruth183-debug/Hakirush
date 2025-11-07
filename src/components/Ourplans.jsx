@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { MoveRightIcon, Calendar, Trophy } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const plans = [
   {
@@ -22,6 +23,24 @@ const plans = [
     icon: Trophy,
   },
 ]
+
+function smoothScrollToTop(duration = 800) {
+  const start = window.scrollY;
+  const startTime = performance.now();
+
+  function scroll() {
+    const now = performance.now();
+    const time = Math.min(1, (now - startTime) / duration);
+    // Ease-out animation curve
+    const timeFunction = 1 - Math.pow(1 - time, 3);
+
+    window.scrollTo(0, start * (1 - timeFunction));
+
+    if (time < 1) requestAnimationFrame(scroll);
+  }
+
+  requestAnimationFrame(scroll);
+}
 
 const Ourplans = () => {
   return (
@@ -69,13 +88,16 @@ const Ourplans = () => {
                 </div>
                 <p className="text-gray-700 leading-relaxed mb-6">{plan.description}</p>
 
-                <a href={plan.href} className="group inline-flex items-center text-red-600 font-semibold transition-all duration-300"
+                <Link 
+                to={plan.href} 
+                onClick={() => smoothScrollToTop(1500)}
+                className="group inline-flex items-center text-red-600 font-semibold transition-all duration-300"
                 >
                   <span className="transform transition-transform duration-300 group-hover:-translate-x-1">
                     {plan.button}
                   </span>
                   <MoveRightIcon className="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
+                </Link>
               </motion.div>
             )
           })}

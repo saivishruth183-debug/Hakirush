@@ -12,6 +12,7 @@ import Fitness from '../assets/bootcamp.jpg'
 import Relay from '../assets/relayrun.jpg'
 import Olympics from '../assets/Olympics.png'
 import Finale from '../assets/trophy.jpeg'
+import { Link } from 'react-router-dom'
 
 const plans = [
   { month: "January", title: "Corporate Marathon", image: Marathon },
@@ -100,17 +101,25 @@ const Annualplan = () => {
       <motion.div 
       initial={{ opacity: 0, x: -60 }}
       whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
       viewport={{ once: true }}
       className="px-10 sm:px-20 mt-20 relative z-10">
-        <div className="grid md:grid-cols-2 gap-10">
+        <div 
+        className="grid md:grid-cols-2 gap-10">
           {details.map((item) => (
-            <div key={item.id} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg">
+            <motion.div 
+            key={item.id} 
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              whileHover={{ scale: 1.05, rotateY: 10 }}
+              transition={{ type: 'spring', stiffness: 50 }}
+              viewport={{ once: true }}
+              className="bg-white p-6 rounded-2xl shadow-md hover:shadow-red-400 hover:shadow-lg cursor-pointer">
               <h3 className="text-xl font-bold text-red-600 mb-4">{item.title}</h3>
               <ul className="space-y-2 text-gray-600 list-disc list-inside">
                 {Object.values(item).slice(2).map((line, i) => <li key={i}>{line}</li>)}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>
@@ -122,9 +131,9 @@ const Annualplan = () => {
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true }}
       className="text-center mt-16 relative z-10">
-        <a href='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer">
+        <Link to='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer">
           Subscribe to Annual Package
-        </a>
+        </Link>
       </motion.div>
 
     </div>

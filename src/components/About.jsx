@@ -1,13 +1,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Ceremoney from '../assets/Ceremoney.jpg'
+import Cricket from '../assets/Women.jpg'
 import Celebration from '../assets/Team Celebration.webp'
 import Team from '../assets/team.jpg'
 import Trophy from '../assets/trophy.jpeg'
 import { Eye, Lightbulb, Target } from "lucide-react";
 
 const aboutimg = [
-  { image: Ceremoney },
+  { image: Cricket },
   { image: Celebration },
   { image: Team },
   { image: Trophy }
@@ -101,7 +101,36 @@ const About = () => {
         </motion.div>
         ))}
       </div>
+        
+      <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
+          {[
+            { icon: "🏢", label: "Companies Engaged", value: 20 },
+            { icon: "⚽", label: "Events Organized", value: 50 },
+            { icon: "🎖", label: "Employees Impacted", value: 1000 },
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              whileHover={{ scale: 1.05, rotateY: 10 }}
+              transition={{ type: 'spring', stiffness: 200 }}
+              viewport={{ once: true }}
+              className=" bg-white rounded-xl shadow-md border border-gray-100 py-10 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer"
+            >
+              <div className="text-4xl mb-2 group-hover:text-white transition-colors">
+                {stat.icon}
+              </div>
 
+              <div className="text-3xl font-bold text-[#C21807] transition-colors">
+                {stat.value}+
+              </div>
+
+              <p className="text-sm mt-1 text-gray-600 transition-colors">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
     </section>
   )
 }

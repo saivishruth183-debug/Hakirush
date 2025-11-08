@@ -1,19 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Mail, Phone, MapPin, Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter } from 'lucide-react';
 
 const Footer = () => {
 
   const footer = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Annual Package', href: '/annualpackage' },
-    { name: 'Quarterly Package', href: '/quarterly' },
-    { name: ' Sponsor Dashboard', href: '/sponsor' },
+    {name: 'Package', href: '/package'},
+    { name: 'Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Clients', href: '/clients' },
     { name: 'Contact', href: '/contact' },
-  ]
+  ];
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -28,17 +27,16 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <a href="/" className="flex items-center space-x-2 mb-4">
-              <div className="rounded-lg">
-                <img
-                  src='/favicon.ico'
-                  alt="Logo"
-                  width={24}
-                  height={24}
-                  className="rounded-lg"
-                />
-              </div>
+              <img
+                src="/favicon.ico"
+                alt="Logo"
+                width={28}
+                height={28}
+                className="rounded-lg"
+              />
               <span className="text-xl font-bold">HAKIRUSH</span>
             </a>
+
             <p className="text-gray-400 mb-4">
               India's premier corporate sports engagement platform, fostering team building and employee wellness through competitive sports.
             </p>
@@ -90,7 +88,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {footer.map((item) => (
                 <motion.li
-                  key={item}
+                  key={item.href}
                   whileHover={{ x: 10 }}
                   transition={{
                     type: 'tween',
@@ -118,43 +116,32 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
             <div className="space-y-3">
+
               <motion.span
                 className="flex items-center space-x-3 cursor-pointer"
                 whileHover={{ x: 10 }}
-                transition={{
-                  type: 'tween',
-                  duration: 0.3,
-                  ease: 'easeInOut',
-                }}
+                transition={{ type: 'tween', duration: 0.3 }}
               >
-                <Mail className="h-4 w-4 text-red-400" />
+                <Mail className="h-5 w-5 text-red-400" />
                 <span className="text-gray-400">krishna@hakirush.com</span>
               </motion.span>
 
               <motion.span
                 className="flex items-center space-x-3 cursor-pointer"
                 whileHover={{ x: 10 }}
-                transition={{
-                  type: 'tween',
-                  duration: 0.3,
-                  ease: 'easeInOut',
-                }}
+                transition={{ type: 'tween', duration: 0.3 }}
               >
-                <Phone className="h-4 w-4 text-red-400" />
+                <Phone className="h-5 w-5 text-red-400" />
                 <span className="text-gray-400">+91 7997110210</span>
               </motion.span>
 
               <motion.span
-                className="flex items-start justify-center space-x-3 cursor-pointer"
+                className="flex items-start space-x-3 cursor-pointer"
                 whileHover={{ x: 10 }}
-                transition={{
-                  type: 'tween',
-                  duration: 0.3,
-                  ease: 'easeInOut',
-                }}
+                transition={{ type: 'tween', duration: 0.3 }}
               >
-                <MapPin className="h-10 w-10 text-red-400" />
-                <span className="text-gray-400 mt-2 text-md">
+                <MapPin className="h-5 w-5 text-red-400" />
+                <span className="text-gray-400 text-md">
                   No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka - 560095.
                 </span>
               </motion.span>

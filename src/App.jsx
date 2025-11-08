@@ -21,18 +21,20 @@ import Amazon from './clients/Amazon'
 import Facebook from './clients/Facebook'
 import Apple from './clients/Apple'
 import Netflix from './clients/Netflix'
+import Package from './pages/Package'
 
 const App = () => {
   return (
     <div>
       <Navbar />
       <div className='pt-16'>
-        <ScrollToTop /> 
+        <ScrollToTop />   
         <Routes >
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
-          <Route path='/annualpackage' element={<Annualplan />} />
-          <Route path='/quarterly' element={<Qleague />} />
+          <Route path='/package' element={<Package />} />
+          <Route path='/package/annualpackage' element={<Annualplan />} />
+          <Route path='/package/quarterly' element={<Qleague />} />
           <Route path='/sponsor' element={<Sponsor />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/clients' element={<Clients />} />

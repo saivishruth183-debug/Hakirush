@@ -46,39 +46,6 @@ const Hero = () => {
             <p className="text-lg text-gray-600 mt-6 max-w-lg">
               Corporate sports experiences that keep your teams active, engaged, and connected — all year round.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              <Link to="/annualpackage">
-                <motion.div 
-                  className="relative "
-                  initial={{ opacity: 0, y: 40, rotateX: -10 }} 
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  whileHover={{ scale: 1.05, rotateY: 10 }}
-                  transition={{ type: 'spring', stiffness: 100 }}
-                  viewport={{ once: true }}
-                >
-                  <span className="absolute top-[-15px] left-1/2 transform -translate-x-1/2 px-3 py-1 bg-yellow-500 text-red-600 text-xs font-extrabold uppercase rounded-full shadow-lg z-10 whitespace-nowrap">
-                    Most Preferred
-                  </span>
-                  <motion.button 
-                    className='bg-red-600 rounded-xl font-bold text-white shadow-md pt-12 pb-8 px-10 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer relative z-0'
-                  >
-                    Explore Annual Subscription
-                  </motion.button>
-                </motion.div>
-              </Link>
-              <Link to="/quarterly">
-                <motion.button
-                  initial={{ opacity: 0, y: 40, rotateX: -10 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  whileHover={{ scale: 1.05, rotateY: 10 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                  viewport={{ once: true }} 
-                  className='bg-white rounded-xl shadow-md font-bold text-red-600 p-10 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer'>
-                  Explore Quarterly Tournaments
-                </motion.button>
-              </Link>
-            </div>
           </motion.div>
 
           <motion.div
@@ -104,36 +71,6 @@ const Hero = () => {
               {heroSlides[currentSlide].title}
             </div>
           </motion.div>
-        </div>
-
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
-          {[
-            { icon: "🏢", label: "Companies Engaged", value: 20 },
-            { icon: "⚽", label: "Events Organized", value: 50 },
-            { icon: "🎖", label: "Employees Impacted", value: 1000 },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40, rotateX: -10 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              whileHover={{ scale: 1.05, rotateY: 10 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-              viewport={{ once: true }}
-              className=" bg-white rounded-xl shadow-md border border-gray-100 py-10 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer"
-            >
-              <div className="text-4xl mb-2 group-hover:text-white transition-colors">
-                {stat.icon}
-              </div>
-
-              <div className="text-3xl font-bold text-[#C21807] transition-colors">
-                {stat.value}+
-              </div>
-
-              <p className="text-sm mt-1 text-gray-600 transition-colors">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>

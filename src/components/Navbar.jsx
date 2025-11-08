@@ -10,8 +10,7 @@ const Navbar = () => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Annual Package', href: '/annualpackage' },
-    { name: 'Quarterly Package', href: '/quarterly' },
+    { name: 'Package', href: '/package' },
     { name: ' Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Clients', href: '/clients' },

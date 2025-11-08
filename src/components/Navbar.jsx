@@ -3,24 +3,6 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 
-function smoothScrollToTop(duration = 800) {
-  const start = window.scrollY;
-  const startTime = performance.now();
-
-  function scroll() {
-    const now = performance.now();
-    const time = Math.min(1, (now - startTime) / duration);
-    // Ease-out animation curve
-    const timeFunction = 1 - Math.pow(1 - time, 3);
-
-    window.scrollTo(0, start * (1 - timeFunction));
-
-    if (time < 1) requestAnimationFrame(scroll);
-  }
-
-  requestAnimationFrame(scroll);
-}
-
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { pathname } = useLocation()
@@ -57,7 +39,6 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                onClick={() => smoothScrollToTop(1500)}
                 className={`relative text-sm font-semibold transition-colors duration-300 hover:text-red-400 font-sans ${
                   pathname === item.href ? 'text-red-400' : 'text-white'
                 }`}

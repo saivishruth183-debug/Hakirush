@@ -24,23 +24,6 @@ const plans = [
   },
 ]
 
-function smoothScrollToTop(duration = 800) {
-  const start = window.scrollY;
-  const startTime = performance.now();
-
-  function scroll() {
-    const now = performance.now();
-    const time = Math.min(1, (now - startTime) / duration);
-    // Ease-out animation curve
-    const timeFunction = 1 - Math.pow(1 - time, 3);
-
-    window.scrollTo(0, start * (1 - timeFunction));
-
-    if (time < 1) requestAnimationFrame(scroll);
-  }
-
-  requestAnimationFrame(scroll);
-}
 
 const Ourplans = () => {
   return (
@@ -83,14 +66,13 @@ const Ourplans = () => {
                     <Icon className="h-6 w-6 text-red-600" />
                   </div>
                   <h3 className="text-2xl font-semibold text-gray-900">
-                    <span className="text-red-600">{plan.title}</span>
+                    <span className="text-red-600 font-bold">{plan.title}</span>
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed mb-6">{plan.description}</p>
 
                 <Link 
                 to={plan.href} 
-                onClick={() => smoothScrollToTop(1500)}
                 className="group inline-flex items-center text-red-600 font-semibold transition-all duration-300"
                 >
                   <span className="transform transition-transform duration-300 group-hover:-translate-x-1">

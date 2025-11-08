@@ -51,13 +51,10 @@ const details = [
 
 const Annualplan = () => {
   return (
-    <div className="py-24 bg-[#FFF5F5] relative">
+    <div className="py-24 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900 relative">
 
-      {/* Parallax celebration background */}
-      <div className="absolute inset-0 bg-cover bg-center bg-fixed opacity-20"
-        style={{ backgroundImage: "url('/yourCelebrationImage.jpg')" }} />
-
-      <div className="absolute inset-0 bg-red-600/10 backdrop-blur-sm" />
+      {/* Matching Background Overlay */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_#ff000015,_transparent_80%),_radial-gradient(circle_at_bottom_right,_#ff660010,_transparent_90%),_radial-gradient(circle_at_top_left,_#ffffff05,_transparent_80%)]"></div>
 
       {/* Header */}
       <motion.div 
@@ -129,6 +126,7 @@ const Annualplan = () => {
           Subscribe to Annual Package
         </a>
       </motion.div>
+
     </div>
   )
 }

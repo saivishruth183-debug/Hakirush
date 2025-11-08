@@ -4,6 +4,7 @@ import Ceremoney from '../assets/Ceremoney.jpg'
 import Celebration from '../assets/Team Celebration.webp'
 import Team from '../assets/team.jpg'
 import Trophy from '../assets/trophy.jpeg'
+import { Eye, Lightbulb, Target } from "lucide-react";
 
 const aboutimg = [
   { image: Ceremoney },
@@ -13,8 +14,16 @@ const aboutimg = [
 ]
 
 const about = [
-  { title:"Vision", describitin:"To be India’s leading corporate sports experience brand, inspiring teams through competition and collaboration."},
-  { title:"Mission", describitin:"To unleash the spirit of teamwork, fitness, and camaraderie through organized sports experiences."}
+  {
+    icon: <Lightbulb className="text-red-600" size={30} />,
+    title: "Vision",
+    description: "To be India’s leading corporate sports experience brand, inspiring teams through competition and collaboration."
+  },
+  {
+    icon: <Target className="text-red-600" size={30} />,
+    title: "Mission",
+    description: "To unleash the spirit of teamwork, fitness, and camaraderie through organized sports experiences."
+  },
 ]
 
 const About = () => {
@@ -87,8 +96,8 @@ const About = () => {
                 viewport={{ once: true }}
                 className="w-full md:w-1/3 bg-white shadow-lg px-10 py-14 rounded-2xl hover:shadow-red-500 transition cursor-pointer"
         >
-          <h3 className="text-2xl font-bold mb-3 text-[#C21807] transition">{item.title}</h3>
-          <p className="text-gray-600 transition leading-relaxed">{item.describitin}</p>
+          <h3 className="flex items-center gap-4 text-2xl font-extrabold mb-5 text-black transition"><span className='p-3 bg-red-200 rounded'>{item.icon}</span> {item.title}</h3>
+          <p className="text-gray-600 transition leading-relaxed">{item.description}</p>
         </motion.div>
         ))}
       </div>

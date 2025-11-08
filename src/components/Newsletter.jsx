@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import SmoothScrollToTop from './ScrolltoTop.js'
 
 const Newsletter = () => {
   return (
@@ -27,7 +29,7 @@ const Newsletter = () => {
         </div>
 
         {/* Button */}
-        <a href="/contact" className="mt-4 md:mt-0">
+        <Link to="/contact" className="mt-4 md:mt-0">
           <motion.button
             whileHover={{
               scale: 1.1,
@@ -40,7 +42,7 @@ const Newsletter = () => {
           >
             Book a Free Consultation
           </motion.button>
-        </a>
+        </Link>
       </motion.div>
     </section>
   );

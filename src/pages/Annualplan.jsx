@@ -131,7 +131,7 @@ const Annualplan = () => {
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true }}
       className="text-center mt-16 relative z-10">
-        <Link to='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded text-lg font-semibold shadow-lg cursor-pointer">
+        <Link to='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer">
           Subscribe to Annual Package
         </Link>
       </motion.div>

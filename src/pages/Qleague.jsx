@@ -100,8 +100,8 @@ const QLeague = () => {
           <div className="flex justify-center mt-16">
             <a
               href="/contact"
-              className="px-10 py-4 rounded-lg text-white font-semibold 
-              bg-gradient-to-r from-[#C21807] to-[#870B00] hover:scale-105 transition-transform"
+              className="px-10 py-4 rounded-full text-white font-semibold 
+              bg-red-600 hover:scale-105 transition-transform"
             >
               Register for Quarterly Package
             </a>

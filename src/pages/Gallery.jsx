@@ -107,21 +107,6 @@ const GalleryPage = () => {
         ))}
       </motion.div>
 
-      {/* CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className="text-center mt-16"
-      >
-        <a
-          href="/highlights"
-          className="px-10 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-[#C21807] to-[#870B00] hover:scale-105 transition"
-        >
-          View More Highlights
-        </a>
-      </motion.div>
 
       {/* Lightbox */}
       {lightbox && (

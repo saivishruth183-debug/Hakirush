@@ -154,8 +154,8 @@ const Footer = () => {
                 whileHover={{ x: 10 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <MapPin className="h-5 w-5 text-red-400" />
-                <span className="text-gray-400 text-md">
+                <MapPin className="h-13 w-13 text-red-400" />
+                <span className="text-gray-400 text-md pt-3">
                   No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka - 560095.
                 </span>
               </motion.span>

@@ -115,7 +115,7 @@ const Sponsorship = () => {
       <motion.div className="flex items-center justify-center pb-16" whileHover={{ scale: 1.06 }}>
         <Link
           to="/contact"
-          className="px-8 py-3 rounded-lg font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-md"
+          className="px-8 py-3 rounded-full font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-md"
         >
           Join as a Sponsor
         </Link>

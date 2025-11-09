@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 const clients = [
   { id: 1, href: "google", name: 'Google', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
   { id: 2, href: "microsoft", name: 'Microsoft', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
-  { id: 3, href: "amazon", name: 'Amazon', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' },
-  { id: 4, href: "facebook", name: 'Facebook', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg' },
-  { id: 5, href: "apple", name: 'Apple', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
-  { id: 6, href: "netflix", name: 'Netflix', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
+  { id: 1, href: "google", name: 'Google', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+  { id: 2, href: "microsoft", name: 'Microsoft', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+  { id: 1, href: "google", name: 'Google', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+  { id: 2, href: "microsoft", name: 'Microsoft', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
 ];
 
 const testimonials = [
@@ -37,7 +37,7 @@ export default function Clients() {
     <div className="bg-gradient-to-t from-white via-gray-100 to-neutral-200 overflow-hidden transition-colors duration-700">
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 relative text-white">
+      <section className="pt-15 pb-7 relative text-white">
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
@@ -56,7 +56,7 @@ export default function Clients() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16">
+      <section  tion className="py-16">
         <div className="max-w-7xl mx-auto px-10 lg:px-24">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[ 
@@ -69,7 +69,7 @@ export default function Clients() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true }}
-              key={i} className="text-center bg-white shadow-xl rounded-2xl p-8 border border-gray-200" whileHover={{ scale: 1.05 }}>
+              key={i} className="text-center bg-white shadow-xl rounded-2xl p-8 border border-gray-200 hover:shadow-red-400 cursor-pointer" whileHover={{ scale: 1.05 }}>
                 <div className="p-4 bg-gray-100 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4">
                   {stat.icon}
                 </div>
@@ -82,7 +82,7 @@ export default function Clients() {
       </section>
 
       {/* Client Logos */}
-      <section className="py-24 bg-white">
+      <section className="py-15 bg-white">
         <motion.div 
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -104,7 +104,7 @@ export default function Clients() {
                   key={index}
                   onClick={() => navigate(`/client/${client.href}`)}
                   whileHover={{ rotateY: 10, scale: 1.05 }}
-                  className="flex-shrink-0 bg-white p-6 rounded-xl shadow-lg border border-gray-200 cursor-pointer"
+                  className="flex-shrink-0 bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-red-400 cursor-pointer"
                 >
                   <img src={client.logo} alt={client.name} className="h-16 w-32 object-contain grayscale hover:grayscale-0 transition duration-300" />
                 </motion.div>
@@ -115,7 +115,7 @@ export default function Clients() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24">
+      <section className="py-15">
         <motion.div 
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -133,7 +133,7 @@ export default function Clients() {
               animate={{ opacity: 1, rotateY: 0 }}
               exit={{ opacity: 0, rotateY: -90 }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-8 rounded-2xl shadow-xl border border-gray-200"
+              className="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 hover:shadow-red-400 cursor-pointer"
             >
               <div className="flex items-center mb-6">
                 <img src={testimonials[currentTestimonial].avatar} className="w-20 h-20 rounded-full mr-4" />

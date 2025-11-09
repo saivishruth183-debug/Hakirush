@@ -52,7 +52,7 @@ const details = [
 
 const Annualplan = () => {
   return (
-    <div className="py-24 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900 relative">
+    <div className="py-18 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900 relative">
 
       {/* Matching Background Overlay */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_#ff000015,_transparent_80%),_radial-gradient(circle_at_bottom_right,_#ff660010,_transparent_90%),_radial-gradient(circle_at_top_left,_#ffffff05,_transparent_80%)]"></div>
@@ -86,7 +86,7 @@ const Annualplan = () => {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
           {plans.map((item, index) => (
-            <div key={index} className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
+            <div key={index} className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:shadow-red-400 transition hover:-translate-y-1">
               <img src={item.image} alt={item.title} className="h-48 w-full object-cover" />
               <div className="p-4 text-center">
                 <h3 className="font-bold text-gray-800">{item.month}</h3>
@@ -131,7 +131,7 @@ const Annualplan = () => {
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true }}
       className="text-center mt-16 relative z-10">
-        <Link to='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer">
+        <Link to='/contact' className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded text-lg font-semibold shadow-lg cursor-pointer">
           Subscribe to Annual Package
         </Link>
       </motion.div>

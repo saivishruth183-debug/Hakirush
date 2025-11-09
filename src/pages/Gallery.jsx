@@ -4,15 +4,32 @@ import SampleImg from "../assets/yoga.jpg"; // replace with real images
 
 const galleryData = {
   annual: [
-    { id: 1, city: "Bangalore", img: SampleImg },
-    { id: 2, city: "Hyderabad", img: SampleImg },
-    { id: 3, city: "Bangalore", img: SampleImg },
+    { id: 1, img: SampleImg },
+    { id: 2, img: SampleImg },
+    { id: 3, img: SampleImg },
   ],
   quarterly: [
-    { id: 4, city: "Bangalore", img: SampleImg },
-    { id: 5, city: "Hyderabad", img: SampleImg },
-    { id: 6, city: "Hyderabad", img: SampleImg },
+    { id: 4, img: SampleImg },
+    { id: 5, img: SampleImg },
+    { id: 6, img: SampleImg },
   ],
+  celebration: [
+    { id: 7, img: SampleImg },
+    { id: 8, img: SampleImg },
+    { id: 9, img: SampleImg },
+  ],
+  behindthescenes: [
+    { id: 10, img: SampleImg },
+    { id: 11, img: SampleImg },
+    { id: 12, img: SampleImg },
+  ],
+};
+
+const tabLabels = {
+  annual: "Annual Package",
+  quarterly: "Quarterly Package",
+  celebration: "Celebration",
+  behindthescenes: "Behind The Scenes",
 };
 
 const GalleryPage = () => {
@@ -26,15 +43,16 @@ const GalleryPage = () => {
       : galleryData[activeTab].filter((img) => img.city === cityFilter);
 
   return (
-    <div className="bg-[#F8F5F2] pt-24 pb-32">
-      
+    <div className="bg-[#F8F5F2] py-15">
+
       {/* Header */}
-      <motion.div 
-      initial={{ opacity: 0, y: -30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="text-center max-w-3xl mx-auto px-4 mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="text-center max-w-3xl mx-auto px-4 mb-12"
+      >
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A]">
           <span className="text-[#C21807]">Event Highlights</span> Gallery
         </h1>
@@ -44,61 +62,41 @@ const GalleryPage = () => {
       </motion.div>
 
       {/* Tabs */}
-      <motion.div 
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="flex justify-center gap-4 mb-10">
-        {["annual", "quarterly"].map((tab) => (
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="flex justify-center gap-4 mb-10"
+      >
+        {Object.keys(tabLabels).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-2 rounded-lg font-semibold border cursor-pointer ${
+            className={`px-6 py-2 rounded-lg font-semibold border cursor-pointer transition ${
               activeTab === tab
                 ? "bg-[#C21807] text-white border-[#C21807]"
                 : "text-[#0D1B2A] border-gray-300 hover:border-[#C21807]"
-            } transition`}
-          >
-            {tab === "annual" ? "Annual Package" : "Quarterly Package"}
-          </button>
-        ))}
-      </motion.div>
-
-      {/* City Filter */}
-      <motion.div 
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="flex justify-center gap-4 mb-12">
-        {["All", "Bangalore", "Hyderabad"].map((city) => (
-          <button
-            key={city}
-            onClick={() => setCityFilter(city)}
-            className={`px-4 py-1 rounded-md text-sm border cursor-pointer ${
-              cityFilter === city
-                ? "border-[#C21807] text-[#C21807] font-semibold"
-                : "border-gray-300 text-gray-600"
             }`}
           >
-            {city}
+            {tabLabels[tab]}
           </button>
         ))}
       </motion.div>
 
       {/* Image Grid */}
-      <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 justify-center px-6 md:px-20">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 justify-center px-6 md:px-20"
+      >
         {filteredImages.map((item) => (
           <div
             key={item.id}
             onClick={() => setLightbox(item.img)}
-            className="cursor-pointer border border-[#C21807] rounded-lg overflow-hidden group aspect-square flex items-center justify-center bg-white"
+            className="cursor-pointer border border-[#C21807] rounded-lg overflow-hidden group aspect-square bg-white"
           >
             <img
               src={item.img}
@@ -110,12 +108,13 @@ const GalleryPage = () => {
       </motion.div>
 
       {/* CTA */}
-      <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="text-center mt-16">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="text-center mt-16"
+      >
         <a
           href="/highlights"
           className="px-10 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-[#C21807] to-[#870B00] hover:scale-105 transition"
@@ -124,7 +123,7 @@ const GalleryPage = () => {
         </a>
       </motion.div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox */}
       {lightbox && (
         <div
           onClick={() => setLightbox(null)}

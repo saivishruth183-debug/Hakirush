@@ -29,7 +29,7 @@ const benefits = [
 
 const QLeague = () => {
   return (
-    <div className="bg-[#FFF5F5] pt-24 pb-32">
+    <div className="bg-[#FFF5F5] py-18">
 
       {/* Header */}
       <motion.div 
@@ -38,10 +38,10 @@ const QLeague = () => {
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true }}
       className="text-center max-w-3xl mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A]">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A] pb-2">
           Q-League — <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
         </h1>
-        <p className="mt-5 text-gray-600 text-lg md:text-xl">
+        <p className="mt-5 text-gray-600 text-md md:text-lg ">
           Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
         </p>
       </motion.div>

@@ -45,10 +45,6 @@ const App = () => {
           <Route path='/sponsor/merchandisepartner' element={<Merchandisepartner />} />
           <Route path='/client/google' element={<Google />} />
           <Route path='/client/microsoft' element={<Microsoft />} />
-          <Route path='/client/amazon' element={<Amazon />} />
-          <Route path='/client/facebook' element={<Facebook />} />
-          <Route path='/client/apple' element={<Apple />} />
-          <Route path='/client/netflix' element={<Netflix />} />
         </Routes>
       </div>
       <Footer />

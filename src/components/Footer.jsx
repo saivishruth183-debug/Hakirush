@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
@@ -74,8 +75,21 @@ const Footer = () => {
               >
                 <Twitter className="h-5 w-5" />
               </motion.a>
+
+              <motion.a
+                href="https://x.com/Hakirushsports"
+                className="text-gray-400 hover:text-red-400 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Youtube className="h-5 w-5" />
+              </motion.a>
             </div>
           </motion.div>
+
+          
 
           {/* Quick Links */}
           <motion.div
@@ -96,12 +110,12 @@ const Footer = () => {
                     ease: 'easeInOut',
                   }}
                 >
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="text-gray-400 hover:text-red-400 transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>

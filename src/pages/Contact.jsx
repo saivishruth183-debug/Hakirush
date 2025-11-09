@@ -12,6 +12,7 @@ import {
   Linkedin,
   Instagram,
   Twitter,
+  Youtube,
 } from "lucide-react";
 
 const contactDetails = {
@@ -27,6 +28,7 @@ const socialLinks = [
   { icon: Linkedin, url: "https://linkedin.com/company/hakirush" },
   { icon: Instagram, url: "https://www.instagram.com/hakirush.sports_events/?hl=en" },
   { icon: Twitter, url: "https://x.com/Hakirushsports" },
+  { icon: Youtube, url: "https://x.com/Hakirushsports" },
 ];
 
 export default function Contact() {
@@ -93,7 +95,7 @@ export default function Contact() {
       </div>
 
       {/* HERO */}
-      <section className="py-28 text-center px-6">
+      <section className="py-15 text-center px-6">
         <motion.h1
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}

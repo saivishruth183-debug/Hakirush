@@ -38,7 +38,7 @@ const Sponsorship = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center py-24 px-6"
+        className="text-center py-15 px-6"
       >
         <h1 className="text-4xl md:text-5xl font-bold text-[#0A1A2F]">
           Power Your Brand Through <span className="text-[#C21807]">Sports</span>
@@ -62,11 +62,11 @@ const Sponsorship = () => {
             href={tier.href}
             whileHover={{ y: -6 }}
             key={i}
-            className="group p-8 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-red-600 hover:shadow-lg transition-all cursor-pointer"
+            className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg hover:shadow-red-400 transition-all cursor-pointer"
           >
             <div className="text-4xl mb-4">{tier.icon}</div>
-            <h3 className="text-xl font-semibold text-[#0A1A2F] group-hover:text-white">{tier.title}</h3>
-            <p className="text-gray-600 mt-2 group-hover:text-white">{tier.desc}</p>
+            <h3 className="text-xl font-semibold text-[#0A1A2F]">{tier.title}</h3>
+            <p className="text-gray-600 mt-2">{tier.desc}</p>
           </motion.a>
         ))}
       </motion.section>
@@ -77,7 +77,7 @@ const Sponsorship = () => {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="max-w-7xl mx-auto px-6 pb-24 grid sm:grid-cols-2 gap-8"
+        className="max-w-7xl mx-auto px-6 pb-15 grid sm:grid-cols-2 gap-8"
       >
         {/* Dashboard Card */}
         <motion.div
@@ -107,15 +107,16 @@ const Sponsorship = () => {
             <li>✅ Social media amplification</li>
             <li>✅ Premium association with fitness & team culture</li>
           </ul>
-
+        </motion.div>
+      </motion.section>
+      <div className="flex items-center justify-center">
           <a
             href="/contact"
-            className="mt-8 inline-block px-8 py-3 rounded-lg font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-md"
+            className="mb-15 px-8 py-3 rounded-lg font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-md"
           >
             Join as a Sponsor
           </a>
-        </motion.div>
-      </motion.section>
+        </div>
     </div>
   );
 };

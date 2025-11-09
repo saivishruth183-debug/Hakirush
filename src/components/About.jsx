@@ -94,7 +94,7 @@ const About = () => {
                 whileHover={{ scale: 1.05, rotateY: 10 }}
                 transition={{ type: 'spring', stiffness: 200 }}
                 viewport={{ once: true }}
-                className="w-full md:w-1/3 bg-white shadow-lg px-10 py-14 rounded-2xl hover:shadow-red-500 transition cursor-pointer"
+                className="w-full md:w-1/3 bg-white shadow-lg px-10 py-14 rounded-2xl hover:shadow-red-400 transition cursor-pointer"
         >
           <h3 className="flex items-center gap-4 text-2xl font-extrabold mb-5 text-black transition"><span className='p-3 bg-red-200 rounded'>{item.icon}</span> {item.title}</h3>
           <p className="text-gray-600 transition leading-relaxed">{item.description}</p>

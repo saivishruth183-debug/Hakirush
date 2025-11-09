@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -16,7 +14,7 @@ const Package = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center max-w-3xl mx-auto px-4 py-24 relative z-10"
+        className="text-center max-w-3xl mx-auto px-4 py-16 relative z-10"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A] leading-tight">
           Our <span className="text-red-600">Packages</span>
@@ -27,7 +25,7 @@ const Package = () => {
       </motion.div>
 
       {/* Package Selection Section */}
-      <div className="py-20 flex items-center justify-center relative z-10">
+      <div className="pb-10 flex items-center justify-center relative z-10">
         <div className="flex flex-col sm:flex-row gap-6 mt-10">
 
           {/* Annual Subscription - Highlighted */}
@@ -40,12 +38,12 @@ const Package = () => {
               transition={{ type: 'spring', stiffness: 100 }}
               viewport={{ once: true }}
             >
-              <span className="absolute top-[-15px] left-1/2 transform -translate-x-1/2 px-3 py-1 bg-yellow-500 text-red-600 text-xs font-extrabold uppercase rounded-full shadow-lg z-10 whitespace-nowrap">
+              <span className="absolute top-[-15px] left-1/2 transform -translate-x-1/2 px-6 py-2 bg-yellow-500 text-red-600 text-sm font-extrabold uppercase rounded-full shadow-lg z-10 whitespace-nowrap">
                 Most Preferred
               </span>
 
               <motion.button 
-                className="bg-red-600 rounded-xl font-bold text-white shadow-md p-20 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer relative z-0"
+                className="bg-red-600 rounded-xl font-bold text-white shadow-md p-30 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer relative z-0"
               >
                 Explore Annual Subscription
               </motion.button>
@@ -60,7 +58,7 @@ const Package = () => {
               whileHover={{ scale: 1.05, rotateY: 10 }}
               transition={{ type: 'spring', stiffness: 200 }}
               viewport={{ once: true }} 
-              className="bg-white rounded-xl shadow-md font-bold text-red-600 p-20 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer"
+              className="bg-white rounded-xl shadow-md font-bold text-red-600 p-30 hover:shadow-xl hover:shadow-red-400 transition-all cursor-pointer"
             >
               Explore Quarterly Tournaments
             </motion.button>

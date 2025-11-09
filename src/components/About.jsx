@@ -1,16 +1,16 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Cricket from '../assets/Women.jpg'
-import Celebration from '../assets/Team Celebration.webp'
+import Treeking from '../assets/treeking.png'
 import Team from '../assets/team.jpg'
-import Trophy from '../assets/trophy.jpeg'
+import Marathon from '../assets/marathon.png'
 import { Eye, Lightbulb, Target } from "lucide-react";
 
 const aboutimg = [
   { image: Cricket },
-  { image: Celebration },
+  { image: Treeking },
+  { image: Marathon },
   { image: Team },
-  { image: Trophy }
 ]
 
 const about = [
@@ -77,7 +77,7 @@ const About = () => {
               <img
                 src={item.image}
                 alt="Hakirush Team"
-                className="w-full h-56 md:h-60 object-cover"
+                className="w-full h-56 md:h-60 object-cover object-center cursor-pointer"
               />
             </motion.div>
           ))}

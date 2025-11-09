@@ -11,7 +11,7 @@ import Chess from '../assets/Chess.avif'
 import Fitness from '../assets/bootcamp.jpg'
 import Relay from '../assets/relayrun.jpg'
 import Olympics from '../assets/Olympics.png'
-import Finale from '../assets/trophy.jpeg'
+import Finale from '../assets/allstar.avif'
 import { Link } from 'react-router-dom'
 
 const plans = [

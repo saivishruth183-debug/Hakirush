@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const plans = [
   {
     id: 1,
-    href: '/annualpackage',
+    href: '/package/annualpackage',
     title: "Annual Subscription Plan",
     description:
       "One new sports or fitness event every month. Designed for 30–50 employees. We handle everything — venue, kits, transport, referees, and content.",
@@ -15,7 +15,7 @@ const plans = [
   },
   {
     id: 2,
-    href: '/quarterly',
+    href: '/package/quarterly',
     title: "Quarterly Tournament Plan",
     description:
       "High-energy inter-company tournaments every three months. Includes sponsorships, brand activations, and highlight coverage.",

@@ -77,7 +77,7 @@ const Footer = () => {
               </motion.a>
 
               <motion.a
-                href="https://x.com/Hakirushsports"
+                href="https://www.youtube.com/@HakirushSportsEvents"
                 className="text-gray-400 hover:text-red-400 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -28,7 +28,7 @@ const socialLinks = [
   { icon: Linkedin, url: "https://linkedin.com/company/hakirush" },
   { icon: Instagram, url: "https://www.instagram.com/hakirush.sports_events/?hl=en" },
   { icon: Twitter, url: "https://x.com/Hakirushsports" },
-  { icon: Youtube, url: "https://x.com/Hakirushsports" },
+  { icon: Youtube, url: "https://www.youtube.com/@HakirushSportsEvents" },
 ];
 
 export default function Contact() {

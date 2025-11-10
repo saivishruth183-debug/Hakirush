@@ -10,7 +10,7 @@ import Volleyball from '../assets/volleyball.png'
 import Chess from '../assets/chess.png'
 import Fitness from '../assets/bootcamp.png'
 import Relay from '../assets/relayrun.png'
-import Olympics from '../assets/olympics.png'
+import Olympics from '../assets/Olympics.png'
 import Finale from '../assets/allstar.png'
 import { Link } from 'react-router-dom'
 

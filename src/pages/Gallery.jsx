@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import SampleImg from "../assets/yoga.jpg"; // replace with real images
+import SampleImg from "../assets/yoga.png"; // replace with real images
 
 const galleryData = {
   annual: [

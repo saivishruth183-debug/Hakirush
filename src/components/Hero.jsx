@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import Cricket from "../assets/cricket.webp";
-import Badminton from "../assets/badminton.jpg";
-import Football from "../assets/football.webp";
-import Yoga from "../assets/yoga.jpg";
+import Cricket from "../assets/cricket.png";
+import Badminton from "../assets/badminton.png";
+import Football from "../assets/football.png";
+import Yoga from "../assets/yoga.png";
 
 const heroSlides = [
   { id: 1, image: Cricket, title: "Cricket Championship Finals" },

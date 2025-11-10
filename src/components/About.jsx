@@ -72,7 +72,7 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className="rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.04] transition transform"
+              className="rounded-xl overflow-hidden shadow-md hover:shadow-md hover:scale-[1.04] hover:shadow-red-400 transition transform"
             >
               <img
                 src={item.image}

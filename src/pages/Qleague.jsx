@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from 'framer-motion'
-import Cricket from '../assets/cricket.webp'
-import Badminton from '../assets/badminton.jpg'
-import Football from '../assets/football.webp'
-import Multi from "../assets/multisports.jpeg";
+import Cricket from '../assets/cricket.png'
+import Badminton from '../assets/badminton.png'
+import Football from '../assets/football.png'
+import Multi from "../assets/multisports.png";
 
 const quarters = [
   { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Cricket },

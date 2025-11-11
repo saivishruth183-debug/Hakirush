@@ -26,7 +26,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center py-20 bg-[#FAF6F4]">
+    <section className="relative min-h-screen flex items-center py-10 bg-[#FAF6F4]">
       <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F4] to-red-50/30" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">

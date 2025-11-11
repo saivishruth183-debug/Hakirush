@@ -24,31 +24,29 @@ const plans = [
   },
 ]
 
-
 const Ourplans = () => {
   return (
-    <section className="py-24 bg-gray-50 relative">
+    <section className="py-10 bg-gray-50 relative">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,_#ff000010,_transparent_90%)] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-3">
             Our <span className="text-red-600">Plans</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choose a plan that best fits your company’s engagement goals and let us handle the rest.
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+            Choose a plan that fits your company’s engagement goals and let us handle the rest.
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative cursor-pointer">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 relative">
           {plans.map((plan) => {
             const Icon = plan.icon
             return (
@@ -56,29 +54,32 @@ const Ourplans = () => {
                 key={plan.id}
                 initial={{ opacity: 0, y: 40, rotateX: -10 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                whileHover={{ scale: 1.05, rotateY: 10 }}
                 transition={{ type: 'spring', stiffness: 200 }}
                 viewport={{ once: true }}
-                className="relative bg-white border border-gray-200 p-8 rounded-2xl shadow-lg hover:shadow-red-400 transition-all"
+                whileHover={{ scale: window.innerWidth >= 768 ? 1.05 : 1 }} // hover only on desktop
+                className="relative bg-white border border-gray-200 p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-red-400 transition-all"
               >
                 <div className="flex items-center mb-4">
-                  <div className="p-3 bg-red-100 rounded-lg mr-4">
-                    <Icon className="h-6 w-6 text-red-600" />
+                  <div className="p-2 sm:p-3 bg-red-100 rounded-lg mr-4">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-red-600" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-gray-900">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-gray-900">
                     <span className="text-red-600 font-bold">{plan.title}</span>
                   </h3>
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-6">{plan.description}</p>
+
+                <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-5">
+                  {plan.description}
+                </p>
 
                 <Link 
-                to={plan.href} 
-                className="group inline-flex items-center text-red-600 font-semibold transition-all duration-300"
+                  to={plan.href} 
+                  className="group inline-flex items-center text-red-600 font-semibold text-sm sm:text-base transition-all duration-300"
                 >
                   <span className="transform transition-transform duration-300 group-hover:-translate-x-1">
                     {plan.button}
                   </span>
-                  <MoveRightIcon className="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" />
+                  <MoveRightIcon className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transform transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </motion.div>
             )

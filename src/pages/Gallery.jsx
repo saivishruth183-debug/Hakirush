@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import SampleImg from "../assets/yoga.png"; // replace with real images
+// NOTE: Make sure SampleImg path is correct in your project
+import SampleImg from "../assets/yoga.png";
 
+// You might want to include the city property in your actual data for the city filter to work
 const galleryData = {
   annual: [
-    { id: 1, img: SampleImg },
-    { id: 2, img: SampleImg },
-    { id: 3, img: SampleImg },
+    { id: 1, img: SampleImg, city: "City A" },
+    { id: 2, img: SampleImg, city: "City B" },
+    { id: 3, img: SampleImg, city: "City A" },
   ],
   quarterly: [
-    { id: 4, img: SampleImg },
-    { id: 5, img: SampleImg },
-    { id: 6, img: SampleImg },
+    { id: 4, img: SampleImg, city: "City C" },
+    { id: 5, img: SampleImg, city: "City A" },
+    { id: 6, img: SampleImg, city: "City B" },
   ],
   celebration: [
-    { id: 7, img: SampleImg },
-    { id: 8, img: SampleImg },
-    { id: 9, img: SampleImg },
+    { id: 7, img: SampleImg, city: "City C" },
+    { id: 8, img: SampleImg, city: "City B" },
+    { id: 9, img: SampleImg, city: "City A" },
   ],
   behindthescenes: [
-    { id: 10, img: SampleImg },
-    { id: 11, img: SampleImg },
-    { id: 12, img: SampleImg },
+    { id: 10, img: SampleImg, city: "City A" },
+    { id: 11, img: SampleImg, city: "City C" },
   ],
 };
 
@@ -37,46 +38,46 @@ const GalleryPage = () => {
   const [cityFilter, setCityFilter] = useState("All");
   const [lightbox, setLightbox] = useState(null);
 
+  // The city filter logic is kept, assuming you will add 'city' property to your images.
   const filteredImages =
     cityFilter === "All"
       ? galleryData[activeTab]
       : galleryData[activeTab].filter((img) => img.city === cityFilter);
 
   return (
-    <div className="bg-[#F8F5F2] py-15">
-
+    <div className="bg-[#F8F5F2] py-10 sm:py-15">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="text-center max-w-3xl mx-auto px-4 mb-12"
+        className="text-center max-w-3xl mx-auto px-4 mb-8 sm:mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A]">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-[#0D1B2A]">
           <span className="text-[#C21807]">Event Highlights</span> Gallery
         </h1>
-        <p className="mt-4 text-gray-600 text-lg">
+        <p className="mt-3 text-gray-600 text-base md:text-lg">
           Relive the energy, passion, and competition from our corporate tournaments.
         </p>
       </motion.div>
 
-      {/* Tabs */}
+      {/* Tabs - Mobile Change: Added overflow-x-auto, whitespace-nowrap, and adjusted padding/gap */}
       <motion.div
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="flex justify-center gap-4 mb-10"
+        className="flex justify-start sm:justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 overflow-x-auto whitespace-nowrap px-4 md:px-0"
       >
         {Object.keys(tabLabels).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-2 rounded-lg font-semibold border cursor-pointer transition ${
+            className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold border cursor-pointer transition flex-shrink-0 ${ // flex-shrink-0 prevents buttons from squeezing
               activeTab === tab
                 ? "bg-[#C21807] text-white border-[#C21807]"
-                : "text-[#0D1B2A] border-gray-300 hover:border-[#C21807]"
+                : "text-[#0D1B2A] border-gray-300 hover:border-[#C21807] bg-white"
             }`}
           >
             {tabLabels[tab]}
@@ -84,37 +85,37 @@ const GalleryPage = () => {
         ))}
       </motion.div>
 
-      {/* Image Grid */}
+      {/* Image Grid - Mobile Change: Explicitly set grid-cols-2 for smaller screens (your code already had this, but ensured it's the primary for mobile) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 justify-center px-6 md:px-20"
+        className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 justify-center px-4 md:px-6 lg:px-20"
       >
         {filteredImages.map((item) => (
           <div
             key={item.id}
             onClick={() => setLightbox(item.img)}
-            className="cursor-pointer border border-[#C21807] rounded-lg overflow-hidden group aspect-square bg-white"
+            className="cursor-pointer border rounded-lg overflow-hidden group aspect-square bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <img
               src={item.img}
               alt="Event"
-              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" // Changed object-contain to object-cover for better grid fit
             />
           </div>
         ))}
       </motion.div>
 
-
       {/* Lightbox */}
       {lightbox && (
         <div
           onClick={() => setLightbox(null)}
-          className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 cursor-zoom-out"
+          className="fixed inset-0 bg-black/80 flex justify-center items-center z-50 cursor-zoom-out p-4" // Added p-4 for safe area
         >
-          <img src={lightbox} alt="Zoom" className="max-h-[85vh] rounded-lg" />
+          {/* Added max-w-full to prevent overflow on very narrow screens */}
+          <img src={lightbox} alt="Zoom" className="max-h-[90vh] max-w-full rounded-lg" /> 
         </div>
       )}
     </div>

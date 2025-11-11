@@ -64,7 +64,7 @@ const Annualplan = () => {
         className="text-center max-w-4xl mx-auto px-4 relative z-10"
       >
         <h1 className="text-4xl font-extrabold text-gray-800">
-          Annual Package — <span className="text-red-600">12 Months. 12 Sports.</span> One Unstoppable Team.
+          Annual Package — <span className="text-[#C21807]">12 Months. 12 Sports.</span> One Unstoppable Team.
         </h1>
 
         <p className="text-gray-600 text-lg mt-5">
@@ -82,7 +82,7 @@ const Annualplan = () => {
         viewport={{ once: true }}
         className="px-10 sm:px-20 mt-16 relative z-10"
       >
-        <h2 className="text-2xl font-bold text-red-600 mb-8">Monthly Activity Calendar</h2>
+        <h2 className="text-2xl font-bold text-[#C21807] mb-8">Monthly Activity Calendar</h2>
 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
   {plans.map((item, index) => (
     <div 
@@ -124,7 +124,7 @@ const Annualplan = () => {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-2xl shadow-md hover:shadow-red-400 hover:shadow-lg cursor-pointer"
             >
-              <h3 className="text-xl font-bold text-red-600 mb-4">{item.title}</h3>
+              <h3 className="text-xl font-bold text-[#C21807] mb-4">{item.title}</h3>
               <ul className="space-y-2 text-gray-600 list-disc list-inside">
                 {Object.values(item).slice(2).map((line, i) => (
                   <li key={i}>{line}</li>

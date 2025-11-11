@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { div } from 'framer-motion/client';
 
 const Footer = () => {
 
@@ -14,6 +15,13 @@ const Footer = () => {
     { name: 'Clients', href: '/clients' },
     { name: 'Contact', href: '/contact' },
   ];
+  
+  const socialmedia = [
+    {icon: <Linkedin className="h-5 w-5 transition" />, href: 'https://linkedin.com/company/hakirush' },
+    {icon: <Instagram className="h-5 w-5 transition" />, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+    {icon: <Twitter className="h-5 w-5 transition" />, href: 'https://x.com/Hakirushsports' },
+    {icon: <Youtube className="h-5 w-5 transition" />, href: 'https://www.youtube.com/@HakirushSportsEvents' },
+  ]
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -43,49 +51,20 @@ const Footer = () => {
             </p>
 
             <div className="flex space-x-4">
-              <motion.a
-                href="https://linkedin.com/company/hakirush"
-                className="text-gray-400 hover:text-red-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin className="h-5 w-5" />
-              </motion.a>
-
-              <motion.a
-                href="https://www.instagram.com/hakirush.sports_events/?hl=en"
-                className="text-gray-400 hover:text-red-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Instagram className="h-5 w-5" />
-              </motion.a>
-
-              <motion.a
-                href="https://x.com/Hakirushsports"
-                className="text-gray-400 hover:text-red-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Twitter className="h-5 w-5" />
-              </motion.a>
-
-              <motion.a
-                href="https://www.youtube.com/@HakirushSportsEvents"
-                className="text-gray-400 hover:text-red-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Youtube className="h-5 w-5" />
-              </motion.a>
+              {socialmedia.map((item, index) => (
+                <div key={index}> 
+                  <motion.a
+                    href={item.href}
+                    className="text-gray-400 hover:text-red-400 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.25 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                  >
+                    {item.icon}
+                  </motion.a>
+                </div>
+              ))}
             </div>
           </motion.div>
 

@@ -18,7 +18,7 @@ const Package = () => {
         className="text-center max-w-xl mx-auto px-4 pt-12 pb-8 md:pt-16 md:pb-12 relative z-10"
       >
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0D1B2A] leading-tight">
-          Our <span className="text-red-600">Packages</span>
+          Our <span className="text-[#C21807]">Packages</span>
         </h1>
         <p className="mt-4 text-gray-600 text-base md:text-lg px-2">
           This package offers the ultimate commitment to corporate wellness, team building, and competitive spirit throughout the year. It provides maximum value, exclusive perks, and seamless entry into all major events.

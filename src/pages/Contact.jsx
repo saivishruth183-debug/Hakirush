@@ -103,7 +103,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight"
         >
-          Get in <span className="text-red-600">Touch</span>
+          Get in <span className="text-[#C21807]">Touch</span>
         </motion.h1>
 
         <motion.p
@@ -128,7 +128,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6">Let's <span className="text-red-600">Connect</span></h2>
+          <h2 className="text-4xl font-bold mb-6">Let's <span className="text-[#C21807]">Connect</span></h2>
           <p className="text-gray-600 text-lg mb-10">
             Have questions or want a custom corporate sports event? We’re here to help.
           </p>
@@ -157,10 +157,10 @@ export default function Contact() {
 
           {/* SOCIAL */}
           <div className="mt-12">
-            <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
+            <h3 className="font-bold text-lg mb-4">Follow <span className="text-[#C21807]">Us</span></h3>
             <div className="flex gap-5">
               {socialLinks.map((s, i) => (
-                <motion.a key={i} href={s.url} target="_blank" whileHover={{ scale: 1.25 }}>
+                <motion.a key={i} href={s.url} target="_blank" whileHover={{ scale: 1.25 }} transition={{ duration: 0.5, ease: "easeInOut" }}>
                   <s.icon className="h-6 w-6 text-gray-600 hover:text-red-600 transition" />
                 </motion.a>
               ))}
@@ -177,7 +177,7 @@ export default function Contact() {
           className="p-8 rounded-2xl shadow-2xl bg-white text-gray-900 border border-gray-200 shadow-red-400"
         >
           <h2 className="text-3xl font-bold mb-8">
-            Send us a <span className="text-red-600">Message</span>
+            Send us a <span className="text-[#C21807]">Message</span>
           </h2>
 
           <form onSubmit={submitForm} className="space-y-6">
@@ -225,7 +225,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center text-4xl font-bold mb-8"
         >
-          Find <span className="text-red-600">Us</span>
+          Find <span className="text-[#C21807]">Us</span>
         </motion.h2>
 
         <iframe

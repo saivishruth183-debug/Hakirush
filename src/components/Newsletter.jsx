@@ -15,11 +15,11 @@ const Newsletter = () => {
         {/* Text Section */}
         <div className="flex flex-col gap-4 text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug">
-            Ready to Transform Your <span className="text-red-600">Workplace</span>?
+            Ready to Transform Your <span className="text-[#C21807]">Workplace</span>?
           </h2>
 
           <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-xl mx-auto md:mx-0 leading-relaxed">
-            Join leading companies who trust <span className="font-semibold text-red-600">HAKIRUSH</span> to boost
+            Join leading companies who trust <span className="font-semibold text-[#C21807]">HAKIRUSH</span> to boost
             employee morale and build stronger teams through sports.
           </p>
         </div>

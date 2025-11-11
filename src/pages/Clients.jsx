@@ -46,7 +46,7 @@ export default function Clients() {
             viewport={{ once: true }}
           >
             <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 text-black">
-              Our <span className="text-red-500">Clients</span>
+              Our <span className="text-[#C21807]">Clients</span>
             </h1>
             <p className="text-lg text-black max-w-3xl mx-auto leading-relaxed">
               Trusted by leading companies to deliver exceptional corporate sports experiences and build stronger teams.
@@ -90,7 +90,7 @@ export default function Clients() {
         viewport={{ once: true }}
         className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            Trusted by <span className="text-red-600">Industry Leaders</span>
+            Trusted by <span className="text-[#C21807]">Industry Leaders</span>
           </h2>
 
           <div className="relative overflow-hidden">
@@ -123,7 +123,7 @@ export default function Clients() {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto px-6">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            What Our <span className="text-red-600">Clients Say</span>
+            What Our <span className="text-[#C21807]">Clients Say</span>
           </h2>
 
           <AnimatePresence mode="wait">

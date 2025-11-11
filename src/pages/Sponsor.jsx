@@ -43,7 +43,7 @@ const Sponsorship = () => {
         viewport={{ once: true }}
         className="text-center py-16 px-6"
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-[#0A1A2F]">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[#0A1A2F]">
           Power Your Brand Through <span className="text-[#C21807]">Sports</span>
         </h1>
         <p className="max-w-2xl mx-auto text-gray-600 mt-5 text-lg">

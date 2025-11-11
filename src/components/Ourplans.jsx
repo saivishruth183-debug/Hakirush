@@ -39,7 +39,7 @@ const Ourplans = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-3">
-            Our <span className="text-red-600">Plans</span>
+            Our <span className="text-[#C21807]">Plans</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Choose a plan that fits your company’s engagement goals and let us handle the rest.
@@ -64,7 +64,7 @@ const Ourplans = () => {
                     <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-red-600" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold text-gray-900">
-                    <span className="text-red-600 font-bold">{plan.title}</span>
+                    <span className="text-[#C21807] font-bold">{plan.title}</span>
                   </h3>
                 </div>
 
@@ -74,7 +74,7 @@ const Ourplans = () => {
 
                 <Link 
                   to={plan.href} 
-                  className="group inline-flex items-center text-red-600 font-semibold text-sm sm:text-base transition-all duration-300"
+                  className="group inline-flex items-center text-[#C21807] font-semibold text-sm sm:text-base transition-all duration-300"
                 >
                   <span className="transform transition-transform duration-300 group-hover:-translate-x-1">
                     {plan.button}

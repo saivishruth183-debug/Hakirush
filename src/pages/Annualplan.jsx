@@ -52,16 +52,24 @@ const details = [
 
 const Annualplan = () => {
   return (
-    <div className="py-18 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900 relative">
+    <div className="relative bg-white overflow-hidden">
 
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_#ff000015,_transparent_80%),_radial-gradient(circle_at_bottom_right,_#ff660010,_transparent_90%),_radial-gradient(circle_at_top_left,_#ffffff05,_transparent_80%)]"></div>
+      {/* Global background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle at center, rgba(255,0,0,0.06), transparent 60%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 90%)"
+        }}
+      />
 
+      {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: -60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         viewport={{ once: true }}
-        className="text-center max-w-4xl mx-auto px-4 relative z-10"
+        className="text-center max-w-4xl mx-auto p-10  relative z-10"
       >
         <h1 className="text-4xl font-extrabold text-gray-800">
           Annual Package — <span className="text-[#C21807]">12 Months. 12 Sports.</span> One Unstoppable Team.
@@ -78,38 +86,38 @@ const Annualplan = () => {
       <motion.div 
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         viewport={{ once: true }}
         className="px-10 sm:px-20 mt-16 relative z-10"
       >
         <h2 className="text-2xl font-bold text-[#C21807] mb-8">Monthly Activity Calendar</h2>
-<div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
-  {plans.map((item, index) => (
-    <div 
-      key={index} 
-      className="group relative rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:shadow-red-400 transition hover:-translate-y-1 aspect-square"
-    >
-      <img
-        src={item.image}
-        alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white group-hover:text-red-600 text-center">
-        <h3 className="font-bold">{item.month}</h3>
-        <p className="text-sm mt-1">{item.title}</p>
-      </div>
-    </div>
-  ))}
-</div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
+          {plans.map((item, index) => (
+            <div 
+              key={index} 
+              className="group relative rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:shadow-red-400 transition hover:-translate-y-1 aspect-square"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/50 text-white group-hover:text-red-600 text-center">
+                <h3 className="font-bold">{item.month}</h3>
+                <p className="text-sm mt-1">{item.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </motion.div>
 
       {/* Benefits */}
       <motion.div 
         initial={{ opacity: 0, x: -60 }}
         whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
+        transition={{ duration: 0.9, ease: 'easeOut' }}
         viewport={{ once: true }}
         className="px-10 sm:px-20 mt-20 relative z-10"
       >
@@ -125,6 +133,7 @@ const Annualplan = () => {
               className="bg-white p-6 rounded-2xl shadow-md hover:shadow-red-400 hover:shadow-lg cursor-pointer"
             >
               <h3 className="text-xl font-bold text-[#C21807] mb-4">{item.title}</h3>
+
               <ul className="space-y-2 text-gray-600 list-disc list-inside">
                 {Object.values(item).slice(2).map((line, i) => (
                   <li key={i}>{line}</li>
@@ -139,7 +148,7 @@ const Annualplan = () => {
       <motion.div 
         initial={{ opacity: 0, x: 60 }}
         whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         viewport={{ once: true }}
         className="text-center mt-16 relative z-10"
       >

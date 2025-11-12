@@ -30,7 +30,7 @@ const Newsletter = () => {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-red-600 text-white font-semibold px-8 sm:px-10 py-3 sm:py-4 rounded-xl text-base sm:text-lg hover:bg-red-700 transition w-full md:w-auto"
+            className="bg-red-600 text-white font-semibold px-8 sm:px-10 py-3 sm:py-4 rounded-xl text-base sm:text-lg hover:bg-red-700 transition w-full md:w-auto cursor-pointer"
           >
             Book a Free Consultation
           </motion.button>

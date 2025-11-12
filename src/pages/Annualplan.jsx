@@ -63,24 +63,38 @@ const Annualplan = () => {
         }}
       />
 
-      {/* Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: -60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        viewport={{ once: true }}
-        className="text-center max-w-4xl mx-auto p-10  relative z-10"
-      >
-        <h1 className="text-4xl font-extrabold text-gray-800">
-          Annual Package — <span className="text-[#C21807]">12 Months. 12 Sports.</span> One Unstoppable Team.
-        </h1>
+      <section className="py-16 relative overflow-hidden">
+          {/* Absolute positioned background gradients */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(255,0,0,0.06), transparent 60%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 90%)'
+            }}
+          />
 
-        <p className="text-gray-600 text-lg mt-5">
-          A year-long engagement program designed for organizations that believe in
-          consistent team connection and active employee culture.
-          Each month brings a new sport, a new challenge, and a stronger team.
-        </p>
-      </motion.div>
+          {/* Max-width container for content */}
+          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+            {/* Header - motion.div with new animation and reduced padding for centering */}
+            <motion.div
+              initial={{ opacity: 0, y: -60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              viewport={{ once: true }}
+              className="text-center max-w-4xl mx-auto relative z-10" // Removed 'p-10' as section handles vertical padding
+            >
+              <h1 className="text-4xl font-extrabold text-gray-800">
+                Annual Package — <span className="text-[#C21807]">12 Months. 12 Sports.</span> One Unstoppable Team.
+              </h1>
+
+              <p className="text-gray-600 text-lg mt-5">
+                A year-long engagement program designed for organizations that believe in
+                consistent team connection and active employee culture.
+                Each month brings a new sport, a new challenge, and a stronger team.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
       {/* Monthly Schedule */}
       <motion.div 
@@ -90,6 +104,13 @@ const Annualplan = () => {
         viewport={{ once: true }}
         className="px-10 sm:px-20 mt-16 relative z-10"
       >
+        <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(255,0,0,0.06), transparent 60%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 90%)'
+            }}
+          />
         <h2 className="text-2xl font-bold text-[#C21807] mb-8">Monthly Activity Calendar</h2>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 cursor-pointer">
@@ -150,13 +171,13 @@ const Annualplan = () => {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         viewport={{ once: true }}
-        className="text-center mt-16 relative z-10"
+        className="text-center my-16 relative z-10"
       >
         <Link 
           to="/contact" 
           className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer"
         >
-          Subscribe to Annual Package
+          Subscribe to Annual Package data
         </Link>
       </motion.div>
 

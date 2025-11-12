@@ -26,10 +26,20 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center py-10 bg-[#FAF6F4]">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F4] to-red-50/30" />
+    <section className="py-16 relative overflow-hidden min-h-screen flex items-center">
+      
+      {/* 🔴 NEW: Radial Gradient Background focused on the left 🔴 */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            // Adjusting gradient centers to focus on the left side
+            'radial-gradient(circle at top left, rgba(255,0,0,0.06), transparent 90%), radial-gradient(circle at bottom left, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 90%)'
+        }}
+      />
+      {/* END NEW BACKGROUND */}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full"> {/* Added w-full */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           <motion.div

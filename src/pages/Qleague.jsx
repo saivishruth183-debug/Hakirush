@@ -29,22 +29,37 @@ const benefits = [
 
 const QLeague = () => {
   return (
-    <div className="bg-[#FFF5F5] py-18">
+    <div className="bg-[#FFF5F5] pb-10">
 
-      {/* Header */}
-      <motion.div 
-      initial={{ opacity: 0, y: -60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="text-center max-w-3xl mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A] pb-2">
-          Q-League — <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
-        </h1>
-        <p className="mt-5 text-gray-600 text-md md:text-lg ">
-          Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
-        </p>
-      </motion.div>
+      <section className="py-16 relative overflow-hidden">
+        {/* Absolute positioned background gradients */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at center, rgba(255,0,0,0.06), transparent 60%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 90%)'
+          }}
+        />
+
+        {/* Max-width container for content */}
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto px-4" // Retaining specific inner classes
+          >
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A] pb-2">
+               Q-League — <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
+            </h1>
+            <p className="mt-5 text-gray-600 text-md md:text-lg ">
+              Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Timeline Cards */}
       <motion.div 
@@ -100,8 +115,7 @@ const QLeague = () => {
           <div className="flex justify-center mt-16">
             <a
               href="/contact"
-              className="px-10 py-4 rounded-full text-white font-semibold 
-              bg-red-600 hover:scale-105 transition-transform"
+              className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer"
             >
               Register for Quarterly Package
             </a>

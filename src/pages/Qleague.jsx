@@ -45,18 +45,19 @@ const QLeague = () => {
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: -60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto px-4" // Retaining specific inner classes
+              initial={{ opacity: 0, y: -60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="text-center w-11/12 md:max-w-4xl mx-auto px-4"
           >
-            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D1B2A] pb-2">
-               Q-League — <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
-            </h1>
-            <p className="mt-5 text-gray-600 text-md md:text-lg ">
-              Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
-            </p>
+              <h1 className="text-3xl md:text-5xl font-extrabold text-[#0D1B2A] pb-2">
+                  Q-League — <br className="md:hidden" /> 
+                  <span className="text-[#C21807]">Compete. Connect. Conquer.</span>
+              </h1>
+              <p className="mt-5 text-gray-600 text-md md:text-lg ">
+                  Every quarter, HAKIRUSH brings together 10+ companies for high-energy corporate tournaments — each event focusing on one iconic sport.
+              </p>
           </motion.div>
         </div>
       </section>

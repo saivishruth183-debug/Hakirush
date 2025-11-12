@@ -78,7 +78,7 @@ const Hero = () => {
               />
             </AnimatePresence>
 
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg text-center text-[#C21807] font-bold shadow-lg">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 backdrop-blur-sm px-4 py-2 rounded-lg text-center text-[#C21807] font-bold shadow-lg">
               {heroSlides[currentSlide].title}
             </div>
           </motion.div>

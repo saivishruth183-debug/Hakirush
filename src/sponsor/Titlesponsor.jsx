@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const SPONSORS = [
   {
@@ -58,7 +59,9 @@ export default function SponsorGrid() {
           {/* Two-column content */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* What you get */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 transition hover:shadow-xl">
+            <motion.div
+             whileHover={{ y: -8 }}
+             className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-red-400 p-8 transition hover:shadow-xl cursor-pointer">
               <h3 className="text-xl font-bold text-[#C21807] text-center mb-6">
                 What You Get
               </h3>
@@ -74,10 +77,12 @@ export default function SponsorGrid() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Why it matters */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 transition hover:shadow-xl">
+            <motion.div 
+              whileHover={{ y: -8 }}
+              className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-red-400 p-8 transition hover:shadow-xl cursor-pointer">
               <h3 className="text-xl font-bold text-[#C21807] text-center mb-6">
                 Why It Matters
               </h3>
@@ -103,7 +108,7 @@ export default function SponsorGrid() {
                   {s.details.ctaText}
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Desktop CTA */}

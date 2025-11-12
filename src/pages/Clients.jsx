@@ -126,6 +126,7 @@ export default function Clients() {
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8 }}
                 transition={{ duration: 0.7 }}
                 viewport={{ once: true }}
                 className="text-center bg-gray-100 shadow-xl rounded-2xl p-8 hover:shadow-red-400"
@@ -220,7 +221,7 @@ export default function Clients() {
               animate={{ opacity: 1, rotateY: 0 }}
               exit={{ opacity: 0, rotateY: -90 }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-10 rounded-2xl shadow-xl"
+              className="bg-white p-10 rounded-2xl shadow-xl hover:shadow-red-400 transition cursor-pointer"
             >
               <div className="flex items-center mb-6">
                 <img

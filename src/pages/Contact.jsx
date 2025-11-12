@@ -156,10 +156,10 @@ export default function Contact() {
 
           {/* SOCIAL */}
           <div className="mt-12">
-            <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
+            <h3 className="font-bold text-lg mb-4">Follow <span className="text-red-600">Us</span></h3>
             <div className="flex gap-5">
               {socialLinks.map((s, i) => (
-                <motion.a key={i} href={s.url} target="_blank" whileHover={{ scale: 1.25 }}>
+                <motion.a key={i} href={s.url} target="_blank" whileHover={{ scale: 1.25, transition: { duration: 0.5 } }} >
                   <s.icon className="h-6 w-6 text-gray-600 hover:text-red-600 transition" />
                 </motion.a>
               ))}

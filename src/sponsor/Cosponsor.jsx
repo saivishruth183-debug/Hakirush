@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const SPONSORS = [
   {
     key: "co",
     icon: "🤝",
-    title: "Co-Sponsor",
+    title: "Co-",
     subtitle: "Prominent logo placement, shoutouts, and banners",
     details: {
       overview:
@@ -45,7 +46,7 @@ export default function SponsorGrid() {
           {/* Header */}
           <div className="text-center mb-14">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3">
-              {s.icon} {s.title}{" "}
+              {s.icon} {s.title}
               <span className="text-[#C21807] drop-shadow-sm">Sponsor</span>
             </h1>
             <p className="mt-4 text-gray-600 font-semibold max-w-4xl mx-auto text-lg leading-relaxed">
@@ -56,7 +57,9 @@ export default function SponsorGrid() {
           {/* Two-column content */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* What you get */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 transition hover:shadow-xl">
+            <motion.div 
+              whileHover={{ y: -8 }}
+              className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-red-400 p-8 transition hover:shadow-xl cursor-pointer">
               <h3 className="text-xl font-bold text-[#C21807] text-center mb-6">
                 What You Get
               </h3>
@@ -72,10 +75,12 @@ export default function SponsorGrid() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Why it matters */}
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 transition hover:shadow-xl">
+            <motion.div 
+              whileHover={{ y: -8 }}
+              className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-red-400 p-8 transition hover:shadow-xl cursor-pointer">
               <h3 className="text-xl font-bold text-[#C21807] text-center mb-6">
                 Why It Matters
               </h3>
@@ -101,7 +106,7 @@ export default function SponsorGrid() {
                   {s.details.ctaText}
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Desktop CTA */}

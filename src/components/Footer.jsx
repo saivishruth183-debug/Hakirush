@@ -57,7 +57,7 @@ const Footer = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.25 }}
+                  whileHover={{ scale: 1.25, transition: { duration: 0.5 } }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
                 >
                   <item.icon className="h-6 w-6 text-gray-600 hover:text-red-600 transition" />

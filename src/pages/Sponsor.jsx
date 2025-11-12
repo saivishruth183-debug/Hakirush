@@ -2,27 +2,30 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+// Use motion(Link) for Framer Motion animation on the Link component
+const MotionLink = motion(Link);
+
 const sponsorTiers = [
   {
-    href:"/sponsor/titlesponser",
+    href: "/sponsor/titlesponser",
     icon: "🏆",
     title: "Title Sponsor",
     desc: "Premium branding across kits, trophies, and reels",
   },
   {
-    href:"/sponsor/cosponser",
+    href: "/sponsor/cosponser",
     icon: "🤝",
     title: "Co-Sponsor",
     desc: "Prominent logo placement, shoutouts, and banners",
   },
   {
-    href:"/sponsor/stallsponser",
+    href: "/sponsor/stallsponser",
     icon: "🏬",
     title: "Stall Partner",
     desc: "On-site product demos, samplings, and branding space",
   },
   {
-    href:"/sponsor/merchandisepartner",
+    href: "/sponsor/merchandisepartner",
     icon: "👕",
     title: "Merchandise Partner",
     desc: "Co-branded event kits and corporate giveaways",
@@ -32,7 +35,6 @@ const sponsorTiers = [
 const Sponsorship = () => {
   return (
     <div className="bg-[#FFF5F5] overflow-hidden">
-
       {/* Header Background */}
       <div
         className="relative pb-20 mb-12"
@@ -41,7 +43,6 @@ const Sponsorship = () => {
             "radial-gradient(circle at center, rgba(255,0,0,0.07), transparent 70%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 85%)",
         }}
       >
-        
         {/* Header Section */}
         <section className="pt-16 relative">
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -56,8 +57,9 @@ const Sponsorship = () => {
               </h1>
 
               <p className="max-w-3xl mx-auto font-semibold text-gray-700 mt-5 text-lg leading-relaxed">
-                Join India’s growing corporate sports revolution as a HAKIRUSH Sponsor. 
-                Gain access to professional audiences, on-ground activations, and long-term brand visibility.
+                Join India’s growing corporate sports revolution as a HAKIRUSH
+                Sponsor. Gain access to professional audiences, on-ground
+                activations, and long-term brand visibility.
               </p>
             </motion.div>
           </div>
@@ -65,7 +67,7 @@ const Sponsorship = () => {
       </div>
 
       {/* Sponsor Tiers */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
@@ -73,11 +75,12 @@ const Sponsorship = () => {
         className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 px-6 pb-28"
       >
         {sponsorTiers.map((tier, i) => (
-          <motion.a
-            href={tier.href}
+          // **CORRECTION: Used MotionLink (motion(Link)) and 'to' prop**
+          <MotionLink 
+            to={tier.href} // **Changed from 'href' to 'to'**
             whileHover={{ y: -8 }}
             key={i}
-            className="p-8 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:shadow-red-400 transition-all duration-300 cursor-pointer"
+            className="p-8 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:shadow-red-400 transition-all duration-300 cursor-pointer block" // Added 'block' for better link behavior
           >
             <div className="text-4xl mb-4">{tier.icon}</div>
 
@@ -88,7 +91,7 @@ const Sponsorship = () => {
             <p className="text-gray-600 mt-2 transition">
               {tier.desc}
             </p>
-          </motion.a>
+          </MotionLink>
         ))}
       </motion.section>
 
@@ -136,7 +139,7 @@ const Sponsorship = () => {
       </motion.section>
 
       {/* CTA Button */}
-      <motion.div 
+      <motion.div
         className="flex items-center justify-center pb-20"
         whileHover={{ scale: 1.07 }}
       >
@@ -147,7 +150,6 @@ const Sponsorship = () => {
           Join as a Sponsor
         </Link>
       </motion.div>
-
     </div>
   );
 };

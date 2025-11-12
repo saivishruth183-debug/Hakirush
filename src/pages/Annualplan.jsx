@@ -121,7 +121,8 @@ const Annualplan = () => {
             >
               <img
                 src={item.image}
-                alt={item.title}
+                alt={`${item.title} - ${item.month} corporate sports event`}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover"
               />
 
@@ -175,9 +176,9 @@ const Annualplan = () => {
       >
         <Link 
           to="/contact" 
-          className="px-8 py-3 text-white bg-red-600 hover:bg-red-700 transitions rounded-full text-lg font-semibold shadow-lg cursor-pointer"
+          className="inline-block px-8 py-3 text-white bg-red-600 hover:bg-red-700 transition-all rounded-full text-lg font-semibold shadow-lg cursor-pointer"
         >
-          Subscribe to Annual Package data
+          Subscribe to Annual Package
         </Link>
       </motion.div>
 

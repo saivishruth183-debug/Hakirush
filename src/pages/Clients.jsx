@@ -175,7 +175,8 @@ export default function Clients() {
                 >
                   <img
                     src={client.logo}
-                    alt={client.name}
+                    alt={`${client.name} - HAKIRUSH Client`}
+                    loading="lazy"
                     className="h-16 w-32 object-contain grayscale hover:grayscale-0 transition"
                   />
                 </div>
@@ -189,7 +190,8 @@ export default function Clients() {
                 >
                   <img
                     src={client.logo}
-                    alt={client.name}
+                    alt={`${client.name} - HAKIRUSH Client`}
+                    loading="lazy"
                     className="h-16 w-32 object-contain grayscale hover:grayscale-0 transition"
                   />
                 </div>
@@ -223,7 +225,9 @@ export default function Clients() {
               <div className="flex items-center mb-6">
                 <img
                   src={testimonials[currentTestimonial].avatar}
-                  className="w-20 h-20 rounded-full mr-4"
+                  alt={`${testimonials[currentTestimonial].person} - ${testimonials[currentTestimonial].position}`}
+                  loading="lazy"
+                  className="w-20 h-20 rounded-full mr-4 object-cover"
                 />
                 <div>
                   <h3 className="text-xl font-semibold text-red-600">

@@ -109,11 +109,16 @@ const GalleryPage = () => {
           <div
             key={item.id}
             onClick={() => setLightbox(item.img)}
+            onKeyPress={(e) => e.key === 'Enter' && setLightbox(item.img)}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${tabLabels[activeTab]} image ${item.id}`}
             className="cursor-pointer border rounded-lg overflow-hidden group aspect-square bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <img
               src={item.img}
-              alt="Event"
+              alt={`${tabLabels[activeTab]} event in ${item.city}`}
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           </div>

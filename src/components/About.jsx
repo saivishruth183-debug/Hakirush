@@ -76,7 +76,8 @@ const About = () => {
             >
               <img
                 src={item.image}
-                alt="Hakirush Team"
+                alt={`Hakirush Sports Event ${index + 1}`}
+                loading="lazy"
                 className="w-full h-48 sm:h-56 md:h-60 object-cover"
               />
             </motion.div>

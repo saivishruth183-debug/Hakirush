@@ -2,26 +2,24 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { div } from 'framer-motion/client';
 
 const Footer = () => {
-
   const footer = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    {name: 'Package', href: '/package'},
+    { name: 'Package', href: '/package' },
     { name: 'Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Clients', href: '/clients' },
     { name: 'Contact', href: '/contact' },
   ];
-  
+
   const socialmedia = [
-    {icon: <Linkedin className="h-5 w-5 transition" />, href: 'https://linkedin.com/company/hakirush' },
-    {icon: <Instagram className="h-5 w-5 transition" />, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
-    {icon: <Twitter className="h-5 w-5 transition" />, href: 'https://x.com/Hakirushsports' },
-    {icon: <Youtube className="h-5 w-5 transition" />, href: 'https://www.youtube.com/@HakirushSportsEvents' },
-  ]
+    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
+    { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+    { icon: Twitter, href: 'https://x.com/Hakirushsports' },
+    { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
+  ];
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -35,40 +33,38 @@ const Footer = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <a href="/" className="flex items-center space-x-2 mb-4">
+            <a href="/" className="flex items-center space-x-2 mb-4" aria-label="HAKIRUSH Home">
               <img
                 src="/favicon.ico"
-                alt="Logo"
+                alt="HAKIRUSH Logo"
                 width={28}
                 height={28}
+                loading="lazy"
                 className="rounded-lg"
               />
               <span className="text-xl font-bold">HAKIRUSH</span>
             </a>
 
             <p className="text-gray-400 mb-4">
-              India's premier corporate sports engagement platform, fostering team building and employee wellness through competitive sports.
+              India's premier corporate sports engagement platform, fostering team building and
+              employee wellness through competitive sports.
             </p>
 
             <div className="flex space-x-4">
               {socialmedia.map((item, index) => (
-                <div key={index}> 
-                  <motion.a
-                    href={item.href}
-                    className="text-gray-400 hover:text-red-400 transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.25 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                  >
-                    {item.icon}
-                  </motion.a>
-                </div>
+                <motion.a
+                  key={index}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.25 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <item.icon className="h-6 w-6 text-gray-600 hover:text-red-600 transition" />
+                </motion.a>
               ))}
             </div>
           </motion.div>
-
-          
 
           {/* Quick Links */}
           <motion.div
@@ -85,13 +81,13 @@ const Footer = () => {
                   whileHover={{ x: 10 }}
                   transition={{
                     type: 'tween',
-                    duration: 0.5,
+                    duration: 0.4,
                     ease: 'easeInOut',
                   }}
                 >
                   <Link
                     to={item.href}
-                    className="text-gray-400 hover:text-red-400 transition-colors"
+                    className="text-gray-400 hover:text-red-400 transition-colors duration-300"
                   >
                     {item.name}
                   </Link>
@@ -135,13 +131,15 @@ const Footer = () => {
               >
                 <MapPin className="h-13 w-13 text-red-400" />
                 <span className="text-gray-400 text-md pt-3">
-                  No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka - 560095.
+                  No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura,
+                  Koramangala, Bengaluru, Karnataka - 560095.
                 </span>
               </motion.span>
             </div>
           </motion.div>
         </div>
 
+        {/* Bottom Footer */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>&copy; 2025 HAKIRUSH. All rights reserved.</p>
         </div>

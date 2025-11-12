@@ -228,10 +228,12 @@ export default function Contact() {
         </motion.h2>
 
         <iframe
+          title="HAKIRUSH Office Location"
           className="w-full h-[420px] rounded-2xl border shadow-xl"
           src="https://www.google.com/maps?q=No.+472/7+Balaji+Arcade+AVS+Layout+Ejipura+Koramangala+Bengaluru+560095&output=embed"
           allowFullScreen
           loading="lazy"
+          aria-label="Map showing HAKIRUSH office location in Bangalore"
         ></iframe>
       </div>
     </motion.div>

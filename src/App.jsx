@@ -1,27 +1,35 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import ScrollToTop from './components/ScrolltoTop'
+
+// Components
 import Navbar from './components/Navbar'
-import Home from './pages/Home'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrolltoTop'
+import About from './components/About'
+
+// Pages
+import Home from './pages/Home'
+import Package from './pages/Package'
 import Annualplan from './pages/Annualplan'
 import Qleague from './pages/Qleague'
 import Sponsor from './pages/Sponsor'
-import About from './components/About'
 import Gallery from './pages/Gallery'
 import Clients from './pages/Clients'
 import Contact from './pages/Contact'
+
+// Sponsor Pages
 import Titlesponsor from './sponsor/Titlesponsor'
 import Cosponsor from './sponsor/Cosponsor'
 import Stallpartner from './sponsor/Stallpatner'
 import Merchandisepartner from './sponsor/Merchandisepartner'
+
+// Client Pages
 import Google from './clients/Google'
 import Microsoft from './clients/Microsoft'
 import Amazon from './clients/Amazon'
 import Facebook from './clients/Facebook'
 import Apple from './clients/Apple'
 import Netflix from './clients/Netflix'
-import Package from './pages/Package'
 
 const App = () => {
   return (

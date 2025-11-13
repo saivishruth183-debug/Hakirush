@@ -1,27 +1,27 @@
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Camera, Star, Sparkles, X } from "lucide-react";
-import SampleImg from "../assets/yoga.png";
 
 const galleryData = {
   annual: [
-    { id: 1, img: SampleImg, city: "City A" },
-    { id: 2, img: SampleImg, city: "City B" },
-    { id: 3, img: SampleImg, city: "City A" },
+    { id: 1, img: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80", city: "City A" },
+    { id: 2, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", city: "City B" },
+    { id: 3, img: "https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=800&q=80", city: "City A" },
   ],
   quarterly: [
-    { id: 4, img: SampleImg, city: "City C" },
-    { id: 5, img: SampleImg, city: "City A" },
-    { id: 6, img: SampleImg, city: "City B" },
+    { id: 4, img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80", city: "City C" },
+    { id: 5, img: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80", city: "City A" },
+    { id: 6, img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80", city: "City B" },
   ],
   celebration: [
-    { id: 7, img: SampleImg, city: "City C" },
-    { id: 8, img: SampleImg, city: "City B" },
-    { id: 9, img: SampleImg, city: "City A" },
+    { id: 7, img: "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?w=800&q=80", city: "City C" },
+    { id: 8, img: "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=800&q=80", city: "City B" },
+    { id: 9, img: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=800&q=80", city: "City A" },
   ],
   behindthescenes: [
-    { id: 10, img: SampleImg, city: "City A" },
-    { id: 11, img: SampleImg, city: "City C" },
+    { id: 10, img: "https://miro.medium.com/v2/1*eniqeDqKCjAj2_tlZGMxnA.jpeg", city: "City A" },
+    { id: 11, img: "https://www.dpreview.com/files/p/articles/2574150340/1_sherman.jpeg", city: "City C" },
   ],
 };
 
@@ -34,6 +34,7 @@ const tabLabels = {
 
 const GalleryPage = () => {
   const [activeTab, setActiveTab] = useState("annual");
+  // eslint-disable-next-line no-unused-vars
   const [cityFilter, setCityFilter] = useState("All");
   const [lightbox, setLightbox] = useState(null);
 
@@ -55,19 +56,19 @@ const GalleryPage = () => {
           className="text-center max-w-4xl mx-auto px-6 relative z-10"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-            <Camera className="w-4 h-4 text-red-600" />
-            <span className="text-sm font-semibold text-red-600">Visual Memories</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+            <Camera className="w-4 h-4 text-[#C21807]" />
+            <span className="text-sm font-semibold text-[#C21807]">Visual Memories</span>
           </div>
 
           {/* Icon and Title in Row */}
           <div className="flex items-center justify-center gap-6 mb-6">
-            <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-linear-to-br from-red-600 to-orange-500 shadow-2xl shrink-0">
+            <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-[#C21807] shadow-2xl shrink-0">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
               Event{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Gallery
               </span>
             </h1>
@@ -91,13 +92,13 @@ const GalleryPage = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-4">
-              <Star className="w-4 h-4 text-red-600 fill-red-600" />
-              <span className="text-sm font-semibold text-red-600">Browse Collections</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-4">
+              <Star className="w-4 h-4 text-[#C21807] fill-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Browse Collections</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
               Explore{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Event Categories
               </span>
             </h2>
@@ -114,10 +115,10 @@ const GalleryPage = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 rounded-xl font-semibold border-2 cursor-pointer transition-all duration-300 shrink-0 shadow-md ${
+                className={`px-6 py-3 rounded-lg font-semibold border-2 cursor-pointer transition-all duration-300 shrink-0 shadow-md hover:shadow-red-400 ${
                   activeTab === tab
-                    ? "bg-linear-to-r from-red-600 to-orange-500 text-white border-transparent shadow-lg shadow-red-500/30"
-                    : "text-gray-700 border-gray-200 hover:border-red-500 bg-white hover:shadow-lg"
+                    ? "bg-[#C21807] text-white border-transparent shadow-lg shadow-[#C21807]/30"
+                    : "text-gray-700 border-gray-200 hover:border-[#C21807] bg-white hover:shadow-lg"
                 }`}
               >
                 {tabLabels[tab]}
@@ -129,11 +130,6 @@ const GalleryPage = () => {
 
       {/* Image Grid */}
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-linear-to-br from-red-200/10 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-linear-to-br from-orange-200/10 to-transparent rounded-full blur-3xl" />
-        </div>
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -155,7 +151,7 @@ const GalleryPage = () => {
                 role="button"
                 tabIndex={0}
                 aria-label={`View ${tabLabels[activeTab]} image ${item.id}`}
-                className="group relative cursor-pointer rounded-2xl overflow-hidden aspect-square bg-white shadow-xl hover:shadow-2xl transition-all duration-500"
+                className="group relative cursor-pointer rounded-2xl overflow-hidden aspect-square bg-white shadow-xl hover:shadow-2xl hover:shadow-red-400 transition-all duration-500"
               >
                 {/* Image */}
                 <img
@@ -171,12 +167,12 @@ const GalleryPage = () => {
                 {/* Hover Icon */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
                   <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
-                    <Camera className="w-8 h-8 text-red-600" />
+                    <Camera className="w-8 h-8 text-[#C21807]" />
                   </div>
                 </div>
 
                 {/* Border Glow Effect */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-red-500/50 transition-colors duration-500 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#C21807]/50 transition-colors duration-500 pointer-events-none" />
               </motion.div>
             ))}
           </div>
@@ -198,7 +194,7 @@ const GalleryPage = () => {
             animate={{ scale: 1 }}
             transition={{ delay: 0.2 }}
             onClick={() => setLightbox(null)}
-            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors z-10"
+            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[#C21807] transition-colors z-10"
           >
             <X className="w-6 h-6 text-white" />
           </motion.button>
@@ -214,7 +210,7 @@ const GalleryPage = () => {
           />
 
           {/* Decorative Elements */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-linear-to-br from-red-500/20 to-orange-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-linear-to-br from-[#C21807]/20 to-[#A01506]/20 rounded-full blur-3xl pointer-events-none" />
         </motion.div>
       )}
     </div>

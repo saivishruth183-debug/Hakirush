@@ -17,6 +17,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+void motion;
+
 const contactDetails = {
   email: "krishna@hakirush.com",
   phone: "+91 7997110210",
@@ -65,7 +67,7 @@ export default function Contact() {
       });
 
       setFormData({ name: "", email: "", company: "", phone: "", message: "" });
-    } catch (err) {
+    } catch {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -93,6 +95,11 @@ export default function Contact() {
       <div className="bg-white overflow-hidden">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden bg-white">
+          {/* Floating decorative gradient orbs */}
+          <div className="hidden" aria-hidden="true" />
+          <div className="hidden" aria-hidden="true" />
+          <div className="hidden" aria-hidden="true" />
+          <div className="hidden" aria-hidden="true" />
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -100,19 +107,19 @@ export default function Contact() {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-                <MessageSquare className="w-4 h-4 text-red-600" />
-                <span className="text-sm font-semibold text-red-600">We're Here to Help</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+                <MessageSquare className="w-4 h-4 text-[#C21807]" />
+                <span className="text-sm font-semibold text-[#C21807]">We're Here to Help</span>
               </div>
 
               {/* Icon and Title in Row */}
-              <div className="flex items-center justify-center gap-6 mb-6">
-                <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-linear-to-br from-red-600 to-orange-500 shadow-2xl shrink-0">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-[#C21807] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
                   Get in{" "}
-                  <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                     Touch
                   </span>
                 </h1>
@@ -127,8 +134,8 @@ export default function Contact() {
       </div>
 
       {/* CONTENT SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <section className="max-w-7xl mx-auto px-6 py-12 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* LEFT SIDE INFO */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -138,15 +145,15 @@ export default function Contact() {
             className="space-y-8"
           >
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100">
-              <Star className="w-4 h-4 text-red-600" />
-              <span className="text-sm font-semibold text-red-600">Contact Information</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20">
+              <Star className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Contact Information</span>
             </div>
 
             <div>
               <h2 className="text-3xl font-bold mb-4 text-gray-900">
                 Let's{" "}
-                <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                   Connect
                 </span>
               </h2>
@@ -170,15 +177,15 @@ export default function Contact() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ x: 8, transition: { duration: 0.3 } }}
-                className="flex items-start gap-4 p-5 rounded-2xl bg-linear-to-br from-red-50/50 to-orange-50/50 border border-red-100 hover:border-red-300 hover:shadow-lg transition-all duration-300"
+                className="flex items-start gap-4 p-5 rounded-2xl bg-[#C21807]/5 border border-[#C21807]/20 hover:border-[#C21807] hover:shadow-lg transition-all duration-300"
               >
-                <div className="inline-flex items-center justify-center p-3 bg-linear-to-br from-red-600 to-orange-500 rounded-xl text-white shadow-lg shrink-0">
+                <div className="inline-flex items-center justify-center p-3 bg-[#C21807] rounded-lg text-white shadow-lg shrink-0">
                   {item.icon}
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-gray-900 mb-1">{item.label}</h3>
                   {item.href ? (
-                    <a href={item.href} className="text-gray-600 hover:text-red-600 transition-colors font-medium">{item.value}</a>
+                    <a href={item.href} className="text-gray-600 hover:text-[#C21807] transition-colors font-medium">{item.value}</a>
                   ) : (
                     <p className="text-gray-600 font-medium">{item.value}</p>
                   )}
@@ -188,10 +195,10 @@ export default function Contact() {
           </div>
 
           {/* SOCIAL */}
-          <div className="mt-8 p-6 rounded-2xl bg-linear-to-br from-gray-50 to-red-50/30 border border-gray-200">
+          <div className="mt-8 p-6 rounded-2xl bg-white border border-gray-200">
             <h3 className="font-bold text-lg mb-5 text-gray-900">
               Follow{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Us
               </span>
             </h3>
@@ -203,7 +210,7 @@ export default function Contact() {
                   target="_blank"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white border-2 border-red-200 hover:border-red-500 text-gray-600 hover:text-red-600 shadow-md hover:shadow-xl transition-all duration-300"
+                      className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white border-2 border-[#C21807]/20 hover:border-[#C21807] text-gray-600 hover:text-[#C21807] shadow-md hover:shadow-xl transition-all duration-300"
                 >
                       <s.icon className="w-5 h-5" />
                 </motion.a>
@@ -214,30 +221,37 @@ export default function Contact() {
 
         {/* RIGHT FORM */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, rotateX: -10 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ 
+            type: 'spring', 
+            stiffness: 200
+          }}
           viewport={{ once: true }}
-          className="relative p-8 md:p-10 rounded-3xl shadow-2xl bg-white border border-red-100 overflow-hidden"
+          whileHover={{ 
+            scale: window.innerWidth >= 768 ? 1.03 : 1,
+            y: window.innerWidth >= 768 ? -8 : 0
+          }}
+          className="relative flex flex-col justify-center my-30 px-6 pt-8 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
         >
-          {/* Decorative Background */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-red-100/40 to-orange-100/40 rounded-full blur-3xl -z-10" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-linear-to-tr from-orange-100/40 to-red-100/40 rounded-full blur-3xl -z-10" />
+          {/* Decorative Background removed for pure white */}
+          <div className="hidden" aria-hidden="true" />
+          <div className="hidden" aria-hidden="true" />
 
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-            <Sparkles className="w-4 h-4 text-red-600" />
-            <span className="text-sm font-semibold text-red-600">Send a Message</span>
+          <div className="flex items-start justify-start mr-87 gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+            <Sparkles className="w-4 h-4 text-[#C21807]" />
+            <span className="text-sm font-semibold text-[#C21807]">Send a Message</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">
             Send us a{" "}
-            <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
               Message
             </span>
           </h2>
 
-          <form onSubmit={submitForm} className="space-y-6">
+          <form onSubmit={submitForm} className="space-y-5 md:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInput} required />
               <InputField label="Email Address *" name="email" type="email" value={formData.email} onChange={handleInput} required />
@@ -257,7 +271,7 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleInput}
                 placeholder="Tell us about your requirements..."
-                className="w-full p-3 border border-red-300 rounded-lg outline-none focus:ring-red-600 focus:border-red-600 transition"
+                className="w-full p-3 border border-[#C21807]/30 rounded-lg outline-none focus:ring-[#C21807] focus:border-[#C21807] transition"
               />
             </div>
 
@@ -266,7 +280,7 @@ export default function Contact() {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-linear-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white py-4 text-lg font-bold rounded-xl flex justify-center items-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#C21807] text-white py-3 md:py-4 text-lg font-bold rounded-lg flex justify-center items-center gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="h-5 w-5" />
               {loading ? "Sending..." : "Send Message"}
@@ -277,7 +291,7 @@ export default function Contact() {
       </section>
 
       {/* MAP */}
-      <section className="max-w-6xl mx-auto px-6 pb-24">
+      <section className="max-w-6xl mx-auto px-6 pb-12 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -286,14 +300,14 @@ export default function Contact() {
           className="text-center mb-12"
         >
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-            <MapPin className="w-4 h-4 text-red-600" />
-            <span className="text-sm font-semibold text-red-600">Our Location</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+            <MapPin className="w-4 h-4 text-[#C21807]" />
+            <span className="text-sm font-semibold text-[#C21807]">Our Location</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Find{" "}
-            <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
               Us
             </span>
           </h2>
@@ -304,7 +318,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="rounded-3xl overflow-hidden shadow-2xl border-4 border-red-100 hover:border-red-300 transition-all duration-300"
+          className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#C21807]/20 hover:border-[#C21807] transition-all duration-300"
         >
           <iframe
             title="HAKIRUSH Office Location"
@@ -330,7 +344,7 @@ function InputField({ label, name, type = "text", value, onChange, required }) {
         required={required}
         value={value}
         onChange={onChange}
-        className="w-full p-3 border border-red-300 rounded-lg outline-none focus:border-red-600 focus:ring-red-600 transition"
+        className="w-full p-3 border border-[#C21807]/30 rounded-lg outline-none focus:border-[#C21807] focus:ring-[#C21807] transition"
       />
     </div>
   );

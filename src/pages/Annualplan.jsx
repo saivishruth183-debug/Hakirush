@@ -1,19 +1,20 @@
 import React from 'react'
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { CheckCircle, Zap, ArrowRight } from 'lucide-react'
 
-import Marathon from '../assets/Run.png'
-import Football from '../assets/football.png'
-import Badminton from '../assets/doublebadmention.png'
-import Cricket from '../assets/cricket6s.png'
-import Table from '../assets/Tabletennis.png'
-import Yoga from '../assets/yoga.png'
-import Volleyball from '../assets/volleyball.png'
-import Chess from '../assets/chess.png'
-import Fitness from '../assets/bootcamp.png'
-import Relay from '../assets/relayrun.png'
-import Olympics from '../assets/Olympics.png'
-import Finale from '../assets/allstar.png'
+import Marathon from '../assets/Annual/Run.png'
+import Football from '../assets/Annual/football.png'
+import Badminton from '../assets/Annual/doublebadmention.png'
+import Cricket from '../assets/Annual/cricket6s.png'
+import Table from '../assets/Annual/Tabletennis.png'
+import Yoga from '../assets/Annual/yoga.png'
+import Volleyball from '../assets/Annual/volleyball.png'
+import Chess from '../assets/Annual/chess.png'
+import Fitness from '../assets/Annual/bootcamp.png'
+import Relay from '../assets/Annual/relayrun.png'
+import Olympics from '../assets/Annual/Olympics.png'
+import Finale from '../assets/Annual/allstar.png'
 import { Link } from 'react-router-dom'
 
 const plans = [
@@ -56,16 +57,10 @@ const Annualplan = () => {
   return (
     <div className="relative bg-white overflow-hidden">
 
-      {/* Global background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(255,0,0,0.06), transparent 60%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 90%)"
-        }}
-      />
+      {/* Background disabled for pure white */}
+      <div className="hidden" />
 
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden bg-white">
 
           {/* Max-width container for content */}
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -74,26 +69,26 @@ const Annualplan = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center max-w-5xl mx-auto space-y-8"
+              className="text-center max-w-4xl mx-auto space-y-8"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100">
-                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-sm font-semibold text-red-600">Annual Subscription</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20">
+                <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
+                <span className="text-sm font-semibold text-[#C21807]">Annual Subscription</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
                 Annual Package —{' '}
-                <span className="bg-linear-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                   12 Months. 12 Sports.
                 </span>{' '}
                 One Unstoppable Team.
               </h1>
 
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+              <p className="text-base sm:text-md text-gray-600 leading-relaxed max-w-4xl mx-auto">
                 A year-long engagement program designed for organizations that believe in{' '}
                 <span className="font-bold text-gray-900">consistent team connection</span> and{' '}
-                <span className="font-bold text-red-600">active employee culture</span>.
+                <span className="font-bold text-[#C21807]">active employee culture</span>.
                 Each month brings a new sport, a new challenge, and a stronger team.
               </p>
             </motion.div>
@@ -101,11 +96,8 @@ const Annualplan = () => {
         </section>
 
       {/* Monthly Schedule */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-10 w-72 h-72 bg-linear-to-br from-red-200/30 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-10 w-72 h-72 bg-linear-to-br from-orange-200/30 to-transparent rounded-full blur-3xl" />
-        </div>
+      <section className="py-20 relative overflow-hidden bg-white">
+        <div className="hidden" />
 
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
@@ -116,13 +108,13 @@ const Annualplan = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span className="text-sm font-semibold text-red-600">12-Month Calendar</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+              <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
+              <span className="text-sm font-semibold text-[#C21807]">12-Month Calendar</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4">
               Monthly{' '}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Activity Calendar
               </span>
             </h2>
@@ -158,14 +150,14 @@ const Annualplan = () => {
 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center transform transition-transform duration-300">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/90 mb-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C21807]/90 mb-2">
                     <span className="text-xs font-bold uppercase tracking-wide">{item.month}</span>
                   </div>
-                  <h3 className="font-bold text-lg group-hover:text-red-300 transition-colors">{item.title}</h3>
+                  <h3 className="font-bold text-lg group-hover:text-white/90 transition-colors">{item.title}</h3>
                 </div>
 
                 {/* Hover Border Effect */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-500 rounded-2xl transition-colors duration-300 pointer-events-none" />
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C21807] rounded-2xl transition-colors duration-300 pointer-events-none" />
               </motion.div>
             ))}
           </div>
@@ -174,9 +166,7 @@ const Annualplan = () => {
 
       {/* Benefits */}
       <section className="py-20 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-linear-to-br from-red-300/20 to-orange-300/20 rounded-full blur-3xl animate-pulse" />
-        </div>
+        <div className="hidden" />
 
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
@@ -198,15 +188,15 @@ const Annualplan = () => {
                   delay: index * 0.1
                 }}
                 viewport={{ once: true }}
-                className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer"
+                className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer"
               >
-                {/* Decorative Background */}
-                <div className="absolute inset-0 bg-linear-to-br from-red-50/50 via-transparent to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-linear-to-br from-red-200/30 to-transparent rounded-full blur-2xl" />
+                {/* Decorative Background disabled for pure white */}
+                <div className="hidden" />
+                <div className="hidden" />
 
                 <div className="relative p-8">
                   {/* Icon Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-600 to-orange-500 mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
                     {item.id === 1 ? (
                       <CheckCircle className="w-5 h-5 text-white" />
                     ) : (
@@ -218,7 +208,7 @@ const Annualplan = () => {
                   <ul className="space-y-4">
                     {Object.values(item).slice(2).map((line, i) => (
                       <li key={i} className="flex items-start gap-3 text-gray-700">
-                        <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                        <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
                         <span className="text-base leading-relaxed">{line}</span>
                       </li>
                     ))}
@@ -235,7 +225,7 @@ const Annualplan = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-linear-to-r from-red-600 to-orange-500 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden group"
             >
               <span className="relative z-10">Subscribe to Annual Package</span>
               <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-1 transition-transform" />

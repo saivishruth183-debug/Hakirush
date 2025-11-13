@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import Cricket from "../assets/cricket.png";
-import Badminton from "../assets/badminton.png";
-import Football from "../assets/football.png";
-import Yoga from "../assets/yoga.png";
+import Cricket from "../assets/Hero/cricket.png";
+import Badminton from "../assets/Hero/badminton.png";
+import Football from "../assets/Hero/Football.png";
+import Yoga from "../assets/Hero/Yoga.png";
 
 const heroSlides = [
   { id: 1, image: Cricket, title: "Cricket Championship Finals" },
@@ -43,29 +44,29 @@ const Hero = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold shadow-md"
+              className="inline-flex items-center gap-2 bg-[#C21807]/10 text-[#C21807] px-4 py-2 rounded-full text-sm font-semibold shadow-md border border-[#C21807]/20"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C21807] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C21807]"></span>
               </span>
               India's Premier Corporate Sports Platform
             </motion.div>
 
             {/* Main Heading with Gradient */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight">
-              <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 UNLEASHING
               </span>
               <br />
-              <span className="text-[#0A1A2F]">TEAM SPIRIT</span>
+              <span className="text-[#1a2332]">TEAM SPIRIT</span>
               <br />
               <span className="text-gray-700">THROUGH SPORTS</span>
             </h1>
 
             {/* Description */}
             <p className="text-base sm:text-xl text-gray-600 leading-relaxed max-w-lg">
-              Corporate sports experiences that keep your teams <span className="font-semibold text-red-600">active</span>, <span className="font-semibold text-red-600">engaged</span>, and <span className="font-semibold text-red-600">connected</span> — all year round.
+              Corporate sports experiences that keep your teams <span className="font-semibold text-[#C21807]">active</span>, <span className="font-semibold text-[#C21807]">engaged</span>, and <span className="font-semibold text-[#C21807]">connected</span> — all year round.
             </p>
           </motion.div>
 
@@ -76,8 +77,12 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {/* Main Image Container */}
-            <div className="relative h-72 sm:h-96 md:h-[550px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-red-100/50">
+            {/* Main Image Container with subtle continuous zoom */}
+            <motion.div
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="relative h-72 sm:h-96 md:h-[550px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-[#C21807]/20"
+            >
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentSlide}
@@ -93,12 +98,12 @@ const Hero = () => {
               </AnimatePresence>
 
               {/* Image Title Badge */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-center shadow-xl border border-red-100">
-                <span className="text-red-600 font-bold text-sm sm:text-base">
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-center shadow-xl border border-[#C21807]/30">
+                <span className="text-[#C21807] font-bold text-sm sm:text-base">
                   {heroSlides[currentSlide].title}
                 </span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 import { Star, Users, Building, Award, Sparkles, TrendingUp, Quote } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -80,19 +81,19 @@ export default function Clients() {
             transition={{ duration: 0.8 }}
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
-              <Building className="w-4 h-4 text-red-600" />
-              <span className="text-sm font-semibold text-red-600">Trusted Partners</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+              <Building className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Trusted Partners</span>
             </div>
 
             {/* Icon and Title in Row */}
             <div className="flex items-center justify-center gap-6 mb-6">
-              <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-linear-to-br from-red-600 to-orange-500 shadow-2xl shrink-0">
+              <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-[#C21807] shadow-2xl shrink-0">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
                 Our{" "}
-                <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                   Clients
                 </span>
               </h1>
@@ -108,10 +109,7 @@ export default function Clients() {
 
       {/* STATS SECTION */}
       <section className="py-20 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-linear-to-br from-red-200/20 to-transparent rounded-full blur-3xl" />
-          <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-linear-to-br from-orange-200/20 to-transparent rounded-full blur-3xl" />
-        </div>
+        <div className="hidden" aria-hidden="true"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Section Header */}
@@ -121,13 +119,13 @@ export default function Clients() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-4">
-              <TrendingUp className="w-4 h-4 text-red-600" />
-              <span className="text-sm font-semibold text-red-600">Our Impact</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-4">
+              <TrendingUp className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Our Impact</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
               By The{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Numbers
               </span>
             </h2>
@@ -139,19 +137,19 @@ export default function Clients() {
                 icon: <Building className="h-6 w-6 text-white" />,
                 label: "Companies Trust Us",
                 value: "50+",
-                gradient: "from-red-600 to-orange-500",
+                gradient: "from-[#C21807] to-[#A01506]",
               },
               {
                 icon: <Users className="h-6 w-6 text-white" />,
                 label: "Employees Engaged",
                 value: "10K+",
-                gradient: "from-orange-500 to-red-500",
+                gradient: "from-[#A01506] to-[#C21807]",
               },
               {
                 icon: <Award className="h-6 w-6 text-white" />,
                 label: "Events Delivered",
                 value: "500+",
-                gradient: "from-red-500 to-pink-500",
+                gradient: "from-[#C21807] to-[#A01506]",
               },
             ].map((stat, i) => (
               <motion.div
@@ -166,11 +164,11 @@ export default function Clients() {
                   delay: i * 0.1 
                 }}
                 viewport={{ once: true }}
-                className="group relative text-center bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
+                className="group relative text-center bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
               >
-                {/* Background Effects */}
-                <div className={`absolute inset-0 bg-linear-to-br ${stat.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-linear-to-br from-red-200/20 to-transparent rounded-full blur-2xl" />
+                {/* Background Effects removed for pure white */}
+                <div className="hidden" aria-hidden="true" />
+                <div className="hidden" aria-hidden="true" />
 
                 <div className="relative p-10">
                   {/* Icon Badge */}
@@ -178,14 +176,14 @@ export default function Clients() {
                     {stat.icon}
                   </div>
 
-                  <h3 className="text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-red-600 group-hover:to-orange-500 group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                     {stat.value}
                   </h3>
                   <p className="text-base text-gray-700 font-medium">{stat.label}</p>
                 </div>
 
                 {/* Border Glow */}
-                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-red-500/20 transition-colors duration-500 pointer-events-none" />
+                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
               </motion.div>
             ))}
           </div>
@@ -193,11 +191,8 @@ export default function Clients() {
       </section>
 
       {/* LOGOS SECTION */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-linear-to-br from-red-200/10 to-transparent rounded-full blur-3xl" />
-          <div className="absolute top-1/2 right-1/3 w-96 h-96 bg-linear-to-br from-orange-200/10 to-transparent rounded-full blur-3xl" />
-        </div>
+      <section className="py-20 relative overflow-hidden bg-white">
+        <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
           className="max-w-7xl mx-auto px-6 relative z-10"
@@ -207,13 +202,13 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-4">
-              <Sparkles className="w-4 h-4 text-red-600" />
-              <span className="text-sm font-semibold text-red-600">Our Partners</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-4">
+              <Sparkles className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Our Partners</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
               Trusted by{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Industry Leaders
               </span>
             </h2>
@@ -235,16 +230,16 @@ export default function Clients() {
                 <motion.div
                   key={`r1-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
-                  <div className="absolute inset-0 bg-linear-to-br from-red-50/50 to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="hidden" aria-hidden="true" />
                   <img
                     src={client.logo}
                     alt={`${client.name} - HAKIRUSH Client`}
                     loading="lazy"
                     className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-red-500/20 transition-colors duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
                 </motion.div>
               ))}
 
@@ -253,16 +248,16 @@ export default function Clients() {
                 <motion.div
                   key={`r2-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
-                  <div className="absolute inset-0 bg-linear-to-br from-red-50/50 to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="hidden" aria-hidden="true" />
                   <img
                     src={client.logo}
                     alt={`${client.name} - HAKIRUSH Client`}
                     loading="lazy"
                     className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-red-500/20 transition-colors duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
                 </motion.div>
               ))}
             </motion.div>
@@ -272,10 +267,7 @@ export default function Clients() {
 
       {/* TESTIMONIALS SECTION */}
       <section className="py-20 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-10 w-96 h-96 bg-linear-to-br from-red-300/20 to-orange-300/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/3 right-10 w-96 h-96 bg-linear-to-br from-orange-300/20 to-red-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        </div>
+        <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
           className="max-w-5xl mx-auto px-6 relative z-10"
@@ -285,13 +277,13 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-4">
-              <Quote className="w-4 h-4 text-red-600" />
-              <span className="text-sm font-semibold text-red-600">Success Stories</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-4">
+              <Quote className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-semibold text-[#C21807]">Success Stories</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
               What Our{" "}
-              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Clients Say
               </span>
             </h2>
@@ -304,16 +296,16 @@ export default function Clients() {
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               exit={{ opacity: 0, scale: 0.9, rotateY: -90 }}
               transition={{ duration: 0.6 }}
-              className="group relative bg-white rounded-3xl shadow-2xl hover:shadow-red-500/20 transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
+              className="group relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
             >
-              {/* Background Effects */}
-              <div className="absolute inset-0 bg-linear-to-br from-red-50/50 via-transparent to-orange-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-linear-to-br from-red-200/30 to-transparent rounded-full blur-2xl" />
+              {/* Background Effects removed for pure white */}
+              <div className="hidden" aria-hidden="true" />
+              <div className="hidden" aria-hidden="true" />
 
               <div className="relative p-10 md:p-12">
                 {/* Quote Icon */}
-                <div className="absolute top-8 right-8 w-16 h-16 rounded-full bg-linear-to-br from-red-100 to-orange-100 flex items-center justify-center opacity-50">
-                  <Quote className="w-8 h-8 text-red-600" />
+                <div className="absolute top-8 right-8 w-16 h-16 rounded-full bg-[#C21807]/10 flex items-center justify-center opacity-50">
+                  <Quote className="w-8 h-8 text-[#C21807]" />
                 </div>
 
                 <div className="flex items-start gap-6 mb-8">
@@ -322,7 +314,7 @@ export default function Clients() {
                     src={testimonials[currentTestimonial].avatar}
                     alt={`${testimonials[currentTestimonial].person} - ${testimonials[currentTestimonial].position}`}
                     loading="lazy"
-                    className="w-20 h-20 rounded-2xl object-cover shadow-lg shrink-0 border-2 border-red-100"
+                    className="w-20 h-20 rounded-2xl object-cover shadow-lg shrink-0 border-2 border-[#C21807]/20"
                   />
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-gray-900 mb-1">
@@ -331,7 +323,7 @@ export default function Clients() {
                     <p className="text-gray-600 font-medium mb-2">
                       {testimonials[currentTestimonial].position}
                     </p>
-                    <p className="text-sm font-semibold text-red-600">
+                    <p className="text-sm font-semibold text-[#C21807]">
                       {testimonials[currentTestimonial].company}
                     </p>
                     <div className="flex gap-1 mt-3">
@@ -347,13 +339,13 @@ export default function Clients() {
                   </div>
                 </div>
 
-                <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed italic relative pl-6 border-l-4 border-red-500">
+                <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed italic relative pl-6 border-l-4 border-[#C21807]">
                   "{testimonials[currentTestimonial].message}"
                 </blockquote>
               </div>
 
               {/* Border Glow */}
-              <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-red-500/20 transition-colors duration-500 pointer-events-none" />
+              <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
             </motion.div>
           </AnimatePresence>
         </motion.div>

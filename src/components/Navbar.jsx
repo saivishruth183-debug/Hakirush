@@ -1,4 +1,4 @@
-import { Menu, X, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react'
+import { Menu, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -29,16 +29,16 @@ const Navbar = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 backdrop-blur-md shadow-2xl border-b border-red-900/20"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-linear-to-r from-[#0f1419] via-[#1a2332] to-[#0f1419] backdrop-blur-md shadow-2xl border-b border-[#C21807]/20"
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center space-x-3 group" aria-label="HAKIRUSH Home">
             <div className="relative">
-              <div className="absolute inset-0 bg-linear-to-br from-red-500 to-orange-500 rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-              <img src="/favicon.ico" alt="HAKIRUSH Logo" className="relative h-10 w-10 object-contain group-hover:scale-110 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-linear-to-br from-[#C21807] to-[#A01506] rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+              <img src="/favicon.png" alt="HAKIRUSH Logo" className="relative h-10 w-10 object-contain group-hover:scale-110 transition-transform duration-300" />
             </div>
-            <span className="text-2xl font-extrabold bg-linear-to-r from-white via-red-100 to-orange-200 bg-clip-text text-transparent font-sans" style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}>
+            <span className="text-2xl font-extrabold text-white font-sans" style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}>
               HAKIRUSH
             </span>
           </Link>
@@ -51,7 +51,7 @@ const Navbar = () => {
                 to={item.href}
                 className={`relative px-4 py-2 text-sm font-bold transition-all duration-300 rounded-lg font-sans group ${
                   pathname === item.href 
-                    ? 'bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent' 
+                    ? 'text-[#C21807]' 
                     : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
                 style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
@@ -71,7 +71,7 @@ const Navbar = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-red-500/20 hover:border-red-500 hover:bg-linear-to-br hover:from-red-600 hover:to-orange-500 text-gray-400 hover:text-white transition-all duration-300 shadow-lg"
+                className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-[#C21807]/20 hover:border-[#C21807] hover:bg-[#C21807] text-gray-400 hover:text-white transition-all duration-300 shadow-lg"
               >
                 <item.icon className="h-4 w-4" />
               </motion.a>
@@ -80,7 +80,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-lg text-white bg-white/10 hover:bg-linear-to-r hover:from-red-600 hover:to-orange-500 transition-all duration-300 shadow-lg hover:shadow-red-500/50"
+            className="md:hidden p-2 rounded-lg text-white bg-white/10 hover:bg-[#C21807] transition-all duration-300 shadow-lg hover:shadow-[#C21807]/50"
             onClick={() => setIsMobileMenuOpen((s) => !s)}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -90,14 +90,14 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-linear-to-br from-gray-900 to-gray-800 backdrop-blur-md rounded-2xl mt-2 mb-3 p-4 shadow-2xl border border-red-900/30">
+          <div className="md:hidden bg-linear-to-br from-[#0f1419] to-[#1a2332] backdrop-blur-md rounded-2xl mt-2 mb-3 p-4 shadow-2xl border border-[#C21807]/30">
             {navigation.map((item, index) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`block py-3 px-4 mb-2 text-sm font-bold rounded-xl transition-all duration-300 ${
+                className={`block py-3 px-4 mb-2 text-sm font-bold rounded-lg transition-all duration-300 ${
                   pathname === item.href 
-                    ? 'bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent' 
+                    ? 'bg-[#C21807] text-white' 
                     : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}

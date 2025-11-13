@@ -1,6 +1,7 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, LucideTwitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -17,12 +18,12 @@ const Footer = () => {
   const socialmedia = [
     { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
     { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
-    { icon: LucideTwitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },
+    { icon: Twitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },
     { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
 
   return (
-    <footer className="relative bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+    <footer className="relative bg-linear-to-br from-[#0f1419] via-[#1a2332] to-[#0f1419] text-white overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -64,7 +65,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-gray-500/20 hover:border-gray-300 hover:bg-gray-700 text-gray-400 hover:text-white transition-all duration-300 shadow-lg"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-[#C21807]/20 hover:border-[#C21807] hover:bg-[#C21807] text-gray-400 hover:text-white transition-all duration-300 shadow-lg"
                 >
                   <item.icon className="h-4 w-4" />
                 </motion.a>
@@ -82,7 +83,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-6 text-white">
               Quick Links
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {footer.map((item) => (
                 <motion.li
                   key={item.href}
@@ -95,7 +96,7 @@ const Footer = () => {
                 >
                   <Link
                     to={item.href}
-                    className="relative text-gray-300 hover:text-white transition-colors duration-300 inline-flex items-center gap-2 group"
+                    className="relative text-gray-300 hover:text-[#C21807] transition-colors duration-300 inline-flex items-center gap-2 group"
                   >
                     <span className="w-0 h-0.5 bg-gray-400 group-hover:w-4 transition-all duration-300" />
                     <span className="text-sm font-medium">{item.name}</span>
@@ -123,7 +124,7 @@ const Footer = () => {
                 whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg group-hover:shadow-gray-500/50 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#1a2332] shadow-lg group-hover:bg-[#C21807] transition-all duration-300">
                   <Mail className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-gray-300 text-sm group-hover:text-white transition-colors">
@@ -137,7 +138,7 @@ const Footer = () => {
                 whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg group-hover:shadow-gray-500/50 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#1a2332] shadow-lg group-hover:bg-[#C21807] transition-all duration-300">
                   <Phone className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-gray-300 text-sm group-hover:text-white transition-colors">
@@ -150,7 +151,7 @@ const Footer = () => {
                 whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg shrink-0 group-hover:shadow-gray-500/50 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#1a2332] shadow-lg shrink-0 group-hover:bg-[#C21807] transition-all duration-300">
                   <MapPin className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors">
@@ -172,7 +173,7 @@ const Footer = () => {
         >
           <p className="text-gray-400 text-sm">
             &copy; 2025{' '}
-            <span className="font-bold text-white">
+            <span className="font-bold text-[#C21807]">
               HAKIRUSH
             </span>
             . All rights reserved.

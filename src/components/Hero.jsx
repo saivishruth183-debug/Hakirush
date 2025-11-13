@@ -26,60 +26,78 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="py-16 relative overflow-hidden min-h-screen flex items-center">
-      
-      {/* 🔴 NEW: Radial Gradient Background focused on the left 🔴 */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            // Adjusting gradient centers to focus on the left side
-            'radial-gradient(circle at top left, rgba(255,0,0,0.06), transparent 90%), radial-gradient(circle at bottom left, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 90%)'
-        }}
-      />
-      {/* END NEW BACKGROUND */}
+    <section className="py-20 relative overflow-hidden min-h-screen flex items-center bg-white">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full"> {/* Added w-full */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
+          {/* Left Content - Enhanced */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-left"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-left space-y-6"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A1A2F] leading-tight">
-              <span className="text-[#C21807]">UNLEASHING</span><br />
-              TEAM SPIRIT THROUGH SPORTS
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold shadow-md"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+              </span>
+              India's Premier Corporate Sports Platform
+            </motion.div>
+
+            {/* Main Heading with Gradient */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight">
+              <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 bg-clip-text text-transparent">
+                UNLEASHING
+              </span>
+              <br />
+              <span className="text-[#0A1A2F]">TEAM SPIRIT</span>
+              <br />
+              <span className="text-gray-700">THROUGH SPORTS</span>
             </h1>
 
-            <p className="text-lg text-gray-600 mt-6 max-w-lg">
-              Corporate sports experiences that keep your teams active, engaged, and connected — all year round.
+            {/* Description */}
+            <p className="text-base sm:text-xl text-gray-600 leading-relaxed max-w-lg">
+              Corporate sports experiences that keep your teams <span className="font-semibold text-red-600">active</span>, <span className="font-semibold text-red-600">engaged</span>, and <span className="font-semibold text-red-600">connected</span> — all year round.
             </p>
           </motion.div>
 
+          {/* Right Image Section - Enhanced */}
           <motion.div
-            className="relative h-72 sm:h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-xl"
-            initial={{ opacity: 0, x: 30 }}
+            className="relative"
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentSlide}
-                src={heroSlides[currentSlide].image}
-                alt={heroSlides[currentSlide].title}
-                loading="lazy"
-                initial={{ opacity: 0, scale: 1.07 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-                className="w-full h-full object-cover"
-              />
-            </AnimatePresence>
+            {/* Main Image Container */}
+            <div className="relative h-72 sm:h-96 md:h-[550px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-red-100/50">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentSlide}
+                  src={heroSlides[currentSlide].image}
+                  alt={heroSlides[currentSlide].title}
+                  loading="lazy"
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.7 }}
+                  className="w-full h-full object-cover"
+                />
+              </AnimatePresence>
 
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 backdrop-blur-sm px-4 py-2 rounded-lg text-center text-[#C21807] font-bold shadow-lg">
-              {heroSlides[currentSlide].title}
+              {/* Image Title Badge */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-center shadow-xl border border-red-100">
+                <span className="text-red-600 font-bold text-sm sm:text-base">
+                  {heroSlides[currentSlide].title}
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>

@@ -23,7 +23,7 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    smoothScrollToTop(800); // scroll animation duration
+    smoothScrollToTop(500); // scroll animation duration
   }, [pathname]); // runs every time route changes
 
   return null;

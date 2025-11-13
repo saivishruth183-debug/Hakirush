@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Trophy, Users, Store, ShoppingBag, CheckCircle, TrendingUp, ArrowRight } from "lucide-react";
 
 // Use motion(Link) for Framer Motion animation on the Link component
 const MotionLink = motion(Link);
@@ -8,148 +9,251 @@ const MotionLink = motion(Link);
 const sponsorTiers = [
   {
     href: "/sponsor/titlesponser",
-    icon: "🏆",
+    icon: Trophy,
     title: "Title Sponsor",
     desc: "Premium branding across kits, trophies, and reels",
+    gradient: "from-red-600 to-orange-500",
   },
   {
     href: "/sponsor/cosponser",
-    icon: "🤝",
+    icon: Users,
     title: "Co-Sponsor",
     desc: "Prominent logo placement, shoutouts, and banners",
+    gradient: "from-orange-500 to-red-500",
   },
   {
     href: "/sponsor/stallsponser",
-    icon: "🏬",
+    icon: Store,
     title: "Stall Partner",
     desc: "On-site product demos, samplings, and branding space",
+    gradient: "from-red-500 to-pink-500",
   },
   {
     href: "/sponsor/merchandisepartner",
-    icon: "👕",
+    icon: ShoppingBag,
     title: "Merchandise Partner",
     desc: "Co-branded event kits and corporate giveaways",
+    gradient: "from-pink-500 to-red-600",
   },
 ];
 
 const Sponsorship = () => {
   return (
-    <div className="bg-[#FFF5F5] overflow-hidden">
-      {/* Header Background */}
-      <div
-        className="relative pb-20 mb-12"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(255,0,0,0.07), transparent 70%), radial-gradient(circle at bottom right, rgba(255,102,0,0.05), transparent 80%), radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 85%)",
-        }}
-      >
-        {/* Header Section */}
-        <section className="pt-16 relative">
-          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+    <div className="bg-white overflow-hidden">
+      {/* Header Section */}
+      <section className="relative py-20 overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 40, rotateX: -10 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl md:text-5xl font-extrabold text-[#0A1A2F] leading-tight">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
+                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span className="text-sm font-semibold text-red-600">Partnership Opportunities</span>
+              </div>
+
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
                 Power Your Brand Through{" "}
-                <span className="text-[#C21807]">Sports</span>
+                <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                  Corporate Sports
+                </span>
               </h1>
 
-              <p className="max-w-3xl mx-auto font-semibold text-gray-700 mt-5 text-lg leading-relaxed">
-                Join India’s growing corporate sports revolution as a HAKIRUSH
-                Sponsor. Gain access to professional audiences, on-ground
-                activations, and long-term brand visibility.
+              <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed">
+                Join India's growing corporate sports revolution as a <strong className="text-red-600">HAKIRUSH Sponsor</strong>. 
+                Gain access to <strong>professional audiences</strong>, on-ground activations, and long-term brand visibility.
               </p>
             </motion.div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
 
       {/* Sponsor Tiers */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 px-6 pb-28"
-      >
-        {sponsorTiers.map((tier, i) => (
-          // **CORRECTION: Used MotionLink (motion(Link)) and 'to' prop**
-          <MotionLink 
-            to={tier.href} // **Changed from 'href' to 'to'**
-            whileHover={{ y: -8 }}
-            key={i}
-            className="p-8 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:shadow-red-400 transition-all duration-300 cursor-pointer block" // Added 'block' for better link behavior
-          >
-            <div className="text-4xl mb-4">{tier.icon}</div>
+      <section className="py-20 relative overflow-hidden bg-white">
 
-            <h3 className="text-xl font-semibold text-[#0A1A2F] transition">
-              {tier.title}
-            </h3>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto px-6 relative z-10"
+        >
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-50 to-orange-50 border border-red-100 mb-6">
+              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-sm font-semibold text-red-600">Sponsorship Tiers</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">
+              Choose Your{" "}
+              <span className="bg-linear-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                Partnership Level
+              </span>
+            </h2>
+          </div>
 
-            <p className="text-gray-600 mt-2 transition">
-              {tier.desc}
-            </p>
-          </MotionLink>
-        ))}
-      </motion.section>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sponsorTiers.map((tier, i) => {
+              const IconComponent = tier.icon;
+              return (
+                <MotionLink 
+                  to={tier.href}
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5,
+                    delay: i * 0.1
+                  }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer block"
+                >
+                  {/* Gradient Border Effect */}
+                  <div className={`absolute inset-0 bg-linear-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 border-2 border-transparent group-hover:border-red-500 rounded-2xl transition-colors duration-300 pointer-events-none`} />
+
+                  <div className="relative p-8">
+                    {/* Icon and Title in Row */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${tier.gradient} shadow-lg shrink-0`}>
+                        <IconComponent className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                        {tier.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-gray-600 leading-relaxed">
+                      {tier.desc}
+                    </p>
+
+                    {/* Arrow Indicator */}
+                    <div className="mt-6 flex items-center gap-2 text-red-600 font-semibold text-sm">
+                      <span>Learn More</span>
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </MotionLink>
+              );
+            })}
+          </div>
+        </motion.div>
+      </section>
 
       {/* Dashboard & Why Sponsor Section */}
-      <motion.section
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className="max-w-7xl mx-auto px-6 pb-20 grid sm:grid-cols-2 gap-10"
-      >
-        {/* Dashboard Card */}
+      <section className="py-20 relative overflow-hidden">
+
         <motion.div
-          whileHover={{ y: -8 }}
-          className="group p-10 bg-white rounded-xl shadow-lg hover:shadow-red-400 border border-gray-200 transition-all hover:shadow-2xl"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto px-6 relative z-10"
         >
-          <h2 className="text-3xl font-bold text-[#C21807] mb-6">
-            Sponsor Dashboard Features
-          </h2>
+          <div className="grid sm:grid-cols-2 gap-10">
+            {/* Dashboard Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0
+              }}
+              viewport={{ once: true }}
+              className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer"
+            >
 
-          <ul className="space-y-3 text-lg text-gray-700">
-            <li>✅ Real-time analytics of reach & impressions</li>
-            <li>✅ Brand exposure tracking</li>
-            <li>✅ Highlight reels showcasing sponsor placements</li>
-            <li>✅ Dedicated logo placement in media posts</li>
-          </ul>
+              <div className="relative p-10">
+                {/* Icon Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-600 to-orange-500 mb-6">
+                  <TrendingUp className="w-5 h-5 text-white" />
+                  <span className="text-sm font-bold text-white">Analytics</span>
+                </div>
+
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 group-hover:text-red-600 transition-colors">
+                  Sponsor Dashboard Features
+                </h2>
+
+                <ul className="space-y-4">
+                  {[
+                    "Real-time analytics of reach & impressions",
+                    "Brand exposure tracking",
+                    "Highlight reels showcasing sponsor placements",
+                    "Dedicated logo placement in media posts"
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700">
+                      <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                      <span className="text-lg leading-relaxed">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Why Sponsor Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0.1
+              }}
+              viewport={{ once: true }}
+              className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer"
+            >
+
+              <div className="relative p-10">
+                {/* Icon Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-red-600 to-orange-500 mb-6">
+                  <Trophy className="w-5 h-5 text-white" />
+                  <span className="text-sm font-bold text-white">Benefits</span>
+                </div>
+
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 group-hover:text-red-600 transition-colors">
+                  Why Sponsor HAKIRUSH?
+                </h2>
+
+                <ul className="space-y-4">
+                  {[
+                    "Access 1000+ professionals per tournament",
+                    "Multi-city exposure",
+                    "Social media amplification",
+                    "Premium association with fitness & team culture"
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700">
+                      <CheckCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+                      <span className="text-lg leading-relaxed">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
-
-        {/* Why Sponsor Card */}
-        <motion.div
-          whileHover={{ y: -8 }}
-          className="group p-10 bg-white rounded-xl shadow-lg hover:shadow-red-400 border border-gray-200 transition-all hover:shadow-2xl"
-        >
-          <h2 className="text-3xl font-bold text-[#C21807] mb-6">
-            Why Sponsor HAKIRUSH?
-          </h2>
-
-          <ul className="space-y-3 text-lg text-gray-700">
-            <li>✅ Access 1000+ professionals per tournament</li>
-            <li>✅ Multi-city exposure</li>
-            <li>✅ Social media amplification</li>
-            <li>✅ Premium association with fitness & team culture</li>
-          </ul>
-        </motion.div>
-      </motion.section>
+      </section>
 
       {/* CTA Button */}
-      <motion.div
-        className="flex items-center justify-center pb-20"
-        whileHover={{ scale: 1.07 }}
-      >
-        <Link
-          to="/contact"
-          className="px-10 py-3 rounded-full font-semibold text-white bg-[#C21807] hover:bg-red-600 transition-all shadow-lg"
-        >
-          Join as a Sponsor
+      <div className="text-center pb-20">
+        <Link to="/contact">
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-linear-to-r from-red-600 to-orange-500 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+          >
+            <span className="relative z-10">Join as a Sponsor</span>
+            <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-1 transition-transform" />
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+          </motion.button>
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 };

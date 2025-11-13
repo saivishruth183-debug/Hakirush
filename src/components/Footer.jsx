@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, LucideTwitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -17,14 +17,15 @@ const Footer = () => {
   const socialmedia = [
     { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
     { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
-    { icon: Twitter, href: 'https://x.com/Hakirushsports' },
+    { icon: LucideTwitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },
     { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="relative bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
 
           {/* Brand Section */}
           <motion.div
@@ -33,34 +34,39 @@ const Footer = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <a href="/" className="flex items-center space-x-2 mb-4" aria-label="HAKIRUSH Home">
-              <img
-                src="/favicon.ico"
-                alt="HAKIRUSH Logo"
-                width={28}
-                height={28}
-                loading="lazy"
-                className="rounded-lg"
-              />
-              <span className="text-xl font-bold">HAKIRUSH</span>
+            <a href="/" className="flex items-center space-x-3 mb-6 group" aria-label="HAKIRUSH Home">
+              <div className="relative">
+                <img
+                  src="/favicon.ico"
+                  alt="HAKIRUSH Logo"
+                  width={32}
+                  height={32}
+                  loading="lazy"
+                  className="relative rounded-lg group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <span className="text-2xl font-extrabold text-white">
+                HAKIRUSH
+              </span>
             </a>
 
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-300 mb-6 leading-relaxed text-sm">
               India's premier corporate sports engagement platform, fostering team building and
               employee wellness through competitive sports.
             </p>
 
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialmedia.map((item, index) => (
                 <motion.a
                   key={index}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.25, transition: { duration: 0.5 } }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-gray-500/20 hover:border-gray-300 hover:bg-gray-700 text-gray-400 hover:text-white transition-all duration-300 shadow-lg"
                 >
-                  <item.icon className="h-6 w-6 text-gray-600 hover:text-red-600 transition" />
+                  <item.icon className="h-4 w-4" />
                 </motion.a>
               ))}
             </div>
@@ -73,23 +79,26 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-bold mb-6 text-white">
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
               {footer.map((item) => (
                 <motion.li
                   key={item.href}
-                  whileHover={{ x: 10 }}
+                  whileHover={{ x: 8 }}
                   transition={{
                     type: 'tween',
-                    duration: 0.4,
+                    duration: 0.3,
                     ease: 'easeInOut',
                   }}
                 >
                   <Link
                     to={item.href}
-                    className="text-gray-400 hover:text-red-400 transition-colors duration-300"
+                    className="relative text-gray-300 hover:text-white transition-colors duration-300 inline-flex items-center gap-2 group"
                   >
-                    {item.name}
+                    <span className="w-0 h-0.5 bg-gray-400 group-hover:w-4 transition-all duration-300" />
+                    <span className="text-sm font-medium">{item.name}</span>
                   </Link>
                 </motion.li>
               ))}
@@ -103,46 +112,72 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
-            <div className="space-y-3">
+            <h3 className="text-lg font-bold mb-6 text-white">
+              Get in Touch
+            </h3>
+            <div className="space-y-4">
 
-              <motion.span
-                className="flex items-center space-x-3 cursor-pointer"
-                whileHover={{ x: 10 }}
+              <motion.a
+                href="mailto:krishna@hakirush.com"
+                className="flex items-center space-x-3 group cursor-pointer"
+                whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <Mail className="h-5 w-5 text-red-400" />
-                <span className="text-gray-400">krishna@hakirush.com</span>
-              </motion.span>
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg group-hover:shadow-gray-500/50 transition-all duration-300">
+                  <Mail className="h-4 w-4 text-white" />
+                </div>
+                <span className="text-gray-300 text-sm group-hover:text-white transition-colors">
+                  krishna@hakirush.com
+                </span>
+              </motion.a>
 
-              <motion.span
-                className="flex items-center space-x-3 cursor-pointer"
-                whileHover={{ x: 10 }}
+              <motion.a
+                href="tel:+917997110210"
+                className="flex items-center space-x-3 group cursor-pointer"
+                whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <Phone className="h-5 w-5 text-red-400" />
-                <span className="text-gray-400">+91 7997110210</span>
-              </motion.span>
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg group-hover:shadow-gray-500/50 transition-all duration-300">
+                  <Phone className="h-4 w-4 text-white" />
+                </div>
+                <span className="text-gray-300 text-sm group-hover:text-white transition-colors">
+                  +91 7997110210
+                </span>
+              </motion.a>
 
-              <motion.span
-                className="flex items-start space-x-3 cursor-pointer"
-                whileHover={{ x: 10 }}
+              <motion.div
+                className="flex items-start space-x-3 group cursor-pointer"
+                whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
               >
-                <MapPin className="h-13 w-13 text-red-400" />
-                <span className="text-gray-400 text-md pt-3">
+                <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gray-700 shadow-lg shrink-0 group-hover:shadow-gray-500/50 transition-all duration-300">
+                  <MapPin className="h-4 w-4 text-white" />
+                </div>
+                <span className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors">
                   No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura,
                   Koramangala, Bengaluru, Karnataka - 560095.
                 </span>
-              </motion.span>
+              </motion.div>
             </div>
           </motion.div>
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 HAKIRUSH. All rights reserved.</p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="border-t border-gray-700/30 mt-12 pt-8 text-center"
+        >
+          <p className="text-gray-400 text-sm">
+            &copy; 2025{' '}
+            <span className="font-bold text-white">
+              HAKIRUSH
+            </span>
+            . All rights reserved.
+          </p>
+        </motion.div>
       </div>
     </footer>
   );

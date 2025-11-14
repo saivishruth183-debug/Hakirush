@@ -35,20 +35,19 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <a href="/" className="group inline-block mb-6" aria-label="HAKIRUSH Home">
-              <div className="flex items-center space-x-2 group-hover:scale-105 transition-all duration-300">
-                  <div className="relative p-1">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-xl blur-lg opacity-40 group-hover:opacity-80 transition-opacity duration-300" />
+              <div className="flex items-center gap-3 group-hover:scale-105 transition-all duration-300">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
                   <img
                     src="/favicon.png"
                     alt="HAKIRUSH Logo"
-                    width={56}
-                    height={56}
+                    width={64}
+                    height={64}
                     loading="lazy"
-                    className="relative rounded-lg drop-shadow-lg"
-                    style={{ mixBlendMode: 'multiply' }}
+                    className="relative object-contain drop-shadow-2xl"
                   />
                 </div>
-                <span className="text-2xl font-extrabold text-white tracking-tight">
+                <span className="text-2xl font-black text-white tracking-tight">
                   HAKIRUSH
                 </span>
               </div>

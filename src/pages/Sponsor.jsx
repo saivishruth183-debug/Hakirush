@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Trophy, Users, Store, ShoppingBag, CheckCircle, TrendingUp, ArrowRight } from "lucide-react";
+import { Trophy, Users, Store, ShoppingBag, CheckCircle, TrendingUp, ArrowRight, Handshake, Award } from "lucide-react";
 
 // Use motion(Link) for Framer Motion animation on the Link component
 const MotionLink = motion(Link);
@@ -49,21 +49,25 @@ const Sponsorship = () => {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
-                <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-                <span className="text-sm font-semibold text-[#C21807]">Partnership Opportunities</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+                <Handshake className="w-4 h-4 text-[#C21807]" />
+                <span className="text-sm font-bold text-[#C21807]">Partnership Opportunities</span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
                 Power Your Brand Through{" "}
-                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Corporate Sports
                 </span>
               </h1>
 
-              <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed">
-                Join India's growing corporate sports revolution as a <strong className="text-[#C21807]">HAKIRUSH Sponsor</strong>. 
-                Gain access to <strong>professional audiences</strong>, on-ground activations, and long-term brand visibility.
+              <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+                Join India's growing corporate sports revolution as a {" "}
+                <span className="font-bold text-[#C21807] relative inline-block">
+                  HAKIRUSH Sponsor
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+                </span>
+                . Gain access to <span className="font-semibold">professional audiences</span>, on-ground activations, and long-term brand visibility.
               </p>
             </motion.div>
         </div>
@@ -81,13 +85,13 @@ const Sponsorship = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
-              <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-              <span className="text-sm font-semibold text-[#C21807]">Sponsorship Tiers</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <Award className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-bold text-[#C21807]">Sponsorship Tiers</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
               Choose Your{" "}
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Partnership Level
               </span>
             </h2>
@@ -111,13 +115,13 @@ const Sponsorship = () => {
                   className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 cursor-pointer block"
                 >
                   {/* Gradient Border Effect */}
-                  <div className={`absolute inset-0 bg-linear-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
                   <div className={`absolute inset-0 border-2 border-transparent group-hover:border-[#C21807] rounded-2xl transition-colors duration-300 pointer-events-none`} />
 
                   <div className="relative p-8">
                     {/* Icon and Title in Row */}
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${tier.gradient} shadow-lg shrink-0`}>
+                      <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${tier.gradient} shadow-lg shrink-0`}>
                         <IconComponent className="w-6 h-6 text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#C21807] transition-colors">
@@ -169,12 +173,12 @@ const Sponsorship = () => {
 
               <div className="relative p-10">
                 {/* Icon Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
-                  <TrendingUp className="w-5 h-5 text-white" />
-                  <span className="text-sm font-bold text-white">Analytics</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                  <TrendingUp className="w-5 h-5" />
+                  <span className="text-sm font-bold">Analytics</span>
                 </div>
 
-                <h2 className="text-3xl font-bold text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Sponsor Dashboard Features
                 </h2>
 
@@ -210,12 +214,12 @@ const Sponsorship = () => {
 
               <div className="relative p-10">
                 {/* Icon Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
-                  <Trophy className="w-5 h-5 text-white" />
-                  <span className="text-sm font-bold text-white">Benefits</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                  <Trophy className="w-5 h-5" />
+                  <span className="text-sm font-bold">Benefits</span>
                 </div>
 
-                <h2 className="text-3xl font-bold text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Why Sponsor HAKIRUSH?
                 </h2>
 
@@ -245,12 +249,12 @@ const Sponsorship = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+            className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
           >
             <span className="relative z-10">Join as a Sponsor</span>
-            <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
             {/* Shimmer effect */}
-            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
           </motion.button>
         </Link>
       </div>

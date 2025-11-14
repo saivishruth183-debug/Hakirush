@@ -2,6 +2,7 @@ import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Zap } from "lucide-react";
 
 const Newsletter = () => {
   return (
@@ -21,26 +22,31 @@ const Newsletter = () => {
         }}
         className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10"
       >
-        <div className="relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100">
+        <div className="relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border-2 border-gray-100 hover:border-[#C21807]/20">
 
           <div className="relative py-8 sm:py-10 px-6 sm:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Text Section */}
             <div className="flex flex-col gap-4 text-center md:text-left flex-1">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 w-fit mx-auto md:mx-0">
-                <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-                <span className="text-sm font-semibold text-[#C21807]">Get Started Today</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 w-fit mx-auto md:mx-0 shadow-lg backdrop-blur-sm">
+                <Zap className="w-4 h-4 text-[#C21807]" />
+                <span className="text-sm font-bold text-[#C21807]">Get Started Today</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 leading-tight tracking-tight">
                 Ready to Transform Your{' '}
-                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Workplace
                 </span>?
               </h2>
 
-              <p className="text-xs sm:text-sm lg:text-base text-gray-600 max-w-2xl mx-auto md:mx-0 leading-relaxed">
-                Join <span className="font-bold text-[#C21807]">50+ leading companies</span> who trust{' '}
+              <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-2xl mx-auto md:mx-0 leading-relaxed font-medium">
+                Join{" "}
+                <span className="font-bold text-[#C21807] relative inline-block">
+                  50+ leading companies
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+                </span>
+                {" "}who trust{' '}
                 <span className="font-bold text-gray-900">HAKIRUSH</span> to boost employee morale and build stronger teams through sports
               </p>
             </div>

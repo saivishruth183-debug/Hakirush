@@ -1,7 +1,7 @@
 import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
-import { CheckCircle, Trophy, ArrowRight } from 'lucide-react'
+import { CheckCircle, Trophy, ArrowRight, CalendarDays } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Cricket from '../assets/Q-League/Cricket.png'
 import Badminton from '../assets/Q-League/Badminton.png'
@@ -46,20 +46,23 @@ const QLeague = () => {
               className="text-center max-w-4xl mx-auto space-y-8"
           >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20">
-                <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-                <span className="text-sm font-semibold text-[#C21807]">Quarterly Tournaments</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+                <Trophy className="w-4 h-4 text-[#C21807]" />
+                <span className="text-sm font-bold text-[#C21807]">Quarterly Tournaments</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
                   Q-League —{' '}
-                  <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                     Compete. Connect. Conquer.
                   </span>
               </h1>
-              <p className="text-base sm:text-md text-gray-600 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
                   Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{' '}
-                  <span className="font-bold text-[#C21807]">10+ companies</span> for high-energy corporate tournaments — each event focusing on one iconic sport.
+                  <span className="font-bold text-[#C21807] relative inline-block">
+                    10+ companies
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+                  </span> for high-energy corporate tournaments — each event focusing on one iconic sport.
               </p>
           </motion.div>
         </div>
@@ -77,17 +80,17 @@ const QLeague = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
-              <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-              <span className="text-sm font-semibold text-[#C21807]">4 Quarters. 4 Sports.</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <CalendarDays className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-bold text-[#C21807]">4 Quarters. 4 Sports.</span>
             </div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
               Quarterly{' '}
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Tournament Calendar
               </span>
             </h2>
-            <p className="text-base text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
               Four epic tournaments throughout the year, each bringing companies together for competitive excellence
             </p>
           </div>
@@ -104,7 +107,7 @@ const QLeague = () => {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                className="group relative rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 cursor-pointer"
               >
                 <div className="relative h-80 overflow-hidden">
                   <img 
@@ -115,13 +118,13 @@ const QLeague = () => {
                   />
                   
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/80" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
                   
                   {/* Quarter Badge */}
                   <div className="absolute top-4 left-4">
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] shadow-lg">
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-lg">
                       <Trophy className="w-4 h-4 text-white" />
-                      <span className="text-sm font-bold text-white uppercase">{item.quarter}</span>
+                      <span className="text-sm font-bold uppercase">{item.quarter}</span>
                     </div>
                   </div>
 
@@ -171,9 +174,9 @@ const QLeague = () => {
 
           <div className="relative p-8">
             {/* Icon Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
               <CheckCircle className="w-5 h-5 text-white" />
-              <span className="text-sm font-bold text-white">What's Included</span>
+              <span className="text-sm font-bold">What's Included</span>
             </div>
 
             <ul className="space-y-4">
@@ -205,9 +208,9 @@ const QLeague = () => {
 
           <div className="relative p-8">
             {/* Icon Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
               <Trophy className="w-5 h-5 text-white" />
-              <span className="text-sm font-bold text-white">Benefits</span>
+              <span className="text-sm font-bold">Benefits</span>
             </div>
 
             <ul className="space-y-4">
@@ -229,12 +232,12 @@ const QLeague = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Register for Quarterly Package</span>
-              <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
               {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
             </motion.button>
           </Link>
         </div>

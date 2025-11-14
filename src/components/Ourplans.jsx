@@ -1,7 +1,7 @@
 import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
-import { MoveRightIcon, Calendar, Trophy } from 'lucide-react'
+import { MoveRightIcon, Calendar, Trophy, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const plans = [
@@ -11,7 +11,7 @@ const plans = [
     title: "Annual Subscription Plan",
     description:
       "One new sports or fitness event every month. Designed for 30–50 employees. We handle everything — venue, kits, transport, referees, and content.",
-    button: 'Learn More',
+    button: 'Register Now',
     icon: Calendar,
   },
   {
@@ -40,19 +40,24 @@ const Ourplans = () => {
           className="text-center mb-16"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
-            <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-            <span className="text-sm font-semibold text-[#C21807]">Our Plans</span>
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
+            <Star className="w-4 h-4 text-[#C21807]" />
+            <span className="text-sm font-bold text-[#C21807]">Our Plans</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
             Choose Your{' '}
-            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Perfect Plan
             </span>
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Select a plan that aligns with your <span className="font-semibold text-[#C21807]">company's engagement goals</span> and let our experts handle everything else
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
+            Select a plan that aligns with your{" "}
+            <span className="font-bold text-[#C21807] relative inline-block">
+              company's engagement goals
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+            </span>
+            {" "}and let our experts handle everything else
           </p>
         </motion.div>
 
@@ -75,7 +80,7 @@ const Ourplans = () => {
                   scale: window.innerWidth >= 768 ? 1.03 : 1,
                   y: window.innerWidth >= 768 ? -8 : 0
                 }}
-                className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden"
+                className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden border-2 border-gray-100 hover:border-[#C21807]/20"
               >
                 
                 <div className="relative p-8 sm:p-10">
@@ -89,25 +94,31 @@ const Ourplans = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
-                      <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+                      <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                         {plan.title}
                       </span>
                     </h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-8">
+                  <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-8 font-medium">
                     {plan.description}
                   </p>
 
                   {/* Enhanced CTA Button */}
-                  <Link 
-                    to={plan.href} 
-                    className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#C21807] text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-[#C21807]/50 transition-all duration-300 hover:scale-105"
-                  >
-                    <span>{plan.button}</span>
-                    <MoveRightIcon className="h-5 w-5 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+                  <Link to={plan.href}>
+                    <motion.button
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#C21807] text-white font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+                    >
+                      <span className="relative z-10">{plan.button}</span>
+                      <MoveRightIcon className="h-5 w-5 relative z-10 transform transition-transform duration-300 group-hover:translate-x-1" />
+                      {/* Shimmer effect */}
+                      <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                    </motion.button>
                   </Link>
                 </div>
               </motion.div>

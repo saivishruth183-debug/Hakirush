@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Sparkles } from "lucide-react";
 
 import Cricket from "../assets/Hero/cricket.png";
 import Badminton from "../assets/Hero/badminton.png";
@@ -37,37 +38,71 @@ const Hero = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-left space-y-6"
+            className="text-left space-y-8"
           >
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-[#C21807]/10 text-[#C21807] px-4 py-2 rounded-full text-sm font-semibold shadow-md border border-[#C21807]/20"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-5 py-2.5 rounded-full text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C21807] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C21807]"></span>
-              </span>
+              <Sparkles className="w-4 h-4 text-[#C21807]" />
               India's Premier Corporate Sports Platform
             </motion.div>
 
             {/* Main Heading with Gradient */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight">
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight">
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="block bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm"
+              >
                 UNLEASHING
-              </span>
-              <br />
-              <span className="text-[#1a2332]">TEAM SPIRIT</span>
-              <br />
-              <span className="text-gray-700">THROUGH SPORTS</span>
+              </motion.span>
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="block text-[#1a2332] mt-2"
+              >
+                TEAM SPIRIT
+              </motion.span>
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="block text-gray-700 mt-2"
+              >
+                THROUGH SPORTS
+              </motion.span>
             </h1>
 
             {/* Description */}
-            <p className="text-base sm:text-xl text-gray-600 leading-relaxed max-w-lg">
-              Corporate sports experiences that keep your teams <span className="font-semibold text-[#C21807]">active</span>, <span className="font-semibold text-[#C21807]">engaged</span>, and <span className="font-semibold text-[#C21807]">connected</span> — all year round.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl font-medium"
+            >
+              Corporate sports experiences that keep your teams{" "}
+              <span className="font-bold text-[#C21807] relative inline-block">
+                active
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+              </span>
+              ,{" "}
+              <span className="font-bold text-[#C21807] relative inline-block">
+                engaged
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+              </span>
+              , and{" "}
+              <span className="font-bold text-[#C21807] relative inline-block">
+                connected
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+              </span>
+              {" "}— all year round.
+            </motion.p>
           </motion.div>
 
           {/* Right Image Section - Enhanced */}

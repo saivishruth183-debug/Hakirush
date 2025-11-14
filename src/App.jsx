@@ -5,10 +5,11 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrolltoTop'
-import About from './components/About'
+import AboutUs from './components/Aboutus'
 
 // Pages
 import Home from './pages/Home'
+import About from './pages/About'
 import Package from './pages/Package'
 import Annualplan from './pages/Annualplan'
 import Qleague from './pages/Qleague'
@@ -25,11 +26,7 @@ import Merchandisepartner from './sponsor/Merchandisepartner'
 
 // Client Pages
 import Google from './clients/Google'
-import Microsoft from './clients/Microsoft'
-import Amazon from './clients/Amazon'
-import Facebook from './clients/Facebook'
-import Apple from './clients/Apple'
-import Netflix from './clients/Netflix'
+
 
 const App = () => {
   return (
@@ -39,6 +36,7 @@ const App = () => {
         <ScrollToTop />   
         <Routes >
           <Route path='/' element={<Home />} />
+          <Route path='/aboutus' element={<AboutUs />} />
           <Route path='/about' element={<About />} />
           <Route path='/package' element={<Package />} />
           <Route path='/package/annualpackage' element={<Annualplan />} />
@@ -52,7 +50,6 @@ const App = () => {
           <Route path='/sponsor/stallsponser' element={<Stallpartner />} />
           <Route path='/sponsor/merchandisepartner' element={<Merchandisepartner />} />
           <Route path='/client/google' element={<Google />} />
-          <Route path='/client/microsoft' element={<Microsoft />} />
         </Routes>
       </div>
       <Footer />

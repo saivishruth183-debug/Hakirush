@@ -107,24 +107,24 @@ export default function Contact() {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
                 <MessageSquare className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-semibold text-[#C21807]">We're Here to Help</span>
+                <span className="text-sm font-bold text-[#C21807]">We're Here to Help</span>
               </div>
 
               {/* Icon and Title in Row */}
               <div className="flex items-center justify-center gap-2 mb-6">
-                <div className="inline-flex items-center justify-center w-15 h-15 rounded-3xl bg-[#C21807] shadow-2xl shrink-0">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900">
                   Get in{" "}
-                  <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                     Touch
                   </span>
                 </h1>
               </div>
-              <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base md:text-lg font-medium text-gray-700 max-w-3xl mx-auto leading-relaxed">
                 Ready to transform your workplace culture? Let's create sports experiences
                 that inspire energy, unity & performance.
               </p>
@@ -145,15 +145,15 @@ export default function Contact() {
             className="space-y-8"
           >
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
               <Star className="w-4 h-4 text-[#C21807]" />
-              <span className="text-sm font-semibold text-[#C21807]">Contact Information</span>
+              <span className="text-sm font-bold text-[#C21807]">Contact Information</span>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">
+              <h2 className="text-2xl md:text-3xl font-black mb-4 text-gray-900">
                 Let's{" "}
-                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Connect
                 </span>
               </h2>
@@ -198,7 +198,7 @@ export default function Contact() {
           <div className="mt-8 p-6 rounded-2xl bg-white border border-gray-200">
             <h3 className="font-bold text-lg mb-5 text-gray-900">
               Follow{" "}
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Us
               </span>
             </h3>
@@ -239,14 +239,14 @@ export default function Contact() {
           <div className="hidden" aria-hidden="true" />
 
           {/* Section Badge */}
-          <div className="flex items-start justify-start mr-87 gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+          <div className="flex items-start justify-start mr-80 gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <Sparkles className="w-4 h-4 text-[#C21807]" />
-            <span className="text-sm font-semibold text-[#C21807]">Send a Message</span>
+            <span className="text-sm font-bold text-[#C21807]">Send a Message</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-black mb-8 text-gray-900">
             Send us a{" "}
-            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Message
             </span>
           </h2>
@@ -300,14 +300,14 @@ export default function Contact() {
           className="text-center mb-12"
         >
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <MapPin className="w-4 h-4 text-[#C21807]" />
-            <span className="text-sm font-semibold text-[#C21807]">Our Location</span>
+            <span className="text-sm font-bold text-[#C21807]">Our Location</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900">
             Find{" "}
-            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Us
             </span>
           </h2>

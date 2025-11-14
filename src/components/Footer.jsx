@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const footer = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
+    { name: 'About', href: '/aboutus' },
     { name: 'Package', href: '/package' },
     { name: 'Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },
@@ -23,7 +22,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-linear-to-br from-[#0f1419] via-[#1a2332] to-[#0f1419] text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-[#0f1419] via-[#1a2332] to-[#0f1419] text-white overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -35,23 +34,27 @@ const Footer = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <a href="/" className="flex items-center space-x-3 mb-6 group" aria-label="HAKIRUSH Home">
-              <div className="relative">
-                <img
-                  src="/favicon.ico"
-                  alt="HAKIRUSH Logo"
-                  width={32}
-                  height={32}
-                  loading="lazy"
-                  className="relative rounded-lg group-hover:scale-110 transition-transform duration-300"
-                />
+            <a href="/" className="group inline-block mb-6" aria-label="HAKIRUSH Home">
+              <div className="flex items-center space-x-2 group-hover:scale-105 transition-all duration-300">
+                  <div className="relative p-1">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-xl blur-lg opacity-40 group-hover:opacity-80 transition-opacity duration-300" />
+                  <img
+                    src="/favicon.png"
+                    alt="HAKIRUSH Logo"
+                    width={56}
+                    height={56}
+                    loading="lazy"
+                    className="relative rounded-lg drop-shadow-lg"
+                    style={{ mixBlendMode: 'multiply' }}
+                  />
+                </div>
+                <span className="text-2xl font-extrabold text-white tracking-tight">
+                  HAKIRUSH
+                </span>
               </div>
-              <span className="text-2xl font-extrabold text-white">
-                HAKIRUSH
-              </span>
             </a>
 
-            <p className="text-gray-300 mb-6 leading-relaxed text-sm">
+            <p className="text-gray-300 mb-6 leading-relaxed text-sm mt-4">
               India's premier corporate sports engagement platform, fostering team building and
               employee wellness through competitive sports.
             </p>

@@ -72,23 +72,29 @@ const Annualplan = () => {
               className="text-center max-w-4xl mx-auto space-y-8"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20">
-                <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-                <span className="text-sm font-semibold text-[#C21807]">Annual Subscription</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+                <Zap className="w-4 h-4 text-[#C21807]" />
+                <span className="text-sm font-bold text-[#C21807]">Annual Subscription</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
                 Annual Package —{' '}
-                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   12 Months. 12 Sports.
                 </span>{' '}
                 One Unstoppable Team.
               </h1>
 
-              <p className="text-base sm:text-md text-gray-600 leading-relaxed max-w-4xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium">
                 A year-long engagement program designed for organizations that believe in{' '}
-                <span className="font-bold text-gray-900">consistent team connection</span> and{' '}
-                <span className="font-bold text-[#C21807]">active employee culture</span>.
+                <span className="font-bold text-gray-900 relative inline-block">
+                  consistent team connection
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+                </span>{' '}and{' '}
+                <span className="font-bold text-[#C21807] relative inline-block">
+                  active employee culture
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
+                </span>.
                 Each month brings a new sport, a new challenge, and a stronger team.
               </p>
             </motion.div>
@@ -108,17 +114,17 @@ const Annualplan = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807]/10 border border-[#C21807]/20 mb-6">
-              <div className="w-2 h-2 rounded-full bg-[#C21807] animate-pulse" />
-              <span className="text-sm font-semibold text-[#C21807]">12-Month Calendar</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <CheckCircle className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-bold text-[#C21807]">12-Month Calendar</span>
             </div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
               Monthly{' '}
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Activity Calendar
               </span>
             </h2>
-            <p className="text-base text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
               A carefully curated mix of sports and wellness activities to keep your team engaged year-round
             </p>
           </div>
@@ -135,7 +141,7 @@ const Annualplan = () => {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative rounded-2xl shadow-lg overflow-hidden cursor-pointer aspect-square"
+                className="group relative rounded-2xl shadow-lg overflow-hidden cursor-pointer aspect-square hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500"
               >
                 {/* Image */}
                 <img
@@ -146,7 +152,7 @@ const Annualplan = () => {
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/70 group-hover:to-black/80 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 group-hover:to-black/80 transition-colors duration-300" />
 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center transform transition-transform duration-300">
@@ -196,13 +202,13 @@ const Annualplan = () => {
 
                 <div className="relative p-8">
                   {/* Icon Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C21807] mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
                     {item.id === 1 ? (
                       <CheckCircle className="w-5 h-5 text-white" />
                     ) : (
                       <Zap className="w-5 h-5 text-white" />
                     )}
-                    <span className="text-sm font-bold text-white">{item.title}</span>
+                    <span className="text-sm font-bold">{item.title}</span>
                   </div>
 
                   <ul className="space-y-4">
@@ -225,12 +231,12 @@ const Annualplan = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Subscribe to Annual Package</span>
-              <ArrowRight className="w-6 h-6 relative z-10 transform group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
               {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
             </motion.button>
           </Link>
         </div>

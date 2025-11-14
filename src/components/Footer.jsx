@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const footer = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/aboutus' },
+    { name: 'About', href: '/about' },
     { name: 'Package', href: '/package' },
     { name: 'Sponsor Dashboard', href: '/sponsor' },
     { name: 'Gallery', href: '/gallery' },

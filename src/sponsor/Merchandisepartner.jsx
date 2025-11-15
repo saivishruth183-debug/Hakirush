@@ -45,7 +45,7 @@ export default function SponsorGrid() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           whileHover={{ x: -5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 text-[#C21807] hover:text-[#A01506] font-semibold transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 text-[#C21807] hover:text-[#A01506] font-semibold transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>Back to Sponsorship Tiers</span>
@@ -67,7 +67,7 @@ export default function SponsorGrid() {
             </div>
 
             {/* Icon and Title in Row */}
-            <div className="flex items-center justify-center gap-6 mb-6">
+            <div className="flex items-center justify-center gap-4 mb-6">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                 <IconComponent className="w-8 h-8 text-white" />
               </div>

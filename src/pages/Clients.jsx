@@ -93,7 +93,7 @@ export default function Clients() {
           >
 
             {/* Icon and Title in Row */}
-            <div className="flex items-center justify-center gap-6 mb-6">
+            <div className="flex items-center justify-center gap-4 mb-6">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                 <Users className="w-6 h-6 text-white" />
               </div>

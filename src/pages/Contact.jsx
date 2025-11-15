@@ -113,7 +113,7 @@ export default function Contact() {
               </div>
 
               {/* Icon and Title in Row */}
-              <div className="flex items-center justify-center gap-2 mb-6 md:mb-8">
+              <div className="flex items-center justify-center gap-3 mb-6 md:mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>

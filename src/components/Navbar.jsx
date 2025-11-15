@@ -1,4 +1,4 @@
-import { Menu, X, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react'
+import { Menu, X, Linkedin, Instagram, Youtube, Twitter, Facebook } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -19,8 +19,9 @@ const Navbar = () => {
   ]
 
   const socialmedia = [
-    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
+    { icon: Facebook, href: "https://facebook.com/company/hakirush" },
     { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
     { icon: Twitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },
     { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
@@ -37,7 +38,7 @@ const Navbar = () => {
             <div className="flex items-center group-hover:scale-105 transition-all duration-300">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
-                <img src="/favicon2.png" alt="HAKIRUSH Logo" className="relative h-16 w-16 object-contain drop-shadow-2xl" />
+                <img src="/favicon.png" alt="HAKIRUSH Logo" className="relative h-12 w-12 object-contain drop-shadow-2xl" />
               </div>
               <span className="text-2xl font-black text-white tracking-tight" style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}>
                 HAKIRUSH

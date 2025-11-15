@@ -39,22 +39,22 @@ export default function SponsorGrid() {
 
   return (
     <div className="relative overflow-hidden bg-white">
-      {/* Back Button */}
-      <div className="max-w-6xl mx-auto px-6 pt-15">
+      {/* Back Button (mobile absolute top-left, desktop inline) */}
+      <div className="absolute md:static top-4 left-4 z-20 md:max-w-6xl md:mx-auto md:px-6 md:pt-10">
         <motion.button
           onClick={handleBackClick}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           whileHover={{ x: -5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 text-[#C21807] hover:text-[#A01506] font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 rounded-lg bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none shadow md:shadow-none border border-[#C21807]/20 md:border-none text-[#C21807] hover:text-[#A01506] text-sm md:text-base font-semibold transition-colors cursor-pointer"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Back to Sponsorship Tiers</span>
+          <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="truncate max-w-[140px] md:max-w-none">Back to Sponsorship Tiers</span>
         </motion.button>
       </div>
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden bg-white">
+      <section className="relative py-10 overflow-hidden bg-white">
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div

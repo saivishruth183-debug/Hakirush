@@ -83,7 +83,7 @@ export default function Clients() {
     <div className="bg-white overflow-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative py-24 overflow-hidden bg-white">
+      <section className="relative pt-20 pb-8 overflow-hidden bg-white">
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -217,18 +217,19 @@ export default function Clients() {
           <div className="relative overflow-hidden w-full py-10">
             {/* Infinite loop animation */}
             <motion.div
-              className="flex items-center gap-10 whitespace-nowrap w-[200%]"
-              animate={{ x: ["-50%", "0%"] }}
+              className="flex items-center gap-10 whitespace-nowrap"
+              animate={{ x: ["-100%", "-50%"] }}
               transition={{
-                duration: 25,
+                duration: 30,
                 repeat: Infinity,
                 ease: "linear",
+                repeatType: "loop",
               }}
             >
               {/* First set */}
-              {sponsers.map((client, index) => (
+              {[...sponsers, ...sponsers].map((client, index) => (
                 <motion.div
-                  key={`r1-${index}`}
+                  key={`sponsor-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
@@ -244,9 +245,9 @@ export default function Clients() {
               ))}
 
               {/* Second set (duplicate for seamless loop) */}
-              {sponsers.map((client, index) => (
+              {[...sponsers, ...sponsers].map((client, index) => (
                 <motion.div
-                  key={`r2-${index}`}
+                  key={`sponsor-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
@@ -286,18 +287,19 @@ export default function Clients() {
           <div className="relative overflow-hidden w-full py-10">
             {/* Infinite loop animation */}
             <motion.div
-              className="flex items-center gap-10 whitespace-nowrap w-[200%]"
-              animate={{ x: ["-50%", "0%"] }}
+              className="flex items-center gap-10 whitespace-nowrap"
+              animate={{ x: ["-100%", "-50%"] }}
               transition={{
-                duration: 25,
+                duration: 30,
                 repeat: Infinity,
                 ease: "linear",
+                repeatType: "loop",
               }}
             >
               {/* First set */}
-              {clients.map((client, index) => (
+              {[...clients, ...clients].map((client, index) => (
                 <motion.div
-                  key={`r1-${index}`}
+                  key={`client-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
@@ -313,9 +315,9 @@ export default function Clients() {
               ))}
 
               {/* Second set (duplicate for seamless loop) */}
-              {clients.map((client, index) => (
+              {[...clients, ...clients].map((client, index) => (
                 <motion.div
-                  key={`r2-${index}`}
+                  key={`client-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
@@ -371,41 +373,41 @@ export default function Clients() {
               <div className="hidden" aria-hidden="true" />
               <div className="hidden" aria-hidden="true" />
 
-              <div className="relative p-10 md:p-12">
-                {/* Quote Icon */}
-                <div className="absolute top-8 right-8 w-16 h-16 rounded-full bg-[#C21807]/10 flex items-center justify-center opacity-50">
-                  <Quote className="w-8 h-8 text-[#C21807]" />
+              <div className="relative p-6 md:p-12">
+                {/* Quote Icon - responsive size/position for mobile */}
+                <div className="absolute top-4 right-4 w-10 h-10 md:top-8 md:right-8 md:w-16 md:h-16 rounded-full bg-[#C21807]/10 flex items-center justify-center opacity-50">
+                  <Quote className="w-5 h-5 md:w-8 md:h-8 text-[#C21807]" />
                 </div>
 
-                <div className="flex items-start gap-6 mb-8">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 mb-6 md:mb-8 text-center md:text-left">
                   <motion.img
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     src={testimonials[currentTestimonial].avatar}
                     alt={`${testimonials[currentTestimonial].person} - ${testimonials[currentTestimonial].position}`}
                     loading="lazy"
-                    className="w-20 h-20 rounded-2xl object-cover shadow-lg shrink-0 border-2 border-[#C21807]/20"
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover shadow-lg shrink-0 border-2 border-[#C21807]/20 mx-auto md:mx-0"
                   />
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
                       {testimonials[currentTestimonial].person}
                     </h3>
-                    <p className="text-gray-600 font-medium mb-2">
+                    <p className="text-gray-600 font-medium mb-2 text-sm md:text-base">
                       {testimonials[currentTestimonial].position}
                     </p>
-                    <div className="flex gap-1 mt-3">
+                    <div className="flex gap-1 mt-3 justify-center md:justify-start">
                       {Array(testimonials[currentTestimonial].rating)
                         .fill(0)
                         .map((_, i) => (
                           <Star
                             key={i}
-                            className="w-5 h-5 text-yellow-400 fill-yellow-400"
+                            className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 fill-yellow-400"
                           />
                         ))}
                     </div>
                   </div>
                 </div>
 
-                <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed italic relative pl-6 border-l-4 border-[#C21807]">
+                <blockquote className="text-sm md:text-lg text-gray-700 leading-relaxed italic relative pl-4 md:pl-6 border-l-2 md:border-l-4 border-[#C21807]">
                   "{testimonials[currentTestimonial].message}"
                 </blockquote>
               </div>

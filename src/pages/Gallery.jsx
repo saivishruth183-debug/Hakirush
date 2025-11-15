@@ -47,7 +47,7 @@ const GalleryPage = () => {
     <div className="bg-white overflow-hidden">
       
       {/* Header with Premium Design */}
-      <section className="relative py-24 overflow-hidden bg-white">
+      <section className="relative pt-20 pb-8 overflow-hidden bg-white">
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}

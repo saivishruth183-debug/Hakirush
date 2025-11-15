@@ -21,7 +21,7 @@ const Package = () => {
             >
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
-                <Star className="w-4 h-4 text-[#C21807]" />
+                <Star className="w-4 h-4 text-[#C21807]" fill='#C21807' />
                 <span className="text-sm font-bold text-[#C21807]">Our Packages</span>
               </div>
 
@@ -73,7 +73,7 @@ const Package = () => {
                   {/* Most Preferred Badge */}
                   <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-30">
                     <div className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-lg">
-                      <Star className="w-4 h-4 text-[#1a2332]" />
+                      <Star className="w-4 h-4 text-[#1a2332]" fill="#1a2332" />
                       <span className="text-sm font-bold text-[#1a2332] uppercase tracking-wide">Most Preferred</span>
                     </div>
                   </div>

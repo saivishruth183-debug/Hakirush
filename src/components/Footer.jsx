@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, Twitter, Facebook } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -15,8 +15,9 @@ const Footer = () => {
   ];
 
   const socialmedia = [
-    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
+    { icon: Facebook, href: "https://facebook.com/company/hakirush" },
     { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
     { icon: Twitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },
     { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
@@ -39,10 +40,10 @@ const Footer = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
                   <img
-                    src="/favicon2.png"
+                    src="/favicon.png"
                     alt="HAKIRUSH Logo"
-                    width={64}
-                    height={64}
+                    width={55}
+                    height={55}
                     loading="lazy"
                     className="relative object-contain drop-shadow-2xl"
                   />

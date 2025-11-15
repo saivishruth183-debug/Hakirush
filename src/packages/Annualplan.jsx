@@ -60,7 +60,7 @@ const Annualplan = () => {
       {/* Background disabled for pure white */}
       <div className="hidden" />
 
-      <section className="py-24 relative overflow-hidden bg-white">
+      <section className="py-12 md:py-24 relative overflow-hidden bg-white">
 
           {/* Max-width container for content */}
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -70,17 +70,17 @@ const Annualplan = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="text-center max-w-4xl mx-auto space-y-8"
+              className="text-center max-w-4xl mx-auto space-y-6 md:space-y-8"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Zap className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Annual Subscription</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
                 Annual Package —{' '}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   12 Months. 12 Sports.
                 </span>{' '}
                 One Unstoppable Team.
@@ -112,14 +112,14 @@ const Annualplan = () => {
           className="max-w-7xl mx-auto px-6 relative z-10"
         >
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+          <div className="text-center mb-8 md:mb-12">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <CheckCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">12-Month Calendar</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
               Monthly{' '}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Activity Calendar
               </span>
             </h2>
@@ -153,7 +153,7 @@ const Annualplan = () => {
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 group-hover:to-black/80 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/70 group-hover:to-black/80 transition-colors duration-300" />
 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center transform transition-transform duration-300">
@@ -172,7 +172,7 @@ const Annualplan = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section className="py-10 md:py-12 relative overflow-hidden bg-white">
         <div className="hidden" />
 
         <motion.div 
@@ -204,7 +204,7 @@ const Annualplan = () => {
 
                 <div className="relative p-8">
                   {/* Icon Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
                     {item.id === 1 ? (
                       <CheckCircle className="w-5 h-5 text-white" />
                     ) : (
@@ -227,7 +227,7 @@ const Annualplan = () => {
           </div>
         </motion.div>
         
-        <div className="text-center mt-16">
+        <div className="text-center mt-10 md:mt-16 px-6">
           <Link to="/contact">
             <motion.button
               initial={{ opacity: 0, y: 40 }}
@@ -236,7 +236,7 @@ const Annualplan = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Subscribe to Annual Package</span>
               <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />

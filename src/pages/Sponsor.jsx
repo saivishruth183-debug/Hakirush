@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Trophy, Users, Store, ShoppingBag, CheckCircle, TrendingUp, ArrowRight, Handshake, Award } from "lucide-react";
 
-// Use motion(Link) for Framer Motion animation on the Link component
-const MotionLink = motion(Link);
+// Use motion.create(Link) to avoid deprecated motion(Component)
+const MotionLink = motion.create(Link);
 
 const sponsorTiers = [
   {
@@ -40,11 +40,19 @@ const sponsorTiers = [
 const Sponsorship = () => {
   useEffect(() => {
     const savedScroll = sessionStorage.getItem('sponsorPageScroll');
+    const scrollToTiers = () => {
+      const el = document.getElementById('tiers');
+      if (el) {
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+    };
     if (savedScroll) {
       setTimeout(() => {
         window.scrollTo(0, parseInt(savedScroll, 10));
         sessionStorage.removeItem('sponsorPageScroll');
       }, 100);
+    } else if (window.location.hash === '#tiers') {
+      setTimeout(scrollToTiers, 100);
     }
   }, []);
 
@@ -55,7 +63,7 @@ const Sponsorship = () => {
   return (
     <div className="bg-white overflow-hidden">
       {/* Header Section */}
-      <section className="relative py-24 overflow-hidden bg-white">
+      <section className="relative pt-24 pb-10 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -40 }}
@@ -64,14 +72,14 @@ const Sponsorship = () => {
               viewport={{ once: true }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
                 <Handshake className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Partnership Opportunities</span>
               </div>
 
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
                 Power Your Brand Through{" "}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Corporate Sports
                 </span>
               </h1>
@@ -88,7 +96,7 @@ const Sponsorship = () => {
       </section>
 
       {/* Sponsor Tiers */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section id="tiers" className="py-12 relative overflow-hidden bg-white">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -99,13 +107,13 @@ const Sponsorship = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <Award className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Sponsorship Tiers</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
               Choose Your{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Partnership Level
               </span>
             </h2>
@@ -132,13 +140,13 @@ const Sponsorship = () => {
                   className="group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 cursor-pointer block"
                 >
                   {/* Gradient Border Effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-linear-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
                   <div className={`absolute inset-0 border-2 border-transparent group-hover:border-[#C21807] rounded-2xl transition-colors duration-300 pointer-events-none`} />
 
                   <div className="relative p-8">
                     {/* Icon and Title in Row */}
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${tier.gradient} shadow-lg shrink-0`}>
+                      <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${tier.gradient} shadow-lg shrink-0`}>
                         <IconComponent className="w-6 h-6 text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#C21807] transition-colors">
@@ -185,7 +193,7 @@ const Sponsorship = () => {
 
               <div className="relative p-10">
                 {/* Icon Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
                   <TrendingUp className="w-5 h-5" />
                   <span className="text-sm font-bold">Analytics</span>
                 </div>
@@ -227,7 +235,7 @@ const Sponsorship = () => {
 
               <div className="relative p-10">
                 {/* Icon Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
                   <Trophy className="w-5 h-5" />
                   <span className="text-sm font-bold">Benefits</span>
                 </div>

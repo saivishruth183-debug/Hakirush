@@ -30,11 +30,15 @@ const SPONSORS = [
 export default function SponsorGrid() {
   const s = SPONSORS[0];
   const IconComponent = s.icon;
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate('/sponsor#tiers');
+  };
 
   return (
     <div className="relative overflow-hidden bg-white">
       {/* Back Button */}
-      <div className="max-w-6xl mx-auto px-6 pt-6">
+      <div className="max-w-6xl mx-auto px-6 pt-15">
         <motion.button
           onClick={handleBackClick}
           initial={{ opacity: 0, x: -20 }}
@@ -57,19 +61,19 @@ export default function SponsorGrid() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
               <ShoppingBag className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Brand Merchandise</span>
             </div>
 
             {/* Icon and Title in Row */}
             <div className="flex items-center justify-center gap-6 mb-6">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                 <IconComponent className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight">
                 {s.title}{" "}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Sponsor
                 </span>
               </h1>
@@ -96,12 +100,12 @@ export default function SponsorGrid() {
             >
 
               <div className="relative p-10">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <Sparkles className="w-4 h-4 animate-pulse" />
                   <span className="text-sm font-bold tracking-wide">PACKAGE INCLUDES</span>
                 </div>
                 
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-8 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                <h2 className="text-4xl font-extrabold text-gray-900 mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                   What You Get
                 </h2>
                 
@@ -136,12 +140,12 @@ export default function SponsorGrid() {
             >
 
               <div className="relative p-10">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <ShoppingBag className="w-4 h-4 animate-pulse" />
                   <span className="text-sm font-bold tracking-wide">KEY BENEFITS</span>
                 </div>
                 
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-8 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                <h2 className="text-4xl font-extrabold text-gray-900 mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                   Why It Matters
                 </h2>
                 
@@ -182,10 +186,10 @@ export default function SponsorGrid() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+                className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-12 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
               >
                 <span className="relative z-10">{s.details.ctaText}</span>
-                <ArrowRight className="w-5 h-5 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+                <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
               </motion.button>

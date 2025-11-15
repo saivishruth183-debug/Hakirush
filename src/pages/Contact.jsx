@@ -94,7 +94,7 @@ export default function Contact() {
 
       <div className="bg-white overflow-hidden">
         {/* Hero Section */}
-        <section className="relative py-24 overflow-hidden bg-white">
+        <section className="relative py-12 md:py-24 overflow-hidden bg-white">
           {/* Floating decorative gradient orbs */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
@@ -107,19 +107,19 @@ export default function Contact() {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-10">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 md:mb-10">
                 <MessageSquare className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">We're Here to Help</span>
               </div>
 
               {/* Icon and Title in Row */}
-              <div className="flex items-center justify-center gap-2 mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
+              <div className="flex items-center justify-center gap-2 mb-6 md:mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900">
                   Get in{" "}
-                  <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                  <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                     Touch
                   </span>
                 </h1>
@@ -134,7 +134,7 @@ export default function Contact() {
       </div>
 
       {/* CONTENT SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-12 md:py-12">
+      <section className="max-w-7xl mx-auto px-6 py-8 md:py-12">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* LEFT SIDE INFO */}
           <motion.div
@@ -142,10 +142,10 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
               <Star className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Contact Information</span>
             </div>
@@ -153,7 +153,7 @@ export default function Contact() {
             <div>
               <h2 className="text-2xl md:text-3xl font-black mb-4 text-gray-900">
                 Let's{" "}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Connect
                 </span>
               </h2>
@@ -195,10 +195,10 @@ export default function Contact() {
           </div>
 
           {/* SOCIAL */}
-          <div className="mt-8 p-6 rounded-2xl bg-white border border-gray-200">
+          <div className="mt-6 md:mt-8 p-6 rounded-2xl bg-white border border-gray-200">
             <h3 className="font-bold text-lg mb-5 text-gray-900">
               Follow{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Us
               </span>
             </h3>
@@ -232,7 +232,7 @@ export default function Contact() {
             scale: window.innerWidth >= 768 ? 1.03 : 1,
             y: window.innerWidth >= 768 ? -8 : 0
           }}
-          className="relative flex flex-col justify-center my-40 px-6 pt-8 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
+          className="relative flex flex-col justify-center my-10 md:my-24 px-6 pt-6 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
         >
           {/* Decorative Background removed for pure white */}
           <div className="hidden" aria-hidden="true" />
@@ -240,7 +240,7 @@ export default function Contact() {
 
           <h2 className="text-2xl md:text-3xl font-black mb-8 text-gray-900">
             Send us a{" "}
-            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Message
             </span>
           </h2>
@@ -291,17 +291,17 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <MapPin className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Our Location</span>
           </div>
 
           <h2 className="text-2xl md:text-3xl font-black text-gray-900">
             Find{" "}
-            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Us
             </span>
           </h2>

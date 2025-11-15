@@ -1,7 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
-import { Star, Users, Building, Award, Sparkles, TrendingUp, Quote, MessageCircle } from "lucide-react";
+import { Star, Users, Building, Award, TrendingUp, Quote, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import Amit from "../assets/Clients/Amit.png";
+import Priya from "../assets/Clients/Priya.png";
+import Rajesh from "../assets/Clients/Rajesh.png";
+import Sarah from "../assets/Clients/Sarah.png";
+
+
+const sponsers = [
+  { id: 1, href: "", name: "Sponser 1", logo: "https://via.placeholder.com/150" },
+  { id: 2, href: "", name: "Sponser 2", logo: "https://via.placeholder.com/150" },
+  { id: 3, href: "", name: "Sponser 3", logo: "https://via.placeholder.com/150" },
+  { id: 4, href: "", name: "Sponser 4", logo: "https://via.placeholder.com/150" },
+  { id: 5, href: "", name: "Sponser 5", logo: "https://via.placeholder.com/150" },
+];
 
 const clients = [
   { id: 1, href: "", name: "Client 1", logo: "https://via.placeholder.com/150" },
@@ -13,43 +26,41 @@ const clients = [
 
 const testimonials = [
   {
-    company: "TechCorp Solutions",
     person: "Rajesh Kumar",
     position: "HR Director",
     message:
       "HAKIRUSH has revolutionized our employee engagement. The biweekly tournaments have created a buzz in the office that we never had before. Team morale is at an all-time high!",
     avatar:
-      "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?w=150",
+      Rajesh,
     rating: 5,
   },
   {
-    company: "Innovation Labs",
     person: "Priya Sharma",
     position: "CEO",
     message:
       "The professional organization and competitive spirit that HAKIRUSH brings has made our company culture more vibrant. Our employees look forward to every tournament!",
     avatar:
-      "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=150",
+      Priya,
     rating: 5,
   },
   {
-    company: "Digital Dynamics",
+    
     person: "Amit Patel",
     position: "Operations Manager",
     message:
       "Outstanding service delivery! Every tournament is executed flawlessly. The branded kits, professional coverage, and seamless coordination exceed our expectations.",
     avatar:
-      "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?w=150",
+      Amit,
     rating: 5,
   },
   {
-    company: "Future Systems",
+
     person: "Sarah Johnson",
     position: "Head of People Operations",
     message:
       "HAKIRUSH has transformed how our teams collaborate. The inter-department competitions have broken down silos and created lasting friendships across our organization.",
     avatar:
-      "https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?w=150",
+      Sarah,
     rating: 5,
   },
 ];
@@ -72,7 +83,7 @@ export default function Clients() {
     <div className="bg-white overflow-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative py-20 overflow-hidden bg-white">
+      <section className="relative py-24 overflow-hidden bg-white">
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -80,11 +91,6 @@ export default function Clients() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
-              <Users className="w-4 h-4 text-[#C21807]" />
-              <span className="text-sm font-bold text-[#C21807]">Trusted Partners</span>
-            </div>
 
             {/* Icon and Title in Row */}
             <div className="flex items-center justify-center gap-6 mb-6">
@@ -108,7 +114,7 @@ export default function Clients() {
       </section>
 
       {/* STATS SECTION */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
         <div className="hidden" aria-hidden="true"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -119,7 +125,7 @@ export default function Clients() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <TrendingUp className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Impact</span>
             </div>
@@ -190,8 +196,8 @@ export default function Clients() {
         </div>
       </section>
 
-      {/* LOGOS SECTION */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      {/* Sponsor LOGOS SECTION */}
+      <section className="py-12 relative overflow-hidden bg-white">
         <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
@@ -201,17 +207,80 @@ export default function Clients() {
           viewport={{ once: true }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+              <Building className="w-4 h-4 text-[#C21807]" />
+              <span className="text-sm font-bold text-[#C21807]">Our Sponser</span>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden w-full py-10">
+            {/* Infinite loop animation */}
+            <motion.div
+              className="flex items-center gap-10 whitespace-nowrap w-[200%]"
+              animate={{ x: ["-50%", "0%"] }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {/* First set */}
+              {sponsers.map((client, index) => (
+                <motion.div
+                  key={`r1-${index}`}
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                >
+                  <div className="hidden" aria-hidden="true" />
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} - HAKIRUSH Client`}
+                    loading="lazy"
+                    className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
+                </motion.div>
+              ))}
+
+              {/* Second set (duplicate for seamless loop) */}
+              {sponsers.map((client, index) => (
+                <motion.div
+                  key={`r2-${index}`}
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                >
+                  <div className="hidden" aria-hidden="true" />
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} - HAKIRUSH Client`}
+                    loading="lazy"
+                    className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#C21807]/20 transition-colors duration-500 pointer-events-none" />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Company LOGOS SECTION */}
+      <section className="py-12 relative overflow-hidden bg-white">
+        <div className="hidden" aria-hidden="true"></div>
+
+        <motion.div
+          className="max-w-7xl mx-auto px-6 relative z-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          {/* Section Header */}
+          <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Partners</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900">
-              Trusted by{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-                Industry Leaders
-              </span>
-            </h2>
           </div>
 
           <div className="relative overflow-hidden w-full py-10">
@@ -266,7 +335,7 @@ export default function Clients() {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
         <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
@@ -277,7 +346,7 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <MessageCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Success Stories</span>
             </div>
@@ -322,9 +391,6 @@ export default function Clients() {
                     </h3>
                     <p className="text-gray-600 font-medium mb-2">
                       {testimonials[currentTestimonial].position}
-                    </p>
-                    <p className="text-sm font-semibold text-[#C21807]">
-                      {testimonials[currentTestimonial].company}
                     </p>
                     <div className="flex gap-1 mt-3">
                       {Array(testimonials[currentTestimonial].rating)

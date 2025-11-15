@@ -29,7 +29,7 @@ const about = [
 
 const About = () => {
   return (
-    <section className="relative py-20 bg-white overflow-hidden">
+    <section className="relative py-24 bg-white overflow-hidden">
       {/* MAIN CONTENT */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center mb-20">
@@ -42,17 +42,6 @@ const About = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-5 py-2.5 rounded-full text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm"
-            >
-              <Info className="w-4 h-4 text-[#C21807]" />
-              About Us
-            </motion.div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight">
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
@@ -67,19 +56,16 @@ const About = () => {
 
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
                 We specialize in organizing{" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   quarterly tournaments
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 ,{" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   annual leagues
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 , and{" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   custom events
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 {" "}that bring teams together and foster healthy competition.
               </p>
@@ -147,7 +133,7 @@ const About = () => {
                 scale: window.innerWidth >= 768 ? 1.03 : 1,
                 y: window.innerWidth >= 768 ? -8 : 0
               }}
-              className="flex-1 relative bg-gradient-to-br from-white via-white to-[#C21807]/5 shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 px-10 sm:px-12 py-12 sm:py-16 rounded-3xl border-2 border-[#C21807]/10 group overflow-hidden cursor-pointer"
+              className="flex-1 relative bg-gradient-to-br from-white via-white to-[#C21807]/5 shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 px-10 sm:px-12 py-12 sm:py-10 rounded-3xl border-2 border-[#C21807]/10 group overflow-hidden cursor-pointer"
             >
               {/* Decorative Corner */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#C21807]/5 rounded-bl-full"></div>

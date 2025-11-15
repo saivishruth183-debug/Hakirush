@@ -34,15 +34,16 @@ const QLeague = () => {
   return (
     <div className="relative bg-white overflow-hidden">
 
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-24 relative overflow-hidden bg-white">
 
         {/* Max-width container for content */}
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           {/* Header */}
           <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: -40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              viewport={{ once: true }}
               className="text-center max-w-4xl mx-auto space-y-8"
           >
               {/* Badge */}
@@ -59,9 +60,8 @@ const QLeague = () => {
               </h1>
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
                   Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{' '}
-                  <span className="font-bold text-[#C21807] relative inline-block">
+                  <span className="font-bold text-[#C21807]">
                     10+ companies
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                   </span> for high-energy corporate tournaments — each event focusing on one iconic sport.
               </p>
           </motion.div>
@@ -69,7 +69,7 @@ const QLeague = () => {
       </section>
 
       {/* Timeline Cards */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
 
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
@@ -99,10 +99,12 @@ const QLeague = () => {
             {quarters.map((item, index) => (
               <motion.div 
                 key={item.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
-                  duration: 0.5,
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 20,
                   delay: index * 0.1
                 }}
                 viewport={{ once: true }}
@@ -144,25 +146,20 @@ const QLeague = () => {
       </section>
 
       {/* What's Included + Benefits */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
         <div className="hidden" aria-hidden="true"></div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-6 relative z-10"
-        >
-          <div className="grid md:grid-cols-2 gap-10">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-16">
         
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
           whileHover={{ y: -8 }}
           transition={{ 
             type: 'spring', 
-            stiffness: 200,
+            stiffness: 100,
+            damping: 20,
             delay: 0
           }}
           viewport={{ once: true }}
@@ -191,12 +188,13 @@ const QLeague = () => {
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
           whileHover={{ y: -8 }}
           transition={{ 
             type: 'spring', 
-            stiffness: 200,
+            stiffness: 100,
+            damping: 20,
             delay: 0.1
           }}
           viewport={{ once: true }}
@@ -224,14 +222,17 @@ const QLeague = () => {
           </div>
         </motion.div>
           </div>
-        </motion.div>
+        </div>
         
-        <div className="text-center mt-16">
+        <div className="text-center mt-24">
           <Link to="/contact">
             <motion.button
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300 }}
               className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Register for Quarterly Package</span>

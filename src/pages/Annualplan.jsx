@@ -60,15 +60,16 @@ const Annualplan = () => {
       {/* Background disabled for pure white */}
       <div className="hidden" />
 
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-24 relative overflow-hidden bg-white">
 
           {/* Max-width container for content */}
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             {/* Header - motion.div with new animation and reduced padding for centering */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: -40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              viewport={{ once: true }}
               className="text-center max-w-4xl mx-auto space-y-8"
             >
               {/* Badge */}
@@ -87,13 +88,11 @@ const Annualplan = () => {
 
               <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium">
                 A year-long engagement program designed for organizations that believe in{' '}
-                <span className="font-bold text-gray-900 relative inline-block">
+                <span className="font-bold text-gray-900">
                   consistent team connection
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>{' '}and{' '}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   active employee culture
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>.
                 Each month brings a new sport, a new challenge, and a stronger team.
               </p>
@@ -102,7 +101,7 @@ const Annualplan = () => {
         </section>
 
       {/* Monthly Schedule */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-8 relative overflow-hidden bg-white">
         <div className="hidden" />
 
         <motion.div 
@@ -133,10 +132,12 @@ const Annualplan = () => {
             {plans.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
-                  duration: 0.5,
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 20,
                   delay: index * 0.05
                 }}
                 viewport={{ once: true }}
@@ -171,12 +172,12 @@ const Annualplan = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
         <div className="hidden" />
 
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="max-w-7xl mx-auto px-6 relative z-10"
@@ -185,12 +186,13 @@ const Annualplan = () => {
             {details.map((item, index) => (
               <motion.div 
                 key={item.id} 
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: index === 0 ? -60 : 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 whileHover={{ y: -8 }}
                 transition={{ 
                   type: 'spring', 
-                  stiffness: 200,
+                  stiffness: 100,
+                  damping: 20,
                   delay: index * 0.1
                 }}
                 viewport={{ once: true }}
@@ -228,9 +230,12 @@ const Annualplan = () => {
         <div className="text-center mt-16">
           <Link to="/contact">
             <motion.button
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300 }}
               className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Subscribe to Annual Package</span>

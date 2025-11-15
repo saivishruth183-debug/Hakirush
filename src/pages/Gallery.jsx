@@ -47,7 +47,7 @@ const GalleryPage = () => {
     <div className="bg-white overflow-hidden">
       
       {/* Header with Premium Design */}
-      <section className="relative py-20 overflow-hidden bg-white">
+      <section className="relative py-24 overflow-hidden bg-white">
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -129,7 +129,7 @@ const GalleryPage = () => {
       </section>
 
       {/* Image Grid */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-12 relative overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

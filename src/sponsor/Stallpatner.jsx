@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { Store, CheckCircle, ArrowRight, Sparkles, Users } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Store, CheckCircle, ArrowRight, Sparkles, ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SPONSORS = [
   {
@@ -34,14 +34,29 @@ export default function SponsorGrid() {
 
   return (
     <div className="relative overflow-hidden bg-white">
+      {/* Back Button */}
+      <div className="max-w-6xl mx-auto px-6 pt-6">
+        <motion.button
+          onClick={handleBackClick}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ x: -5 }}
+          className="inline-flex items-center gap-2 px-4 py-2 text-[#C21807] hover:text-[#A01506] font-semibold transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back to Sponsorship Tiers</span>
+        </motion.button>
+      </div>
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-white">
+      <section className="relative py-24 overflow-hidden bg-white">
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: -40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
             className="text-center"
           >
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
@@ -69,16 +84,16 @@ export default function SponsorGrid() {
         </div>
       </section>
 
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-12 relative overflow-hidden">
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
 
           <div className="grid md:grid-cols-2 gap-10">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
               whileHover={{ y: -12, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
               viewport={{ once: true }}
               className="group relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
             >
@@ -117,7 +132,7 @@ export default function SponsorGrid() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ y: -12, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.1 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
               viewport={{ once: true }}
               className="group relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border border-gray-100"
             >
@@ -157,9 +172,12 @@ export default function SponsorGrid() {
           <div className="text-center mt-16">
             <Link to="/contact">
               <motion.button
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                viewport={{ once: true }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300 }}
                 className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
               >
                 <span className="relative z-10">{s.details.ctaText}</span>

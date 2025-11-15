@@ -27,7 +27,7 @@ const plans = [
 
 const Ourplans = () => {
   return (
-    <section className="relative py-20 bg-white overflow-hidden">
+    <section className="relative py-12 bg-white overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -53,9 +53,8 @@ const Ourplans = () => {
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
             Select a plan that aligns with your{" "}
-            <span className="font-bold text-[#C21807] relative inline-block">
+            <span className="font-bold text-[#C21807]">
               company's engagement goals
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
             </span>
             {" "}and let our experts handle everything else
           </p>

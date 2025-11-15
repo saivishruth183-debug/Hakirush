@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Trophy, Users, Store, ShoppingBag, CheckCircle, TrendingUp, ArrowRight, Handshake, Award } from "lucide-react";
@@ -38,15 +38,30 @@ const sponsorTiers = [
 ];
 
 const Sponsorship = () => {
+  useEffect(() => {
+    const savedScroll = sessionStorage.getItem('sponsorPageScroll');
+    if (savedScroll) {
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(savedScroll, 10));
+        sessionStorage.removeItem('sponsorPageScroll');
+      }, 100);
+    }
+  }, []);
+
+  const handleLinkClick = () => {
+    sessionStorage.setItem('sponsorPageScroll', window.scrollY.toString());
+  };
+
   return (
     <div className="bg-white overflow-hidden">
       {/* Header Section */}
-      <section className="relative py-20 overflow-hidden bg-white">
+      <section className="relative py-24 overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: -40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              viewport={{ once: true }}
             >
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
@@ -63,9 +78,8 @@ const Sponsorship = () => {
 
               <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed font-medium">
                 Join India's growing corporate sports revolution as a {" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   HAKIRUSH Sponsor
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 . Gain access to <span className="font-semibold">professional audiences</span>, on-ground activations, and long-term brand visibility.
               </p>
@@ -74,7 +88,7 @@ const Sponsorship = () => {
       </section>
 
       {/* Sponsor Tiers */}
-      <section className="py-20 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-white">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -104,10 +118,13 @@ const Sponsorship = () => {
                 <MotionLink 
                   to={tier.href}
                   key={i}
-                  initial={{ opacity: 0, y: 40 }}
+                  onClick={handleLinkClick}
+                  initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.5,
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 20,
                     delay: i * 0.1
                   }}
                   viewport={{ once: true }}
@@ -147,24 +164,19 @@ const Sponsorship = () => {
       </section>
 
       {/* Dashboard & Why Sponsor Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-12 relative overflow-hidden">
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-6 relative z-10"
-        >
-          <div className="grid sm:grid-cols-2 gap-10">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid sm:grid-cols-2 gap-16">
             {/* Dashboard Card */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
               whileHover={{ y: -8 }}
               transition={{ 
                 type: 'spring', 
-                stiffness: 200,
+                stiffness: 100,
+                damping: 20,
                 delay: 0
               }}
               viewport={{ once: true }}
@@ -200,12 +212,13 @@ const Sponsorship = () => {
 
             {/* Why Sponsor Card */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
               whileHover={{ y: -8 }}
               transition={{ 
                 type: 'spring', 
-                stiffness: 200,
+                stiffness: 100,
+                damping: 20,
                 delay: 0.1
               }}
               viewport={{ once: true }}
@@ -239,16 +252,19 @@ const Sponsorship = () => {
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* CTA Button */}
       <div className="text-center pb-20">
         <Link to="/contact">
           <motion.button
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            viewport={{ once: true }}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
             className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
           >
             <span className="relative z-10">Join as a Sponsor</span>

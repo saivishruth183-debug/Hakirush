@@ -94,7 +94,7 @@ export default function Contact() {
 
       <div className="bg-white overflow-hidden">
         {/* Hero Section */}
-        <section className="relative py-20 overflow-hidden bg-white">
+        <section className="relative py-24 overflow-hidden bg-white">
           {/* Floating decorative gradient orbs */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
@@ -107,13 +107,13 @@ export default function Contact() {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-10">
                 <MessageSquare className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">We're Here to Help</span>
               </div>
 
               {/* Icon and Title in Row */}
-              <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="flex items-center justify-center gap-2 mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
@@ -134,7 +134,7 @@ export default function Contact() {
       </div>
 
       {/* CONTENT SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-12 md:py-20">
+      <section className="max-w-7xl mx-auto px-6 py-12 md:py-12">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* LEFT SIDE INFO */}
           <motion.div
@@ -232,17 +232,11 @@ export default function Contact() {
             scale: window.innerWidth >= 768 ? 1.03 : 1,
             y: window.innerWidth >= 768 ? -8 : 0
           }}
-          className="relative flex flex-col justify-center my-30 px-6 pt-8 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
+          className="relative flex flex-col justify-center my-40 px-6 pt-8 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
         >
           {/* Decorative Background removed for pure white */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
-
-          {/* Section Badge */}
-          <div className="flex items-start justify-start mr-80 gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
-            <Sparkles className="w-4 h-4 text-[#C21807]" />
-            <span className="text-sm font-bold text-[#C21807]">Send a Message</span>
-          </div>
 
           <h2 className="text-2xl md:text-3xl font-black mb-8 text-gray-900">
             Send us a{" "}
@@ -318,7 +312,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#C21807]/20 hover:border-[#C21807] transition-all duration-300"
+          className="rounded-3xl overflow-hidden shadow-2xl border-4 border-red-100 hover:border-red-200 transition-all duration-300"
         >
           <iframe
             title="HAKIRUSH Office Location"

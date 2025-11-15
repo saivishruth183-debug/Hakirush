@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrolltoTop'
-import AboutUs from './components/Aboutus'
 
 // Pages
 import Home from './pages/Home'
@@ -36,7 +35,6 @@ const App = () => {
         <ScrollToTop />   
         <Routes >
           <Route path='/' element={<Home />} />
-          <Route path='/aboutus' element={<AboutUs />} />
           <Route path='/about' element={<About />} />
           <Route path='/package' element={<Package />} />
           <Route path='/package/annualpackage' element={<Annualplan />} />

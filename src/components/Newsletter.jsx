@@ -6,7 +6,7 @@ import { Zap } from "lucide-react";
 
 const Newsletter = () => {
   return (
-    <section className="relative py-20 bg-white overflow-hidden">
+    <section className="relative py-12 bg-white overflow-hidden">
       
       <motion.div
         initial={{ opacity: 0, y: 40, rotateX: -10 }}
@@ -42,9 +42,8 @@ const Newsletter = () => {
 
               <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-2xl mx-auto md:mx-0 leading-relaxed font-medium">
                 Join{" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   50+ leading companies
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 {" "}who trust{' '}
                 <span className="font-bold text-gray-900">HAKIRUSH</span> to boost employee morale and build stronger teams through sports

@@ -23,12 +23,12 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 10000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="py-20 relative overflow-hidden min-h-screen flex items-center bg-white">
+    <section className="py-12 relative overflow-hidden min-h-screen flex items-center bg-white">
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -87,19 +87,16 @@ const Hero = () => {
               className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl font-medium"
             >
               Corporate sports experiences that keep your teams{" "}
-              <span className="font-bold text-[#C21807] relative inline-block">
+              <span className="font-bold text-[#C21807]">
                 active
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
               </span>
               ,{" "}
-              <span className="font-bold text-[#C21807] relative inline-block">
+              <span className="font-bold text-[#C21807]">
                 engaged
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
               </span>
               , and{" "}
-              <span className="font-bold text-[#C21807] relative inline-block">
+              <span className="font-bold text-[#C21807]">
                 connected
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
               </span>
               {" "}— all year round.
             </motion.p>
@@ -133,8 +130,8 @@ const Hero = () => {
               </AnimatePresence>
 
               {/* Image Title Badge */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-center shadow-xl border border-[#C21807]/30">
-                <span className="text-[#C21807] font-bold text-sm sm:text-base">
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 sm:px-6 sm:py-3 rounded-full text-center shadow-xl border border-[#C21807]/30 whitespace-nowrap">
+                <span className="text-[#C21807] font-bold text-sm md:text-base">
                   {heroSlides[currentSlide].title}
                 </span>
               </div>

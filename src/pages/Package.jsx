@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion' // Ensure motion is imported for animations
 import { Star, CalendarDays, Trophy, ArrowRight } from 'lucide-react'
 
@@ -10,13 +9,14 @@ const Package = () => {
       <div className="relative z-10">
 
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden">
 
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              viewport={{ once: true }}
               className="space-y-8"
             >
               {/* Badge */}
@@ -34,9 +34,8 @@ const Package = () => {
 
               <p className="text-base sm:text-lg lg:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
                 Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{" "}
-                <span className="font-bold text-[#C21807] relative inline-block">
+                <span className="font-bold text-[#C21807]">
                   10+ companies
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C21807]/30"></span>
                 </span>
                 {" "}for high-energy corporate tournaments — each event focusing on one iconic sport
               </p>
@@ -45,7 +44,12 @@ const Package = () => {
         </section>
 
         {/* Card Section */}
-        <section className="py-24 relative overflow-hidden">
+        <motion.section 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="py-10 relative overflow-hidden">
 
           <div className="relative z-10 flex items-center justify-center px-4">
             <div className="flex flex-col lg:flex-row gap-10 w-full max-w-6xl">
@@ -54,7 +58,7 @@ const Package = () => {
               <Link to="/package/annualpackage" className="w-full lg:w-1/2">
                 <motion.div 
                   className="relative h-full group"
-                  initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                  initial={{ opacity: 0, y: 60, rotateX: 10 }}
                   whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                   transition={{ 
                     type: 'spring', 
@@ -111,11 +115,12 @@ const Package = () => {
               {/* Quarterly Card */}
               <Link to="/package/quarterly" className="w-full lg:w-1/2">
                 <motion.div
-                  initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                  initial={{ opacity: 0, y: 60, rotateX: 10 }}
                   whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                   transition={{ 
                     type: 'spring', 
-                    stiffness: 200
+                    stiffness: 100,
+                    damping: 20
                   }}
                   viewport={{ once: true }}
                   whileHover={{ 
@@ -156,7 +161,7 @@ const Package = () => {
 
             </div>
           </div>
-        </section>
+        </motion.section>
 
       </div>
     </div>

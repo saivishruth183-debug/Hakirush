@@ -62,7 +62,7 @@ export default function Contact() {
 
       Swal.fire({
         icon: "success",
-        title: "Message Sent 🎉",
+        title: "Submitted 🎉",
         text: "We’ll get back to you soon!",
         timer: 2500,
         showConfirmButton: false,
@@ -279,7 +279,7 @@ export default function Contact() {
               className="w-full bg-[#C21807] text-white py-3 md:py-4 text-lg font-bold rounded-lg flex justify-center items-center gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="h-5 w-5" />
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? "Sending..." : "Submit"}
             </motion.button>
           </form>
         </motion.div>

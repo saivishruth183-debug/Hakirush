@@ -70,11 +70,11 @@ const Package = () => {
                     y: window.innerWidth >= 768 ? -8 : 0
                   }}
                 >
-                  {/* Most Preferred Badge */}
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-30">
-                    <div className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-lg">
-                      <Star className="w-4 h-4 text-[#1a2332]" fill="#1a2332" />
-                      <span className="text-sm font-bold text-[#1a2332] uppercase tracking-wide">Most Preferred</span>
+                  {/* Most Preferred Badge - responsive sizing and positioning */}
+                  <div className="absolute -top-4 md:-top-5 left-1/2 -translate-x-1/2 z-30 px-2 md:px-0">
+                    <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-lg">
+                      <Star className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#1a2332] shrink-0" fill="#1a2332" />
+                      <span className="text-xs md:text-sm font-bold text-[#1a2332] uppercase tracking-wide whitespace-nowrap">Most Preferred</span>
                     </div>
                   </div>
 

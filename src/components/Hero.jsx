@@ -45,10 +45,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-5 py-2.5 rounded-full text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm"
+              className="inline-flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-3 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm whitespace-nowrap"
             >
-              <Sparkles className="w-4 h-4 text-[#C21807]" />
-              India's Premier Corporate Sports Platform
+              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#C21807] shrink-0" />
+              <span>India's Premier Corporate Sports Platform</span>
             </motion.div>
 
             {/* Main Heading with Gradient */}
@@ -130,8 +130,8 @@ const Hero = () => {
               </AnimatePresence>
 
               {/* Image Title Badge */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-4 py-2 sm:px-6 sm:py-3 rounded-full text-center shadow-xl border border-[#C21807]/30 whitespace-nowrap">
-                <span className="text-[#C21807] font-bold text-sm md:text-base">
+              <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-3 py-1.5 md:px-6 md:py-3 rounded-full text-center shadow-xl border border-[#C21807]/30 whitespace-nowrap">
+                <span className="text-[#C21807] font-bold text-xs md:text-base">
                   {heroSlides[currentSlide].title}
                 </span>
               </div>

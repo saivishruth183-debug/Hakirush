@@ -44,7 +44,7 @@ export default function GooglePage() {
               <img src={client.logo} alt="logo" className="object-contain w-full h-full p-4" />
             </div>
 
-            <h1 className="text-4xl font-extrabold text-gray-800 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">
               {client.name}
             </h1>
             <p className="text-gray-600 max-w-2xl leading-relaxed mt-4">

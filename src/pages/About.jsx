@@ -17,12 +17,12 @@ const aboutimg = [
 const about = [
   {
     icon: <Lightbulb className="text-[#C21807]" size={24} />,
-    title: "Our Vision",
+    title: "Vision",
     description: "To become the most trusted and innovative corporate sports platform in India, creating memorable experiences that strengthen workplace bonds and promote holistic employee well-being."
   },
   {
     icon: <Target className="text-[#C21807]" size={24} />,
-    title: "Our Mission",
+    title: "Mission",
     description: "To deliver world-class sports events and tournaments that empower corporate teams, enhance employee engagement, and build lasting connections through the joy of sports and competition."
   },
 ]
@@ -199,7 +199,7 @@ const About = () => {
                 <div className="mb-3 flex justify-center">
                   <stat.icon className="text-[#C21807] group-hover:scale-110 transition-transform duration-300" size={40} />
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2">
                   <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                     {stat.value}+
                   </span>

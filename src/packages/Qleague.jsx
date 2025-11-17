@@ -132,7 +132,7 @@ const QLeague = () => {
 
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-extrabold mb-2 group-hover:text-[#C21807]/70 transition-colors">{item.name}</h3>
+                    <h3 className="text-xl sm:text-2xl font-extrabold mb-2 group-hover:text-[#C21807]/70 transition-colors">{item.name}</h3>
                     <p className="text-sm text-gray-200 font-semibold">{item.sport}</p>
                   </div>
 

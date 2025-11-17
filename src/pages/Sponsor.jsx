@@ -149,7 +149,7 @@ const Sponsorship = () => {
                       <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${tier.gradient} shadow-lg shrink-0`}>
                         <IconComponent className="w-6 h-6 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#C21807] transition-colors">
+                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#C21807] transition-colors">
                         {tier.title}
                       </h3>
                     </div>
@@ -198,7 +198,7 @@ const Sponsorship = () => {
                   <span className="text-sm font-bold">Analytics</span>
                 </div>
 
-                <h2 className="text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Sponsor Dashboard Features
                 </h2>
 
@@ -240,7 +240,7 @@ const Sponsorship = () => {
                   <span className="text-sm font-bold">Benefits</span>
                 </div>
 
-                <h2 className="text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Why Sponsor HAKIRUSH?
                 </h2>
 

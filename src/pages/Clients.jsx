@@ -9,19 +9,19 @@ import Sarah from "../assets/Clients/Sarah.png";
 
 
 const sponsers = [
-  { id: 1, href: "", name: "Sponser 1", logo: "https://via.placeholder.com/150" },
-  { id: 2, href: "", name: "Sponser 2", logo: "https://via.placeholder.com/150" },
-  { id: 3, href: "", name: "Sponser 3", logo: "https://via.placeholder.com/150" },
-  { id: 4, href: "", name: "Sponser 4", logo: "https://via.placeholder.com/150" },
-  { id: 5, href: "", name: "Sponser 5", logo: "https://via.placeholder.com/150" },
+  { id: 1, href: "", name: "Sponser 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1" },
+  { id: 2, href: "", name: "Sponser 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2" },
+  { id: 3, href: "", name: "Sponser 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3" },
+  { id: 4, href: "", name: "Sponser 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4" },
+  { id: 5, href: "", name: "Sponser 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5" },
 ];
 
 const clients = [
-  { id: 1, href: "", name: "Client 1", logo: "https://via.placeholder.com/150" },
-  { id: 2, href: "", name: "Client 2", logo: "https://via.placeholder.com/150" },
-  { id: 3, href: "", name: "Client 3", logo: "https://via.placeholder.com/150" },
-  { id: 4, href: "", name: "Client 4", logo: "https://via.placeholder.com/150" },
-  { id: 5, href: "", name: "Client 5", logo: "https://via.placeholder.com/150" },
+  { id: 1, href: "", name: "Client 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+1" },
+  { id: 2, href: "", name: "Client 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+2" },
+  { id: 3, href: "", name: "Client 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+3" },
+  { id: 4, href: "", name: "Client 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+4" },
+  { id: 5, href: "", name: "Client 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+5" },
 ];
 
 const testimonials = [
@@ -182,7 +182,7 @@ export default function Clients() {
                     {stat.icon}
                   </div>
 
-                  <h3 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                     {stat.value}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-700 font-medium">{stat.label}</p>

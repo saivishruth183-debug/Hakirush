@@ -40,7 +40,7 @@ const Ourplans = () => {
           className="text-center mb-16"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
             <Star className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Our Plans</span>
           </div>
@@ -51,7 +51,7 @@ const Ourplans = () => {
               Perfect Plan
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
             Select a plan that aligns with your{" "}
             <span className="font-bold text-[#C21807]">
               company's engagement goals
@@ -101,7 +101,7 @@ const Ourplans = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-8 font-medium">
+                  <p className="text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 font-medium">
                     {plan.description}
                   </p>
 
@@ -111,10 +111,10 @@ const Ourplans = () => {
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       transition={{ type: "spring", stiffness: 300 }}
-                      className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-[#C21807] text-white font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg bg-[#C21807] text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
                     >
                       <span className="relative z-10">{plan.button}</span>
-                      <MoveRightIcon className="h-5 w-5 relative z-10 transform transition-transform duration-300 group-hover:translate-x-1" />
+                      <MoveRightIcon className="h-4 w-4 sm:h-5 sm:w-5 relative z-10 transform transition-transform duration-300 group-hover:translate-x-1" />
                       {/* Shimmer effect */}
                       <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </motion.button>

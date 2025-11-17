@@ -20,7 +20,7 @@ const Package = () => {
               className="space-y-8"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Star className="w-4 h-4 text-[#C21807]" fill='#C21807' />
                 <span className="text-sm font-bold text-[#C21807]">Our Packages</span>
               </div>
@@ -32,7 +32,7 @@ const Package = () => {
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg lg:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
                 Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{" "}
                 <span className="font-bold text-[#C21807]">
                   10+ companies
@@ -93,14 +93,14 @@ const Package = () => {
                           Annual Subscription
                         </h3>
                       </div>
-                      <p className="text-sm sm:text-base text-white/90 mb-8 max-w-md">
+                      <p className="text-xs sm:text-sm lg:text-base text-white/90 mb-8 max-w-md">
                         12 months of unlimited sports events and team building activities
                       </p>
                       <motion.div
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#C21807] rounded-lg font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 bg-white text-[#C21807] rounded-lg font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
                       >
                         <span className="relative z-10">Explore Details</span>
                         <ArrowRight className="w-5 h-5 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
@@ -140,14 +140,14 @@ const Package = () => {
                           Quarterly Tournaments
                         </h3>
                       </div>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-8 max-w-md">
+                      <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-8 max-w-md">
                         High-energy competitive events every 3 months with multiple companies
                       </p>
                       <motion.div
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 300 }}
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-[#C21807] text-white rounded-lg font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 bg-[#C21807] text-white rounded-lg font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
                       >
                         <span className="relative z-10">Explore Details</span>
                         <ArrowRight className="w-5 h-5 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />

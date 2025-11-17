@@ -47,7 +47,7 @@ const QLeague = () => {
               className="text-center max-w-4xl mx-auto space-y-6 md:space-y-8"
           >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Trophy className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Quarterly Tournaments</span>
               </div>
@@ -58,7 +58,7 @@ const QLeague = () => {
                     Compete. Connect. Conquer.
                   </span>
               </h1>
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
                   Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{' '}
                   <span className="font-bold text-[#C21807]">
                     10+ companies
@@ -80,7 +80,7 @@ const QLeague = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <CalendarDays className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">4 Quarters. 4 Sports.</span>
             </div>
@@ -90,7 +90,7 @@ const QLeague = () => {
                 Tournament Calendar
               </span>
             </h2>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-3xl mx-auto">
               Four epic tournaments throughout the year, each bringing companies together for competitive excellence
             </p>
           </div>
@@ -179,8 +179,8 @@ const QLeague = () => {
             <ul className="space-y-4">
               {features.map((text, i) => (
                 <li key={i} className="flex items-start gap-3 text-gray-700">
-                  <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
-                  <span className="text-base leading-relaxed">{text}</span>
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
+                  <span className="text-sm sm:text-base leading-relaxed">{text}</span>
                 </li>
               ))}
             </ul>
@@ -214,8 +214,8 @@ const QLeague = () => {
             <ul className="space-y-4">
               {benefits.map((text, i) => (
                 <li key={i} className="flex items-start gap-3 text-gray-700">
-                  <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
-                  <span className="text-base leading-relaxed">{text}</span>
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
+                  <span className="text-sm sm:text-base leading-relaxed">{text}</span>
                 </li>
               ))}
             </ul>
@@ -233,10 +233,10 @@ const QLeague = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
+              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-sm sm:text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Register for Quarterly Package</span>
-              <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
             </motion.button>

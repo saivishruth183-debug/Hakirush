@@ -109,7 +109,7 @@ export default function Contact() {
               transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 md:mb-10">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 md:mb-10">
                 <MessageSquare className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">We're Here to Help</span>
               </div>
@@ -126,7 +126,7 @@ export default function Contact() {
                   </span>
                 </h1>
               </div>
-              <p className="text-base md:text-lg font-medium text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg font-medium text-gray-700 max-w-3xl mx-auto leading-relaxed">
                 Ready to transform your workplace culture? Let's create sports experiences
                 that inspire energy, unity & performance.
               </p>
@@ -147,19 +147,19 @@ export default function Contact() {
             className="space-y-6 md:space-y-8"
           >
             {/* Section Badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
               <Star className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Contact Information</span>
             </div>
 
             <div>
-              <h2 className="text-2xl md:text-3xl font-black mb-4 text-gray-900">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-4 text-gray-900">
                 Let's{" "}
                 <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Connect
                 </span>
               </h2>
-              <p className="text-gray-600 text-lg">
+              <p className="text-gray-600 text-sm sm:text-base md:text-lg">
                 Have questions or want a custom corporate sports event? We're here to help.
               </p>
             </div>
@@ -185,11 +185,11 @@ export default function Contact() {
                   {item.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-gray-900 mb-1">{item.label}</h3>
+                  <h3 className="font-bold text-sm sm:text-base text-gray-900 mb-1">{item.label}</h3>
                   {item.href ? (
-                    <a href={item.href} className="text-gray-600 hover:text-[#C21807] transition-colors font-medium">{item.value}</a>
+                    <a href={item.href} className="text-xs sm:text-sm md:text-base text-gray-600 hover:text-[#C21807] transition-colors font-medium">{item.value}</a>
                   ) : (
-                    <p className="text-gray-600 font-medium">{item.value}</p>
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600 font-medium">{item.value}</p>
                   )}
                 </div>
               </motion.div>
@@ -198,7 +198,7 @@ export default function Contact() {
 
           {/* SOCIAL */}
           <div className="mt-6 md:mt-8 p-6 rounded-2xl bg-white border border-gray-200">
-            <h3 className="font-bold text-lg mb-5 text-gray-900">
+            <h3 className="font-bold text-base sm:text-lg mb-5 text-gray-900">
               Follow{" "}
               <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Us
@@ -240,7 +240,7 @@ export default function Contact() {
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
 
-          <h2 className="text-2xl md:text-3xl font-black mb-8 text-gray-900">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-8 text-gray-900">
             Send us a{" "}
             <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Message
@@ -276,9 +276,9 @@ export default function Contact() {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-[#C21807] text-white py-3 md:py-4 text-lg font-bold rounded-lg flex justify-center items-center gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#C21807] text-white py-3 md:py-4 text-base sm:text-lg font-bold rounded-lg flex justify-center items-center gap-2 sm:gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Send className="h-5 w-5" />
+              <Send className="h-4 w-4 sm:h-5 sm:w-5" />
               {loading ? "Sending..." : "Submit"}
             </motion.button>
           </form>
@@ -296,12 +296,12 @@ export default function Contact() {
           className="text-center mb-8 md:mb-12"
         >
           {/* Section Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <MapPin className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Our Location</span>
           </div>
 
-          <h2 className="text-2xl md:text-3xl font-black text-gray-900">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
             Find{" "}
             <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Us

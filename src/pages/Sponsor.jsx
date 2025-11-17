@@ -72,7 +72,7 @@ const Sponsorship = () => {
               viewport={{ once: true }}
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
                 <Handshake className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Partnership Opportunities</span>
               </div>
@@ -84,7 +84,7 @@ const Sponsorship = () => {
                 </span>
               </h1>
 
-              <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+              <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed font-medium">
                 Join India's growing corporate sports revolution as a {" "}
                 <span className="font-bold text-[#C21807]">
                   HAKIRUSH Sponsor
@@ -154,12 +154,12 @@ const Sponsorship = () => {
                       </h3>
                     </div>
 
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                       {tier.desc}
                     </p>
 
                     {/* Arrow Indicator */}
-                    <div className="mt-6 flex items-center gap-2 text-[#C21807] font-semibold text-sm">
+                    <div className="mt-6 flex items-center gap-2 text-[#C21807] font-semibold text-xs sm:text-sm">
                       <span>Learn More</span>
                       <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -210,8 +210,8 @@ const Sponsorship = () => {
                     "Dedicated logo placement in media posts"
                   ].map((text, i) => (
                     <li key={i} className="flex items-start gap-3 text-gray-700">
-                      <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
-                      <span className="text-lg leading-relaxed">{text}</span>
+                      <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base lg:text-lg leading-relaxed">{text}</span>
                     </li>
                   ))}
                 </ul>
@@ -252,8 +252,8 @@ const Sponsorship = () => {
                     "Premium association with fitness & team culture"
                   ].map((text, i) => (
                     <li key={i} className="flex items-start gap-3 text-gray-700">
-                      <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
-                      <span className="text-lg leading-relaxed">{text}</span>
+                      <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
+                      <span className="text-sm sm:text-base lg:text-lg leading-relaxed">{text}</span>
                     </li>
                   ))}
                 </ul>
@@ -264,7 +264,7 @@ const Sponsorship = () => {
       </section>
 
       {/* CTA Button */}
-      <div className="text-center pb-20">
+      <div className="text-center pb-20 px-6">
           <motion.a
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -275,10 +275,10 @@ const Sponsorship = () => {
             href="https://docs.google.com/forms/d/e/1FAIpQLSfLEVHE5g0aw_MBfYbum20LAK1sbLdrLN4AzI0o2n-VF_RzZw/viewform"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-12 py-5 bg-[#C21807] text-white font-bold text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
+            className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-10 sm:py-4 md:px-12 md:py-5 bg-[#C21807] text-white font-bold text-base sm:text-lg rounded-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
           >
             <span className="relative z-10">Join as a Sponsor</span>
-            <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
             {/* Shimmer effect */}
             <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
           </motion.a>

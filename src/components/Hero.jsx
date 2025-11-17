@@ -84,7 +84,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl font-medium"
+              className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl font-medium"
             >
               Corporate sports experiences that keep your teams{" "}
               <span className="font-bold text-[#C21807]">

@@ -105,7 +105,7 @@ export default function Clients() {
               </h1>
             </div>
 
-            <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
               Trusted by leading companies to deliver exceptional corporate sports experiences 
               and build vibrant workplace cultures.
             </p>
@@ -125,11 +125,11 @@ export default function Clients() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <TrendingUp className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Impact</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-gray-900">
               By The{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Numbers
@@ -182,10 +182,10 @@ export default function Clients() {
                     {stat.icon}
                   </div>
 
-                  <h3 className="text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                     {stat.value}
                   </h3>
-                  <p className="text-base text-gray-700 font-medium">{stat.label}</p>
+                  <p className="text-sm sm:text-base text-gray-700 font-medium">{stat.label}</p>
                 </div>
 
                 {/* Border Glow */}
@@ -208,7 +208,7 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Sponser</span>
             </div>
@@ -278,7 +278,7 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Partners</span>
             </div>
@@ -348,11 +348,11 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <MessageCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Success Stories</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
               What Our{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Clients Say

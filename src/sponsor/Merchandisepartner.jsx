@@ -38,16 +38,16 @@ export default function SponsorGrid() {
   return (
     <div className="relative overflow-hidden bg-white">
       {/* Back Button */}
-      <div className="max-w-6xl mx-auto px-6 pt-15">
+      <div className="max-w-6xl mx-auto px-6 pt-10 md:pt-10 md:pb-6">
         <motion.button
           onClick={handleBackClick}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           whileHover={{ x: -5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 text-[#C21807] hover:text-[#A01506] font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-[#C21807]/30 shadow-sm hover:shadow-md text-[#C21807] hover:bg-[#C21807]/5 text-sm md:text-base font-semibold transition-all cursor-pointer"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
           <span>Back to Sponsorship Tiers</span>
         </motion.button>
       </div>
@@ -61,7 +61,7 @@ export default function SponsorGrid() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
               <ShoppingBag className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Brand Merchandise</span>
             </div>
@@ -79,7 +79,7 @@ export default function SponsorGrid() {
               </h1>
             </div>
             
-            <p className="mt-4 text-base md:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
               {s.details.overview}
             </p>
           </motion.div>
@@ -100,7 +100,7 @@ export default function SponsorGrid() {
             >
 
               <div className="relative p-10">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <Sparkles className="w-4 h-4 animate-pulse" />
                   <span className="text-sm font-bold tracking-wide">PACKAGE INCLUDES</span>
                 </div>
@@ -120,9 +120,9 @@ export default function SponsorGrid() {
                       className="flex items-start gap-4 text-gray-700 group/item hover:text-gray-900 transition-colors"
                     >
                       <div className="shrink-0 mt-0.5">
-                        <CheckCircle className="w-5 h-5 text-[#C21807] group-hover/item:scale-110 transition-transform" />
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#C21807] group-hover/item:scale-110 transition-transform" />
                       </div>
-                      <span className="text-base leading-relaxed font-medium">{item}</span>
+                      <span className="text-sm sm:text-base leading-relaxed font-medium">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -140,7 +140,7 @@ export default function SponsorGrid() {
             >
 
               <div className="relative p-10">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <ShoppingBag className="w-4 h-4 animate-pulse" />
                   <span className="text-sm font-bold tracking-wide">KEY BENEFITS</span>
                 </div>
@@ -160,9 +160,9 @@ export default function SponsorGrid() {
                       className="flex items-start gap-4 text-gray-700 group/item hover:text-gray-900 transition-colors"
                     >
                       <div className="shrink-0 mt-0.5">
-                        <CheckCircle className="w-5 h-5 text-[#C21807] group-hover/item:scale-110 transition-transform" />
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#C21807] group-hover/item:scale-110 transition-transform" />
                       </div>
-                      <span className="text-base leading-relaxed font-medium">{item}</span>
+                      <span className="text-sm sm:text-base leading-relaxed font-medium">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -172,7 +172,7 @@ export default function SponsorGrid() {
           </div>
 
           <motion.div
-            className="flex justify-center"
+            className="flex justify-center px-4 sm:px-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -188,10 +188,10 @@ export default function SponsorGrid() {
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfLEVHE5g0aw_MBfYbum20LAK1sbLdrLN4AzI0o2n-VF_RzZw/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-12 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
+                className="flex sm:inline-flex w-full sm:w-auto items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-12 md:py-5 bg-[#C21807] text-white font-bold text-sm sm:text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
               >
-                <span className="relative z-10">{s.details.ctaText}</span>
-                <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+                <span className="relative z-10 text-center">{s.details.ctaText}</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1 shrink-0" />
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
               </motion.a>

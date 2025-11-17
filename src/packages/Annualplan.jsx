@@ -73,7 +73,7 @@ const Annualplan = () => {
               className="text-center max-w-4xl mx-auto space-y-6 md:space-y-8"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Zap className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Annual Subscription</span>
               </div>
@@ -86,7 +86,7 @@ const Annualplan = () => {
                 One Unstoppable Team.
               </h1>
 
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto font-medium">
                 A year-long engagement program designed for organizations that believe in{' '}
                 <span className="font-bold text-gray-900">
                   consistent team connection
@@ -113,7 +113,7 @@ const Annualplan = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <CheckCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">12-Month Calendar</span>
             </div>
@@ -123,7 +123,7 @@ const Annualplan = () => {
                 Activity Calendar
               </span>
             </h2>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-3xl mx-auto">
               A carefully curated mix of sports and wellness activities to keep your team engaged year-round
             </p>
           </div>
@@ -204,7 +204,7 @@ const Annualplan = () => {
 
                 <div className="relative p-8">
                   {/* Icon Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
                     {item.id === 1 ? (
                       <CheckCircle className="w-5 h-5 text-white" />
                     ) : (
@@ -216,8 +216,8 @@ const Annualplan = () => {
                   <ul className="space-y-4">
                     {Object.values(item).slice(2).map((line, i) => (
                       <li key={i} className="flex items-start gap-3 text-gray-700">
-                        <CheckCircle className="w-6 h-6 text-[#C21807] shrink-0 mt-0.5" />
-                        <span className="text-base leading-relaxed">{line}</span>
+                        <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
+                        <span className="text-sm sm:text-base leading-relaxed">{line}</span>
                       </li>
                     ))}
                   </ul>
@@ -236,10 +236,10 @@ const Annualplan = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
+              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-sm sm:text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
             >
               <span className="relative z-10">Subscribe to Annual Package</span>
-              <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
             </motion.button>

@@ -66,7 +66,7 @@ const GalleryPage = () => {
           className="text-center max-w-4xl mx-auto px-6 relative z-10"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <Camera className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Visual Memories</span>
           </div>
@@ -84,7 +84,7 @@ const GalleryPage = () => {
             </h1>
           </div>
 
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
+          <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
             Relive the energy, passion, and competition from our corporate tournaments through stunning visual moments.
           </p>
         </motion.div>
@@ -102,11 +102,11 @@ const GalleryPage = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Sparkles className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Browse Collections</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               Explore{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Event Categories
@@ -125,7 +125,7 @@ const GalleryPage = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 rounded-lg font-semibold border-2 cursor-pointer transition-all duration-300 shrink-0 shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/20 hover:shadow-[0_12px_35px_rgba(248,113,113,0.25)] ${
+                className={`px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-semibold border-2 cursor-pointer transition-all duration-300 shrink-0 shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/20 hover:shadow-[0_12px_35px_rgba(248,113,113,0.25)] ${
                   activeTab === tab
                     ? "bg-[#C21807] text-white border-transparent shadow-lg shadow-[#C21807]/30"
                     : "text-gray-700 border-gray-200 hover:border-[#C21807] bg-white hover:shadow-lg"

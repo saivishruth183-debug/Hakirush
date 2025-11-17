@@ -178,22 +178,23 @@ export default function SponsorGrid() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Link to="/contact">
-              <motion.button
+              <motion.a
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfLEVHE5g0aw_MBfYbum20LAK1sbLdrLN4AzI0o2n-VF_RzZw/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-3 px-6 py-4 md:px-12 md:py-5 bg-[#C21807] text-white font-bold text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
               >
                 <span className="relative z-10">{s.details.ctaText}</span>
                 <ArrowRight className="w-6 h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
-              </motion.button>
-            </Link>
+              </motion.a>
           </motion.div>
         </div>
       </section>

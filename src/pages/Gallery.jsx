@@ -2,26 +2,36 @@ import React, { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Camera, Sparkles, X } from "lucide-react";
+import Cricket from "../assets/Gallery/Annual/cricket.png";
+import Marathon from "../assets/Gallery/Annual/marathon.png";
+import Table from "../assets/Gallery/Annual/tabletennis.png";
+import Basketball from "../assets/Gallery/Quarterly/basketball.png";
+import Ground from "../assets/Gallery/Quarterly/ground.png";
+import Batemention from "../assets/Gallery/Quarterly/batemention.png";
+import Celebration1 from "../assets/Gallery/Celebration/celeb1.png";
+import Celebration2 from "../assets/Gallery/Celebration/celeb2.png";
+import Behind1 from "../assets/Gallery/BehindTheSceans/behind1.png";
+import Behind2 from "../assets/Gallery/BehindTheSceans/behind2.png";
+
 
 const galleryData = {
   annual: [
-    { id: 1, img: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80", city: "City A" },
-    { id: 2, img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", city: "City B" },
-    { id: 3, img: "https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=800&q=80", city: "City A" },
+    { id: 1, img: Cricket, city: "City A" },
+    { id: 2, img: Marathon, city: "City B" },
+    { id: 3, img: Table, city: "City A" },
   ],
   quarterly: [
-    { id: 4, img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80", city: "City C" },
-    { id: 5, img: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80", city: "City A" },
-    { id: 6, img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80", city: "City B" },
+    { id: 4, img: Basketball, city: "City C" },
+    { id: 5, img: Ground, city: "City A" },
+    { id: 6, img: Batemention, city: "City B" },
   ],
   celebration: [
-    { id: 7, img: "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?w=800&q=80", city: "City C" },
-    { id: 8, img: "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=800&q=80", city: "City B" },
-    { id: 9, img: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=800&q=80", city: "City A" },
+    { id: 7, img: Celebration1, city: "City C" },
+    { id: 8, img: Celebration2, city: "City B" },
   ],
   behindthescenes: [
-    { id: 10, img: "https://miro.medium.com/v2/1*eniqeDqKCjAj2_tlZGMxnA.jpeg", city: "City A" },
-    { id: 11, img: "https://www.dpreview.com/files/p/articles/2574150340/1_sherman.jpeg", city: "City C" },
+    { id: 10, img: Behind1, city: "City A" },
+    { id: 11, img: Behind2, city: "City C" },
   ],
 };
 

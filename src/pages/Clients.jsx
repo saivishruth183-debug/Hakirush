@@ -2,6 +2,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Star, Users, Building, Award, TrendingUp, Quote, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Amit from "../assets/Clients/Amit.png";
 import Priya from "../assets/Clients/Priya.png";
 import Rajesh from "../assets/Clients/Rajesh.png";
@@ -9,19 +10,19 @@ import Sarah from "../assets/Clients/Sarah.png";
 
 
 const sponsers = [
-  { id: 1, href: "", name: "Sponser 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1" },
-  { id: 2, href: "", name: "Sponser 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2" },
-  { id: 3, href: "", name: "Sponser 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3" },
-  { id: 4, href: "", name: "Sponser 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4" },
-  { id: 5, href: "", name: "Sponser 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5" },
+  { id: 1, href: "/sponsors/sponsor1", name: "Sponser 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1" },
+  { id: 2, href: "/sponsors/sponsor2", name: "Sponser 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2" },
+  { id: 3, href: "/sponsors/sponsor3", name: "Sponser 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3" },
+  { id: 4, href: "/sponsors/sponsor4", name: "Sponser 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4" },
+  { id: 5, href: "/sponsors/sponsor5", name: "Sponser 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5" },
 ];
 
 const clients = [
-  { id: 1, href: "", name: "Client 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+1" },
-  { id: 2, href: "", name: "Client 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+2" },
-  { id: 3, href: "", name: "Client 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+3" },
-  { id: 4, href: "", name: "Client 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+4" },
-  { id: 5, href: "", name: "Client 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+5" },
+  { id: 1, href: "/clients/client1", name: "Client 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+1" },
+  { id: 2, href: "/clients/client2", name: "Client 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+2" },
+  { id: 3, href: "/clients/client3", name: "Client 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+3" },
+  { id: 4, href: "/clients/client4", name: "Client 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+4" },
+  { id: 5, href: "/clients/client5", name: "Client 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+5" },
 ];
 
 const testimonials = [
@@ -67,6 +68,7 @@ const testimonials = [
 
 export default function Clients() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(
@@ -76,6 +78,12 @@ export default function Clients() {
     );
     return () => clearInterval(timer);
   }, []);
+
+  const handleClientClick = (href) => {
+    if (href) {
+      navigate(href);
+    }
+  };
 
 
 
@@ -210,7 +218,7 @@ export default function Clients() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
-              <span className="text-sm font-bold text-[#C21807]">Our Sponser</span>
+              <span className="text-sm font-bold text-[#C21807]">Our Sponsors</span>
             </div>
           </div>
 
@@ -227,16 +235,17 @@ export default function Clients() {
               }}
             >
               {/* First set */}
-              {[...sponsers, ...sponsers].map((client, index) => (
+              {[...sponsers, ...sponsers].map((sponsor, index) => (
                 <motion.div
                   key={`sponsor-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
+                  onClick={() => handleClientClick(sponsor.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
                   <img
-                    src={client.logo}
-                    alt={`${client.name} - HAKIRUSH Client`}
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} - HAKIRUSH Sponsor`}
                     loading="lazy"
                     className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -245,16 +254,17 @@ export default function Clients() {
               ))}
 
               {/* Second set (duplicate for seamless loop) */}
-              {[...sponsers, ...sponsers].map((client, index) => (
+              {[...sponsers, ...sponsers].map((sponsor, index) => (
                 <motion.div
                   key={`sponsor-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
+                  onClick={() => handleClientClick(sponsor.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
                   <img
-                    src={client.logo}
-                    alt={`${client.name} - HAKIRUSH Client`}
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} - HAKIRUSH Sponsor`}
                     loading="lazy"
                     className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
@@ -301,6 +311,7 @@ export default function Clients() {
                 <motion.div
                   key={`client-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
+                  onClick={() => handleClientClick(client.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
@@ -319,6 +330,7 @@ export default function Clients() {
                 <motion.div
                   key={`client-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
+                  onClick={() => handleClientClick(client.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />

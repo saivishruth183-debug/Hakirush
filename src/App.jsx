@@ -23,8 +23,20 @@ import Cosponsor from './sponsor/Cosponsor'
 import Stallpartner from './sponsor/Stallpatner'
 import Merchandisepartner from './sponsor/Merchandisepartner'
 
+// Sponsor Pages
+import Sponsor1 from './sponsors/Sponsor1'
+import Sponsor2 from './sponsors/Sponsor2'
+import Sponsor3 from './sponsors/Sponsor3'
+import Sponsor4 from './sponsors/Sponsor4'
+import Sponsor5 from './sponsors/Sponsor5'
+
 // Client Pages
-import Google from './clients/Google'
+import Client1 from './clients/Client1'
+import Client2 from './clients/Client2'
+import Client3 from './clients/Client3'
+import Client4 from './clients/Client4'
+import Client5 from './clients/Client5'
+
 
 
 const App = () => {
@@ -47,7 +59,16 @@ const App = () => {
           <Route path='/sponsor/cosponser' element={<Cosponsor />} />
           <Route path='/sponsor/stallsponser' element={<Stallpartner />} />
           <Route path='/sponsor/merchandisepartner' element={<Merchandisepartner />} />
-          <Route path='/client/google' element={<Google />} />
+          <Route path='/sponsors/sponsor1' element={<Sponsor1 />} />
+          <Route path='/sponsors/sponsor2' element={<Sponsor2 />} />
+          <Route path='/sponsors/sponsor3' element={<Sponsor3 />} />
+          <Route path='/sponsors/sponsor4' element={<Sponsor4 />} />
+          <Route path='/sponsors/sponsor5' element={<Sponsor5 />} />
+          <Route path='/clients/client1' element={<Client1 />} />
+          <Route path='/clients/client2' element={<Client2 />} />
+          <Route path='/clients/client3' element={<Client3 />} />
+          <Route path='/clients/client4' element={<Client4 />} />
+          <Route path='/clients/client5' element={<Client5 />} />
         </Routes>
       </div>
       <Footer />

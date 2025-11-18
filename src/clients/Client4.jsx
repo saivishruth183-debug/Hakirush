@@ -8,32 +8,51 @@ const Client4 = () => {
 
   return (
     <div className='bg-white min-h-screen'>
-      {/* Hero Section */}
-      <section className='relative bg-gradient-to-br from-[#C21807] via-[#A01506] to-[#8B1205] text-white py-20 overflow-hidden'>
-        <div className='absolute inset-0 bg-black/10'></div>
-        <div className='max-w-7xl mx-auto px-6 relative z-10'>
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            onClick={() => navigate(-1)}
-            className='flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 transition-all duration-300 mb-8 border border-white/30'
-          >
-            <ArrowLeft className='w-5 h-5' />
-            Go Back
-          </motion.button>
+      {/* Back Button */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
+        <motion.button
+          onClick={() => navigate(-1)}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ x: -5 }}
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg bg-white border border-[#C21807]/30 shadow-sm hover:shadow-md text-[#C21807] hover:bg-[#C21807]/5 text-xs sm:text-sm md:text-base font-semibold transition-all cursor-pointer"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
+          <span className="whitespace-nowrap">Back to Clients</span>
+        </motion.button>
+      </div>
 
+      {/* Hero Section */}
+      <section className='relative py-6 sm:py-10 overflow-hidden bg-white'>
+        <div className='max-w-6xl mx-auto px-4 sm:px-6 relative z-10'>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className='max-w-4xl'
+            initial={{ opacity: 0, y: -40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className='text-center'
           >
-            <div className='inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6 border border-white/30'>
-              <Users className='w-5 h-5' />
-              <span className='font-semibold'>Success Story</span>
+            {/* Badge */}
+            <div className='inline-flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 sm:mb-8'>
+              <Trophy className='w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C21807]' />
+              <span className='text-xs sm:text-sm font-bold text-[#C21807]'>Success Story</span>
             </div>
-            <h1 className='text-4xl md:text-6xl font-black mb-6 leading-tight'>Healthcare Systems Group</h1>
-            <p className='text-xl md:text-2xl text-white/90 leading-relaxed'>
+
+            {/* Icon and Title in Row */}
+            <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3 md:gap-4 mb-4 sm:mb-6'>
+              <div className='inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl md:rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0'>
+                <Users className='w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white' />
+              </div>
+              <h1 className='text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight text-center sm:text-left'>
+                Healthcare Systems{" "}
+                <span className='bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm'>
+                  Group
+                </span>
+              </h1>
+            </div>
+            
+            <p className='mt-3 sm:mt-4 text-xs sm:text-base md:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium px-2'>
               Promoting wellness and unity among healthcare professionals through sports
             </p>
           </motion.div>
@@ -41,29 +60,29 @@ const Client4 = () => {
       </section>
 
       {/* Stats Section */}
-      <section className='py-16 bg-gray-50'>
-        <div className='max-w-7xl mx-auto px-6'>
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
+      <section className='py-12 sm:py-16 bg-gray-50'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+          <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6'>
             {[
-              { icon: <Users className='w-8 h-8' />, value: '600+', label: 'Healthcare Workers' },
-              { icon: <Calendar className='w-8 h-8' />, value: '30', label: 'Wellness Events' },
-              { icon: <Trophy className='w-8 h-8' />, value: '94%', label: 'Participation Rate' },
-              { icon: <Target className='w-8 h-8' />, value: '2.5 Years', label: 'Partnership' }
+              { icon: <Users className='w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8' />, value: '600+', label: 'Healthcare Workers' },
+              { icon: <Calendar className='w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8' />, value: '30', label: 'Wellness Events' },
+              { icon: <Trophy className='w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8' />, value: '94%', label: 'Participation Rate' },
+              { icon: <Target className='w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8' />, value: '2.5 Years', label: 'Partnership' }
             ].map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -12, scale: 1.02 }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className='bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-300 text-center border border-gray-100'
+                className='bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-300 text-center border border-gray-100'
               >
-                <div className='inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#C21807] to-[#A01506] text-white rounded-2xl mb-4'>
+                <div className='inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#C21807] to-[#A01506] text-white rounded-xl sm:rounded-2xl mb-3 sm:mb-4'>
                   {stat.icon}
                 </div>
-                <h3 className='text-3xl font-bold text-gray-900 mb-2'>{stat.value}</h3>
-                <p className='text-gray-600 font-medium'>{stat.label}</p>
+                <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2'>{stat.value}</h3>
+                <p className='text-xs sm:text-sm md:text-base text-gray-600 font-medium leading-tight'>{stat.label}</p>
               </motion.div>
             ))}
           </div>

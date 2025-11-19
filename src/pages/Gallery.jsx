@@ -8,7 +8,7 @@ import Table from "../assets/Gallery/Annual/tabletennis.png";
 import Basketball from "../assets/Gallery/Quarterly/basketball.png";
 import Ground from "../assets/Gallery/Quarterly/ground.png";
 import Batemention from "../assets/Gallery/Quarterly/batemention.png";
-import Celebration1 from "../assets/Gallery/Celebration/celeb1.png";
+import Celebration1 from "../assets/Gallery/Celebration/celeb1.jpeg";
 import Celebration2 from "../assets/Gallery/Celebration/celeb2.png";
 import Behind1 from "../assets/Gallery/BehindTheSceans/behind1.png";
 import Behind2 from "../assets/Gallery/BehindTheSceans/behind2.png";

@@ -1,218 +1,797 @@
-import React from 'react'
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion'
-import Cricket from '../assets/About/Women.jpg'
-import Treeking from '../assets/About/treeking.png'
-import Team from '../assets/About/team.jpg'
-import Marathon from '../assets/About/marathon.png'
-import { Eye, Lightbulb, Target, Building2, Trophy, Users, Info } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Award, Camera, BarChart3, Quote, Handshake, Briefcase, MapPin, Clock } from "lucide-react";
 
-const aboutimg = [
-  { image: Cricket },
-  { image: Treeking },
-  { image: Marathon },
-  { image: Team },
+const mission = [
+  { icon:<Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty."},
+  { icon:<Eye className="w-8 h-8 text-red-600" />, title: "Vision", description: "To be India's most trusted corporate sports partner — delivering repeatable ROI in employee engagement and employer branding."},
 ]
 
-const about = [
-  {
-    icon: <Lightbulb className="text-[#C21807]" size={24} />,
-    title: "Vision",
-    description: "To become the most trusted and innovative corporate sports platform in India, creating memorable experiences that strengthen workplace bonds and promote holistic employee well-being."
-  },
-  {
-    icon: <Target className="text-[#C21807]" size={24} />,
-    title: "Mission",
-    description: "To deliver world-class sports events and tournaments that empower corporate teams, enhance employee engagement, and build lasting connections through the joy of sports and competition."
-  },
+const founding = [
+  { icon:<Crosshair className="w-6 h-6 text-red-600" />, title: "Why we started", description: "To solve a real problem: disengaged teams, growing employee isolation after remote work, and HR teams stretched thin."},
+  { icon:<Lightbulb className="w-6 h-6 text-red-600" />, title: "What we learned", description: "Small, well-run events create outsized cultural impact — trust and collaboration increase far faster than through remote initiatives."},
+  { icon:<Bolt className="w-6 h-6 text-red-600" />, title: "How we operate", description: "End-to-end delivery: strategy, venue, ops, production, content & measurement."},
 ]
 
-const About = () => {
+const team = [
+  { image: "/images/team-krishna.jpg", name: "Krishna", role: "Founder - Strategy & Growth" },
+  { image: "/images/team-lakshmi.jpg", name: "Lakshmi", role: "Marketing - Content & Social" },
+  { image: "/images/team-vishruth.jpg", name: "Vishruth", role: "Tech - Product & Site" },
+  { image: "/images/team-anisha.jpg", name: "Anisha", role: "Social - Design & Content" },
+]
+
+export default function About() {
   return (
-    <section className="relative py-24 bg-white overflow-hidden">
-      {/* MAIN CONTENT */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center mb-20">
+    <div className="bg-white overflow-hidden">
+      
+      {/* HERO SECTION */}
+      <section className="relative pt-20 pb-16 overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-14 h-14 bg-gradient-to-br from-red-600 via-red-700 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Zap className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900">
+              About <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">HAKIRUSH</span>
+            </h1>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-4">
+            <p className="text-sm sm:text-base md:text-md text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
+              HAKIRUSH is a corporate sports management company designed for today's fast-moving, post-COVID work culture. While most companies struggle to create real team bonding and employee engagement, we bring organizations together through professionally executed, high-energy sports experiences.
+            </p>
+          </div>
+        </div>
+      </section>
 
-          {/* LEFT TEXT CONTENT */}
-          <motion.div
+      {/* Mission / Vision */}
+      <section className="bg-gradient-to-b from-white to-slate-50 py-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            {mission.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ 
+                  type: 'spring', 
+                  stiffness: 200,
+                  delay: index * 0.1 
+                }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                  y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+                }}
+                className="group p-10 bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-slate-100 hover:border-red-300">
+              <div className="flex items-center gap-5 mb-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-red-50 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                {item.icon}
+                </div>
+                <h3 className="text-3xl font-extrabold text-slate-900">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">{item.title}</span></h3>
+              </div>
+              <p className="text-slate-700 leading-relaxed text-lg">
+                {item.description}
+              </p>
+            </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Founding story */}
+      <section className="relative py-16 overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Story</span></h2>
+          <div className="max-w-4xl mx-auto mt-6">
+            <p className="text-sm sm:text-base md:text-md text-gray-700 leading-relaxed font-medium">
+              HAKIRUSH began as a simple idea: bring professional sporting experiences
+              to corporate teams in a way that's effortless for HR and unforgettable
+              for employees. Founded by professionals who love sport and corporate
+              culture, we combined event management, digital storytelling, and
+              scalable operations to create a model that works for both startups and
+              enterprise companies.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 py-16 bg-gradient-to-b from-white to-slate-50">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {founding.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: index * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 hover:border-red-300">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  {item.icon}
+                </div>
+                <h4 className="font-bold text-2xl text-slate-900">{item.title}</h4>
+              </div>
+              <p className="text-slate-600 leading-relaxed">{item.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Team (short bios) */}
+      <section className="bg-gradient-to-b from-white to-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">Meet the <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Team</span></h2>
+          <p className="text-slate-600 text-center text-lg max-w-3xl mx-auto mt-3">
+            A small cross-functional team with expertise in events, operations,
+            marketing and partnerships.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <motion.div 
+                key={member.name}
+                initial={{ opacity: 0, y: 40, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ 
+                  type: 'spring', 
+                  stiffness: 200,
+                  delay: index * 0.1 
+                }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                  y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+                }}
+                className="group bg-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+              >
+                <div className="relative mb-6">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="mx-auto h-32 w-32 rounded-full object-cover border-4 border-slate-100 group-hover:border-red-300 transition-all duration-300 shadow-lg"
+                  />
+                </div>
+                <h5 className="text-xl font-bold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-2">{member.name}</h5>
+                <p className="text-sm text-slate-600 leading-relaxed">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How we work - process */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">How We <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Work</span></h2>
+        <p className="text-center text-lg text-slate-600 max-w-3xl mx-auto mt-3">
+          We follow a simple 5-step process to ensure flawless delivery and
+          measurable impact.
+        </p>
+
+        <ol className="mt-6 space-y-4 text-slate-700">
+          <motion.li
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 200,
+              delay: 0 * 0.1 
+            }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border-l-4 border-red-600 hover:bg-slate-100 transition-colors"
           >
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight">
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-                About HAKIRUSH
-              </span>
-            </h2>
-
-            <div className="space-y-5">
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed font-medium">
-                <span className="font-black text-[#C21807]">HAKIRUSH</span> is India's leading corporate sports engagement platform, dedicated to transforming workplace culture through the power of sports and wellness activities.
-              </p>
-
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
-                We specialize in organizing{" "}
-                <span className="font-bold text-[#C21807]">
-                  quarterly tournaments
-                </span>
-                ,{" "}
-                <span className="font-bold text-[#C21807]">
-                  annual leagues
-                </span>
-                , and{" "}
-                <span className="font-bold text-[#C21807]">
-                  custom events
-                </span>
-                {" "}that bring teams together and foster healthy competition.
-              </p>
-              <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
-                Operating across <span className="font-bold text-gray-900">Bangalore, Hyderabad, Chennai, and expanding to other major cities</span>, we're revolutionizing how corporates engage with their employees through sports.
-              </p>
+            <span className="shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white font-bold rounded-full">1</span>
+            <div>
+              <strong className="text-slate-900 text-lg">Discovery:</strong>
+              <p className="mt-1 text-slate-600">We understand your people, culture and KPIs.</p>
             </div>
-          </motion.div>
-
-          {/* RIGHT IMAGE COLLAGE - Enhanced */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 200,
+              delay: 1 * 0.1 
+            }}
             viewport={{ once: true }}
-            className="relative"
+            className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border-l-4 border-red-600 hover:bg-slate-100 transition-colors"
           >
-            
-            <div className="relative grid grid-cols-2 gap-4 max-w-lg mx-auto">
-              {aboutimg.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 40, rotateX: -10 }}
-                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{ 
-                    type: 'spring', 
-                    stiffness: 200,
-                    delay: index * 0.1 
-                  }}
-                  viewport={{ once: true }}
-                  whileHover={{ 
-                    scale: window.innerWidth >= 768 ? 1.03 : 1,
-                    y: window.innerWidth >= 768 ? -8 : 0
-                  }}
-                  className="relative rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 ring-2 ring-white/50 group cursor-pointer"
-                >
-                  <img
-                    src={item.image}
-                    alt={`Hakirush Sports Event ${index + 1}`}
-                    loading="lazy"
-                    className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </motion.div>
-              ))}
+            <span className="shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white font-bold rounded-full">2</span>
+            <div>
+              <strong className="text-slate-900 text-lg">Design:</strong>
+              <p className="mt-1 text-slate-600">Custom event plan, formats, schedules and branding options.</p>
             </div>
-          </motion.div>
-        </div>
-      </div>
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 200,
+              delay: 2 * 0.1 
+            }}
+            viewport={{ once: true }}
+            className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border-l-4 border-red-600 hover:bg-slate-100 transition-colors"
+          >
+            <span className="shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white font-bold rounded-full">3</span>
+            <div>
+              <strong className="text-slate-900 text-lg">Delivery:</strong>
+              <p className="mt-1 text-slate-600">Venue, logistics, referees, safety and on-ground ops.</p>
+            </div>
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 200,
+              delay: 3 * 0.1 
+            }}
+            viewport={{ once: true }}
+            className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border-l-4 border-red-600 hover:bg-slate-100 transition-colors"
+          >
+            <span className="shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white font-bold rounded-full">4</span>
+            <div>
+              <strong className="text-slate-900 text-lg">Content &amp; Reach:</strong>
+              <p className="mt-1 text-slate-600">Photo, reels, streaming and social amplification.</p>
+            </div>
+          </motion.li>
+          <motion.li
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ 
+              type: 'spring', 
+              stiffness: 200,
+              delay: 4 * 0.1 
+            }}
+            viewport={{ once: true }}
+            className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg border-l-4 border-red-600 hover:bg-slate-100 transition-colors"
+          >
+            <span className="shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white font-bold rounded-full">5</span>
+            <div>
+              <strong className="text-slate-900 text-lg">Measure &amp; Scale:</strong>
+              <p className="mt-1 text-slate-600">Feedback, participation metrics and scaling plan for next cycles.</p>
+            </div>
+          </motion.li>
+        </ol>
+      </section>
 
-      {/* VISION & MISSION - Enhanced */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 md:gap-10">
-          {about.map((item, index) => (
+      {/* Impact metrics */}
+      <section className="bg-gradient-to-b from-red-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-3">Impact & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Metrics</span></h2>
+          <p className="text-lg text-slate-700 max-w-3xl mx-auto">
+            We track real outcomes — participation, NPS, retention signals and
+            media reach.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <motion.div
-              key={index}
               initial={{ opacity: 0, y: 40, rotateX: -10 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               transition={{ 
                 type: 'spring', 
                 stiffness: 200,
-                delay: index * 0.1 
+                delay: 0 * 0.1 
               }}
               viewport={{ once: true }}
               whileHover={{ 
-                scale: window.innerWidth >= 768 ? 1.03 : 1,
-                y: window.innerWidth >= 768 ? -8 : 0
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
               }}
-              className="flex-1 relative bg-gradient-to-br from-white via-white to-[#C21807]/5 shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 px-10 sm:px-12 py-12 sm:py-10 rounded-3xl border-2 border-[#C21807]/10 group overflow-hidden cursor-pointer"
+              className="group bg-white p-14 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
             >
-              {/* Decorative Corner */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#C21807]/5 rounded-bl-full"></div>
-              
-              {/* Animated Background on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#C21807]/0 to-[#C21807]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              <div className="relative z-10">
-                {/* Icon and Title in Row */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="relative shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#C21807]/20 to-[#C21807]/30 rounded-xl blur-lg opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="relative p-4 bg-gradient-to-br from-[#C21807]/10 to-[#C21807]/20 rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-xl">
-                      {item.icon}
-                    </div>
+              <div className="text-4xl font-extrabold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-3">1,200+</div>
+              <div className="text-base font-semibold text-slate-700">Employees Engaged</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 1 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-14 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="text-4xl font-extrabold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-3">85%</div>
+              <div className="text-base font-semibold text-slate-700">Average Participation</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 2 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-14 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="text-4xl font-extrabold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-3">4.8/5</div>
+              <div className="text-base font-semibold text-slate-700">Average Event Rating</div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 3 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-14 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="text-4xl font-extrabold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-3">500k+</div>
+              <div className="text-base font-semibold text-slate-700">Social Impressions</div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services detail (more than home) */}
+      <section className="bg-gradient-to-b from-white to-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Services</span></h2>
+          <p className="text-center text-lg text-slate-600 max-w-3xl mx-auto mt-3">
+            The homepage lists our core offers. Below are the deeper service
+            details you won't find on the home page.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Trophy className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900">Custom Sports Programming</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Monthly rotating sports, tournament formats, mixed-teaming, and
+                multi-location leagues tailored to your calendar.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 1 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Award className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900">Branding &amp; Sponsorship</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Sponsor dashboards, co-branding kits, merchandise sponsorship and
+                partner activation management.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 2 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <Camera className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900">Content &amp; Media</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Live streaming, short-form reels, highlight reels, post-event
+                reports and branded media assets for recruitment & employer
+                branding.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 3 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <BarChart3 className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900">Data &amp; Measurement</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Participation dashboards, NPS capture, demographic reporting and
+                impact reports for HR leadership.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-gradient-to-b from-slate-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">What Companies <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Say</span></h2>
+          <p className="text-center text-lg text-slate-600 max-w-3xl mx-auto mt-3">
+            Hear from HR leaders and operations teams who have transformed their company culture with HAKIRUSH.
+          </p>
+          <div className="mt-12 grid md:grid-cols-3 gap-8">
+            <motion.blockquote
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shadow-lg">
+                <Quote className="w-6 h-6 text-red-600" />
+              </div>
+              <p className="text-slate-700 leading-relaxed text-base mt-4 mb-4">
+                "HAKIRUSH organised a flawless tournament for our 200 employees.
+                The energy was instant — people were talking across teams the
+                next week."
+              </p>
+              <div className="pt-4 border-t border-slate-100">
+                <p className="font-bold text-slate-900">HR Lead</p>
+                <p className="text-sm text-slate-600">FinTech Company</p>
+              </div>
+            </motion.blockquote>
+
+            <motion.blockquote
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 1 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shadow-lg">
+                <Quote className="w-6 h-6 text-red-600" />
+              </div>
+              <p className="text-slate-700 leading-relaxed text-base mt-4 mb-4">
+                "Well-run, professional and great content. Our leadership loved
+                the visibility."
+              </p>
+              <div className="pt-4 border-t border-slate-100">
+                <p className="font-bold text-slate-900">Operations Head</p>
+                <p className="text-sm text-slate-600">Infrastructure Company</p>
+              </div>
+            </motion.blockquote>
+
+            <motion.blockquote
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 2 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shadow-lg">
+                <Quote className="w-6 h-6 text-red-600" />
+              </div>
+              <p className="text-slate-700 leading-relaxed text-base mt-4 mb-4">
+                "Best employee engagement event we did this year."
+              </p>
+              <div className="pt-4 border-t border-slate-100">
+                <p className="font-bold text-slate-900">People Team</p>
+                <p className="text-sm text-slate-600">EdTech Startup</p>
+              </div>
+            </motion.blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners & Press */}
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shadow-lg">
+                <Handshake className="w-6 h-6 text-red-600" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900">
+                Partners & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Press</span>
+              </h2>
+            </div>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto mt-3">
+              We partner with venues, sports suppliers, media partners and corporate
+              sponsors to deliver scaled events.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300 flex items-center justify-center"
+            >
+              <img src="/images/partner-1.png" alt="partner" className="h-16 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 1 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300 flex items-center justify-center"
+            >
+              <img src="/images/partner-2.png" alt="partner" className="h-16 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 2 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300 flex items-center justify-center"
+            >
+              <img src="/images/partner-3.png" alt="partner" className="h-16 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 3 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300 flex items-center justify-center"
+            >
+              <img src="/images/partner-4.png" alt="partner" className="h-16 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Careers */}
+      <section className="bg-gradient-to-b from-red-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-xl flex items-center justify-center shadow-lg">
+                <Briefcase className="w-6 h-6 text-red-600" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900">
+                Careers & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Open Roles</span>
+              </h2>
+            </div>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto mt-3">
+              We're scaling. If you love operations, events or content, we'd love
+              to hear from you.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 0 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="mb-6">
+                <h4 className="text-2xl font-bold text-slate-900 mb-4">Event Coordinator</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Bengaluru</span>
                   </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-2xl sm:text-3xl font-extrabold">
-                    <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
-                      {item.title}
-                    </span>
-                  </h3>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Clock className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Full-time</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Briefcase className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Operations</span>
+                  </div>
                 </div>
-                
-                {/* Description */}
-                <p className="text-gray-700 leading-relaxed text-base sm:text-lg font-medium">
-                  {item.description}
-                </p>
               </div>
+              <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                Apply Now
+              </button>
             </motion.div>
-          ))}
-        </div>
-      </div>
 
-      {/* STATS - Enhanced */}
-      <div className="mt-20 max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-8 relative z-10">
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {[
-            { icon: Building2, label: "Corporate Partners", value: 25, color: "from-blue-500 to-blue-600" },
-            { icon: Trophy, label: "Tournaments Hosted", value: 75, color: "from-green-500 to-green-600" },
-            { icon: Users, label: "Participants Served", value: 1500, color: "from-purple-500 to-purple-600" },
-          ].map((stat, index) => (
             <motion.div
-              key={index}
               initial={{ opacity: 0, y: 40, rotateX: -10 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               transition={{ 
                 type: 'spring', 
                 stiffness: 200,
-                delay: index * 0.1 
+                delay: 1 * 0.1 
               }}
               viewport={{ once: true }}
               whileHover={{ 
-                scale: window.innerWidth >= 768 ? 1.03 : 1,
-                y: window.innerWidth >= 768 ? -8 : 0
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
               }}
-              className="relative bg-white rounded-2xl shadow-lg hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 border border-gray-100 px-4 py-8 group overflow-hidden cursor-pointer"
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
             >
-              
-              <div className="relative z-10 text-center">
-                <div className="mb-3 flex justify-center">
-                  <stat.icon className="text-[#C21807] group-hover:scale-110 transition-transform duration-300" size={40} />
+              <div className="mb-6">
+                <h4 className="text-2xl font-bold text-slate-900 mb-4">Content Producer</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Hyderabad</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Clock className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Contract</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Briefcase className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Media</span>
+                  </div>
                 </div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2">
-                  <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
-                    {stat.value}+
-                  </span>
-                </div>
-                <p className="text-gray-600 font-semibold text-xs sm:text-sm">{stat.label}</p>
               </div>
+              <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                Apply Now
+              </button>
             </motion.div>
-          ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ 
+                type: 'spring', 
+                stiffness: 200,
+                delay: 2 * 0.1 
+              }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
+                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
+              }}
+              className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-slate-100 hover:border-red-300"
+            >
+              <div className="mb-6">
+                <h4 className="text-2xl font-bold text-slate-900 mb-4">Sales & Partnerships</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Remote</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Clock className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Full-time</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Briefcase className="w-4 h-4 text-red-600" />
+                    <span className="text-sm">Business Development</span>
+                  </div>
+                </div>
+              </div>
+              <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                Apply Now
+              </button>
+            </motion.div>
+          </div>
         </div>
-      </div>
-
-    </section>
-  )
+      </section>
+    </div>
+  );
 }
-
-export default About

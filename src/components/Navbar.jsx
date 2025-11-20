@@ -35,10 +35,10 @@ const Navbar = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="group" aria-label="HAKIRUSH Home">
-            <div className="flex items-center group-hover:scale-105 transition-all duration-300">
+            <div className="flex items-center  group-hover:scale-105 transition-all duration-300">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
-                <img src="/favicon.png" alt="HAKIRUSH Logo" className="relative h-12 w-12 object-contain drop-shadow-2xl" />
+                <img src="/favicon1.png" alt="HAKIRUSH Logo" className="relative h-15 w-15 object-contain drop-shadow-2xl" />
               </div>
               <span className="text-2xl font-black text-white tracking-tight" style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}>
                 HAKIRUSH

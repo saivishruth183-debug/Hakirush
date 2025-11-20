@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Award, Camera, BarChart3, Quote, Handshake, Briefcase, MapPin, Clock } from "lucide-react";
+import { Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Award, Camera, BarChart3, Quote, Handshake, Briefcase, MapPin, Clock, Users } from "lucide-react";
 import Vishruth from "../assets/Team/vishruth.png";
+import Lakshmi from "../assets/Team/lakshmi.png";
+import Ajmeri from "../assets/Team/ajmeri.png";
 
 const mission = [
   { icon:<Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty."},
@@ -17,9 +19,9 @@ const founding = [
 const team = [
   { image: "/images/team-krishna.jpg", name: "Krishna", role: "Founder - Strategy & Growth" },
   { image: Vishruth, name: "Vishruth", role: "Tech - Product & Site" },
-  { image: "/images/team-lakshmi.jpg", name: "Lakshmi", role: "Marketing - Content & SMM" },
+  { image: Lakshmi, name: "Lakshmi", role: "Marketing - Content & SMM" },
   { image: "/images/team-madan.jpg", name: "Madan", role: "Social - Design & Content" },
-  { image: "/images/team-ajmeri.jpg", name: "Ajmeri", role: "Founder - Strategy & Growth" },
+  { image: Ajmeri, name: "Ajmeri", role: "Founder - Strategy & Growth" },
   { image: "/images/team-likita.jpg", name: "Likhita", role: "Marketing - Content & SMM" },
   { image: "/images/team-anisha.jpg", name: "Anisha", role: "Social - Design & Content" },
   { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
@@ -171,27 +173,27 @@ export default function About() {
       </section>
 
       {/* Team (short bios) */}
-      <section className="relative bg-gradient-to-b from-white via-slate-50 to-white py-16 sm:py-20 md:py-24 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-white via-slate-50 to-white py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(220,38,38,0.03),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(220,38,38,0.03),transparent_50%)]"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <div className="text-center mb-12 sm:mb-14 md:mb-16">
-            <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-100 mb-4 sm:mb-6">
-              <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div>
-              <span className="text-sm font-semibold text-red-600">Our Amazing Team</span>
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-red-50 border border-red-100 mb-3 sm:mb-4 md:mb-6">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4 text-red-600" />
+              <span className="text-xs sm:text-sm font-semibold text-red-600">Our Amazing Team</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-4 sm:mb-5">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-center mb-3 sm:mb-4 md:mb-5 px-4">
              Meet the <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Dream Team</span>
             </h2>
-            <p className="text-slate-600 text-center text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4 leading-relaxed">
+            <p className="text-slate-600 text-center text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto px-4 leading-relaxed">
               A passionate cross-functional team with expertise in events, operations,
               marketing and partnerships, dedicated to making every event extraordinary.
             </p>
           </div>
 
-          <div className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-14 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10">
             {team.map((member, index) => (
               <motion.div 
                 key={member.name}
@@ -209,42 +211,42 @@ export default function About() {
                   y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -12 : 0,
                   rotateY: typeof window !== 'undefined' && window.innerWidth >= 768 ? 5 : 0
                 }}
-                className="group relative bg-gradient-to-br from-white to-slate-50/50 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-slate-100 hover:border-red-200 overflow-hidden"
+                className="group relative bg-gradient-to-br from-white to-slate-50/50 rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-slate-100 hover:border-red-200 overflow-hidden"
               >
                 {/* Background gradient effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-red-50/0 via-red-50/0 to-red-100/0 group-hover:from-red-50/30 group-hover:via-red-50/10 group-hover:to-transparent transition-all duration-500 rounded-2xl sm:rounded-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-red-50/0 via-red-50/0 to-red-100/0 group-hover:from-red-50/30 group-hover:via-red-50/10 group-hover:to-transparent transition-all duration-500 rounded-xl sm:rounded-2xl lg:rounded-3xl"></div>
                 
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-100/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-100/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10">
-                  <div className="relative mb-4 sm:mb-5 md:mb-6">
+                  <div className="relative mb-3 sm:mb-4 md:mb-5 lg:mb-6">
                     {/* Animated ring around avatar */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-[110px] h-[110px] sm:w-[130px] sm:h-[130px] md:w-[150px] md:h-[150px] rounded-full border-2 border-red-200/0 group-hover:border-red-300/40 group-hover:scale-110 transition-all duration-500"></div>
+                      <div className="w-[85px] h-[85px] sm:w-[110px] sm:h-[110px] md:w-[130px] md:h-[130px] lg:w-[150px] lg:h-[150px] rounded-full border-2 border-red-200/0 group-hover:border-red-300/40 group-hover:scale-110 transition-all duration-500"></div>
                     </div>
                     
                     {/* Avatar with enhanced styling */}
-                    <div className="relative mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
+                    <div className="relative mx-auto w-[70px] h-[70px] sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
                       <div className="absolute inset-0 bg-gradient-to-br from-red-200/30 to-red-100/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="relative w-full h-full rounded-full object-cover border-4 border-white group-hover:border-red-100 transition-all duration-500 shadow-xl group-hover:shadow-2xl ring-2 ring-slate-100 group-hover:ring-red-200"
+                        className="relative w-full h-full rounded-full object-cover border-3 sm:border-4 border-white group-hover:border-red-100 transition-all duration-500 shadow-xl group-hover:shadow-2xl ring-1 sm:ring-2 ring-slate-100 group-hover:ring-red-200"
                       />
                       {/* Status indicator */}
-                      <div className="absolute bottom-1 right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-400 rounded-full border-3 border-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <div className="absolute bottom-0.5 right-0.5 sm:bottom-1 sm:right-1 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 bg-green-400 rounded-full border-2 sm:border-3 border-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                         <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="space-y-1 sm:space-y-2">
-                    <h5 className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent group-hover:from-red-700 group-hover:via-red-800 group-hover:to-red-700 transition-all duration-300">
+                  <div className="space-y-0.5 sm:space-y-1 md:space-y-2">
+                    <h5 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent group-hover:from-red-700 group-hover:via-red-800 group-hover:to-red-700 transition-all duration-300 leading-tight">
                       {member.name}
                     </h5>
-                    <div className="flex items-center justify-center gap-1 sm:gap-2">
-                      <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-700 leading-relaxed font-medium transition-colors duration-300">
+                    <div className="flex items-center justify-center">
+                      <p className="text-[10px] sm:text-xs md:text-sm text-slate-600 group-hover:text-slate-700 leading-snug sm:leading-relaxed font-medium transition-colors duration-300">
                         {member.role}
                       </p>
                     </div>
@@ -498,7 +500,7 @@ export default function About() {
                   </div>
                   <div className="flex items-center gap-2 text-slate-600">
                     <Briefcase className="w-4 h-4 text-red-600 shrink-0" />
-                    <span className="text-xs sm:text-sm">{job.department}</span>
+                    <span className="text-xs sm:text-sm">{job.coordinator}</span>
                   </div>
                 </div>
               </div>

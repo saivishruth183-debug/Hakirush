@@ -40,7 +40,7 @@ const Footer = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
                   <img
-                    src="/favicon.png"
+                    src="/favicon1.png"
                     alt="HAKIRUSH Logo"
                     width={55}
                     height={55}

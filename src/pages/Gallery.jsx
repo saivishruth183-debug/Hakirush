@@ -8,7 +8,7 @@ import Table from "../assets/Gallery/Annual/tabletennis.png";
 import Basketball from "../assets/Gallery/Quarterly/basketball.png";
 import Ground from "../assets/Gallery/Quarterly/ground.png";
 import Batemention from "../assets/Gallery/Quarterly/batemention.png";
-import Celebration1 from "../assets/Gallery/Celebration/celeb1.jpeg";
+import Celebration1 from "../assets/Gallery/Celebration/celeb1.png";
 import Celebration2 from "../assets/Gallery/Celebration/celeb2.png";
 import Behind1 from "../assets/Gallery/BehindTheSceans/behind1.png";
 import Behind2 from "../assets/Gallery/BehindTheSceans/behind2.png";
@@ -168,7 +168,7 @@ const GalleryPage = () => {
                   src={item.img}
                   alt={`${tabLabels[activeTab]} event in ${item.city}`}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                 />
                 
                 {/* Overlay */}

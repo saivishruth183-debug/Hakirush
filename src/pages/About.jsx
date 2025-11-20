@@ -244,22 +244,9 @@ export default function About() {
                       {member.name}
                     </h5>
                     <div className="flex items-center justify-center gap-1 sm:gap-2">
-                      <div className="w-1 h-1 rounded-full bg-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-700 leading-relaxed font-medium transition-colors duration-300">
                         {member.role}
                       </p>
-                      <div className="w-1 h-1 rounded-full bg-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                  </div>
-
-                  {/* Hover overlay with additional info placeholder */}
-                  <div className="mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0 cursor-pointer">
-                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-red-600 font-semibold">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-600"></div>
-                      <span>View Profile</span>
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
                     </div>
                   </div>
                 </div>

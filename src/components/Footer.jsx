@@ -23,7 +23,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-black text-white overflow-hidden">
+    <footer className="relative bg-black/80 text-white overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
@@ -174,7 +174,7 @@ const Footer = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="border-t border-gray-700/30 mt-12 pt-8 text-center bg-black/70 backdrop-blur-sm rounded-b-2xl"
+          className="border-t border-gray-700/30 mt-12 pt-8 text-center backdrop-blur-sm rounded-b-2xl"
         >
           <p className="text-gray-400 text-sm">
             &copy; 2025{' '}

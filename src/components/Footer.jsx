@@ -23,7 +23,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-[#0f1419] via-[#1a2332] to-[#0f1419] text-white overflow-hidden">
+    <footer className="relative bg-black text-white overflow-hidden">
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -38,17 +38,17 @@ const Footer = () => {
             <a href="/" className="group inline-block mb-6" aria-label="HAKIRUSH Home">
               <div className="flex items-center group-hover:scale-105 transition-all duration-300">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
+                  <div className=" absolute inset-0 bg-linear-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
                   <img
-                    src="/favicon1.png"
+                    src="/favicon3.png"
                     alt="HAKIRUSH Logo"
-                    width={55}
-                    height={55}
+                    width={45}
+                    height={45}
                     loading="lazy"
-                    className="relative object-contain drop-shadow-2xl"
+                    className="relative object-contain drop-shadow-2xl mb-5"
                   />
                 </div>
-                <span className="text-2xl font-black text-white tracking-tight">
+                <span className="text-3xl font-black text-yellow-500 tracking-tight">
                   HAKIRUSH
                 </span>
               </div>
@@ -83,7 +83,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-bold mb-6 text-white">
+            <h3 className="text-lg font-bold mb-6 text-red-600">
               Quick Links
             </h3>
             <ul className="space-y-2">
@@ -116,7 +116,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-lg font-bold mb-6 text-white">
+            <h3 className="text-lg font-bold mb-6 text-red-600">
               Get in Touch
             </h3>
             <div className="space-y-4">

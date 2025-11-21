@@ -9,7 +9,7 @@ const Package = () => {
       <div className="relative z-10">
 
         {/* Hero Section */}
-        <section className="py-24 relative overflow-hidden">
+        <section className="py-18 relative overflow-hidden">
 
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
@@ -17,17 +17,17 @@ const Package = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="space-y-8"
+              className="space-y-6"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Star className="w-4 h-4 text-[#C21807]" fill='#C21807' />
                 <span className="text-sm font-bold text-[#C21807]">Our Packages</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
                 Choose Your{' '}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Perfect Package
                 </span>
               </h1>
@@ -49,7 +49,7 @@ const Package = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="py-10 relative overflow-hidden">
+          className="py-6 relative overflow-hidden">
 
           <div className="relative z-10 flex items-center justify-center px-4">
             <div className="flex flex-col lg:flex-row gap-10 w-full max-w-6xl">
@@ -72,7 +72,7 @@ const Package = () => {
                 >
                   {/* Most Preferred Badge - responsive sizing and positioning */}
                   <div className="absolute -top-4 md:-top-5 left-1/2 -translate-x-1/2 z-30 px-2 md:px-0">
-                    <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-lg">
+                    <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-1.5 md:py-2 bg-linear-to-r from-yellow-400 to-yellow-500 rounded-full shadow-lg">
                       <Star className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#1a2332] shrink-0" fill="#1a2332" />
                       <span className="text-xs md:text-sm font-bold text-[#1a2332] uppercase tracking-wide whitespace-nowrap">Most Preferred</span>
                     </div>
@@ -136,7 +136,7 @@ const Package = () => {
                       {/* Icon and Title in Row */}
                       <div className="flex items-center justify-center gap-4 mb-6">
                         <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-[#C21807] shrink-0" />
-                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent whitespace-nowrap">
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent whitespace-nowrap">
                           Quarterly Tournaments
                         </h3>
                       </div>

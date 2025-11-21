@@ -76,7 +76,7 @@ const GalleryPage = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
               Event{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Gallery

@@ -119,7 +119,7 @@ export default function Contact() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-gray-900">
                   Get in{" "}
                   <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                     Touch
@@ -153,7 +153,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-4 text-gray-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 text-gray-900">
                 Let's{" "}
                 <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Connect
@@ -234,13 +234,13 @@ export default function Contact() {
             scale: window.innerWidth >= 768 ? 1.03 : 1,
             y: window.innerWidth >= 768 ? -8 : 0
           }}
-          className="relative flex flex-col justify-center my-10 md:my-24 px-6 pt-6 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
+          className="relative flex flex-col justify-center my-10 md:my-48 px-6 pt-6 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
         >
           {/* Decorative Background removed for pure white */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
 
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-8 text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-8 text-gray-900">
             Send us a{" "}
             <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Message
@@ -301,7 +301,7 @@ export default function Contact() {
             <span className="text-sm font-bold text-[#C21807]">Our Location</span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
             Find{" "}
             <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Us

@@ -28,7 +28,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="py-12 relative overflow-hidden min-h-screen flex items-center bg-white">
+    <section className="py-12 relative overflow-hidden min-h-screen flex items-center bg-gray-50">
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -45,7 +45,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-3 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 md:gap-2 bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-3 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#C21807] shrink-0" />
               <span>India's Premier Corporate Sports Platform</span>
@@ -57,7 +57,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="block bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm"
+                className="block bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm"
               >
                 UNLEASHING
               </motion.span>

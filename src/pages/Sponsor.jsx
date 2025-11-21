@@ -77,7 +77,7 @@ const Sponsorship = () => {
                 <span className="text-sm font-bold text-[#C21807]">Partnership Opportunities</span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
                 Power Your Brand Through{" "}
                 <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Corporate Sports
@@ -111,7 +111,7 @@ const Sponsorship = () => {
               <Award className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Sponsorship Tiers</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mb-4">
               Choose Your{" "}
               <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Partnership Level
@@ -198,7 +198,7 @@ const Sponsorship = () => {
                   <span className="text-sm font-bold">Analytics</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Sponsor Dashboard Features
                 </h2>
 
@@ -240,7 +240,7 @@ const Sponsorship = () => {
                   <span className="text-sm font-bold">Benefits</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 mb-6 group-hover:text-[#C21807] transition-colors">
                   Why Sponsor HAKIRUSH?
                 </h2>
 

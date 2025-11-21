@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Award, Camera, BarChart3, Quote, Handshake, Briefcase, MapPin, Clock, Users } from "lucide-react";
-import Vishruth from "../assets/Team/vishruth.png";
-import Lakshmi from "../assets/Team/lakshmi.png";
+import Krishna from "../assets/Team/krishna.png";
+// import Vishruth from "../assets/Team/vishruth.png";
+// import Lakshmi from "../assets/Team/lakshmi.png";
 import Ajmeri from "../assets/Team/ajmeri.png";
 
 const mission = [
@@ -17,14 +19,14 @@ const founding = [
 ]
 
 const team = [
-  { image: "/images/team-krishna.jpg", name: "Krishna", role: "Founder - Strategy & Growth" },
-  { image: Vishruth, name: "Vishruth", role: "Tech - Product & Site" },
-  { image: Lakshmi, name: "Lakshmi", role: "Marketing - Content & SMM" },
-  { image: "/images/team-madan.jpg", name: "Madan", role: "Social - Design & Content" },
-  { image: Ajmeri, name: "Ajmeri", role: "Founder - Strategy & Growth" },
-  { image: "/images/team-likita.jpg", name: "Likhita", role: "Marketing - Content & SMM" },
-  { image: "/images/team-anisha.jpg", name: "Anisha", role: "Social - Design & Content" },
-  { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
+  { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth" },
+  // { image: Vishruth, name: "Sai Vishruth", role: "Tech - Product & Site" },
+  // { image: Lakshmi, name: "Lakshmi", role: "Marketing - Content & SMM" },
+  { image: "/images/team-madan.jpg", name: "Madan Anugonda", role: "Operations Manager" },
+  { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
+  { image: "/images/team-likita.jpg", name: "Likitha", role: "Human Resources & Project Manager" },
+  { image: "/images/team-anisha.jpg", name: "Anisha", role: "Social Media & Data Analytics" },
+  // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
 ]
 
 const work = [
@@ -40,13 +42,6 @@ const metrics = [
   { value: "1,200+", label: "Employees Engaged" },
   { value: "4.8/5", label: "Average NPS" },
   { value: "50+", label: "Events Delivered" },
-]
-
-const services = [
-  { icon: <Trophy className="w-7 h-7 text-red-600" />, title: "Custom Sports Tournaments", description: "Monthly rotating sports, tournament formats, mixed-teaming, and multi-location leagues tailored to your calendar."},
-  { icon: <Award className="w-7 h-7 text-red-600" />, title: "Branding &amp; Sponsorship", description: "Sponsor dashboards, co-branding kits, merchandise sponsorship and partner activation management."},
-  { icon: <Camera className="w-7 h-7 text-red-600" />, title: "Content &amp; Media", description: "Live streaming, short-form reels, highlight reels, post-event reports and branded media assets for recruitment & employer branding."},
-  { icon: <BarChart3 className="w-7 h-7 text-red-600" />, title: "Data &amp; Measurement", description: "Participation dashboards, NPS capture, demographic reporting and impact reports for HR leadership."},
 ]
 
 const testimonials = [
@@ -69,18 +64,24 @@ const careers = [
 ]
 
 export default function About() {
+  const navigate = useNavigate();
+
+  const handleApplyClick = () => {
+    navigate('/contact');
+  };
+
   return (
     <div className="bg-white overflow-hidden">
       
       {/* HERO SECTION */}
-      <section className="relative pt-20 pb-12 md:pb-16 overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+      <section className="relative pt-20 pb-12 md:pb-16 overflow-hidden bg-linear-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-red-600 via-red-700 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-linear-to-br from-red-600 via-red-700 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
               <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
-              About <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">HAKIRUSH</span>
+              About <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">HAKIRUSH</span>
             </h1>
           </div>
           <div className="max-w-4xl mx-auto space-y-4">
@@ -92,7 +93,7 @@ export default function About() {
       </section>
 
       {/* Mission / Vision */}
-      <section className="bg-gradient-to-b from-white to-slate-50 py-8 sm:py-10">
+      <section className="bg-linear-to-b from-white to-slate-50 py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto">
             {mission.map((item, index) => (
@@ -112,10 +113,12 @@ export default function About() {
                 }}
                 className="group p-6 sm:p-8 md:p-10 bg-white rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-red-200 transition-all duration-500 border-2 border-slate-100 hover:border-red-300">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mb-4 sm:mb-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-red-100 to-red-50 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                {item.icon}
+                <div className="flex flex-row items-center gap-4 sm:gap-5">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-linear-to-br from-red-100 to-red-50 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900">Our <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">{item.title}</span></h3>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">{item.title}</span></h3>
               </div>
               <p className="text-slate-700 leading-relaxed text-base sm:text-lg">
                 {item.description}
@@ -126,9 +129,9 @@ export default function About() {
         </div>
       </section>
       {/* Founding story */}
-      <section className="relative py-12 sm:py-16 overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+      <section className="relative py-12 sm:py-16 overflow-hidden bg-linear-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Story</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">Our <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Story</span></h2>
           <div className="max-w-4xl mx-auto mt-6">
             <p className="text-sm sm:text-base md:text-md text-gray-700 leading-relaxed font-medium">
               HAKIRUSH began as a simple idea: bring professional sporting experiences
@@ -142,7 +145,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 bg-gradient-to-b from-white to-slate-50">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 bg-linear-to-b from-white to-slate-50">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {founding.map((item, index) => (
             <motion.div
@@ -161,7 +164,7 @@ export default function About() {
               }}
               className="group p-6 sm:p-8 bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-red-200 transition-all duration-500 border border-slate-100 hover:border-red-300">
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
                 <h4 className="font-bold text-xl sm:text-2xl text-slate-900">{item.title}</h4>
@@ -173,7 +176,7 @@ export default function About() {
       </section>
 
       {/* Team (short bios) */}
-      <section className="relative bg-gradient-to-b from-white via-slate-50 to-white py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
+      <section className="relative bg-linear-to-b from-white via-slate-50 to-white py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(220,38,38,0.03),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(220,38,38,0.03),transparent_50%)]"></div>
@@ -184,8 +187,8 @@ export default function About() {
               <Users className="w-3 h-3 sm:w-4 sm:h-4 text-red-600" />
               <span className="text-xs sm:text-sm font-semibold text-red-600">Our Amazing Team</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-center mb-3 sm:mb-4 md:mb-5 px-4">
-             Meet the <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Dream Team</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4 md:mb-5 px-4">
+             Meet the <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Dream Team</span>
             </h2>
             <p className="text-slate-600 text-center text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto px-4 leading-relaxed">
               A passionate cross-functional team with expertise in events, operations,
@@ -211,13 +214,13 @@ export default function About() {
                   y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -12 : 0,
                   rotateY: typeof window !== 'undefined' && window.innerWidth >= 768 ? 5 : 0
                 }}
-                className="group relative bg-gradient-to-br from-white to-slate-50/50 rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-slate-100 hover:border-red-200 overflow-hidden"
+                className="group relative bg-linear-to-br from-white to-slate-50/50 rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-slate-100 hover:border-red-200 overflow-hidden"
               >
                 {/* Background gradient effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-red-50/0 via-red-50/0 to-red-100/0 group-hover:from-red-50/30 group-hover:via-red-50/10 group-hover:to-transparent transition-all duration-500 rounded-xl sm:rounded-2xl lg:rounded-3xl"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-red-50/0 via-red-50/0 to-red-100/0 group-hover:from-red-50/30 group-hover:via-red-50/10 group-hover:to-transparent transition-all duration-500 rounded-xl sm:rounded-2xl lg:rounded-3xl"></div>
                 
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-100/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-red-100/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10">
                   <div className="relative mb-3 sm:mb-4 md:mb-5 lg:mb-6">
@@ -228,7 +231,7 @@ export default function About() {
                     
                     {/* Avatar with enhanced styling */}
                     <div className="relative mx-auto w-[70px] h-[70px] sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
-                      <div className="absolute inset-0 bg-gradient-to-br from-red-200/30 to-red-100/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+                      <div className="absolute inset-0 bg-linear-to-br from-red-200/30 to-red-100/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
                       <img
                         src={member.image}
                         alt={member.name}
@@ -242,7 +245,7 @@ export default function About() {
                   </div>
                   
                   <div className="space-y-0.5 sm:space-y-1 md:space-y-2">
-                    <h5 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent group-hover:from-red-700 group-hover:via-red-800 group-hover:to-red-700 transition-all duration-300 leading-tight">
+                    <h5 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent group-hover:from-red-700 group-hover:via-red-800 group-hover:to-red-700 transition-all duration-300 leading-tight">
                       {member.name}
                     </h5>
                     <div className="flex items-center justify-center">
@@ -260,7 +263,7 @@ export default function About() {
 
       {/* How we work - process */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4">How We <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Work</span></h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4">How We <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Work</span></h2>
         <p className="text-center text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mt-2 sm:mt-3 px-4">
           We follow a simple 5-step process to ensure flawless delivery and
           measurable impact.
@@ -291,9 +294,9 @@ export default function About() {
       </section>
 
       {/* Impact metrics */}
-      <section className="bg-gradient-to-b from-white to-slate-50 py-12 sm:py-16">
+      <section className="bg-linear-to-b from-white to-slate-50 py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">Impact & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Metrics</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3">Impact & <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Metrics</span></h2>
           <p className="text-base sm:text-lg text-slate-700 max-w-3xl mx-auto px-4">
             We track real outcomes — participation, NPS, retention signals and
             media reach.
@@ -317,7 +320,7 @@ export default function About() {
               }}
               className="group bg-white p-6 sm:p-8 md:p-10 lg:p-14 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-red-200 transition-all duration-300 border-2 border-slate-100 hover:border-red-300 cursor-pointer"
             >
-              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-2 sm:mb-3">{metric.value}</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent mb-2 sm:mb-3">{metric.value}</div>
               <div className="text-sm sm:text-base font-semibold text-slate-700">{metric.label}</div>
             </motion.div>
             ))}
@@ -325,52 +328,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Services detail (more than home) */}
-      <section className="bg-gradient-to-b from-white to-slate-50 py-12 sm:py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4">Our <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Services</span></h2>
-          <p className="text-center text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mt-2 sm:mt-3 px-4">
-            The homepage lists our core offers. Below are the deeper service
-            details you won't find on the home page.
-          </p>
-
-          <div className="mt-8 sm:mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-            {services.map((service, index) => (
-              <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40, rotateX: -10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ 
-                type: 'spring', 
-                stiffness: 200,
-                delay: index * 0.1 
-              }}
-              viewport={{ once: true }}
-              whileHover={{ 
-                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
-                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
-              }}
-              className="group bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-red-200 transition-all duration-300 border-2 border-slate-100 hover:border-red-300 cursor-pointer"
-            >
-              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">{service.title}</h3>
-              </div>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
-      <section className="bg-gradient-to-b from-slate-50 to-white py-12 sm:py-16 md:py-20"> 
+      <section className="bg-linear-to-b from-slate-50 to-white py-12 sm:py-16 md:py-20"> 
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4">What Companies <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Say</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-3 sm:mb-4">What Companies <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Say</span></h2>
           <p className="text-center text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mt-2 sm:mt-3 px-4">
             Hear from HR leaders and operations teams who have transformed their company culture with HAKIRUSH.
           </p>
@@ -392,7 +353,7 @@ export default function About() {
               }}
               className="group relative bg-white p-6 sm:p-7 md:p-8 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-red-200 transition-all duration-300 border-2 border-slate-100 hover:border-red-300 cursor-pointer"
             >
-              <div className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
+              <div className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
                 <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
               </div>
               <p className="text-slate-700 leading-relaxed text-sm sm:text-base mt-3 sm:mt-4 mb-3 sm:mb-4">
@@ -412,14 +373,9 @@ export default function About() {
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <Handshake className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
-                Partners & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Press</span>
-              </h2>
-            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 sm:mb-4">
+              Partners & <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Press</span>
+            </h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mt-2 sm:mt-3 px-4">
               We partner with venues, sports suppliers, media partners and corporate
               sponsors to deliver scaled events.
@@ -455,14 +411,9 @@ export default function About() {
       <section className="bg-white py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-50 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
-                Careers & <span className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Open Roles</span>
-              </h2>
-            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 sm:mb-4">
+              Careers & <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Open Roles</span>
+            </h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto mt-2 sm:mt-3 px-4">
               We're scaling. If you love operations, events or content, we'd love
               to hear from you.
@@ -504,7 +455,7 @@ export default function About() {
                   </div>
                 </div>
               </div>
-              <button className="w-full mt-3 sm:mt-4 px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white text-sm sm:text-base font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer">
+              <button onClick={handleApplyClick} className="w-full mt-3 sm:mt-4 px-5 sm:px-6 py-2.5 sm:py-3 bg-linear-to-r from-red-600 to-red-700 text-white text-sm sm:text-base font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer">
                 Apply Now
               </button>
             </motion.div>

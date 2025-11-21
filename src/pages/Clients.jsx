@@ -105,7 +105,7 @@ export default function Clients() {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                 <Users className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
                 Our{" "}
                 <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Clients
@@ -137,7 +137,7 @@ export default function Clients() {
               <TrendingUp className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Impact</span>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-gray-900">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               By The{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Numbers
@@ -364,7 +364,7 @@ export default function Clients() {
               <MessageCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Success Stories</span>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               What Our{" "}
               <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Clients Say

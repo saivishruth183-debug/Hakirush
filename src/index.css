@@ -5,6 +5,10 @@
   font-family: "Inter", sans-serif;
 }
 
+body {
+  background-color: #F9FAFB;
+}
+
 /* Custom CSS Variables for Brand Colors */
 :root {
   --color-primary: #C21807;
@@ -88,4 +92,8 @@ html {
 /* Section transitions */
 section {
   animation: fadeIn 0.6s ease-out;
+}
+
+.body{
+  background-color: #F9FAFB;
 }

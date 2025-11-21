@@ -118,7 +118,7 @@ export default function SponsorGrid() {
                   <span className="text-xs sm:text-sm font-bold tracking-wide">PACKAGE INCLUDES</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 mb-6 sm:mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                   What You Get
                 </h3>
 
@@ -167,7 +167,7 @@ export default function SponsorGrid() {
                   <span className="text-xs sm:text-sm font-bold tracking-wide">KEY BENEFITS</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 sm:mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 mb-6 sm:mb-8 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                   Why It Matters
                 </h3>
 

@@ -5,7 +5,7 @@ import { Star, CalendarDays, Trophy, ArrowRight } from 'lucide-react'
 
 const Package = () => {
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="relative bg-gray-50 overflow-hidden">
       <div className="relative z-10">
 
         {/* Hero Section */}

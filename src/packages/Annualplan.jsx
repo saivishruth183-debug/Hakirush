@@ -77,7 +77,7 @@ const Annualplan = () => {
       {/* Background disabled for pure white */}
       <div className="hidden" />
 
-      <section className="py-12 md:py-24 relative overflow-hidden bg-white">
+      <section className="py-12 md:py-24 relative overflow-hidden bg-gray-50">
 
           {/* Max-width container for content */}
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -118,9 +118,8 @@ const Annualplan = () => {
         </section>
 
       {/* Monthly Schedule */}
-      <section className="py-8 relative overflow-hidden bg-white">
+      <section className="py-8 relative overflow-hidden bg-gray-50">
         <div className="hidden" />
-
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -189,7 +188,7 @@ const Annualplan = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-10 md:py-12 relative overflow-hidden bg-white">
+      <section className="py-10 md:py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" />
 
         <motion.div 

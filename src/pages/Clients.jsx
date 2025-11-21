@@ -88,10 +88,10 @@ export default function Clients() {
 
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-gray-50 overflow-hidden">
 
       {/* HERO SECTION */}
-      <section className="relative pt-20 pb-8 overflow-hidden bg-white">
+      <section className="relative pt-20 pb-8 overflow-hidden bg-gray-50">
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -122,7 +122,7 @@ export default function Clients() {
       </section>
 
       {/* STATS SECTION */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" aria-hidden="true"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -205,7 +205,7 @@ export default function Clients() {
       </section>
 
       {/* Sponsor LOGOS SECTION */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
@@ -277,7 +277,7 @@ export default function Clients() {
       </section>
 
       {/* Company LOGOS SECTION */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" aria-hidden="true"></div>
 
         <motion.div
@@ -349,7 +349,7 @@ export default function Clients() {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section className="py-12 relative overflow-hidden bg-white">
+      <section className="py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" aria-hidden="true"></div>
 
         <motion.div

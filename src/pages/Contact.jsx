@@ -91,12 +91,12 @@ export default function Contact() {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden bg-white text-gray-900"
+      className="relative overflow-hidden bg-gray-50 text-gray-900"
     >
 
-      <div className="bg-white overflow-hidden">
+      <div className="bg-gray-50 overflow-hidden">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-15 md:py-24 overflow-hidden bg-white">
+        <section className="relative pt-20 pb-15 md:py-24 overflow-hidden bg-gray-50">
           {/* Floating decorative gradient orbs */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />

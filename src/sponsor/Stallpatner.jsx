@@ -53,7 +53,7 @@ export default function SponsorGrid() {
         </motion.button>
       </div>
       {/* Hero Section */}
-      <section className="relative py-10 overflow-hidden bg-white">
+      <section className="relative py-10 overflow-hidden bg-gray-50">
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div

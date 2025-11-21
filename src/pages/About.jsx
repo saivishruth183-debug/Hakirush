@@ -6,6 +6,7 @@ import Krishna from "../assets/Team/krishna.png";
 // import Vishruth from "../assets/Team/vishruth.png";
 // import Lakshmi from "../assets/Team/lakshmi.png";
 import Ajmeri from "../assets/Team/ajmeri.png";
+import Anisha from "../assets/Team/anisha.png";
 
 const mission = [
   { icon:<Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty."},
@@ -25,7 +26,7 @@ const team = [
   { image: "/images/team-madan.jpg", name: "Madan Anugonda", role: "Operations Manager" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
   { image: "/images/team-likita.jpg", name: "Likitha", role: "Human Resources & Project Manager" },
-  { image: "/images/team-anisha.jpg", name: "Anisha", role: "Social Media & Data Analytics" },
+  { image: Anisha, name: "Anisha", role: "Social Media & Data Analytics" },
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
 ]
 
@@ -51,10 +52,12 @@ const testimonials = [
 ]
 
 const partners = [
-  { img: "/images/partner-1.png" },
-  { img: "/images/partner-2.png" },
-  { img: "/images/partner-3.png" },
-  { img: "/images/partner-4.png" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+1" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+2" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+3" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+4" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+5" },
+  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+6" },
 ]
 
 const careers = [
@@ -71,7 +74,7 @@ export default function About() {
   };
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-gray-50 overflow-hidden">
       
       {/* HERO SECTION */}
       <section className="relative pt-20 pb-12 md:pb-16 overflow-hidden bg-linear-to-b from-slate-50 to-white">
@@ -222,7 +225,7 @@ export default function About() {
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-red-100/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative z-10">
+                <div className="relative z-10 cursor-pointer">
                   <div className="relative mb-3 sm:mb-4 md:mb-5 lg:mb-6">
                     {/* Animated ring around avatar */}
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -269,7 +272,7 @@ export default function About() {
           measurable impact.
         </p>
 
-        <ol className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 text-slate-700">
+        <ol className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 text-slate-700 cursor-pointer">
           {work.map((step, index) => (
             <motion.li
             key={index}
@@ -382,27 +385,52 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-            {partners.map((partner, index) => (
-              <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40, rotateX: -10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ 
-                type: 'spring', 
-                stiffness: 200,
-                delay: index * 0.1 
+          <div className="relative overflow-hidden w-full py-10">
+            {/* Infinite loop animation for partners */}
+            <motion.div
+              className="flex items-center gap-10 whitespace-nowrap"
+              animate={{ x: ["-100%", "-50%"] }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear",
+                repeatType: "loop",
               }}
-              viewport={{ once: true }}
-              whileHover={{ 
-                scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? 1.03 : 1,
-                y: typeof window !== 'undefined' && window.innerWidth >= 768 ? -8 : 0
-              }}
-              className="group bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl hover:shadow-red-200 transition-all duration-300 border-2 border-slate-100 hover:border-red-300 flex items-center justify-center cursor-pointer"
             >
-              <img src={partner.img} alt="partner" className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+              {/* First set */}
+              {[...partners, ...partners].map((partner, index) => (
+                <motion.div
+                  key={`partner-${index}`}
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                >
+                  <img
+                    src={partner.img}
+                    alt="partner"
+                    loading="lazy"
+                    className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-red-300/40 transition-colors duration-500 pointer-events-none" />
+                </motion.div>
+              ))}
+
+              {/* Second set (duplicate for seamless loop) */}
+              {[...partners, ...partners].map((partner, index) => (
+                <motion.div
+                  key={`partner-dup-${index}`}
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
+                >
+                  <img
+                    src={partner.img}
+                    alt="partner"
+                    loading="lazy"
+                    className="relative h-16 w-32 object-contain grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-red-300/40 transition-colors duration-500 pointer-events-none" />
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
           </div>
         </div>
       </section>

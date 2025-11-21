@@ -50,7 +50,7 @@ const QLeague = () => {
         </motion.button>
       </div>
 
-      <section className="py-12 md:py-24 relative overflow-hidden bg-white">
+      <section className="py-12 md:py-24 relative overflow-hidden bg-gray-50">
 
         {/* Max-width container for content */}
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -85,7 +85,7 @@ const QLeague = () => {
       </section>
 
       {/* Timeline Cards */}
-      <section className="py-10 md:py-12 relative overflow-hidden bg-white">
+      <section className="py-10 md:py-12 relative overflow-hidden bg-gray-50">
 
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
@@ -162,7 +162,7 @@ const QLeague = () => {
       </section>
 
       {/* What's Included + Benefits */}
-      <section className="py-10 md:py-12 relative overflow-hidden bg-white">
+      <section className="py-10 md:py-12 relative overflow-hidden bg-gray-50">
         <div className="hidden" aria-hidden="true"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">

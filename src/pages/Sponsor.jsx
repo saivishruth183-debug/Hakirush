@@ -61,9 +61,9 @@ const Sponsorship = () => {
   };
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-gray-50 overflow-hidden">
       {/* Header Section */}
-      <section className="relative pt-24 pb-10 overflow-hidden bg-white">
+      <section className="relative pt-24 pb-10 overflow-hidden bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: -40 }}
@@ -96,7 +96,7 @@ const Sponsorship = () => {
       </section>
 
       {/* Sponsor Tiers */}
-      <section id="tiers" className="py-12 relative overflow-hidden bg-white">
+      <section id="tiers" className="py-12 relative overflow-hidden bg-gray-50">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -7,7 +7,7 @@ const Sponsor1 = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='bg-white min-h-screen'>
+    <div className='bg-gray-50 min-h-screen'>
       {/* Back Button */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
         <motion.button
@@ -24,7 +24,7 @@ const Sponsor1 = () => {
       </div>
 
       {/* Hero Section */}
-      <section className='relative py-6 sm:py-10 overflow-hidden bg-white'>
+      <section className='relative py-6 sm:py-10 overflow-hidden bg-gray-50'>
         <div className='max-w-6xl mx-auto px-4 sm:px-6 relative z-10'>
           <motion.div
             initial={{ opacity: 0, y: -40 }}
@@ -90,7 +90,7 @@ const Sponsor1 = () => {
       </section>
 
       {/* Partnership Details */}
-      <section className='py-16 bg-white'>
+      <section className='py-16 bg-gray-50'>
         <div className='max-w-7xl mx-auto px-6'>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +112,7 @@ const Sponsor1 = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className='bg-linear-to-br from-gray-50 to-gray-100 p-8 rounded-3xl border border-gray-200'>
+              <div className='bg-white p-8 rounded-3xl border border-gray-200'>
                 <h3 className='text-2xl font-bold text-gray-900 mb-6'>Brand Exposure</h3>
                 <div className='space-y-4'>
                   {[

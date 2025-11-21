@@ -54,10 +54,10 @@ const GalleryPage = () => {
       : galleryData[activeTab].filter((img) => img.city === cityFilter);
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="bg-gray-50 overflow-hidden">
       
       {/* Header with Premium Design */}
-      <section className="relative pt-20 pb-8 overflow-hidden bg-white">
+      <section className="relative pt-20 pb-8 overflow-hidden bg-gray-50">
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -91,7 +91,7 @@ const GalleryPage = () => {
       </section>
 
       {/* Tabs Section */}
-      <section className="py-12 bg-white relative overflow-hidden">
+      <section className="py-12 bg-gray-50   relative overflow-hidden">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

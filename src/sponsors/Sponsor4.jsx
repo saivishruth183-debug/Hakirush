@@ -7,7 +7,7 @@ const Sponsor4 = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='bg-white min-h-screen'>
+    <div className='bg-gray-50 min-h-screen'>
       {/* Back Button */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
         <motion.button
@@ -24,7 +24,7 @@ const Sponsor4 = () => {
       </div>
 
       {/* Hero Section */}
-      <section className='relative py-6 sm:py-10 overflow-hidden bg-white'>
+      <section className='relative py-6 sm:py-10 overflow-hidden bg-gray-50'>
         <div className='max-w-6xl mx-auto px-4 sm:px-6 relative z-10'>
           <motion.div
             initial={{ opacity: 0, y: -40 }}

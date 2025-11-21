@@ -24,7 +24,7 @@ const Client3 = () => {
       </div>
 
       {/* Hero Section */}
-      <section className='relative py-6 sm:py-10 overflow-hidden bg-white'>
+      <section className='relative py-6 sm:py-10 overflow-hidden bg-gray-50'>
         <div className='max-w-6xl mx-auto px-4 sm:px-6 relative z-10'>
           <motion.div
             initial={{ opacity: 0, y: -40 }}

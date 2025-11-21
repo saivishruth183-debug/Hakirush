@@ -66,19 +66,19 @@ const GalleryPage = () => {
           className="text-center max-w-4xl mx-auto px-6 relative z-10"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
             <Camera className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Visual Memories</span>
           </div>
 
           {/* Icon and Title in Row */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
               Event{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Gallery
               </span>
             </h1>
@@ -102,13 +102,13 @@ const GalleryPage = () => {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Sparkles className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Browse Collections</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               Explore{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Event Categories
               </span>
             </h2>
@@ -172,7 +172,7 @@ const GalleryPage = () => {
                 />
                 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 {/* Hover Icon */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -220,7 +220,7 @@ const GalleryPage = () => {
           />
 
           {/* Decorative Elements */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#C21807]/20 to-[#A01506]/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-linear-to-br from-[#C21807]/20 to-[#A01506]/20 rounded-full blur-3xl pointer-events-none" />
         </motion.div>
       )}
     </div>

@@ -34,19 +34,19 @@ const Client4 = () => {
             className='text-center'
           >
             {/* Badge */}
-            <div className='inline-flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 sm:mb-8'>
+            <div className='inline-flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6 sm:mb-8'>
               <Trophy className='w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C21807]' />
               <span className='text-xs sm:text-sm font-bold text-[#C21807]'>Success Story</span>
             </div>
 
             {/* Icon and Title in Row */}
             <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3 md:gap-4 mb-4 sm:mb-6'>
-              <div className='inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl md:rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0'>
+              <div className='inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl md:rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0'>
                 <Users className='w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white' />
               </div>
               <h1 className='text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight text-center sm:text-left'>
                 Healthcare Systems{" "}
-                <span className='bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm'>
+                <span className='bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm'>
                   Group
                 </span>
               </h1>
@@ -78,7 +78,7 @@ const Client4 = () => {
                 transition={{ delay: i * 0.1 }}
                 className='bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-300 text-center border border-gray-100'
               >
-                <div className='inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-[#C21807] to-[#A01506] text-white rounded-xl sm:rounded-2xl mb-3 sm:mb-4'>
+                <div className='inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-linear-to-br from-[#C21807] to-[#A01506] text-white rounded-xl sm:rounded-2xl mb-3 sm:mb-4'>
                   {stat.icon}
                 </div>
                 <h3 className='text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2'>{stat.value}</h3>
@@ -99,7 +99,7 @@ const Client4 = () => {
             className='text-center mb-12'
           >
             <h2 className='text-3xl md:text-4xl font-black text-gray-900 mb-4'>
-              The <span className='bg-gradient-to-r from-[#C21807] to-[#A01506] bg-clip-text text-transparent'>Mission</span>
+              The <span className='bg-linear-to-r from-[#C21807] to-[#A01506] bg-clip-text text-transparent'>Mission</span>
             </h2>
             <p className='text-lg text-gray-600 max-w-3xl mx-auto'>
               Supporting frontline healthcare workers with recreational activities and team bonding
@@ -112,7 +112,7 @@ const Client4 = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className='bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-3xl border border-gray-200'>
+              <div className='bg-linear-to-br from-gray-50 to-gray-100 p-8 rounded-3xl border border-gray-200'>
                 <h3 className='text-2xl font-bold text-gray-900 mb-6'>Custom Programs</h3>
                 <div className='space-y-4'>
                   {[
@@ -136,7 +136,7 @@ const Client4 = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className='bg-gradient-to-br from-[#C21807] to-[#A01506] p-8 rounded-3xl text-white shadow-2xl'>
+              <div className='bg-linear-to-br from-[#C21807] to-[#A01506] p-8 rounded-3xl text-white shadow-2xl'>
                 <h3 className='text-2xl font-bold mb-6'>Wellness Outcomes</h3>
                 <div className='space-y-6'>
                   <div>
@@ -175,7 +175,7 @@ const Client4 = () => {
                 "HAKIRUSH understands the unique challenges of healthcare workers. Their programs give our staff something to look forward to and a healthy way to decompress."
               </p>
               <div className='flex items-center gap-4'>
-                <div className='w-16 h-16 rounded-full bg-gradient-to-br from-[#C21807] to-[#A01506] flex items-center justify-center text-white text-2xl font-bold'>
+                <div className='w-16 h-16 rounded-full bg-linear-to-br from-[#C21807] to-[#A01506] flex items-center justify-center text-white text-2xl font-bold'>
                   DN
                 </div>
                 <div>

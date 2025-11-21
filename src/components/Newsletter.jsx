@@ -28,14 +28,14 @@ const Newsletter = () => {
             {/* Text Section */}
             <div className="flex flex-col gap-4 text-center md:text-left flex-1">
               {/* Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 w-fit mx-auto md:mx-0 shadow-lg backdrop-blur-sm">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 w-fit mx-auto md:mx-0 shadow-lg backdrop-blur-sm">
                 <Zap className="w-4 h-4 text-[#C21807]" />
                 <span className="text-sm font-bold text-[#C21807]">Get Started Today</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 leading-tight tracking-tight">
                 Ready to Transform Your{' '}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Workplace
                 </span>?
               </h2>

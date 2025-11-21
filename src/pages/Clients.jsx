@@ -102,12 +102,12 @@ export default function Clients() {
 
             {/* Icon and Title in Row */}
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
                 Our{" "}
-                <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                   Clients
                 </span>
               </h1>
@@ -133,13 +133,13 @@ export default function Clients() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <TrendingUp className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Impact</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               By The{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Numbers
               </span>
             </h2>
@@ -186,11 +186,11 @@ export default function Clients() {
 
                 <div className="relative p-10">
                   {/* Icon Badge */}
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br ${stat.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     {stat.icon}
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#C21807] group-hover:to-[#A01506] group-hover:bg-clip-text transition-all duration-300">
                     {stat.value}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-700 font-medium">{stat.label}</p>
@@ -216,7 +216,7 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Sponsors</span>
             </div>
@@ -288,13 +288,13 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-4">
               <Building className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Our Partners</span>
             </div>
           </div>
 
-          <div className="relative overflow-hidden w-full py-10">
+            <div className="relative overflow-hidden w-full py-10">
             {/* Infinite loop animation */}
             <motion.div
               className="flex items-center gap-10 whitespace-nowrap"
@@ -360,13 +360,13 @@ export default function Clients() {
         >
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
               <MessageCircle className="w-4 h-4 text-[#C21807]" />
               <span className="text-sm font-bold text-[#C21807]">Success Stories</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
               What Our{" "}
-              <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
                 Clients Say
               </span>
             </h2>

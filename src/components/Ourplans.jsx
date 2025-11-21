@@ -40,14 +40,14 @@ const Ourplans = () => {
           className="text-center mb-16"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
             <Star className="w-4 h-4 text-[#C21807]" />
             <span className="text-sm font-bold text-[#C21807]">Our Plans</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
             Choose Your{' '}
-            <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
+            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Perfect Plan
             </span>
           </h2>
@@ -94,7 +94,7 @@ const Ourplans = () => {
 
                     {/* Title */}
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-                      <span className="bg-gradient-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                      <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                         {plan.title}
                       </span>
                     </h3>

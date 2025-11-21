@@ -35,10 +35,10 @@ const Navbar = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="group" aria-label="HAKIRUSH Home">
-            <div className="flex items-center  group-hover:scale-105 transition-all duration-300">
+            <div className="flex items-center group-hover:scale-105 transition-all duration-300 gap-2">
               <div className="relative">
                 <div className="absolute inset-0 bg-linear-to-br from-[#C21807] to-[#A01506] rounded-2xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-300" />
-                <img src="/favicon3.png" alt="HAKIRUSH Logo" className="relative h-15 w-15 object-contain drop-shadow-2xl" />
+                <img src="/favicon3.png" alt="HAKIRUSH Logo" className="relative h-12 w-12 object-contain drop-shadow-2xl" />
               </div>
               <span className="text-2xl font-black text-yellow-500 tracking-tight" style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}>
                 HAKIRUSH
@@ -47,7 +47,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -57,6 +57,7 @@ const Navbar = () => {
                     ? 'text-[#C21807] bg-[#C21807]/10' 
                     : 'text-gray-300 hover:text-white hover:bg-white/10 hover:scale-105'
                 }`}
+                aria-current={pathname === item.href ? 'page' : undefined}
                 style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
               >
                 {item.name}
@@ -93,26 +94,50 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-linear-to-br from-[#0f1419] to-[#1a2332] backdrop-blur-md rounded-2xl mt-2 mb-3 p-4 shadow-2xl border border-[#C21807]/30">
-            {navigation.map((item, index) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`block py-3 px-4 mb-2 text-sm font-bold rounded-lg transition-all duration-300 ${
-                  pathname === item.href 
-                    ? 'bg-[#C21807] text-white' 
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-                style={{ 
-                  animation: `slideIn 0.3s ease-out ${index * 0.05}s both`,
-                  fontFamily: 'Montserrat, Arial, sans-serif'
-                }}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -20 }} 
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-linear-to-br from-[#0f1419] to-[#1a2332] backdrop-blur-md rounded-2xl mt-2 mb-3 p-4 shadow-2xl border border-[#C21807]/30"
+          >
+            <div className="flex flex-col gap-2 mb-4">
+              {navigation.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`block py-3 px-4 text-base font-bold rounded-lg transition-all duration-300 ${
+                    pathname === item.href 
+                      ? 'bg-[#C21807] text-white' 
+                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                  }`}
+                  aria-current={pathname === item.href ? 'page' : undefined}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{ 
+                    animation: `slideIn 0.3s ease-out ${index * 0.05}s both`,
+                    fontFamily: 'Montserrat, Arial, sans-serif'
+                  }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-2">
+              {socialmedia.map((item, index) => (
+                <motion.a
+                  key={index}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-[#C21807]/20 hover:border-[#C21807] hover:bg-[#C21807] transition-all duration-300 shadow-lg"
+                >
+                  <item.icon className="h-4 w-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
         )}
       </nav>
     </header>

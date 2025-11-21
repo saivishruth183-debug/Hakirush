@@ -49,7 +49,7 @@ const Package = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="py-6 relative overflow-hidden">
+          className="py-10 relative overflow-hidden">
 
           <div className="relative z-10 flex items-center justify-center px-4">
             <div className="flex flex-col lg:flex-row gap-10 w-full max-w-6xl">

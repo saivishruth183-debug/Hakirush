@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Users, Calendar, Trophy, Target, CheckCircle, Quote } from 'lucide-react';
-
 import { motion } from 'framer-motion';
 
 

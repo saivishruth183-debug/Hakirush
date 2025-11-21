@@ -36,7 +36,7 @@ export default function SponsorGrid() {
   };
 
   return (
-    <div className="relative overflow-hidden bg-white">
+    <div className="relative overflow-hidden bg-gray-50">
       {/* Back Button */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
         <motion.button

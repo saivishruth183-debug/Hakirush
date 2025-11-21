@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 const Client2 = () => {
   const navigate = useNavigate()
 
-  return (
+      <div className='bg-gray-50 min-h-screen'>
     <div className='bg-white min-h-screen'>
       {/* Back Button */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">

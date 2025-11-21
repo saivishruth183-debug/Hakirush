@@ -6,7 +6,7 @@ import { Zap } from "lucide-react";
 
 const Newsletter = () => {
   return (
-    <section className="relative py-16 bg-white overflow-hidden">
+    <section className="relative py-16 bg-gray-50 overflow-hidden">
       
       <motion.div
         initial={{ opacity: 0, y: 40, rotateX: -10 }}

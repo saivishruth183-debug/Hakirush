@@ -34,7 +34,7 @@ const QLeague = () => {
   const navigate = useNavigate()
   
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="bg-gray-50 relative overflow-hidden">
       {/* Back Button */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
         <motion.button

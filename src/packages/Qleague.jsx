@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Cricket from '../assets/Q-League/cricket.png'
 import Badminton from '../assets/Q-League/badminton.png'
 import Football from '../assets/Q-League/football.png'
-import Multi from "../assets/Q-League/multilevel.png";
+import Multi from "../assets/Q-League/multilevel.png"
 
 const quarters = [
   { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Cricket },

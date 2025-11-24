@@ -136,8 +136,8 @@ export default function Contact() {
       </div>
 
       {/* CONTENT SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-8 md:py-12">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+      <section className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 py-6 md:py-12">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-10">
           {/* LEFT SIDE INFO */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -164,7 +164,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
             {[ 
               { icon: <Mail className="w-5 h-5" />, label: "Email", value: contactDetails.email, href: `mailto:${contactDetails.email}` },
               { icon: <Phone className="w-5 h-5" />, label: "Phone", value: contactDetails.phone, href: `tel:${contactDetails.phone}` },
@@ -179,12 +179,12 @@ export default function Contact() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ x: 8, transition: { duration: 0.3 } }}
-                className="flex items-start gap-4 p-5 rounded-2xl bg-[#C21807]/5 border border-[#C21807]/20 hover:border-[#C21807] hover:shadow-lg transition-all duration-300"
+                className="flex flex-row items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-[#C21807]/5 border border-[#C21807]/20 hover:border-[#C21807] hover:shadow-lg transition-all duration-300"
               >
-                <div className="inline-flex items-center justify-center p-3 bg-[#C21807] rounded-lg text-white shadow-lg shrink-0">
+                <div className="inline-flex items-center justify-center p-3 bg-[#C21807] rounded-lg text-white shadow-lg shrink-0 flex-none">
                   {item.icon}
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-sm sm:text-base text-gray-900 mb-1">{item.label}</h3>
                   {item.href ? (
                     <a href={item.href} className="text-xs sm:text-sm md:text-base text-gray-600 hover:text-[#C21807] transition-colors font-medium">{item.value}</a>
@@ -197,14 +197,14 @@ export default function Contact() {
           </div>
 
           {/* SOCIAL */}
-          <div className="mt-6 md:mt-8 p-6 rounded-2xl bg-white border border-gray-200">
+          <div className="mt-6 md:mt-8 p-4 sm:p-6 rounded-2xl bg-white border border-gray-200">
             <h3 className="font-bold text-base sm:text-lg mb-5 text-gray-900">
               Follow{" "}
               <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
                 Us
               </span>
             </h3>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-3 sm:gap-4">
               {socialLinks.map((s, i) => (
                 <motion.a
                   key={i}
@@ -234,40 +234,40 @@ export default function Contact() {
             scale: window.innerWidth >= 768 ? 1.03 : 1,
             y: window.innerWidth >= 768 ? -8 : 0
           }}
-          className="relative flex flex-col justify-center my-10 md:my-48 px-6 pt-6 pb-6 md:px-10 md:pt-10 md:pb-8 rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500"
+          className="relative flex flex-col justify-center sm:my-6 md:my-24 p-5 sm:px-3 md:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6 md:pt-10 md:pb-8 rounded-lg sm:rounded-2xl md:rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500 w-full"
         >
           {/* Decorative Background removed for pure white */}
           <div className="hidden" aria-hidden="true" />
           <div className="hidden" aria-hidden="true" />
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-8 text-gray-900">
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-black mb-6 sm:mb-8 text-gray-900">
             Send us a{" "}
             <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
               Message
             </span>
           </h2>
 
-          <form onSubmit={submitForm} className="space-y-5 md:space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInput} required />
-              <InputField label="Email Address *" name="email" type="email" value={formData.email} onChange={handleInput} required />
+          <form onSubmit={submitForm} className="space-y-4 sm:space-y-5 md:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInput} required small />
+              <InputField label="Email Address *" name="email" type="email" value={formData.email} onChange={handleInput} required small />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InputField label="Company Name" name="company" value={formData.company} onChange={handleInput} />
-              <InputField label="Phone Number" name="phone" value={formData.phone} onChange={handleInput} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <InputField label="Company Name" name="company" value={formData.company} onChange={handleInput} small />
+              <InputField label="Phone Number" name="phone" value={formData.phone} onChange={handleInput} small />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Message *</label>
               <textarea
                 name="message"
-                rows="5"
+                rows="4"
                 required
                 value={formData.message}
                 onChange={handleInput}
                 placeholder="Tell us about your requirements..."
-                className="w-full p-3 border border-[#C21807]/30 rounded-lg outline-none focus:ring-[#C21807] focus:border-[#C21807] transition"
+                className="w-full p-2 sm:p-3 md:p-4 lg:p-5 border border-[#C21807]/30 rounded-lg outline-none focus:ring-[#C21807] focus:border-[#C21807] text-xs sm:text-sm md:text-base lg:text-lg transition"
               />
             </div>
 
@@ -276,7 +276,7 @@ export default function Contact() {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-[#C21807] text-white py-3 md:py-4 text-base sm:text-lg font-bold rounded-lg flex justify-center items-center gap-2 sm:gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#C21807] text-white py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold rounded-lg flex justify-center items-center gap-2 sm:gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="h-4 w-4 sm:h-5 sm:w-5" />
               {loading ? "Sending..." : "Submit"}
@@ -330,17 +330,17 @@ export default function Contact() {
   );
 }
 
-function InputField({ label, name, type = "text", value, onChange, required }) {
+function InputField({ label, name, type = "text", value, onChange, required, small }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+      <label className={`block ${small ? 'text-xs' : 'text-sm'} md:text-base font-medium text-gray-700 mb-2`}>{label}</label>
       <input
         type={type}
         name={name}
         required={required}
         value={value}
         onChange={onChange}
-        className="w-full p-3 border border-[#C21807]/30 rounded-lg outline-none focus:border-[#C21807] focus:ring-[#C21807] transition"
+        className={`w-full ${small ? 'p-2 text-xs' : 'p-3 text-sm'} md:p-4 md:text-base lg:p-5 lg:text-lg border border-[#C21807]/30 rounded-lg outline-none focus:border-[#C21807] focus:ring-[#C21807] transition`}
       />
     </div>
   );

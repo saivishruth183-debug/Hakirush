@@ -53,12 +53,12 @@ export default function Contact() {
   const sendMail = async () => {
     setLoading(true);
     try {
-      await emailjs.send(
-        "service_e0wk90a",
-        "template_mpc32vt",
-        formData,
-        "TdZxUTpTA6byQ_J-p"
-      );
+      await emailjs.send({
+        service_id: "service_e0wk90a",
+        template_id: "template_mpc32vt",
+        user_id: "TdZxUTpTA6byQ_J-p",
+        template_params: formData,
+      });
 
       Swal.fire({
         icon: "success",

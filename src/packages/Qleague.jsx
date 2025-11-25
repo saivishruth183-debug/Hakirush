@@ -4,16 +4,16 @@ import { motion } from 'framer-motion'
 import { CheckCircle, Trophy, ArrowRight, CalendarDays, ArrowLeft } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import Cricket from "../assets/Q-League/cricket.png"
-import Badmintion from "../assets/Q-League/badminton.png"
+import Badminton from "../assets/Q-League/badminton.png"
 import Football from "../assets/Q-League/football.png"
-import Multilevel from "../assets/Q-League/multilevel.png"
+import Multi from "../assets/Q-League/multilevel.png"
 
 
 const quarters = [
   { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Cricket },
-  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image:  Badmintion },
+  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image:  Badminton },
   { id: 3, quarter: "Q3", name: "GoalRush", sport: "Football", image:  Football },
-  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image:  Multilevel },
+  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image:  Multi },
 ];
 
 const features = [

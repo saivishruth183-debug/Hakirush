@@ -124,7 +124,7 @@ const Footer = () => {
             <div className="space-y-6">
 
               <motion.a
-                href="mailto:krishna@hakirush.com"
+                href="mailto:support@hakirush.com"
                 className="flex items-center gap-3 group cursor-pointer"
                 whileHover={{ x: 8 }}
                 transition={{ type: 'tween', duration: 0.3 }}
@@ -133,7 +133,7 @@ const Footer = () => {
                   <Mail className="h-5 w-5 text-white" />
                 </div>
                 <span className="text-gray-300 text-base group-hover:text-white transition-colors">
-                  krishna@hakirush.com
+                  support@hakirush.com
                 </span>
               </motion.a>
 

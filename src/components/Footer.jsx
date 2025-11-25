@@ -15,7 +15,7 @@ const Footer = () => {
   ];
 
   const socialmedia = [
-    { icon: Facebook, href: "https://facebook.com/company/hakirush" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1DKbJRWQtq/" },
     { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
     { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
     { icon: Twitter, href: 'https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09' },

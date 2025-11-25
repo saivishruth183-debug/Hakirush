@@ -30,7 +30,7 @@ const contactDetails = {
 };
 
 const socialLinks = [
-  { icon: Facebook, url: "https://facebook.com/company/hakirush" },
+  { icon: Facebook, url: "https://www.facebook.com/share/1DKbJRWQtq/" },
   { icon: Instagram, url: "https://www.instagram.com/hakirush.sports_events/?hl=en" },
   { icon: Linkedin, url: "https://linkedin.com/company/hakirush" },
   { icon: Twitter, url: "https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09" },

@@ -3,9 +3,9 @@ import React from "react";
 import { motion } from 'framer-motion'
 import { CheckCircle, Trophy, ArrowRight, CalendarDays, ArrowLeft } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
-import Cricket from "../assets/Q-League/cricket.png"
-import Badminton from "../assets/Q-League/badminton.png"
-import Football from "../assets/Q-League/football.png"
+import Cricket from "../assets/Q-League/Cricket.png"
+import Badminton from "../assets/Q-League/Badminton.png"
+import Football from "../assets/Q-League/Football.png"
 import Multi from "../assets/Q-League/multilevel.png"
 
 

@@ -9,9 +9,9 @@ import ScrollToTop from './components/ScrolltoTop'
 // Pages
 import Home from './pages/Home'
 import About from './pages/About'
-import Package from './pages/Package'
-import Annualplan from './packages/Annualplan'
-import Qleague from './packages/Qleague'
+import Services from './pages/Services'
+import Annualplan from './services/Annualplan'
+import Qleague from './services/Qleague'
 import Sponsor from './pages/Sponsor'
 import Gallery from './pages/Gallery'
 import Clients from './pages/Clients'
@@ -48,9 +48,9 @@ const App = () => {
         <Routes >
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
-          <Route path='/package' element={<Package />} />
-          <Route path='/package/annualpackage' element={<Annualplan />} />
-          <Route path='/package/quarterly' element={<Qleague />} />
+          <Route path='/services' element={<Services />} />
+          <Route path='/services/annualpackage' element={<Annualplan />} />
+          <Route path='/services/quarterly' element={<Qleague />} />
           <Route path='/sponsor' element={<Sponsor />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/clients' element={<Clients />} />

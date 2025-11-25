@@ -47,7 +47,7 @@ const QLeague = () => {
           className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg bg-white border border-[#C21807]/30 shadow-sm hover:shadow-md text-[#C21807] hover:bg-[#C21807]/5 text-xs sm:text-sm md:text-base font-semibold transition-all cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
-          <span className="whitespace-nowrap">Back to Packages</span>
+          <span className="whitespace-nowrap">Back to Services</span>
         </motion.button>
       </div>
 

@@ -22,7 +22,7 @@ const Package = () => {
               {/* Badge */}
               <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
                 <Star className="w-4 h-4 text-[#C21807]" fill='#C21807' />
-                <span className="text-sm font-bold text-[#C21807]">Our Packages</span>
+                <span className="text-sm font-bold text-[#C21807]">Our Services</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
@@ -55,7 +55,7 @@ const Package = () => {
             <div className="flex flex-col lg:flex-row gap-10 w-full max-w-6xl">
 
               {/* Annual Subscription Card */}
-              <Link to="/package/annualpackage" className="w-full lg:w-1/2">
+              <Link to="/services/annualpackage" className="w-full lg:w-1/2">
                 <motion.div 
                   className="relative h-full group"
                   initial={{ opacity: 0, y: 60, rotateX: 10 }}
@@ -113,7 +113,7 @@ const Package = () => {
               </Link>
 
               {/* Quarterly Card */}
-              <Link to="/package/quarterly" className="w-full lg:w-1/2">
+              <Link to="/services/quarterly" className="w-full lg:w-1/2">
                 <motion.div
                   initial={{ opacity: 0, y: 60, rotateX: 10 }}
                   whileInView={{ opacity: 1, y: 0, rotateX: 0 }}

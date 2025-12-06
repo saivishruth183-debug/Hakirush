@@ -393,7 +393,6 @@ export default function Clients() {
 
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 mb-6 md:mb-8 text-center md:text-left">
                   <motion.img
-                    whileHover={{ scale: 1.1, rotate: 5 }}
                     src={testimonials[currentTestimonial].avatar}
                     alt={`${testimonials[currentTestimonial].person} - ${testimonials[currentTestimonial].position}`}
                     loading="lazy"

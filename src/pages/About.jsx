@@ -23,13 +23,13 @@ const founding = [
 
 const team = [
   { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth" },
-  // { image: Vishruth, name: "Sai Vishruth", role: "Tech - Product & Site" },
+  // { image: Vishruth, name: "Sai Vishruth", role: "Tech - Product & Site Manager" },
   // { image: Lakshmi, name: "Lakshmi", role: "Marketing - Content & SMM" },
   { image: Madan, name: "Madan Anugonda", role: "Operations Manager" },
+  // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
   { image: Likhitha, name: "Likhitha", role: "Human Resources & Project Manager" },
   { image: Anisha, name: "Anisha", role: "Social Media & Data Analytics" },
-  // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
 ]
 
 const work = [

@@ -406,7 +406,7 @@ function InputField({ label, name, type = "text", value, onChange, required, sma
         required={required}
         value={value}
         onChange={onChange}
-        className={`w-full ${small ? "p-2 text-xs" : "p-3 text-sm"} md:p-4 md:text-base lg:p-5 lg:text-lg border border-[#C21807]/30 rounded-lg outline-none focus:border-[#C21807] focus:ring-[#C21807] transition`}
+        className={`w-full ${small ? "p-2 text-xs" : "p-3 text-sm"} md:p-1 md:text-base lg:p-2 lg:text-lg border border-[#C21807]/30 rounded-lg outline-none focus:border-[#C21807] focus:ring-[#C21807] transition`}
         aria-required={required}
       />
     </div>

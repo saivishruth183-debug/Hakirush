@@ -299,7 +299,7 @@ export default function Contact() {
               scale: isDesktop ? 1.03 : 1,
               y: isDesktop ? -8 : 0,
             }}
-            className="relative flex flex-col justify-center sm:my-6 md:my-24 p-5 sm:px-3 md:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6 md:pt-10 md:pb-8 rounded-lg sm:rounded-2xl md:rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500 w-full"
+            className="relative flex flex-col justify-center sm:my-6 md:my-35 p-5 sm:px-3 md:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6 md:pt-10 md:pb-8 rounded-lg sm:rounded-2xl md:rounded-3xl shadow-2xl bg-white border border-[#C21807]/20 hover:shadow-red-400 overflow-hidden transition-all duration-500 w-full"
           >
             <h2 className="text-xl sm:text-2xl md:text-4xl font-black mb-6 sm:mb-8 text-gray-900">
               Send us a{" "}
@@ -340,7 +340,7 @@ export default function Contact() {
                 disabled={!canSubmit}
                 whileHover={{ scale: canSubmit ? 1.02 : 1 }}
                 whileTap={{ scale: canSubmit ? 0.98 : 1 }}
-                className="w-full bg-[#C21807] text-white py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold rounded-lg flex justify-center items-center gap-2 sm:gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-[#C21807] text-white py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-bold rounded-lg flex justify-center items-center gap-2 sm:gap-3 shadow-xl hover:shadow-xl hover:shadow-[#C21807]/50 hover:scale-105 transition-all duration-300 cursor-pointer"
                 aria-disabled={!canSubmit}
               >
                 <Send className="h-4 w-4 sm:h-5 sm:w-5" />

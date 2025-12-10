@@ -237,13 +237,13 @@ export default function Contact() {
                   className="flex flex-row items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-[#C21807]/5 border border-[#C21807]/20 hover:border-[#C21807] hover:shadow-lg transition-all duration-300"
                 >
                   <div
-                    className="inline-flex items-center justify-center p-3 bg-[#C21807] rounded-lg text-white shadow-lg shrink-0 flex-none"
+                    className="inline-flex items-center justify-center p-3 bg-red-100 rounded-lg text-red-700 shadow-lg shrink-0 flex-none"
                     aria-hidden
                   >
                     {item.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-sm sm:text-base text-gray-900 mb-1">{item.label}</h3>
+                    <h3 className="font-bold text-sm sm:text-base text-red-600 mb-1">{item.label}</h3>
                     {item.href ? (
                       <a
                         href={item.href}

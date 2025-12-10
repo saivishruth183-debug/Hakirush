@@ -148,19 +148,19 @@ export default function Clients() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Building className="h-6 w-6 text-white" />,
+                icon: <Building className="h-6 w-6 text-red-700" />,
                 label: "Companies Trust Us",
                 value: "50+",
                 gradient: "from-[#C21807] to-[#A01506]",
               },
               {
-                icon: <Users className="h-6 w-6 text-white" />,
+                icon: <Users className="h-6 w-6 text-red-700" />,
                 label: "Employees Engaged",
                 value: "10K+",
                 gradient: "from-[#A01506] to-[#C21807]",
               },
               {
-                icon: <Award className="h-6 w-6 text-white" />,
+                icon: <Award className="h-6 w-6 text-red-700" />,
                 label: "Events Delivered",
                 value: "500+",
                 gradient: "from-[#C21807] to-[#A01506]",
@@ -186,7 +186,7 @@ export default function Clients() {
 
                 <div className="relative p-10">
                   {/* Icon Badge */}
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br ${stat.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-100 mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     {stat.icon}
                   </div>
 

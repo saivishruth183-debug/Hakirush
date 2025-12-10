@@ -86,15 +86,15 @@ const Ourplans = () => {
                   {/* Icon and Title in Row */}
                   <div className="flex items-center gap-4 mb-6">
                     <div className="relative inline-block shrink-0">
-                      <div className="absolute inset-0 bg-[#C21807] rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-                      <div className="relative p-4 bg-[#C21807] rounded-2xl shadow-lg">
-                        <Icon className="h-8 w-8 text-white" />
+                      <div className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+                      <div className="relative p-4 rounded-2xl bg-red-100">
+                        <Icon className="h-8 w-8 text-red-600" />
                       </div>
                     </div>
 
                     {/* Title */}
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-                      <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">
+                      <span className="bg-[#C21807] bg-clip-text text-transparent text-3xl font-extrabold">
                         {plan.title}
                       </span>
                     </h3>

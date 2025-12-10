@@ -82,11 +82,11 @@ export default function About() {
       <section className="relative pt-20 pb-12 md:pb-16 overflow-hidden bg-linear-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-linear-to-br from-red-600 via-red-700 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#C21807] rounded-xl flex items-center justify-center shadow-lg">
               <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
-              About <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">HAKIRUSH</span>
+              About <span className="bg-[#C21807] bg-clip-text text-transparent">HAKIRUSH</span>
             </h1>
           </div>
           <div className="max-w-4xl mx-auto space-y-4">

@@ -195,8 +195,7 @@ const GalleryPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => setLightbox(null)}
-          className="fixed inset-0 bg-black/95 backdrop-blur-sm flex justify-center items-center z-50 cursor-zoom-out p-4"
+          className="fixed inset-0 bg-black/95 backdrop-blur-sm flex justify-center items-center z-50 p-4"
         >
           {/* Close Button */}
           <motion.button
@@ -204,7 +203,7 @@ const GalleryPage = () => {
             animate={{ scale: 1 }}
             transition={{ delay: 0.2 }}
             onClick={() => setLightbox(null)}
-            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[#C21807] transition-colors z-10"
+            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-[#C21807] transition-colors z-10 cursor-pointer"
           >
             <X className="w-6 h-6 text-white" />
           </motion.button>

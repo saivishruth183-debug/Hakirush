@@ -6,8 +6,6 @@ import Krishna from "../assets/Team/krishna.png";
 // import Vishruth from "../assets/Team/vishruth.png";
 // import Lakshmi from "../assets/Team/lakshmi.png";
 import Ajmeri from "../assets/Team/ajmeri.png";
-import Anisha from "../assets/Team/anisha.png";
-import Likhitha from "../assets/Team/likhitha.png";
 import Madan from "../assets/Team/madan.png";
 
 const mission = [
@@ -28,8 +26,6 @@ const team = [
   { image: Madan, name: "Madan Anugonda", role: "Operations Manager" },
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
-  { image: Likhitha, name: "Likhitha", role: "Human Resources & Project Manager" },
-  { image: Anisha, name: "Anisha", role: "Social Media & Data Analytics" },
 ]
 
 const work = [

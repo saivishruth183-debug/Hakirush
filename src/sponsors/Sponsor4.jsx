@@ -78,7 +78,7 @@ const Sponsor4 = () => {
                 transition={{ delay: i * 0.1 }}
                 className='bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-300 text-center border border-gray-100'
               >
-                <div className='inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-[#C21807] to-[#A01506] text-white rounded-2xl mb-4'>
+                <div className='inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-700 rounded-2xl mb-4'>
                   {stat.icon}
                 </div>
                 <h3 className='text-3xl font-bold text-gray-900 mb-2'>{stat.value}</h3>

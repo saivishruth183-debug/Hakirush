@@ -7,6 +7,7 @@ import Krishna from "../assets/Team/krishna.png";
 // import Lakshmi from "../assets/Team/lakshmi.png";
 import Ajmeri from "../assets/Team/ajmeri.png";
 import Madan from "../assets/Team/madan.png";
+import Sruthi from "../assets/Team/Sruthi.png"
 
 const mission = [
   { icon:<Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty."},
@@ -26,6 +27,7 @@ const team = [
   { image: Madan, name: "Madan Anugonda", role: "Operations Manager" },
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
+  { image: Sruthi, name: "Sruthi", role: "HR" },
 ]
 
 const work = [

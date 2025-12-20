@@ -88,8 +88,8 @@ export default function About() {
             </h1>
           </div>
           <div className="max-w-4xl mx-auto space-y-4">
-            <p className="text-sm sm:text-base md:text-md text-gray-700 max-w-4xl mx-auto leading-relaxed font-medium">
-              HAKIRUSH is a corporate sports management company designed for today's fast-moving, post-COVID work culture. While most companies struggle to create real team bonding and employee engagement, we bring organizations together through professionally executed, high-energy sports experiences.
+            <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium">
+              HAKIRUSH is a corporate sports management company built for today’s fast-paced, post-COVID work culture, bringing organizations together through professionally executed, high-energy sports experiences that drive team bonding and employee engagement.
             </p>
           </div>
         </div>
@@ -136,13 +136,8 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">Our <span className="bg-linear-to-r from-red-600 via-red-700 to-red-600 bg-clip-text text-transparent">Story</span></h2>
           <div className="max-w-4xl mx-auto mt-6">
-            <p className="text-sm sm:text-base md:text-md text-gray-700 leading-relaxed font-medium">
-              HAKIRUSH began as a simple idea: bring professional sporting experiences
-              to corporate teams in a way that's effortless for HR and unforgettable
-              for employees. Founded by professionals who love sport and corporate
-              culture, we combined event management, digital storytelling, and
-              scalable operations to create a model that works for both startups and
-              enterprise companies.
+            <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-medium">
+              HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. Founded by sport and corporate culture enthusiasts, we combine event management, digital storytelling, and scalable operations to serve both startups and enterprises.
             </p>
           </div>
         </div>

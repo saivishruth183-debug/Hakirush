@@ -79,19 +79,26 @@ export default function About() {
       {/* HERO SECTION */}
       <section className="relative pt-20 pb-12 md:pb-16 overflow-hidden bg-linear-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#C21807] rounded-xl flex items-center justify-center shadow-lg">
               <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
-              About <span className="bg-[#C21807] bg-clip-text text-transparent">HAKIRUSH</span>
-            </h1>
-          </div>
-          <div className="max-w-4xl mx-auto space-y-4">
-            <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium">
-              HAKIRUSH is a corporate sports management company built for today’s fast-paced, post-COVID work culture, bringing organizations together through professionally executed, high-energy sports experiences that drive team bonding and employee engagement.
-            </p>
-          </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900">
+                About <span className="bg-[#C21807] bg-clip-text text-transparent">HAKIRUSH</span>
+              </h1>
+            </div>
+            <div className="max-w-4xl mx-auto space-y-4">
+              <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium">
+                HAKIRUSH is a corporate sports management company built for today’s fast-paced, post-COVID work culture, bringing organizations together through professionally executed, high-energy sports experiences that drive team bonding and employee engagement.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 

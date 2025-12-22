@@ -133,18 +133,13 @@ export default function Contact() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="relative overflow-hidden bg-gray-50 text-gray-900"
-    >
+    <div className="relative overflow-hidden bg-gray-50 text-gray-900">
       <div className="bg-gray-50 overflow-hidden">
         {/* Hero Section */}
         <section className="relative pt-20 pb-15 md:py-24 overflow-hidden bg-gray-50">
           <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
@@ -390,7 +385,7 @@ export default function Contact() {
           />
         </motion.div>
       </section>
-    </motion.div>
+    </div>
   );
 }
 

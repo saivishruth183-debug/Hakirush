@@ -60,7 +60,7 @@ const GalleryPage = () => {
       <section className="relative pt-20 pb-8 overflow-hidden bg-gray-50">
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center max-w-4xl mx-auto px-6 relative z-10"

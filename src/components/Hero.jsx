@@ -125,7 +125,7 @@ const Hero = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.7 }}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-3xl"
                 />
               </AnimatePresence>
 

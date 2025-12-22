@@ -387,10 +387,9 @@ export default function Clients() {
 
               <div className="relative p-6 md:p-12">
                 {/* Quote Icon - responsive size/position for mobile */}
-                <div className="absolute top-4 right-4 w-10 h-10 md:top-8 md:right-8 md:w-16 md:h-16 rounded-full bg-[#C21807]/10 flex items-center justify-center opacity-50">
-                  <Quote className="w-5 h-5 md:w-8 md:h-8 text-[#C21807]" />
+                <div className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-16 md:h-16 rounded-full bg-[#C21807]/10 flex items-center justify-center transition-all duration-300 hover:bg-[#C21807]/20 group">
+                  <Quote className="w-5 h-5 md:w-8 md:h-8 text-[#C21807] transition-colors duration-300 group-hover:text-[#8B0000]" />
                 </div>
-
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 mb-6 md:mb-8 text-center md:text-left">
                   <motion.img
                     src={testimonials[currentTestimonial].avatar}

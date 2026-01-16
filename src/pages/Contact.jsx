@@ -26,11 +26,23 @@ const contactDetails = {
   hours: "Mon-Sat: 9:00 AM - 7:00 PM",
 };
 
+const TwitterIcon = ({ className }) => (
+  <svg
+    viewBox="0 0 1200 1227"
+    fill="currentColor"
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M714.2 519.1L1160.9 0H1055.7L667.1 450.2L358.1 0H0L468.6 681.8L0 1226.4H105.3L515.8 750.8L842 1226.4H1200L714.2 519.1ZM570.9 687.5L523.4 620.1L146.7 79.7H311.5L615.4 520.2L662.9 587.6L1055.7 1146.7H890.9L570.9 687.5Z" />
+  </svg>
+);
+
+
 const socialLinks = [
   { icon: Facebook, url: "https://www.facebook.com/share/1DKbJRWQtq/" },
   { icon: Instagram, url: "https://www.instagram.com/hakirush.sports_events/?hl=en" },
   { icon: Linkedin, url: "https://linkedin.com/company/hakirush" },
-  { icon: Twitter, url: "https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09" },
+  { icon: TwitterIcon, url: "https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09" },
   { icon: Youtube, url: "https://www.youtube.com/@HakirushSportsEvents" },
 ];
 

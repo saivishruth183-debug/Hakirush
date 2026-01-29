@@ -27,7 +27,7 @@ const team = [
   { image: Madan, name: "Madan Anugonda", role: "Operations Manager" },
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
-  { image: Sruthi, name: "Sruthi", role: "HR" },
+  { image: Sruthi, name: "Sruthi", role: "Project Manager" },
 ]
 
 const work = [

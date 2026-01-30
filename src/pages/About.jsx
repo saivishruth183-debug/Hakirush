@@ -29,7 +29,10 @@ const team = [
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
   { image: Sruthi, name: "Sruthi", role: "Project Manager" },
+<<<<<<< HEAD
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager" },
+=======
+>>>>>>> da3b1281ed5721c7d85127ff44aa51ada5f676b7
 ]
 
 const work = [

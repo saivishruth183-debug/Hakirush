@@ -239,7 +239,7 @@ export default function Clients() {
                 <motion.div
                   key={`sponsor-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  onClick={() => handleClientClick(sponsor.href)}
+                  // onClick={() => handleClientClick(sponsor.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
@@ -258,7 +258,7 @@ export default function Clients() {
                 <motion.div
                   key={`sponsor-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  onClick={() => handleClientClick(sponsor.href)}
+                  // onClick={() => handleClientClick(sponsor.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
@@ -311,7 +311,7 @@ export default function Clients() {
                 <motion.div
                   key={`client-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  onClick={() => handleClientClick(client.href)}
+                  // onClick={() => handleClientClick(client.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />
@@ -330,7 +330,7 @@ export default function Clients() {
                 <motion.div
                   key={`client-dup-${index}`}
                   whileHover={{ y: -8, scale: 1.05 }}
-                  onClick={() => handleClientClick(client.href)}
+                  // onClick={() => handleClientClick(client.href)}
                   className="group relative bg-white p-8 rounded-2xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] border border-gray-100 cursor-pointer shrink-0 overflow-hidden transition-all duration-500"
                 >
                   <div className="hidden" aria-hidden="true" />

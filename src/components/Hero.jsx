@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Sparkles } from "lucide-react";
-
 import Cricket from "../assets/Hero/cricket.png";
 import Badminton from "../assets/Hero/badminton.png";
 import Football from "../assets/Hero/Football.png";

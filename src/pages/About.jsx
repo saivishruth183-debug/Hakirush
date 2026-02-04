@@ -29,10 +29,7 @@ const team = [
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
   { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
   { image: Sruthi, name: "Sruthi", role: "Project Manager" },
-<<<<<<< HEAD
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager" },
-=======
->>>>>>> da3b1281ed5721c7d85127ff44aa51ada5f676b7
 ]
 
 const work = [
@@ -110,7 +107,7 @@ export default function About() {
       {/* Mission / Vision */}
       <section className="bg-linear-to-b from-white to-slate-50 py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-5xl mx-auto cursor-pointer">
             {mission.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -156,7 +153,7 @@ export default function About() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 bg-linear-to-b from-white to-slate-50">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 cursor-pointer">
           {founding.map((item, index) => (
             <motion.div
               key={item.title}

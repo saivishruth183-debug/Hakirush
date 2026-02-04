@@ -39,8 +39,6 @@ const Navbar = () => {
     { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
 
-  // No scroll handling needed — header uses a permanent background.
-
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/80 backdrop-blur-md shadow-2xl border-b border-[#C21807]/20"
@@ -158,4 +156,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

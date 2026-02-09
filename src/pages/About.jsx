@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Award, Camera, BarChart3, Quote, Handshake, Briefcase, MapPin, Clock, Users } from "lucide-react";
 import Krishna from "../assets/Team/krishna.png";
 // import Vishruth from "../assets/Team/vishruth.png";
-// import Lakshmi from "../assets/Team/lakshmi.png";
-import Ajmeri from "../assets/Team/ajmeri.png";
 import Madan from "../assets/Team/madan.png";
 import Sruthi from "../assets/Team/Sruthi.png";
 import Arushi from "../assets/Team/arushi.png";
@@ -24,10 +22,8 @@ const founding = [
 const team = [
   { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth" },
   // { image: Vishruth, name: "Sai Vishruth", role: "Tech - Product & Site Manager" },
-  // { image: Lakshmi, name: "Lakshmi", role: "Marketing - Content & SMM" },
   { image: Madan, name: "Madan Anugonda", role: "Operations Manager" },
   // { image: "/images/team-anooj.jpg", name: "Anooj Paluri", role: "Social - Design & Content" },
-  { image: Ajmeri, name: "Ajmeri", role: "Business Development" },
   { image: Sruthi, name: "Sruthi", role: "Project Manager" },
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager" },
 

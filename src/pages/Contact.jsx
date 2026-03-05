@@ -63,10 +63,9 @@ export default function Contact() {
   );
 
   useEffect(() => {
-    // Initialize EmailJS once (replace with your user id if you prefer init)
-    // It's fine to init with the user ID once.
+    
     if (emailjs && emailjs.init) {
-      emailjs.init("zyKH5j7WIvha9eQ6S");
+      emailjs.init("pcWFF4SE3MMUSZ8RT");
     }
 
     const onResize = () => setIsDesktop(window.innerWidth >= 768);
@@ -102,8 +101,8 @@ export default function Contact() {
     setLoading(true);
     try {
 
-      const serviceId = "service_g329dyj";
-      const templateId = "template_8vlwff3";
+      const serviceId = "service_6nnmjta";
+      const templateId = "template_b1fg89p";
 
       const templateParams = {
         from_name: formData.name,

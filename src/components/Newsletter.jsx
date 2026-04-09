@@ -1,75 +1,113 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Zap } from "lucide-react";
+import { Zap, Trophy, Activity, Target, Star, Dribbble, Dumbbell, ArrowRight } from "lucide-react";
 
-const Newsletter = () => {
+// --- SEAMLESS SCROLLING TRACK ---
+const ScrollingSportsTrack = ({ direction = -1, speed = 30, opacity = 0.05 }) => {
+  const icons = [Trophy, Activity, Target, Star, Dribbble, Dumbbell, Zap];
+  
   return (
-    <section className="relative py-16 bg-gray-50 overflow-hidden">
-      
+    <div className="flex whitespace-nowrap overflow-hidden py-3 select-none" style={{ opacity }}>
       <motion.div
-        initial={{ opacity: 0, y: 40, rotateX: -10 }}
-        whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{ 
-          type: 'spring', 
-          stiffness: 200
-        }}
-        viewport={{ once: true }}
-        whileHover={{ 
-          scale: window.innerWidth >= 768 ? 1.03 : 1,
-          y: window.innerWidth >= 768 ? -8 : 0
-        }}
-        className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10"
+        initial={{ x: direction > 0 ? "-50%" : "0%" }}
+        animate={{ x: direction > 0 ? "0%" : "-50%" }}
+        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
+        className="flex gap-24 pr-24"
       >
-        <div className="relative bg-white rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer border-2 border-gray-100 hover:border-[#C21807]/20">
+        {[...icons, ...icons, ...icons].map((Icon, i) => (
+          <Icon key={i} size={48} className="text-red-800" strokeWidth={1.5} />
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
-          <div className="relative py-8 sm:py-10 px-6 sm:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Text Section */}
-            <div className="flex flex-col gap-4 text-center md:text-left flex-1">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 w-fit mx-auto md:mx-0 shadow-lg backdrop-blur-sm">
-                <Zap className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-bold text-[#C21807]">Get Started Today</span>
+const CTASection = () => {
+  return (
+    <section className="relative py-24 bg-slate-50 overflow-hidden font-sans">
+      
+      {/* 1. DYNAMIC BACKGROUND ENGINE */}
+      <div className="absolute inset-0 flex flex-col justify-around pointer-events-none z-0 py-10">
+        <ScrollingSportsTrack direction={-1} speed={60} opacity={0.04} />
+        <ScrollingSportsTrack direction={1} speed={80} opacity={0.02} />
+        <ScrollingSportsTrack direction={-1} speed={70} opacity={0.03} />
+      </div>
+
+      {/* 2. AMBIENT GLOWS */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-red-100/30 blur-[120px] rounded-full z-0" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="relative group"
+        >
+          {/* THE CARD - Now White */}
+          <div className="relative bg-white border border-slate-200 rounded-[3.5rem] p-8 md:p-20 overflow-hidden shadow-2xl shadow-red-900/10 transition-all duration-700">
+            
+            {/* Animated Gradient Border (Hover Effect) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-transparent to-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+            {/* Background "Ghost" Trophy - Changed to light slate/gray */}
+            <Trophy 
+              className="absolute -bottom-16 -right-16 w-96 h-96 text-slate-100 -rotate-12 transition-all duration-1000 group-hover:rotate-0 group-hover:scale-110 group-hover:text-red-50" 
+              strokeWidth={1}
+            />
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+              
+              {/* CONTENT LEFT */}
+              <div className="text-center lg:text-left space-y-8 max-w-2xl">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-red-600 text-white shadow-xl shadow-red-600/20"
+                >
+                  <Zap className="w-4 h-4 fill-current animate-pulse" />
+                  <span className="text-xs font-black uppercase tracking-[0.2em]">Ready to Start?</span>
+                </motion.div>
+
+                {/* Heading - Changed to Slate 900 */}
+                <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-none italic uppercase tracking-tighter">
+                  Transform your <br className="hidden md:block" />
+                  <span className="text-red-600">Workplace Culture</span>
+                </h2>
+
+                {/* Paragraph - Changed to Slate 600 */}
+                <p className="text-slate-600 text-lg md:text-xl font-medium max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                  Join <span className="text-slate-900 font-bold underline decoration-red-600 underline-offset-8 decoration-2">50+ top-tier firms</span> that trust <span className="text-slate-900 font-black italic tracking-widest uppercase">Hakirush</span>.
+                </p>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 leading-tight tracking-tight">
-                Ready to Transform Your{' '}
-                <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-                  Workplace
-                </span>?
-              </h2>
+              {/* ACTION RIGHT */}
+              <div className="flex flex-col items-center gap-6">
+                <Link to="/contact" className="relative group/btn">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="relative px-12 py-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black text-xl uppercase tracking-tighter shadow-2xl shadow-red-600/40 transition-all duration-300 flex items-center gap-4 group/text overflow-hidden cursor-pointer"
+                  >
+                    <span className="relative z-10">Free Consultation</span>
+                    <ArrowRight className="w-6 h-6 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-2" />
+                    
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-500" />
+                  </motion.button>
+                </Link>
+                
+                <p className="text-slate-400 text-xs font-bold uppercase tracking-[0.2em]">
+                  Elevate your team spirit
+                </p>
+              </div>
 
-              <p className="text-xs sm:text-sm lg:text-base text-gray-700 max-w-2xl mx-auto md:mx-0 leading-relaxed font-medium">
-                Join{" "}
-                <span className="font-bold text-[#C21807]">
-                  50+ leading companies
-                </span>
-                {" "}who trust{' '}
-                <span className="font-bold text-gray-900">HAKIRUSH</span> to boost employee morale and build stronger teams through sports
-              </p>
-            </div>
-
-            {/* Button */}
-            <div className="shrink-0 w-full md:w-auto">
-              <Link to="/contact">
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="w-full md:w-auto px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg bg-[#C21807] text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
-                >
-                  <span className="relative z-10">Book a Free Consultation</span>
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                </motion.button>
-              </Link>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };
 
-export default Newsletter;
+export default CTASection;

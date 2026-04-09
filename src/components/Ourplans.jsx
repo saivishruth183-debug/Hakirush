@@ -1,132 +1,166 @@
 import React from 'react'
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
-import { MoveRightIcon, Calendar, Trophy, Star } from 'lucide-react'
+import { 
+  MoveRightIcon, Calendar, Trophy, Star, 
+  Dumbbell, Circle as Basketball,
+  Bike, Volleyball, Footprints, 
+  Timer, Award, Swords, Goal
+} from 'lucide-react'
 import { Link } from 'react-router-dom'
+
+const PremiumSportsBackground = () => {
+  const row1 = [Basketball, Bike, Dumbbell, Goal, Timer, Trophy, Award];
+  const row2 = [Volleyball, Footprints, Swords, Timer, Basketball, Bike, Trophy];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none">
+      {/* 1. Subtle Architectural Grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.3]" 
+        style={{ 
+          backgroundImage: `linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px)`,
+          backgroundSize: '80px 80px' 
+        }} 
+      />
+
+      {/* 2. Top Row: Right to Left (Fast & Subtle) */}
+      <div className="absolute top-[15%] left-0 w-full opacity-[0.04]">
+        <motion.div 
+          animate={{ x: [0, -1500] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="flex gap-40 whitespace-nowrap"
+        >
+          {[...row1, ...row1, ...row1].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-40">
+              <Icon size={120} strokeWidth={0.5} className="text-slate-950" />
+              <span className="text-8xl font-black italic text-slate-950 uppercase tracking-tighter">Perfect Plan</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* 3. Bottom Row: Left to Right (Slow & Larger) */}
+      <div className="absolute bottom-[10%] left-0 w-full opacity-[0.03]">
+        <motion.div 
+          animate={{ x: [-1500, 0] }}
+          transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+          className="flex gap-56 whitespace-nowrap"
+        >
+          {[...row2, ...row2, ...row2].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-56">
+              <span className="text-[10rem] font-black italic text-slate-950 uppercase tracking-tighter">Choose One</span>
+              <Icon size={180} strokeWidth={0.5} className="text-slate-950" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* 4. Soft Ambient Glows to blend the white */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/50 blur-[120px] rounded-full" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50/80 blur-[100px] rounded-full" />
+    </div>
+  )
+}
 
 const plans = [
   {
     id: 1,
     href: '/services/annualpackage',
-    title: "Annual Subscription Plan",
-    description:
-      "One new sports or fitness event every month. Designed for 30–50 employees. We handle everything — venue, kits, transport, referees, and content.",
-    button: 'Explore more',
+    title: "Annual Plan",
+    subtitle: "Full Season Strategic Deployment",
+    description: "One new sports or fitness event every month. Designed for 30–50 employees. We handle everything — venue, kits, transport, referees, and content.",
+    features: ["Pro Coaching", "Analytics Dashboard", "Custom Kits"],
     icon: Calendar,
+    accent: "bg-red-600"
   },
   {
     id: 2,
     href: '/services/quarterly',
-    title: "Quarterly Tournament Plan",
-    description:
-      "High-energy inter-company tournaments every three months. Includes sponsorships, brand activations, and highlight coverage.",
-    button: 'Explore more',
+    title: "Quarterly Plan",
+    subtitle: "High-Production Tournament Series",
+    description: "High-energy inter-company tournaments every three months. Includes sponsorships, brand activations, and highlight coverage.",
+    features: ["Broadcast Media", "MVP Gala", "Sponsorships"],
     icon: Trophy,
+    accent: "bg-slate-950"
   },
 ]
 
-const Ourplans = () => {
+const OurPlans = () => {
   return (
-    <section className="relative py-12 bg-gray-50 overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="relative py-32 min-h-screen flex items-center justify-center bg-white">
+      <PremiumSportsBackground />
 
-        {/* Enhanced Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 mb-6 shadow-lg backdrop-blur-sm">
-            <Star className="w-4 h-4 text-[#C21807]" />
-            <span className="text-sm font-bold text-[#C21807]">Our Plans</span>
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        {/* Editorial Header */}
+        <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-12">
+          <div>
+            <motion.p 
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-red-600 font-black text-xs uppercase tracking-[0.4em] mb-4"
+            >
+              Membership Levels
+            </motion.p>
+            <h2 className="text-3xl md:text-7xl font-black text-slate-950 tracking-[-0.05em] uppercase leading-[0.8] italic">
+              Choose Your
+              <span className="text-red-600 not-italic"> Plan.</span>
+            </h2>
+            <p className="mt-8 md:mt-4 text-slate-500 font-medium text-lg max-w-lg leading-relaxed">
+              Select a plan that aligns with your company's engagement goals and let our experts handle everything else
+            </p>
           </div>
+        </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
-            Choose Your{' '}
-            <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-              Perfect Plan
-            </span>
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
-            Select a plan that aligns with your{" "}
-            <span className="font-bold text-[#C21807]">
-              company's engagement goals
-            </span>
-            {" "}and let our experts handle everything else
-          </p>
-        </motion.div>
-
-        {/* Enhanced Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 relative">
-          {plans.map((plan, index) => {
-            const Icon = plan.icon
-            return (
-              <motion.div
-                key={plan.id}
-                initial={{ opacity: 0, y: 40, rotateX: -10 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ 
-                  type: 'spring', 
-                  stiffness: 200,
-                  delay: index * 0.1 
-                }}
-                viewport={{ once: true }}
-                whileHover={{ 
-                  scale: window.innerWidth >= 768 ? 1.03 : 1,
-                  y: window.innerWidth >= 768 ? -8 : 0
-                }}
-                className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden border-2 border-gray-100 hover:border-[#C21807]/20"
-              >
+        {/* The Dual Plan Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={plan.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.8 }}
+              className="group relative"
+            >
+              {/* Card Body */}
+              <div className="relative h-full bg-white/60 backdrop-blur-xl border border-slate-200 rounded-[3rem] p-12 overflow-hidden hover:shadow-[0_80px_100px_-50px_rgba(0,0,0,0.15)] transition-all duration-700 hover:border-red-200">
                 
-                <div className="relative p-8 sm:p-10">
-                  {/* Icon and Title in Row */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="relative inline-block shrink-0">
-                      <div className="absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-                      <div className="relative p-4 rounded-2xl bg-red-100">
-                        <Icon className="h-8 w-8 text-red-600" />
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-                      <span className="bg-[#C21807] bg-clip-text text-transparent text-3xl font-extrabold">
-                        {plan.title}
-                      </span>
-                    </h3>
+                <div className="relative z-10">
+                  <div className={`inline-flex p-4 rounded-2xl ${plan.accent} text-white shadow-xl mb-12 group-hover:scale-110 transition-transform duration-500`}>
+                    <plan.icon size={28} />
                   </div>
 
-                  {/* Description */}
-                  <p className="text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 font-medium">
+                  <h3 className="text-5xl font-black text-slate-950 uppercase italic tracking-tighter mb-4">
+                    {plan.title}
+                  </h3>
+                  <p className="text-red-600 font-bold text-[10px] uppercase tracking-[0.3em] mb-10">{plan.subtitle}</p>
+                  
+                  <p className="text-slate-600 text-md font-normal mb-12 leading-relaxed border-l-2 border-slate-100 pl-6 group-hover:border-red-600 transition-colors">
                     {plan.description}
                   </p>
 
-                  {/* Enhanced CTA Button */}
-                  <Link to={plan.href}>
-                    <motion.button
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 rounded-lg bg-[#C21807] text-white font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group focus:outline-none focus-visible:ring-4 focus-visible:ring-[#C21807]/30"
-                    >
-                      <span className="relative z-10">{plan.button}</span>
-                      <MoveRightIcon className="h-4 w-4 sm:h-5 sm:w-5 relative z-10 transform transition-transform duration-300 group-hover:translate-x-1" />
-                      {/* Shimmer effect */}
-                      <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                    </motion.button>
+                  <div className="flex flex-wrap gap-6 mb-16">
+                    {plan.features.map((f, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-600" />
+                        <span className="text-[10px] font-black uppercase text-slate-800 tracking-wider">{f}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link to={plan.href} className="flex items-center justify-between group/link">
+                    <span className="text-xs font-black uppercase tracking-[0.3em] text-slate-950 group-hover/link:text-red-600 transition-colors">Learn More</span>
+                    <div className="w-16 h-16 rounded-full bg-slate-950 text-white flex items-center justify-center group-hover/link:bg-red-600 group-hover/link:scale-110 transition-all duration-500 shadow-xl">
+                      <MoveRightIcon size={24} />
+                    </div>
                   </Link>
                 </div>
-              </motion.div>
-            )
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-export default Ourplans
+export default OurPlans;

@@ -1,142 +1,150 @@
-import React, { useState, useEffect } from "react";
-// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
+
+// Assets
 import Cricket from "../assets/Hero/cricket.png";
 import Badminton from "../assets/Hero/badminton.png";
 import Football from "../assets/Hero/Football.png";
 import Yoga from "../assets/Hero/Yoga.png";
 
 const heroSlides = [
-  { id: 1, image: Cricket, title: "Cricket Championship Finals" },
-  { id: 2, image: Badminton, title: "Badminton Tournament" },
-  { id: 3, image: Football, title: "Football League Match" },
-  { id: 4, image: Yoga, title: "Yoga" },
+  { id: 1, image: Cricket, title: "Cricket", subtitle: "Championship Finals" },
+  { id: 2, image: Badminton, title: "Badminton", subtitle: "Pro Tournament" },
+  { id: 3, image: Football, title: "Football", subtitle: "Elite League Match" },
+  { id: 4, image: Yoga, title: "Yoga", subtitle: "Wellness Sessions" },
 ];
-
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const AUTO_PLAY_INTERVAL = 6000;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
-    return () => clearInterval(interval);
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
   return (
-    <section className="py-12 relative overflow-hidden min-h-screen flex items-center bg-gray-50">
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left Content - Enhanced */}
+    <section className="relative h-[100vh] w-full overflow-hidden bg-black font-sans">
+      {/* Background Layer with Ken Burns Effect */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-left space-y-8"
+            key={currentSlide}
+            initial={{ opacity: 0, scale: 1.15 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 2, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute inset-0"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-1.5 md:gap-2 bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 text-[#C21807] px-3 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold shadow-lg border border-[#C21807]/30 backdrop-blur-sm whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#C21807] shrink-0" />
-              <span>India's Premier Corporate Sports Platform</span>
-            </motion.div>
+            <img
+              src={heroSlides[currentSlide].image}
+              alt={heroSlides[currentSlide].title}
+              className="w-full h-full object-cover brightness-[0.5]"
+            />
+            {/* Multi-stage Overlay for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-            {/* Main Heading with Gradient */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight">
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="block bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm"
-              >
-                UNLEASHING
-              </motion.span>
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="block text-[#1a2332] mt-2"
-              >
+      {/* Content Layer */}
+      <div className="relative z-10 container mx-auto px-8 h-full flex flex-col justify-center">
+        <div className="max-w-4xl">
+          {/* Elite Badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full mb-6"
+          >
+            <div className="p-1 bg-[#e10b0b] rounded-full">
+              <Sparkles className="w-3 h-3 text-black" />
+            </div>
+            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-gray-300">
+              India's Premier Corporate Sports Platform
+            </span>
+          </motion.div>
+
+          {/* Main Typography */}
+          <h1 className="overflow-hidden mb-4">
+            <motion.span 
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, ease: "circOut" }}
+              className="block text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter"
+            >
+              UNLEASHING <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5e0606] to-[#fceabb]">
                 TEAM SPIRIT
-              </motion.span>
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="block text-gray-700 mt-2"
+              </span>
+            </motion.span>
+          </h1>
+
+          <div className="h-[60px] md:h-[80px] overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="text-2xl md:text-4xl font-light italic text-gray-400 flex items-center gap-4"
               >
-                THROUGH SPORTS
-              </motion.span>
-            </h1>
+                <span className="w-12 h-[1px] bg-[#ff0000] hidden md:block" />
+                {heroSlides[currentSlide].subtitle}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-            {/* Description */}
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl font-medium"
-            >
-              Corporate sports experiences that keep your teams{" "}
-              <span className="font-bold text-[#C21807]">
-                active
-              </span>
-              ,{" "}
-              <span className="font-bold text-[#C21807]">
-                engaged
-              </span>
-              , and{" "}
-              <span className="font-bold text-[#C21807]">
-                connected
-              </span>
-              {" "}— all year round.
-            </motion.p>
-          </motion.div>
-
-          {/* Right Image Section - Enhanced */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 max-w-lg text-lg text-gray-400 font-medium leading-relaxed"
           >
-            {/* Main Image Container with subtle continuous zoom */}
-            <motion.div
-              animate={{ scale: [1, 1.03, 1] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="relative h-72 sm:h-96 md:h-[550px] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-[#C21807]/20"
-            >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentSlide}
-                  src={heroSlides[currentSlide].image}
-                  alt={heroSlides[currentSlide].title}
-                  loading="lazy"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.7 }}
-                  className="w-full h-full object-cover rounded-3xl"
-                />
-              </AnimatePresence>
-
-              {/* Image Title Badge */}
-              <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-md px-3 py-1.5 md:px-6 md:py-3 rounded-full text-center shadow-xl border border-[#C21807]/30 whitespace-nowrap">
-                <span className="text-[#C21807] font-bold text-xs md:text-base">
-                  {heroSlides[currentSlide].title}
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
+            Elevating workplace culture through elite sports experiences that keep your teams 
+            <span className="text-red-600"> active </span> and 
+            <span className="text-red-600"> connected</span>.
+          </motion.p>
         </div>
+      </div>
+
+      {/* Modern Slide Indicators (Progress Bar Style) */}
+      <div className="absolute bottom-12 right-8 md:right-16 z-20 flex flex-col gap-6">
+        {heroSlides.map((slide, index) => (
+          <button
+            key={slide.id}
+            onClick={() => setCurrentSlide(index)}
+            className="flex items-center justify-end gap-4 group"
+          >
+            <span className={`text-xs font-bold transition-colors ${currentSlide === index ? "text-[#ff0000]" : "text-white/40 group-hover:text-white"}`}>
+              0{slide.id}
+            </span>
+            <div className="relative h-1 w-24 bg-white/10 overflow-hidden">
+              {currentSlide === index && (
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: AUTO_PLAY_INTERVAL / 1000, ease: "linear" }}
+                  className="absolute inset-0 bg-[#ff0000]"
+                />
+              )}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Decorative Side Element */}
+      <div className="absolute left-8 bottom-12 z-20 hidden md:block">
+         <div className="flex items-center gap-4 rotate-90 origin-left translate-x-4">
+            <span className="text-[10px] tracking-[0.4em] uppercase text-white/30 font-bold">Scroll to discover</span>
+            <div className="w-20 h-[1px] bg-white/20" />
+         </div>
       </div>
     </section>
   );

@@ -1,19 +1,19 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion'
-import { CheckCircle, Trophy, ArrowRight, CalendarDays, ArrowLeft } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
-import Cricket from "../assets/Q-League/Cricket.png"
-import Badminton from "../assets/Q-League/Badminton.png"
-import Football from "../assets/Q-League/Football.png"
-import Multi from "../assets/Q-League/multilevel.png"
+import { motion } from 'framer-motion';
+import { CheckCircle, Trophy, ArrowRight, CalendarDays, ArrowLeft } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
+// Asset imports
+import Cricket from "../assets/Q-League/Cricket.png";
+import Badminton from "../assets/Q-League/Badminton.png";
+import Football from "../assets/Q-League/Football.png";
+import Multi from "../assets/Q-League/multilevel.png";
 
 const quarters = [
   { id: 1, quarter: "Q1", name: "HAKIRUSH CUP", sport: "Cricket", image: Cricket },
-  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image:  Badminton },
-  { id: 3, quarter: "Q3", name: "GoalRush", sport: "Football", image:  Football },
-  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image:  Multi },
+  { id: 2, quarter: "Q2", name: "SmashFest", sport: "Badminton", image: Badminton },
+  { id: 3, quarter: "Q3", name: "GoalRush", sport: "Football", image: Football },
+  { id: 4, quarter: "Q4", name: "Battle of Corporates", sport: "Multi-Sport Festival", image: Multi },
 ];
 
 const features = [
@@ -31,235 +31,173 @@ const benefits = [
   "Attract sponsors and PR coverage",
 ];
 
-const QLeague = () => {
-  const navigate = useNavigate()
-  
+// --- BACKGROUND COMPONENT ---
+const ContinuousSportsBackground = () => {
+  const icons = [Trophy, ArrowRight, CalendarDays, ArrowLeft];
   return (
-    <div className="bg-gray-50 relative overflow-hidden">
-      {/* Back Button */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6">
-        <motion.button
-          onClick={() => navigate(-1)}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ x: -5 }}
-          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg bg-white border border-[#C21807]/30 shadow-sm hover:shadow-md text-[#C21807] hover:bg-[#C21807]/5 text-xs sm:text-sm md:text-base font-semibold transition-all cursor-pointer"
-        >
-          <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
-          <span className="whitespace-nowrap">Back to Services</span>
-        </motion.button>
-      </div>
-
-      <section className="py-12 md:py-24 relative overflow-hidden bg-gray-50">
-
-        {/* Max-width container for content */}
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          {/* Header */}
-          <motion.div
-              initial={{ opacity: 0, y: -40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="text-center max-w-4xl mx-auto space-y-6 md:space-y-8"
+    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/40 blur-[120px] rounded-full" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/60 blur-[120px] rounded-full" />
+      
+      {[10, 40, 70].map((top, idx) => (
+        <div key={top} className="flex absolute opacity-[0.03]" style={{ top: `${top}%` }}>
+          <motion.div 
+            initial={{ x: idx % 2 === 0 ? 0 : "-50%" }}
+            animate={{ x: idx % 2 === 0 ? "-50%" : 0 }}
+            transition={{ duration: 45 + idx * 5, repeat: Infinity, ease: "linear" }}
+            className="flex gap-24 pr-24 whitespace-nowrap"
           >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm">
-                <Trophy className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-bold text-[#C21807]">Quarterly Tournaments</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-                  Q-League —{' '}
-                  <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-                    Compete. Connect. Conquer.
-                  </span>
-              </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto font-medium">
-                  Every quarter, <span className="font-bold text-gray-900">HAKIRUSH</span> brings together{' '}
-                  <span className="font-bold text-[#C21807]">
-                    10+ companies
-                  </span> for high-energy corporate tournaments — each event focusing on one iconic sport.
-              </p>
+            {[...icons, ...icons, ...icons, ...icons].map((Icon, i) => (
+              <Icon key={i} size={80 + idx * 10} className="text-red-900" strokeWidth={0.5} />
+            ))}
           </motion.div>
         </div>
-      </section>
+      ))}
+    </div>
+  );
+};
 
-      {/* Timeline Cards */}
-      <section className="py-10 md:py-12 relative overflow-hidden bg-gray-50">
+const QLeague = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <div className="relative min-h-screen bg-gray-50/30 overflow-x-hidden">
+      <ContinuousSportsBackground />
+      
+      <div className="relative z-10">
+        {/* Navigation */}
+        <nav className="max-w-7xl mx-auto px-6 pt-10">
+          <motion.button
+            onClick={() => navigate(-1)}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-red-100 text-gray-700 hover:text-[#C21807] hover:border-[#C21807] transition-all shadow-sm cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <span className="text-sm font-bold">Back to Services</span>
+          </motion.button>
+        </nav>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-6 relative z-10"
-        >
-          {/* Section Header */}
-          <div className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
-              <CalendarDays className="w-4 h-4 text-[#C21807]" />
-              <span className="text-sm font-bold text-[#C21807]">4 Quarters. 4 Sports.</span>
+        {/* Hero Section */}
+        <section className="py-16 md:py-24 text-center px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto space-y-6"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100">
+              <Trophy className="w-4 h-4 text-[#C21807]" />
+              <span className="text-xs font-bold text-[#C21807] uppercase tracking-widest">Quarterly Tournaments</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-4">
-              Quarterly{' '}
-              <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent drop-shadow-sm">
-                Tournament Calendar
+            
+            <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight">
+              Q-League — <br />
+              <span className="bg-gradient-to-r from-[#C21807] to-[#800000] bg-clip-text text-transparent">
+                Compete. Connect. Conquer.
               </span>
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-700 max-w-3xl mx-auto">
-              Four epic tournaments throughout the year, each bringing companies together for competitive excellence
+            </h1>
+            
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto font-medium">
+              Every quarter, <span className="text-gray-900 font-bold">HAKIRUSH</span> brings together <span className="text-[#C21807] font-bold">10+ companies</span> for high-octane corporate showdowns.
             </p>
-          </div>
+          </motion.div>
+        </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quarters.map((item, index) => (
-              <motion.div 
-                key={item.id}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 20,
-                  delay: index * 0.1
-                }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative rounded-2xl overflow-hidden bg-white shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 cursor-pointer"
-              >
-                <div className="relative h-80 overflow-hidden">
+        {/* Calendar Grid */}
+        <section className="pb-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {quarters.map((item, index) => (
+                <motion.div 
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true }}
+                  className="group relative h-[450px] rounded-[2rem] overflow-hidden shadow-2xl bg-white"
+                >
                   <img 
                     src={item.image} 
                     alt={item.name} 
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                   
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/80" />
-                  
-                  {/* Quarter Badge */}
-                  <div className="absolute top-4 left-4">
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-lg">
-                      <Trophy className="w-4 h-4 text-white" />
-                      <span className="text-sm font-bold uppercase">{item.quarter}</span>
-                    </div>
+                  <div className="absolute top-6 left-6">
+                    <span className="px-4 py-1.5 bg-[#C21807] text-white text-xs font-black rounded-full shadow-lg">
+                      {item.quarter}
+                    </span>
                   </div>
 
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-xl sm:text-2xl font-extrabold mb-2 group-hover:text-[#C21807]/70 transition-colors">{item.name}</h3>
-                    <p className="text-sm text-gray-200 font-semibold">{item.sport}</p>
+                  <div className="absolute bottom-8 left-8 right-8 space-y-1">
+                    <h3 className="text-2xl font-black text-white">{item.name}</h3>
+                    <p className="text-red-400 font-bold uppercase tracking-widest text-xs">{item.sport}</p>
                   </div>
-
-                  {/* Hover Border Effect */}
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#C21807] rounded-2xl transition-colors duration-300 pointer-events-none" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* What's Included + Benefits */}
-      <section className="py-10 md:py-12 relative overflow-hidden bg-gray-50">
-        <div className="hidden" aria-hidden="true"></div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16">
-        
-        <motion.div 
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ y: -8 }}
-          transition={{ 
-            type: 'spring', 
-            stiffness: 100,
-            damping: 20,
-            delay: 0
-          }}
-          viewport={{ once: true }}
-          className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer"
-        >
-          {/* Decorative Background removed for pure white */}
-          <div className="hidden" aria-hidden="true" />
-          <div className="hidden" aria-hidden="true" />
-
-          <div className="relative p-8">
-            {/* Icon Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
-              <CheckCircle className="w-5 h-5 text-white" />
-              <span className="text-sm font-bold">What's Included</span>
-            </div>
-
-            <ul className="space-y-4">
-              {features.map((text, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-700">
-                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
-                  <span className="text-sm sm:text-base leading-relaxed">{text}</span>
-                </li>
+                </motion.div>
               ))}
-            </ul>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          whileHover={{ y: -8 }}
-          transition={{ 
-            type: 'spring', 
-            stiffness: 100,
-            damping: 20,
-            delay: 0.1
-          }}
-          viewport={{ once: true }}
-          className="group relative bg-white rounded-3xl shadow-xl hover:shadow-[0_12px_35px_rgba(248,113,113,0.45)] transition-all duration-500 overflow-hidden cursor-pointer"
-        >
-          {/* Decorative Background removed for pure white */}
-          <div className="hidden" aria-hidden="true" />
-          <div className="hidden" aria-hidden="true" />
-
-          <div className="relative p-8">
-            {/* Icon Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-[#C21807] to-[#A01506] text-white shadow-md mb-6">
-              <Trophy className="w-5 h-5 text-white" />
-              <span className="text-sm font-bold">Benefits</span>
             </div>
+          </div>
+        </section>
 
-            <ul className="space-y-4">
-              {benefits.map((text, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-700">
-                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#C21807] shrink-0 mt-0.5" />
-                  <span className="text-sm sm:text-base leading-relaxed">{text}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-          </div>
-        </div>
-        
-        <div className="text-center mt-12 md:mt-24 px-6">
-          <Link to="/contact">
-            <motion.button
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        {/* Benefits & CTA */}
+        <section className="pb-24 px-6">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+            {/* Features Card */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex sm:inline-flex w-full sm:w-auto max-w-sm sm:max-w-none items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 bg-[#C21807] text-white font-bold text-sm sm:text-base md:text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-[#C21807]/50 transition-all duration-300 cursor-pointer relative overflow-hidden group/btn focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C21807]/30"
+              className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100"
             >
-              <span className="relative z-10">Register for Quarterly Package</span>
-              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 transform transition-transform duration-300 group-hover/btn:translate-x-1" />
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
-            </motion.button>
-          </Link>
-        </div>
-      </section>
+              <h2 className="text-2xl font-black mb-8 flex items-center gap-3">
+                <CheckCircle className="text-[#C21807]" /> What's Included
+              </h2>
+              <ul className="space-y-5">
+                {features.map((item, i) => (
+                  <li key={i} className="flex gap-4 text-gray-700 font-medium italic">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#C21807] mt-2.5 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Benefits Card */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white  p-10 rounded-[2.5rem] shadow-xl"
+            >
+              <h2 className="text-2xl font-black mb-8 flex items-center gap-3">
+                <Trophy className="text-[#C21807]" /> Core Benefits
+              </h2>
+              <ul className="space-y-5">
+                {benefits.map((item, i) => (
+                  <li key={i} className="flex gap-4 text-gray-700 font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#C21807] shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          <div className="mt-20 text-center">
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative inline-flex items-center gap-4 px-12 py-6 bg-[#C21807] text-white font-black text-xl rounded-2xl shadow-[0_20px_50px_rgba(194,24,7,0.3)] hover:bg-red-900 transition-all duration-300 cursor-pointer"
+              >
+                Register for Q-League
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </motion.button>
+            </Link>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

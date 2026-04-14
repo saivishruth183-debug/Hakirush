@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { 
-  MoveRightIcon, Calendar, Trophy, Star, 
+  MoveRightIcon, Calendar, Trophy, 
   Dumbbell, Circle as Basketball,
   Bike, Volleyball, Footprints, 
   Timer, Award, Swords, Goal

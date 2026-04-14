@@ -90,34 +90,6 @@ const work = [
   { id: 5, title: "Measure & Scale", description: "Feedback, participation metrics and scaling plan for next cycles." },
 ];
 
-const metrics = [
-  { value: "85%", label: "Average Participation" },
-  { value: "1,200+", label: "Employees Engaged" },
-  { value: "4.8/5", label: "Average NPS" },
-  { value: "50+", label: "Events Delivered" },
-];
-
-const testimonials = [
-  { queue: '"HAKIRUSH organised a flawless tournament for our 200 employees. The energy was instant — people were talking across teams the next week."', title: "HR Lead", company: "FinTech Company" },
-  { queue: '"Well-run, professional and great content. Our leadership loved the visibility."', title: "Operations Head", company: "Infrastructure Company" },
-  { queue: '"Best employee engagement event we did this year."', title: "People Team", company: "EdTech Startup" },
-];
-
-const partners = [
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+1" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+2" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+3" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+4" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+5" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+6" },
-];
-
-const careers = [
-  { title: "Event Coordinator", location: "Bengaluru", type: "Full-time", coordinator: "Operations" },
-  { title: "Content Producer", location: "Hyderabad", type: "Contract", coordinator: "Media" },
-  { title: "Sales & Partnerships", location: "Remote", type: "Full-time", coordinator: "Business Development" },
-];
-
 export default function About() {
   const navigate = useNavigate();
   const handleApplyClick = () => { navigate('/contact'); };
@@ -296,91 +268,6 @@ export default function About() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </section>
-
-        {/* IMPACT METRICS */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="text-4xl md:text-5xl font-black mb-16 text-slate-900">Impact & <span className="text-red-600">Metrics</span></h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-              {metrics.map((metric, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white p-10 rounded-3xl shadow-xl border border-slate-100 hover:border-red-200 transition-all duration-300 cursor-pointer"
-                >
-                  <div className="text-5xl font-black text-red-600 mb-2">{metric.value}</div>
-                  <div className="text-slate-600 font-bold uppercase tracking-widest text-sm">{metric.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <section className="py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-slate-900">What Companies <span className="text-red-600">Say</span></h2>
-            <div className="grid md:grid-cols-3 gap-8 px-4">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  className="relative bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-slate-100 hover:border-red-200"
-                >
-                  <Quote className="w-10 h-10 text-red-100 absolute top-6 right-6" />
-                  <p className="text-slate-700 italic mb-8 relative z-10 text-lg">
-                    {testimonial.queue}
-                  </p>
-                  <div className="pt-6 border-t border-slate-100">
-                    <p className="font-bold text-red-600">{testimonial.title}</p>
-                    <p className="text-sm font-bold text-slate-500">{testimonial.company}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PARTNERS */}
-        <section className="py-20 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900">Partners & <span className="text-red-600">Press</span></h2>
-          </div>
-          <motion.div
-            className="flex gap-10 whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            {[...partners, ...partners].map((partner, index) => (
-              <div key={index} className="bg-white px-8 py-6 rounded-2xl shadow-sm border border-slate-100 shrink-0 cursor-pointer hover:shadow-lg hover:border-red-300 transition-all duration-300">
-                <img src={partner.img} alt="Partner" className="h-12 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all" />
-              </div>
-            ))}
-          </motion.div>
-        </section>              
-
-        {/* CAREERS */}
-        <section className="py-24 rounded-[3rem] mx-4 sm:mx-8 mb-20 overflow-hidden relative">
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-black mb-6">Join The <span className="text-red-600">Rush</span></h2>
-              <p className="text-slate-400 text-xl font-medium">We're always looking for high-energy talent.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {careers.map((job, index) => (
-                <div key={index} className="p-8 bg-white/5 rounded-3xl shadow-2xl border border-white/10 hover:bg-white/10 hover:border-red-200 transition-all group">
-                  <h4 className="text-2xl font-bold mb-6">{job.title}</h4>
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-3 text-slate-400"><MapPin className="w-5 h-5 text-red-500" /> {job.location}</div>
-                    <div className="flex items-center gap-3 text-slate-400"><Clock className="w-5 h-5 text-red-500" /> {job.type}</div>
-                  </div>
-                  <button onClick={handleApplyClick} className="w-full text-white py-4 bg-red-600 rounded-xl font-bold hover:bg-red-700 transition-colors flex items-center justify-center gap-2 cursor-pointer">
-                    Apply Now <MoveRight className="w-5 h-5" />
-                  </button>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
       </div>

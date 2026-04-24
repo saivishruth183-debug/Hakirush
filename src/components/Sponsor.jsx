@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import { 
   Trophy, Users, Store, ShoppingBag, CheckCircle, 
   TrendingUp, ArrowRight, Handshake, Award, 
-  Target, Zap, Activity, Flag, CircleDot, Dumbbell 
+  Target, Zap, Activity, Flag, CircleDot, Dumbbell, 
+  Bike, Timer, Swords
 } from "lucide-react";
 
 // --- REFINED PREMIUM BACKGROUND ---
 const ContinuousSportsBackground = () => {
-  const row1 = [Trophy, Activity, Target, CircleDot, Award, Dumbbell];
-  const row2 = [Flag, Zap, Trophy, Handshake, Target, Users];
+  const row1 = [Handshake, Bike, Dumbbell, Zap, Timer, Trophy, Award];
+  const row2 = [Target, CircleDot, Swords, Timer, Activity, Flag, Trophy];
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="absolute inset-0 overflow-hidden bg-white pointer-events-none">
       {/* 1. Subtle Architectural Grid */}
       <div 
         className="absolute inset-0 opacity-[0.3]" 
@@ -23,46 +24,67 @@ const ContinuousSportsBackground = () => {
         }} 
       />
 
-      {/* 2. Ambient Light Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-50/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-slate-50/80 blur-[120px] rounded-full" />
-
-      {/* 3. Row 1: Moving Left (Top) */}
-      <div className="flex absolute top-[15%] opacity-[0.03]">
+      <div className="absolute top-[15%] left-0 w-full opacity-[0.04]">
         <motion.div 
           animate={{ x: [0, -1500] }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="flex gap-40 whitespace-nowrap"
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
         >
-          {[...row1, ...row1].map((Icon, i) => (
+          {[...row1, ...row1, ...row1].map((Icon, i) => (
             <div key={i} className="flex items-center gap-40">
-              <Icon size={100} strokeWidth={0.5} className="text-slate-950" />
-              <span className="text-7xl font-black italic text-slate-950 uppercase tracking-tighter">Momentum</span>
+              <Icon size={60} className="text-slate-950" />
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* 4. Row 2: Moving Right (Mid) */}
-      <div className="flex absolute top-[45%] opacity-[0.02]">
+      <div className="absolute top-[35%] left-0 w-full opacity-[0.04]">
+        <motion.div 
+          animate={{ x: [0, 1500] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
+        >
+          {[...row1, ...row1, ...row1].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-40">
+              <Icon size={60} className="text-slate-950" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-[37%] left-0 w-full opacity-[0.03]">
+        <motion.div 
+          animate={{ x: [1500, 0] }}
+          transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
+        >
+          {[...row2, ...row2, ...row2].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-56">
+              <Icon size={60} className="text-slate-950" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-[10%] left-0 w-full opacity-[0.03]">
         <motion.div 
           animate={{ x: [-1500, 0] }}
-          transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-          className="flex gap-56 whitespace-nowrap"
+          transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
         >
-          {[...row2, ...row2].map((Icon, i) => (
+          {[...row2, ...row2, ...row2].map((Icon, i) => (
             <div key={i} className="flex items-center gap-56">
-              <span className="text-[9rem] font-black italic text-slate-950 uppercase tracking-tighter">Synergy</span>
-              <Icon size={140} strokeWidth={0.5} className="text-slate-950" />
+              <Icon size={60} className="text-slate-950" />
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* Gradient Fade to White at Edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/80" />
+      {/* 4. Soft Ambient Glows to blend the white */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/50 blur-[120px] rounded-full" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-50/80 blur-[100px] rounded-full" />
     </div>
-  );
+  )
 };
 
 const MotionLink = motion.create(Link);

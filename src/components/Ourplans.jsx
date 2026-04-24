@@ -23,33 +23,57 @@ const PremiumSportsBackground = () => {
         }} 
       />
 
-      {/* 2. Top Row: Right to Left (Fast & Subtle) */}
       <div className="absolute top-[15%] left-0 w-full opacity-[0.04]">
         <motion.div 
           animate={{ x: [0, -1500] }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-40 whitespace-nowrap"
+          className="flex gap-20 whitespace-nowrap"
         >
           {[...row1, ...row1, ...row1].map((Icon, i) => (
             <div key={i} className="flex items-center gap-40">
-              <Icon size={120} strokeWidth={0.5} className="text-slate-950" />
-              <span className="text-8xl font-black italic text-slate-950 uppercase tracking-tighter">Perfect Plan</span>
+              <Icon size={60} className="text-slate-950" />
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* 3. Bottom Row: Left to Right (Slow & Larger) */}
+      <div className="absolute top-[35%] left-0 w-full opacity-[0.04]">
+        <motion.div 
+          animate={{ x: [0, 1500] }}
+          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
+        >
+          {[...row1, ...row1, ...row1].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-40">
+              <Icon size={60} className="text-slate-950" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      <div className="absolute bottom-[37%] left-0 w-full opacity-[0.03]">
+        <motion.div 
+          animate={{ x: [1500, 0] }}
+          transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap"
+        >
+          {[...row2, ...row2, ...row2].map((Icon, i) => (
+            <div key={i} className="flex items-center gap-56">
+              <Icon size={60} className="text-slate-950" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
       <div className="absolute bottom-[10%] left-0 w-full opacity-[0.03]">
         <motion.div 
           animate={{ x: [-1500, 0] }}
           transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
-          className="flex gap-56 whitespace-nowrap"
+          className="flex gap-20 whitespace-nowrap"
         >
           {[...row2, ...row2, ...row2].map((Icon, i) => (
             <div key={i} className="flex items-center gap-56">
-              <span className="text-[10rem] font-black italic text-slate-950 uppercase tracking-tighter">Choose One</span>
-              <Icon size={180} strokeWidth={0.5} className="text-slate-950" />
+              <Icon size={60} className="text-slate-950" />
             </div>
           ))}
         </motion.div>
@@ -78,7 +102,7 @@ const plans = [
     href: '/services/quarterly',
     title: "Quarterly Plan",
     subtitle: "High-Production Tournament Series",
-    description: "High-energy inter-company tournaments every three months. Includes sponsorships, brand activations, and highlight coverage.",
+    description: "High-energy inter-company tournaments every three months. Includes sponsorships, brand activations, and highlight coverage, Ideal for 50–100 employees.",
     features: ["Broadcast Media", "MVP Gala", "Sponsorships"],
     icon: Trophy,
     accent: "bg-slate-950"
@@ -87,7 +111,7 @@ const plans = [
 
 const OurPlans = () => {
   return (
-    <section className="relative py-32 min-h-screen flex items-center justify-center bg-white">
+    <section className="relative pt-30 pb-10 min-h-screen flex items-center justify-center bg-white">
       <PremiumSportsBackground />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">

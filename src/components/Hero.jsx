@@ -29,7 +29,7 @@ const Hero = () => {
   }, [nextSlide]);
 
   return (
-    <section className="relative h-[100vh] w-full overflow-hidden bg-black font-sans">
+    <section className="relative h-[95vh] w-full overflow-hidden bg-black font-sans">
       {/* Background Layer with Ken Burns Effect */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -112,31 +112,6 @@ const Hero = () => {
             <span className="text-red-600"> connected</span>.
           </motion.p>
         </div>
-      </div>
-
-      {/* Modern Slide Indicators (Progress Bar Style) */}
-      <div className="absolute bottom-12 right-8 md:right-16 z-20 flex flex-col gap-6">
-        {heroSlides.map((slide, index) => (
-          <button
-            key={slide.id}
-            onClick={() => setCurrentSlide(index)}
-            className="flex items-center justify-end gap-4 group"
-          >
-            <span className={`text-xs font-bold transition-colors ${currentSlide === index ? "text-[#ff0000]" : "text-white/40 group-hover:text-white"}`}>
-              0{slide.id}
-            </span>
-            <div className="relative h-1 w-24 bg-white/10 overflow-hidden">
-              {currentSlide === index && (
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: AUTO_PLAY_INTERVAL / 1000, ease: "linear" }}
-                  className="absolute inset-0 bg-[#ff0000]"
-                />
-              )}
-            </div>
-          </button>
-        ))}
       </div>
 
       {/* Decorative Side Element */}

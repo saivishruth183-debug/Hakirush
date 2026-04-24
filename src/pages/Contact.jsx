@@ -88,7 +88,7 @@ export default function Contact() {
     if (!canSubmit) return;
     setLoading(true);
     try {
-      await emailjs.send("service_6nnmjta", "template_b1fg89p", {
+      await emailjs.send("service_6nnmjta", "template_ugyileq", {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company,

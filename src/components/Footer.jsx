@@ -42,12 +42,12 @@ const Footer = () => {
             className="md:col-span-5 space-y-8"
           >
             <Link to="/" className="inline-block group">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center">
                 <div className="relative p-1">
                   <div className="absolute inset-0 bg-red-600 rounded-xl blur-md opacity-20 group-hover:opacity-50 transition-opacity" />
-                  <img src="/favicon.png" alt="Logo" className="relative h-12 w-12 object-contain" />
+                  <img src="/favicon.png" alt="Logo" className="relative h-18 w-18 object-contain" />
                 </div>
-                <span className="text-2xl font-black italic tracking-tighter uppercase">Haki<span className="text-red-600">rush</span></span>
+                <span className="text-4xl font-black italic tracking-tighter uppercase">Haki<span className="text-red-600">rush</span></span>
               </div>
             </Link>
             

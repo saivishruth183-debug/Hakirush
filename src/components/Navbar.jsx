@@ -47,12 +47,14 @@ const Navbar = () => {
       <nav className="px-9 sm:px-15">
         <div className="flex justify-between items-center h-16">
           {/* LOGO AREA */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center h-12 w-12">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="relative flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 transition-all duration-300">
+              {/* Logo background */}
               <div className="absolute inset-0 bg-red-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
-              <img src="/favicon.png" alt="Logo" className="relative h-10 w-10 object-contain drop-shadow-lg" />
+              {/* Logo image */}
+              <img src="/favicon.png" alt="Logo" className="relative z-10 h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-18 lg:w-18 object-contain drop-shadow-xl transition-all duration-300" />
             </div>
-            <span className="hidden sm:block text-2xl font-extrabold tracking-tight text-white group-hover:text-red-600 transition-colors uppercase">
+            <span className="hidden sm:block text-2xl md:text-3xl font-extrabold tracking-tight text-white group-hover:text-red-600 transition-colors uppercase drop-shadow-md">
               Haki<span className="text-red-600 group-hover:text-white transition-colors">rush</span>
             </span>
           </Link>

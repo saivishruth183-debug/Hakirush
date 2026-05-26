@@ -108,7 +108,7 @@ const Navbar = () => {
               <motion.button
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.97 }}
-                className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-md hover:bg-red-700 transition-colors cursor-pointer"
+                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-md hover:bg-red-700 transition-colors cursor-pointer"
               >
                 <Zap size={16} className="fill-current" />
                 Join Us

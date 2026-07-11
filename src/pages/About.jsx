@@ -8,16 +8,17 @@ import {
 
 import Krishna from "../assets/Team/krishna.png";
 import Vishruth from "../assets/Team/vishruth.png";
-import Madan from "../assets/Team/madan.png";
-import Sruthi from "../assets/Team/Sruthi.png";
 import Arushi from "../assets/Team/arushi.png";
+import Sharavanthi from "../assets/Team/shravanthi.jpeg";
+import Umesh from "../assets/Team/Umesh.jpeg";
+import backgroundVideo from "../assets/Hero/About.mp4";
 
 const ContinuousSportsBackground = () => {
   const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
       
@@ -77,9 +78,9 @@ const founding = [
 
 const team = [
   { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth", linkedin: "https://www.linkedin.com/in/sudireddy-krishna-sai-reddy-566087192 " },
-  { image: Madan, name: "Madan Anugonda", role: "Operations Manager", linkedin: "https://www.linkedin.com/in/madan-anugonda" },
-  { image: Sruthi, name: "Sruthi", role: "Project Manager", linkedin: "https://www.linkedin.com/in/sruthi-reddy-a060b4275/" },
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager", linkedin: "https://www.linkedin.com/in/arushi-shreya/" },
+  { image: Sharavanthi, name: "Sharavanthi", role: "Digital Marketing", linkedin: "https://www.linkedin.com/in/sharavanthi/" },
+  { image: Umesh, name: "Umesh", role: "Operations Manager", linkedin: "https://www.linkedin.com/in/umesh-alla-8435a13a7" },
 ];
 
 const work = [
@@ -95,11 +96,95 @@ export default function About() {
   const handleApplyClick = () => { navigate('/contact'); };
 
   return (
-    <div className="relative bg-gray-50 overflow-hidden min-h-screen">
+    <div className="relative overflow-hidden min-h-screen">
       <ContinuousSportsBackground />
       
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      </div>
+
       <div className="relative z-10">
         
+        {/* TEAM SECTION - RESTORED FULLY */}
+        <section className="relative py-32 bg-transparent overflow-hidden font-sans">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+          
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-24">
+              <motion.div 
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white mb-6 shadow-xl shadow-slate-200"
+              >
+                <Users className="w-3.5 h-3.5 text-red-500" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">The Leadership</span>
+              </motion.div>
+              
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight"
+              >
+                Meet The <span className="text-red-600">Dream Team</span>
+              </motion.h2>
+              <div className="w-24 h-2 bg-red-600 mx-auto mt-6 rounded-full" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {team.map((member, index) => (
+                <motion.div
+                  key={member.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative"
+                >
+                  <div className="relative h-full bg-slate-50 rounded-[3rem] p-3 transition-all duration-500 group-hover:bg-white group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] group-hover:-translate-y-3">
+                    <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-inner bg-slate-200">
+                      <motion.img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-slate-900/90 to-transparent">
+                        <Link 
+                          to={member.linkedin}
+                          className="flex items-center justify-between w-full px-6 py-3 bg-white rounded-xl text-slate-900 font-bold text-sm hover:bg-red-600 hover:text-white transition-colors"
+                        >
+                          Connect on LinkedIn
+                          <Linkedin className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="px-6 pb-8 text-center">
+                      <p className="text-red-600 font-black text-[10px] uppercase tracking-[0.2em] mb-2">
+                        {member.role.split('-')[0]}
+                      </p>
+                      <h3 className="text-2xl font-black text-slate-900 italic uppercase leading-tight mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                        {member.role.split('-')[1] || "Executive"}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* HERO SECTION */}
         <section className="relative pt-24 pb-12 md:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -171,78 +256,6 @@ export default function About() {
                   </div>
                   <h4 className="font-bold text-xl text-slate-900 mb-3">{item.title}</h4>
                   <p className="text-slate-600 leading-relaxed">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* TEAM SECTION - RESTORED FULLY */}
-        <section className="relative py-32 bg-white overflow-hidden font-sans">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/50 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-          
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="text-center mb-24">
-              <motion.div 
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white mb-6 shadow-xl shadow-slate-200"
-              >
-                <Users className="w-3.5 h-3.5 text-red-500" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">The Leadership</span>
-              </motion.div>
-              
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight"
-              >
-                Meet The <span className="text-red-600">Dream Team</span>
-              </motion.h2>
-              <div className="w-24 h-2 bg-red-600 mx-auto mt-6 rounded-full" />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {team.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative"
-                >
-                  <div className="relative h-full bg-slate-50 rounded-[3rem] p-3 transition-all duration-500 group-hover:bg-white group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] group-hover:-translate-y-3">
-                    <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-inner bg-slate-200">
-                      <motion.img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-slate-900/90 to-transparent">
-                        <Link 
-                          to={member.linkedin}
-                          className="flex items-center justify-between w-full px-6 py-3 bg-white rounded-xl text-slate-900 font-bold text-sm hover:bg-red-600 hover:text-white transition-colors"
-                        >
-                          Connect on LinkedIn
-                          <Linkedin className="w-4 h-4" />
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="px-6 pb-8 text-center">
-                      <p className="text-red-600 font-black text-[10px] uppercase tracking-[0.2em] mb-2">
-                        {member.role.split('-')[0]}
-                      </p>
-                      <h3 className="text-2xl font-black text-slate-900 italic uppercase leading-tight mb-1">
-                        {member.name}
-                      </h3>
-                      <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-                        {member.role.split('-')[1] || "Executive"}
-                      </p>
-                    </div>
-                  </div>
                 </motion.div>
               ))}
             </div>

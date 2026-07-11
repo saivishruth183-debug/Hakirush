@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from 'framer-motion';
 import { CheckCircle, Trophy, ArrowRight, CalendarDays, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import backgroundVideo from "../assets/Hero/About.mp4";
 
 // Asset imports
 import Cricket from "../assets/Q-League/Cricket.png";
@@ -35,7 +36,7 @@ const benefits = [
 const ContinuousSportsBackground = () => {
   const icons = [Trophy, ArrowRight, CalendarDays, ArrowLeft];
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/40 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/60 blur-[120px] rounded-full" />
       
@@ -61,8 +62,21 @@ const QLeague = () => {
   const navigate = useNavigate();
   
   return (
-    <div className="relative min-h-screen bg-gray-50/30 overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
       <ContinuousSportsBackground />
+      
+      {/* Video Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      </div>
       
       <div className="relative z-10">
         {/* Navigation */}
@@ -71,7 +85,7 @@ const QLeague = () => {
             onClick={() => navigate(-1)}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-red-100 text-gray-700 hover:text-[#C21807] hover:border-[#C21807] transition-all shadow-sm cursor-pointer"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-700 text-slate-200 hover:text-red-400 hover:border-red-500 transition-all shadow-sm cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-bold">Back to Services</span>
@@ -86,20 +100,20 @@ const QLeague = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100">
-              <Trophy className="w-4 h-4 text-[#C21807]" />
-              <span className="text-xs font-bold text-[#C21807] uppercase tracking-widest">Quarterly Tournaments</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700">
+              <Trophy className="w-4 h-4 text-red-500" />
+              <span className="text-xs font-bold text-slate-200 uppercase tracking-widest">Quarterly Tournaments</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
               Q-League — <br />
-              <span className="bg-gradient-to-r from-[#C21807] to-[#800000] bg-clip-text text-transparent">
+              <span className="text-red-500">
                 Compete. Connect. Conquer.
               </span>
             </h1>
             
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto font-medium">
-              Every quarter, <span className="text-gray-900 font-bold">HAKIRUSH</span> brings together <span className="text-[#C21807] font-bold">10+ companies</span> for high-octane corporate showdowns.
+            <p className="text-slate-300 text-lg max-w-2xl mx-auto font-medium">
+              Every quarter, <span className="text-white font-bold">HAKIRUSH</span> brings together <span className="text-red-500 font-bold">10+ companies</span> for high-octane corporate showdowns.
             </p>
           </motion.div>
         </section>

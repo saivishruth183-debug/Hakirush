@@ -7,6 +7,7 @@ import {
   Instagram, Twitter, Youtube, Star, Facebook, Trophy, Activity, 
   Target, CircleDot, Dumbbell, Flag, Zap
 } from "lucide-react";
+import backgroundVideo from "../assets/Hero/About.mp4";
 
 // --- BACKGROUND SUB-COMPONENT (Consistent with Clients page) ---
 const ContinuousSportsBackground = () => {
@@ -14,7 +15,7 @@ const ContinuousSportsBackground = () => {
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
@@ -105,25 +106,38 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white text-gray-900">
+    <div className="relative overflow-hidden min-h-screen">
       <ContinuousSportsBackground />
+      
+      {/* Video Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      </div>
 
       <div className="relative z-10">
         {/* HERO SECTION */}
         <section className="pt-20 pb-10">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-8">
-                <MessageSquare className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-bold text-[#C21807]">We're Here to Help</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-8">
+                <MessageSquare className="w-4 h-4 text-red-500" />
+                <span className="text-sm font-bold text-slate-200">We're Here to Help</span>
               </div>
 
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-xl flex items-center justify-center">
+                <div className="w-16 h-16 rounded-3xl bg-red-600 shadow-xl flex items-center justify-center">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-                  Get in <span className="bg-linear-to-r from-[#C21807] to-[#A01506] bg-clip-text text-transparent">Touch</span>
+                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">
+                  Get in <span className="text-red-500">Touch</span>
                 </h1>
               </div>
             </motion.div>
@@ -142,8 +156,8 @@ export default function Contact() {
               className="space-y-8"
             >
               <div className="space-y-4">
-                <h2 className="text-3xl font-black">Let's <span className="text-[#C21807]">Connect</span></h2>
-                <p className="text-gray-600 font-medium">Ready to transform your workplace culture? Let's create sports experiences that inspire energy, unity & performance.</p>
+                <h2 className="text-3xl font-black text-white">Let's <span className="text-red-500">Connect</span></h2>
+                <p className="text-slate-300 font-medium">Ready to transform your workplace culture? Let's create sports experiences that inspire energy, unity & performance.</p>
               </div>
 
               <div className="grid gap-4">
@@ -157,17 +171,17 @@ export default function Contact() {
                   <motion.div
                     key={i}
                     whileHover={{ x: 10 }}
-                    className="flex items-center gap-5 p-5 rounded-2xl bg-white/60 backdrop-blur-md border border-gray-100 shadow-sm hover:shadow-md hover:border-red-200 transition-all"
+                    className="flex items-center gap-5 p-5 rounded-2xl bg-slate-800/90 backdrop-blur-md border border-slate-700 shadow-sm hover:shadow-md hover:border-red-600 transition-all"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center shrink-0">
                       {React.cloneElement(item.icon, { size: 20 })}
                     </div>
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-red-500">{item.label}</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-red-400">{item.label}</p>
                       {item.href ? (
-                        <a href={item.href} className="text-gray-900 font-bold hover:text-red-600 transition-colors">{item.value}</a>
+                        <a href={item.href} className="text-white font-bold hover:text-red-400 transition-colors">{item.value}</a>
                       ) : (
-                        <p className="text-gray-900 font-bold leading-tight">{item.value}</p>
+                        <p className="text-white font-bold leading-tight">{item.value}</p>
                       )}
                     </div>
                   </motion.div>
@@ -196,9 +210,9 @@ export default function Contact() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white/80 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-white/20 relative"
+              className="bg-slate-800/90 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-slate-700 relative"
             >
-              <h2 className="text-2xl font-black mb-8">Send a <span className="text-red-600">Message</span></h2>
+              <h2 className="text-2xl font-black text-white mb-8">Send a <span className="text-red-500">Message</span></h2>
               <form onSubmit={(e) => { e.preventDefault(); sendMail(); }} className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-5">
                   <InputField label="Name" name="name" value={formData.name} onChange={handleInput} required />
@@ -209,17 +223,17 @@ export default function Contact() {
                   <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInput} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
+                  <label className="block text-sm font-bold text-slate-200 mb-2">Message</label>
                   <textarea
                     name="message" rows="4" required value={formData.message} onChange={handleInput}
                     placeholder="How can we help you?"
-                    className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all"
+                    className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-red-500 focus:bg-slate-700 transition-all"
                   />
                 </div>
                 <motion.button
                   type="submit" disabled={!canSubmit}
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  className="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl shadow-red-200 disabled:opacity-50 disabled:shadow-none hover:bg-red-700 transition-all cursor-pointer"
+                  className="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl shadow-red-600/30 disabled:opacity-50 disabled:shadow-none hover:bg-red-700 transition-all cursor-pointer"
                 >
                   <Send size={20} />
                   {loading ? "Sending..." : "Send Message"}
@@ -231,7 +245,7 @@ export default function Contact() {
 
         {/* MAP SECTION */}
         <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl bg-white">
+          <div className="rounded-[3rem] overflow-hidden border-8 border-slate-700 shadow-2xl bg-white">
             <iframe
               title="Location" className="w-full h-[450px]"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.514686411516!2d77.6256!3d12.9392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzIxLjEiTiA3N8KwMzcnMzIuMiJF!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin"
@@ -247,10 +261,10 @@ export default function Contact() {
 function InputField({ label, name, type = "text", value, onChange, required }) {
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-bold text-gray-700">{label} {required && "*"}</label>
+      <label className="block text-sm font-bold text-slate-200">{label} {required && "*"}</label>
       <input
         type={type} name={name} required={required} value={value} onChange={onChange}
-        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition-all"
+        className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-red-500 focus:bg-slate-700 transition-all"
       />
     </div>
   );

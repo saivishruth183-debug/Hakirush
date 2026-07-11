@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { 
   Star, Users, Building, Award, TrendingUp, Quote, MessageCircle,
   Trophy, Activity, Target, CircleDot, Dumbbell, Flag, Zap 
 } from "lucide-react";
+import backgroundVideo from "../assets/Hero/About.mp4";
+
+// Client Assets
+import Client1 from "../assets/Clients/Vessella.png";
+import Client2 from "../assets/Clients/Goldsikka.png";
+import Client3 from "../assets/Clients/Simplify.png";
+import Client4 from "../assets/Clients/SVLA.png";
 
 // Asset Imports
-import Amit from "../assets/Clients/Amit.png";
-import Priya from "../assets/Clients/Priya.png";
-import Rajesh from "../assets/Clients/Rajesh.png";
-import Sarah from "../assets/Clients/Sarah.png";
+import Amit from "../assets/Terminals/Amit.png";
+import Priya from "../assets//Terminals/Priya.png";
+import Rajesh from "../assets/Terminals/Rajesh.png";
+import Sarah from "../assets/Terminals/Sarah.png";
+
+const MotionLink = motion(Link);
 
 // --- BACKGROUND SUB-COMPONENT ---
 const ContinuousSportsBackground = () => {
@@ -18,7 +27,7 @@ const ContinuousSportsBackground = () => {
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
@@ -63,11 +72,10 @@ const sponsers = [
 ];
 
 const clients = [
-  { id: 1, href: "/clients/client1", name: "Client 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+1" },
-  { id: 2, href: "/clients/client2", name: "Client 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+2" },
-  { id: 3, href: "/clients/client3", name: "Client 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+3" },
-  { id: 4, href: "/clients/client4", name: "Client 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+4" },
-  { id: 5, href: "/clients/client5", name: "Client 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Client+5" },
+  { id: 1, href: "https://vessella.com", name: "Client 1", logo: Client1 },
+  { id: 2, href: "https://goldsikka.com", name: "Client 2", logo: Client2 },
+  { id: 3, href: "https://simplifyhome.in", name: "Client 3", logo: Client3 },
+  { id: 4, href: "https://thesvla.com", name: "Client 4", logo: Client4 },
 ];
 
 const testimonials = [
@@ -103,7 +111,6 @@ const testimonials = [
 
 export default function Clients() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -112,15 +119,24 @@ export default function Clients() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleClientClick = (href) => {
-    if (href) navigate(href);
-  };
-
   return (
-    <div className="relative bg-white min-h-screen overflow-hidden">
+    <div className="relative overflow-hidden min-h-screen">
       
       {/* BACKGROUND ELEMENTS */}
       <ContinuousSportsBackground />
+      
+      {/* Video Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      </div>
 
       <div className="relative z-10">
         {/* HERO SECTION */}
@@ -132,14 +148,14 @@ export default function Clients() {
               transition={{ duration: 0.8 }}
             >
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-linear-to-r from-[#C21807] to-[#A01506] shadow-2xl shrink-0">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-red-600 shadow-2xl shrink-0">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
-                  Our <span className="bg-linear-to-r from-[#C21807] via-[#A01506] to-[#C21807] bg-clip-text text-transparent">Clients</span>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+                  Our <span className="text-red-500">Clients</span>
                 </h1>
               </div>
-              <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-3xl mx-auto font-medium">
+              <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-medium">
                 Trusted by leading companies to deliver exceptional corporate sports experiences 
                 and build vibrant workplace cultures.
               </p>
@@ -156,12 +172,12 @@ export default function Clients() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-[#C21807]/10 to-[#A01506]/10 border border-[#C21807]/30 shadow-lg backdrop-blur-sm mb-6">
-                <TrendingUp className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-bold text-[#C21807]">Our Impact</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-6">
+                <TrendingUp className="w-4 h-4 text-red-500" />
+                <span className="text-sm font-bold text-slate-200">Our Impact</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
-                By The <span className="text-[#C21807]">Numbers</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white">
+                By The <span className="text-red-500">Numbers</span>
               </h2>
             </motion.div>
 
@@ -177,13 +193,13 @@ export default function Clients() {
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -12, scale: 1.02 }}
                   viewport={{ once: true }}
-                  className="group relative text-center bg-white/80 backdrop-blur-md p-10 rounded-3xl shadow-xl border border-gray-100 transition-all duration-500"
+                  className="group relative text-center bg-slate-800/90 backdrop-blur-md p-10 rounded-3xl shadow-xl border border-slate-700 transition-all duration-500"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-100 mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-600/20 mb-6 shadow-lg group-hover:scale-110 transition-transform">
                     {stat.icon}
                   </div>
-                  <h3 className="text-2xl sm:text-4xl font-extrabold text-gray-900 mb-3 group-hover:text-[#C21807] transition-colors">{stat.value}</h3>
-                  <p className="text-gray-700 font-medium">{stat.label}</p>
+                  <h3 className="text-2xl sm:text-4xl font-extrabold text-white mb-3 group-hover:text-red-400 transition-colors">{stat.value}</h3>
+                  <p className="text-slate-300 font-medium">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -197,9 +213,9 @@ export default function Clients() {
         ].map((section, idx) => (
           <section key={idx} className="py-12 overflow-hidden">
             <div className="text-center mb-8 px-6">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 border border-[#C21807]/30 shadow-md">
-                <span className="text-[#C21807]">{section.icon}</span>
-                <span className="text-sm font-bold text-[#C21807]">{section.label}</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-md">
+                <span className="text-red-500">{section.icon}</span>
+                <span className="text-sm font-bold text-slate-200">{section.label}</span>
               </div>
             </div>
             
@@ -210,18 +226,37 @@ export default function Clients() {
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               >
                 {[...section.data, ...section.data].map((item, index) => (
-                  <motion.div 
-                    key={index} 
-                    whileHover={{ y: -5 }}
-                    // onClick={() => handleClientClick(item.href)}
-                    className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-100 cursor-pointer transition-all"
-                  >
-                    <img 
-                      src={item.logo} 
-                      alt={item.name} 
-                      className="h-12 w-32 object-contain grayscale hover:grayscale-0 transition-all duration-500" 
-                    />
-                  </motion.div>
+                  item.href.startsWith("/") ? (
+                    <MotionLink
+                      key={index}
+                      to={item.href}
+                      whileHover={{ y: -5 }}
+                      className="bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-700 cursor-pointer transition-all"
+                      aria-label={`Open ${item.name}`}
+                    >
+                      <img
+                        src={item.logo}
+                        alt={item.name}
+                        className="h-12 w-32 object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                      />
+                    </MotionLink>
+                  ) : (
+                    <motion.a
+                      key={index}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      whileHover={{ y: -5 }}
+                      className="bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-700 cursor-pointer transition-all"
+                      aria-label={`Open ${item.name}`}
+                    >
+                      <img
+                        src={item.logo}
+                        alt={item.name}
+                        className="h-12 w-32 object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                      />
+                    </motion.a>
+                  )
                 ))}
               </motion.div>
             </div>
@@ -232,12 +267,12 @@ export default function Clients() {
         <section className="py-20">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 border border-[#C21807]/30 shadow-lg mb-6">
-                <MessageCircle className="w-4 h-4 text-[#C21807]" />
-                <span className="text-sm font-bold text-[#C21807]">Success Stories</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg mb-6">
+                <MessageCircle className="w-4 h-4 text-red-500" />
+                <span className="text-sm font-bold text-slate-200">Success Stories</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
-                What Our <span className="text-[#C21807]">Clients Say</span>
+              <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+                What Our <span className="text-red-500">Clients Say</span>
               </h2>
             </div>
 
@@ -248,19 +283,19 @@ export default function Clients() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white/90 backdrop-blur-lg rounded-[3rem] shadow-2xl p-8 md:p-16 border border-gray-100 relative overflow-hidden"
+                className="bg-slate-800/90 backdrop-blur-lg rounded-[3rem] shadow-2xl p-8 md:p-16 border border-slate-700 relative overflow-hidden"
               >
-                <Quote className="absolute top-8 right-8 w-12 h-12 text-[#C21807]/10" />
+                <Quote className="absolute top-8 right-8 w-12 h-12 text-red-500/10" />
                 
                 <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
                   <img 
                     src={testimonials[currentTestimonial].avatar} 
-                    className="w-24 h-24 rounded-2xl object-cover border-4 border-red-50 shadow-xl" 
+                    className="w-24 h-24 rounded-2xl object-cover border-4 border-red-900/30 shadow-xl" 
                     alt={testimonials[currentTestimonial].person} 
                   />
                   <div className="text-center md:text-left">
-                    <h3 className="text-2xl font-bold text-gray-900">{testimonials[currentTestimonial].person}</h3>
-                    <p className="text-[#C21807] font-semibold">{testimonials[currentTestimonial].position}</p>
+                    <h3 className="text-2xl font-bold text-white">{testimonials[currentTestimonial].person}</h3>
+                    <p className="text-red-400 font-semibold">{testimonials[currentTestimonial].position}</p>
                     <div className="flex gap-1 mt-2 justify-center md:justify-start">
                       {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -269,7 +304,7 @@ export default function Clients() {
                   </div>
                 </div>
 
-                <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed italic border-l-4 border-[#C21807] pl-6">
+                <blockquote className="text-lg md:text-xl text-slate-200 leading-relaxed italic border-l-4 border-red-500 pl-6">
                   "{testimonials[currentTestimonial].message}"
                 </blockquote>
               </motion.div>

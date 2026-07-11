@@ -5,16 +5,31 @@ import Newsletter from '../components/Newsletter'
 import Sponsor from '../components/Sponsor';
 import Impact from '../components/Impact';
 import Partners from '../components/Partners';
+import backgroundVideo from '../assets/Hero/Home.mp4';
 
 const Home = () => {
   return (
-    <div>
+    <div className="relative overflow-hidden">
       <Hero />
-      <Ourplans />
-      <Sponsor />
-      <Impact />
-      <Partners />
-      <Newsletter />
+      <div>
+        {/* Video Background */}
+          <div className="fixed inset-0 -z-10 overflow-hidden">
+            <video
+              src={backgroundVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+          </div>
+        <Ourplans />
+        <Impact />
+        <Sponsor />
+        <Partners />
+        <Newsletter />
+      </div>
     </div>
   )
 }

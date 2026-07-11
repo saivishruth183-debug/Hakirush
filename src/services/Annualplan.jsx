@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle, Zap, ArrowRight, ArrowLeft } from 'lucide-react'
 import { useNavigate, Link } from 'react-router-dom'
+import backgroundVideo from '../assets/Hero/About.mp4'
 
 // Asset imports (Assuming these paths are correct in your local env)
 import Marathon from '../assets/Annual/Run.png'
@@ -61,7 +62,7 @@ const details = [
 const ContinuousSportsBackground = () => {
   const row1 = [CheckCircle, Zap, ArrowRight, ArrowLeft];
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/40 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/60 blur-[120px] rounded-full" />
       
@@ -87,8 +88,21 @@ const Annualplan = () => {
   const navigate = useNavigate()
   
   return (
-    <div className="relative min-h-screen bg-gray-50/50">
+    <div className="relative min-h-screen overflow-hidden">
       <ContinuousSportsBackground />
+      
+      {/* Video Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      </div>
 
       <div className="relative z-10">
         {/* Navigation Section */}

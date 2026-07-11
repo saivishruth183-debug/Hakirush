@@ -5,6 +5,7 @@ import {
   Star, CalendarDays, Trophy, ArrowRight, Zap, Target, 
   Activity, CircleDot, Dumbbell, Flag 
 } from 'lucide-react'
+import backgroundVideo from '../assets/Hero/About.mp4'
 
 // --- BACKGROUND SUB-COMPONENT ---
 const ContinuousSportsBackground = () => {
@@ -12,7 +13,7 @@ const ContinuousSportsBackground = () => {
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-white pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
@@ -61,18 +62,25 @@ const ContinuousSportsBackground = () => {
 
 const Package = () => {
   return (
-    <div className="relative bg-white overflow-hidden py-24 min-h-screen">
+    <div className="relative overflow-hidden min-h-screen">
       
-      {/* 1. Insert the Continuous Background */}
+      {/* 1. Continuous Sports Background */}
       <ContinuousSportsBackground />
-
-      {/* 2. Your Existing Premium Background Elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-50 rounded-full blur-[120px] opacity-60" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-orange-50 rounded-full blur-[120px] opacity-60" />
+      
+      {/* 2. Video Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         
         {/* Header Section */}
         <div className="text-center mb-20">
@@ -80,10 +88,10 @@ const Package = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-slate-700 mb-6"
           >
-            <Star className="w-4 h-4 text-red-600" fill="currentColor" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Premium Tiers</span>
+            <Star className="w-4 h-4 text-red-500" fill="currentColor" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-200">Premium Tiers</span>
           </motion.div>
           
           <motion.h1 
@@ -91,9 +99,9 @@ const Package = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-6"
+            className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6"
           >
-            Choose Your <span className="text-[#C21807]">Perfect Package</span>
+            Choose Your <span className="text-red-500">Perfect Package</span>
           </motion.h1>
           
           <motion.p 
@@ -101,7 +109,7 @@ const Package = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-500 max-w-2xl mx-auto text-lg font-medium"
+            className="text-slate-300 max-w-2xl mx-auto text-lg font-medium"
           >
             Elevate your company culture through high-energy corporate tournaments and 
             exclusive sporting experiences.
@@ -156,18 +164,18 @@ const Package = () => {
               viewport={{ once: true }}
               className="relative h-full transition-transform duration-500 group-hover:-translate-y-2"
             >
-              <div className="relative h-full overflow-hidden rounded-[3rem] bg-white border border-slate-200 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)]">
+              <div className="relative h-full overflow-hidden rounded-[3rem] bg-slate-800/90 border border-slate-700 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]">
                 <div className="relative h-full p-10 md:p-16 flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-slate-50 rounded-br-full -ml-8 -mt-8 border border-slate-100" />
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-slate-700 rounded-br-full -ml-8 -mt-8 border border-slate-600" />
                   <div className="relative z-10">
-                    <div className="w-20 h-20 bg-slate-50 border border-slate-100 rounded-3xl flex items-center justify-center mb-8 mx-auto transition-transform duration-500">
-                      <Trophy className="w-10 h-10 text-red-600" />
+                    <div className="w-20 h-20 bg-slate-700 border border-slate-600 rounded-3xl flex items-center justify-center mb-8 mx-auto transition-transform duration-500">
+                      <Trophy className="w-10 h-10 text-red-500" />
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">Quarterly League</h3>
-                    <p className="text-slate-500 font-medium mb-10 max-w-sm mx-auto leading-relaxed">
+                    <h3 className="text-3xl md:text-4xl font-black text-white mb-4">Quarterly League</h3>
+                    <p className="text-slate-300 font-medium mb-10 max-w-sm mx-auto leading-relaxed">
                       High-energy competitive events every 3 months. Perfect for testing your team's spirit.
                     </p>
-                    <div className="inline-flex items-center gap-3 border-2 border-slate-900 text-slate-900 px-8 py-4 rounded-2xl font-bold transition-all duration-300 group-hover:bg-slate-900 group-hover:text-white group-hover:shadow-xl">
+                    <div className="inline-flex items-center gap-3 border-2 border-white text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 group-hover:bg-red-600 group-hover:border-red-600 group-hover:shadow-xl">
                       Explore Details
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </div>

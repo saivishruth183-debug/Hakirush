@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Zap, Trophy, Activity, Target, Star, Dribbble, Dumbbell, ArrowRight } from "lucide-react";
+import { Zap, Trophy, Activity, Target, Star, Dribbble, Dumbbell, ArrowRight, BadgeCheck } from "lucide-react";
 
 // --- SEAMLESS SCROLLING TRACK ---
 const ScrollingSportsTrack = ({ direction = -1, speed = 30, opacity = 0.05 }) => {
@@ -23,9 +23,30 @@ const ScrollingSportsTrack = ({ direction = -1, speed = 30, opacity = 0.05 }) =>
   );
 };
 
+const solutions = [
+  {
+    title: 'Annual Employee Engagement',
+    description: 'A year-long engagement journey aligning monthly experiences with culture, recognition and wellness.',
+    benefits: ['Monthly experiences', 'Custom branding', 'Leadership reporting'],
+    href: '/services/annualpackage',
+  },
+  {
+    title: 'Quarterly Corporate Championships',
+    description: 'High-profile tournaments built for organisational visibility, participation and team pride.',
+    benefits: ['Inter-company formats', 'Curation & production', 'Premium event activations'],
+    href: '/services/quarterly',
+  },
+  {
+    title: 'Custom Corporate Experiences',
+    description: 'Tailored initiatives for onboarding, wellness weeks, leadership retreats and culture-building moments.',
+    benefits: ['Flexible programming', 'Dedicated strategy', 'Elevated execution'],
+    href: '/contact',
+  },
+];
+
 const CTASection = () => {
   return (
-    <section className="relative py-24 bg-slate-50 overflow-hidden font-sans">
+    <section className="relative py-24 bg-transparent overflow-hidden font-sans">
       
       {/* 1. DYNAMIC BACKGROUND ENGINE */}
       <div className="absolute inset-0 flex flex-col justify-around pointer-events-none z-0 py-10">
@@ -45,8 +66,51 @@ const CTASection = () => {
           viewport={{ once: true }}
           className="relative group"
         >
-          {/* THE CARD - Now White */}
-          <div className="relative bg-white border border-slate-200 rounded-[3.5rem] p-8 md:p-20 overflow-hidden shadow-2xl shadow-red-900/10 transition-all duration-700">
+          <div className="mt-5 rounded-[32px] border border-white/10 bg-[#171717] p-8 sm:p-10 lg:p-12">
+        <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">Our Solutions</div>
+            <h3 className="text-3xl sm:text-4xl">Three Premium Ways to Elevate Your Workplace</h3>
+          </div>
+          <p className="max-w-xl text-sm leading-7 text-[#A8A8A8]">
+            Every solution is built to feel premium, polished and relevant for HR leaders, founders and corporate teams.
+          </p>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {solutions.map((solution, index) => (
+            <motion.article
+              key={solution.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              whileHover={{ y: -8, scale: 1.01 }}
+              className="rounded-[24px] border border-white/10 bg-[#0D0D0D] p-7"
+            >
+              <div className="mb-4 inline-flex rounded-full bg-[#E50914]/12 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#E50914]">
+                Solution {index + 1}
+              </div>
+              <h4 className="text-2xl text-white">{solution.title}</h4>
+              <p className="mt-3 text-sm leading-7 text-[#A8A8A8]">{solution.description}</p>
+              <ul className="mt-6 space-y-3 text-sm text-white">
+                {solution.benefits.map((benefit) => (
+                  <li key={benefit} className="flex items-center gap-2">
+                    <BadgeCheck size={16} className="text-[#E50914]" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+              <Link to={solution.href} className="mt-8 inline-flex items-center gap-2 font-semibold text-[#E50914]">
+                Learn More
+                <ArrowRight size={16} />
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+      {/* THE CARD - Now White */}
+          <div className="mt-20 relative bg-white border border-slate-200 rounded-[3.5rem] p-8 md:p-20 overflow-hidden shadow-2xl shadow-red-900/10 transition-all duration-700">
             
             {/* Animated Gradient Border (Hover Effect) */}
             <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-transparent to-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -101,7 +165,6 @@ const CTASection = () => {
                   Elevate your team spirit
                 </p>
               </div>
-
             </div>
           </div>
         </motion.div>

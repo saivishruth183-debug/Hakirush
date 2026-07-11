@@ -17,7 +17,7 @@ import Celebration1 from "../assets/Gallery/Celebration/celeb1.JPG";
 import Celebration2 from "../assets/Gallery/Celebration/celeb2.JPG";
 import Celebration3 from "../assets/Gallery/Celebration/celeb3.JPG";
 import Behind1 from "../assets/Gallery/BehindTheSceans/behind1.JPG";
-import VideoThumbnail1 from "../assets/Pilot/video 1.mp4";
+import VideoThumbnail1 from "../assets/Pilot/Video 1.mp4";
 
 // --- BACKGROUND SUB-COMPONENT (Copied from Services) ---
 const ContinuousSportsBackground = () => {

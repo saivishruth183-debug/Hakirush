@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { 
   Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Quote, MapPin, Clock, Users, 
@@ -9,16 +9,16 @@ import {
 import Krishna from "../assets/Team/krishna.png";
 import Vishruth from "../assets/Team/vishruth.png";
 import Arushi from "../assets/Team/arushi.png";
-import Sharavanthi from "../assets/Team/shravanthi.jpeg";
+import Sharavanthi from "../assets/Team/sharvanthi.jpeg";
 import Umesh from "../assets/Team/Umesh.jpeg";
-import backgroundVideo from "../assets/Hero/About.mp4";
+import backgroundImage from "../assets/Hero/Backimage.png";
 
 const ContinuousSportsBackground = () => {
   const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
       
@@ -65,6 +65,56 @@ const ContinuousSportsBackground = () => {
   )
 }
 
+const ParallaxBackground = ({ image }) => {
+  const containerRef = useRef(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
+  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+
+  const { scrollY } = useScroll();
+  const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed left-0 w-full overflow-hidden -z-10"
+      style={{ top: "-10vh", height: "130vh" }}
+    >
+      <motion.img
+        src={image}
+        alt=""
+        style={{
+          x: translateX,
+          y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy),
+          scale,
+        }}
+        className="w-full h-full object-cover object-center will-change-transform"
+        transition={{ type: "tween" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+    </div>
+  );
+};
+
 const mission = [
   { icon: <Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty." },
   { icon: <Eye className="w-8 h-8 text-red-600" />, title: "Vision", description: "To be India's most trusted corporate sports partner — delivering repeatable ROI in employee engagement and employer branding." },
@@ -79,7 +129,7 @@ const founding = [
 const team = [
   { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth", linkedin: "https://www.linkedin.com/in/sudireddy-krishna-sai-reddy-566087192 " },
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager", linkedin: "https://www.linkedin.com/in/arushi-shreya/" },
-  { image: Sharavanthi, name: "Sharavanthi", role: "Digital Marketing", linkedin: "https://www.linkedin.com/in/sharavanthi/" },
+  { image: Sharavanthi, name: "Sharavanthi", role: "Digital Marketing", linkedin: "https://www.linkedin.com/in/d-sravanthi-21240a383" },
   { image: Umesh, name: "Umesh", role: "Operations Manager", linkedin: "https://www.linkedin.com/in/umesh-alla-8435a13a7" },
 ];
 
@@ -98,32 +148,21 @@ export default function About() {
   return (
     <div className="relative overflow-hidden min-h-screen">
       <ContinuousSportsBackground />
-      
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src={backgroundVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
-      </div>
+      <ParallaxBackground image={backgroundImage} />
 
       <div className="relative z-10">
         
-        {/* TEAM SECTION - RESTORED FULLY */}
-        <section className="relative py-32 bg-transparent overflow-hidden font-sans">
+        {/* TEAM SECTION - MOBILE COMPACT GRIDS APPLIED */}
+        <section className="relative py-20 md:py-32 bg-transparent overflow-hidden font-sans">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
           
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="text-center mb-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div className="text-center mb-16 md:mb-24">
               <motion.div 
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white mb-6 shadow-xl shadow-slate-200"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white mb-4 md:mb-6 shadow-xl shadow-slate-200"
               >
                 <Users className="w-3.5 h-3.5 text-red-500" />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em]">The Leadership</span>
@@ -133,14 +172,15 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight"
+                className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight"
               >
                 Meet The <span className="text-red-600">Dream Team</span>
               </motion.h2>
-              <div className="w-24 h-2 bg-red-600 mx-auto mt-6 rounded-full" />
+              <div className="w-16 md:w-24 h-1.5 md:h-2 bg-red-600 mx-auto mt-4 md:mt-6 rounded-full" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Changed from grid-cols-1 to grid-cols-2 on mobile */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8">
               {team.map((member, index) => (
                 <motion.div
                   key={member.name}
@@ -150,31 +190,35 @@ export default function About() {
                   transition={{ delay: index * 0.1 }}
                   className="group relative"
                 >
-                  <div className="relative h-full bg-slate-50 rounded-[3rem] p-3 transition-all duration-500 group-hover:bg-white group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] group-hover:-translate-y-3">
-                    <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-inner bg-slate-200">
+                  {/* Micro paddings and balanced radius to scale cleanly inside columns */}
+                  <div className="relative h-full bg-slate-50 rounded-2xl sm:rounded-[3rem] p-1.5 sm:p-3 transition-all duration-500 group-hover:bg-white group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] group-hover:-translate-y-3">
+                    
+                    <div className="relative aspect-[4/5] rounded-xl sm:rounded-[2.5rem] overflow-hidden mb-3 sm:mb-8 shadow-inner bg-slate-200">
                       <motion.img
                         src={member.image}
                         alt={member.name}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-slate-900/90 to-transparent">
+                      <div className="absolute inset-x-0 bottom-0 p-2 sm:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-slate-900/90 to-transparent">
                         <Link 
                           to={member.linkedin}
-                          className="flex items-center justify-between w-full px-6 py-3 bg-white rounded-xl text-slate-900 font-bold text-sm hover:bg-red-600 hover:text-white transition-colors"
+                          className="flex items-center justify-between w-full px-2 py-1.5 sm:px-6 sm:py-3 bg-white rounded-lg text-slate-900 font-bold text-[9px] sm:text-sm hover:bg-red-600 hover:text-white transition-colors"
                         >
-                          Connect on LinkedIn
-                          <Linkedin className="w-4 h-4" />
+                          LinkedIn
+                          <Linkedin className="w-3 h-3 sm:w-4 sm:h-4" />
                         </Link>
                       </div>
                     </div>
-                    <div className="px-6 pb-8 text-center">
-                      <p className="text-red-600 font-black text-[10px] uppercase tracking-[0.2em] mb-2">
+
+                    {/* Adjusted layout text to guarantee things look sleek on tiny mobile resolutions */}
+                    <div className="px-1 pb-2 sm:px-6 sm:pb-8 text-center">
+                      <p className="text-red-600 font-black text-[8px] sm:text-[10px] uppercase tracking-[0.15em] mb-0.5 sm:mb-2">
                         {member.role.split('-')[0]}
                       </p>
-                      <h3 className="text-2xl font-black text-slate-900 italic uppercase leading-tight mb-1">
+                      <h3 className="text-sm sm:text-2xl font-black text-slate-900 italic uppercase leading-tight mb-0.5">
                         {member.name}
                       </h3>
-                      <p className="text-slate-400 text-xs font-medium uppercase tracking-wider">
+                      <p className="text-slate-400 text-[8px] sm:text-xs font-medium uppercase tracking-wider line-clamp-1">
                         {member.role.split('-')[1] || "Executive"}
                       </p>
                     </div>
@@ -201,8 +245,8 @@ export default function About() {
                   About <span className="text-[#C21807]">HAKIRUSH</span>
                 </h1>
               </div>
-              <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium px-4">
-                HAKIRUSH is a corporate sports management company built for today’s fast-paced work culture, bringing organizations together through high-energy sports experiences.
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-medium px-4">
+                HAKIRUSH is a corporate sports management company built for today's fast-paced work culture, bringing organizations together through high-energy sports experiences.
               </p>
             </motion.div>
           </div>
@@ -237,7 +281,7 @@ export default function About() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-black text-slate-900">Our <span className="text-red-600">Story</span></h2>
             <div className="max-w-4xl mx-auto mt-8">
-              <p className="text-lg text-slate-600 leading-relaxed font-medium px-4">
+              <p className="text-lg text-slate-300 leading-relaxed font-medium px-4">
                 HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. We combine event management, digital storytelling, and scalable operations to serve both startups and enterprises.
               </p>
             </div>

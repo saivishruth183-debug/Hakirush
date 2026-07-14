@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion'
 import { 
   Star, CalendarDays, Trophy, ArrowRight, Zap, Target, 
   Activity, CircleDot, Dumbbell, Flag 
 } from 'lucide-react'
-import backgroundVideo from '../assets/Hero/About.mp4'
+import backgroundImage from '../assets/Hero/Backimage.png'
 
 // --- BACKGROUND SUB-COMPONENT ---
 const ContinuousSportsBackground = () => {
@@ -13,7 +13,7 @@ const ContinuousSportsBackground = () => {
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
@@ -60,6 +60,61 @@ const ContinuousSportsBackground = () => {
   )
 }
 
+/* ---------------------------------------------------------------
+   PARALLAX IMAGE BACKGROUND
+   Mouse movement + scroll subtly shift and scale the image for
+   a cinematic depth feel, matching the About page treatment.
+--------------------------------------------------------------- */
+const ParallaxImageBackground = ({ image }) => {
+  const containerRef = useRef(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
+  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+
+  const { scrollY } = useScroll();
+  const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed left-0 w-full overflow-hidden -z-10"
+      style={{ top: "-10vh", height: "130vh" }}
+    >
+      <motion.img
+        src={image}
+        alt=""
+        style={{
+          x: translateX,
+          y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy),
+          scale,
+        }}
+        className="w-full h-full object-cover object-center will-change-transform"
+        transition={{ type: "tween" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+    </div>
+  );
+};
+
 const Package = () => {
   return (
     <div className="relative overflow-hidden min-h-screen">
@@ -67,18 +122,8 @@ const Package = () => {
       {/* 1. Continuous Sports Background */}
       <ContinuousSportsBackground />
       
-      {/* 2. Video Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src={backgroundVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
-      </div>
+      {/* 2. Parallax Image Background */}
+      <ParallaxImageBackground image={backgroundImage} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         

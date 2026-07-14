@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { 
   Store, CheckCircle, ArrowRight, Sparkles, ArrowLeft, Users, Trophy, 
   ShoppingBag, MapPin, Zap, Activity, CircleDot 
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import backgroundVideo from "../assets/Hero/About.mp4";
+import backgroundImage from "../assets/Hero/Backimage.png";
 
 // --- BACKGROUND SUB-COMPONENT ---
 const ContinuousSportsBackground = () => {
@@ -20,12 +21,12 @@ const ContinuousSportsBackground = () => {
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
       {/* Row 1: Moving Left */}
-      <div className="flex absolute top-[10%] opacity-[0.04]">
+      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 pr-24 whitespace-nowrap"
+          className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
           {row1.map((Icon, i) => <Icon key={i} size={80} className="text-red-900" strokeWidth={1} />)}
           {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={80} className="text-red-900" strokeWidth={1} />)}
@@ -33,12 +34,12 @@ const ContinuousSportsBackground = () => {
       </div>
 
       {/* Row 2: Moving Right */}
-      <div className="flex absolute top-[60%] opacity-[0.03]">
+      <div className="flex absolute top-[60%] opacity-[0.03] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          className="flex gap-32 pr-32 whitespace-nowrap"
+          className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
           {row2.map((Icon, i) => <Icon key={i} size={110} className="text-red-900" strokeWidth={0.5} />)}
           {row2.map((Icon, i) => <Icon key={`dup2-${i}`} size={110} className="text-red-900" strokeWidth={0.5} />)}
@@ -49,6 +50,45 @@ const ContinuousSportsBackground = () => {
       <div className="absolute inset-0 pointer-events-none" style={{
         background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
       }} />
+    </div>
+  );
+};
+
+// --- PARALLAX IMAGE BACKGROUND ---
+const ParallaxImageBackground = ({ image }) => {
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
+  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+  const { scrollY } = useScroll();
+  const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div ref={containerRef} className="fixed left-0 w-full overflow-hidden -z-10" style={{ top: "-10vh", height: "130vh" }}>
+      <motion.img
+        src={image}
+        alt=""
+        style={{ x: translateX, y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy), scale }}
+        className="w-full h-full object-cover object-center will-change-transform"
+        transition={{ type: "tween" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
     </div>
   );
 };
@@ -83,7 +123,7 @@ export default function SponsorGrid() {
   const navigate = useNavigate();
   
   const handleBackClick = () => {
-    navigate('/sponsor#tiers');
+    navigate('/');
   };
 
   return (
@@ -92,18 +132,8 @@ export default function SponsorGrid() {
       {/* 1. Continuous Background Icons */}
       <ContinuousSportsBackground />
       
-      {/* 2. Video Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src={backgroundVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
-      </div>
+      {/* 2. Interactive Parallax Image Background */}
+      <ParallaxImageBackground image={backgroundImage} />
 
       {/* Back Button - z-20 to stay on top */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-3 md:pt-10 md:pb-6 relative z-20">
@@ -168,19 +198,19 @@ export default function SponsorGrid() {
               whileHover={{ y: -12, scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 100, damping: 20 }}
               viewport={{ once: true }}
-              className="group relative bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(194,24,7,0.3)] transition-all duration-500 overflow-hidden border border-gray-100"
+              className="group relative bg-slate-800/90 backdrop-blur-md rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(194,24,7,0.3)] transition-all duration-500 overflow-hidden border border-slate-700"
             >
               <div className="relative p-10">
                 <div className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <Sparkles className="w-4 h-4 animate-pulse" />
                   <span className="text-xs sm:text-sm font-bold tracking-wide">PACKAGE INCLUDES</span>
                 </div>
-                <h3 className="text-xl sm:text-3xl font-extrabold text-gray-900 mb-8 group-hover:text-[#C21807] transition-all duration-300">
+                <h3 className="text-xl sm:text-3xl font-extrabold text-white mb-8 group-hover:text-[#C21807] transition-all duration-300">
                   What You Get
                 </h3>
                 <ul className="space-y-5">
                   {s.details.whatYouGet.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-4 text-gray-700 group/item">
+                    <li key={idx} className="flex items-start gap-4 text-slate-300 group/item">
                       <CheckCircle className="w-5 h-5 text-[#C21807] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                       <span className="text-sm sm:text-base leading-relaxed font-medium">{item}</span>
                     </li>
@@ -196,19 +226,19 @@ export default function SponsorGrid() {
               whileHover={{ y: -12, scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
               viewport={{ once: true }}
-              className="group relative bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(194,24,7,0.3)] transition-all duration-500 overflow-hidden border border-gray-100"
+              className="group relative bg-slate-800/90 backdrop-blur-md rounded-3xl shadow-2xl hover:shadow-[0_12px_35px_rgba(194,24,7,0.3)] transition-all duration-500 overflow-hidden border border-slate-700"
             >
               <div className="relative p-10">
                 <div className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#C21807] to-[#A01506] text-white mb-8 shadow-lg group-hover:shadow-[#C21807]/50 transition-shadow duration-300">
                   <Store className="w-4 h-4 animate-pulse" />
                   <span className="text-xs sm:text-sm font-bold tracking-wide">KEY BENEFITS</span>
                 </div>
-                <h3 className="text-xl sm:text-3xl font-extrabold text-gray-900 mb-8 group-hover:text-[#C21807] transition-all duration-300">
+                <h3 className="text-xl sm:text-3xl font-extrabold text-white mb-8 group-hover:text-[#C21807] transition-all duration-300">
                   Why It Matters
                 </h3>
                 <ul className="space-y-5">
                   {s.details.why.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-4 text-gray-700 group/item">
+                    <li key={idx} className="flex items-start gap-4 text-slate-300 group/item">
                       <CheckCircle className="w-5 h-5 text-[#C21807] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
                       <span className="text-sm sm:text-base leading-relaxed font-medium">{item}</span>
                     </li>

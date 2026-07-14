@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { 
   Star, Users, Building, Award, TrendingUp, Quote, MessageCircle,
   Trophy, Activity, Target, CircleDot, Dumbbell, Flag, Zap 
 } from "lucide-react";
-import backgroundVideo from "../assets/Hero/About.mp4";
+import backgroundImage from "../assets/Hero/Backimage.png";
 
 // Client Assets
 import Client1 from "../assets/Clients/Vessella.png";
@@ -27,28 +27,28 @@ const ContinuousSportsBackground = () => {
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
-      <div className="flex absolute top-[10%] opacity-[0.04]">
+      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 pr-24 whitespace-nowrap"
+          className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
           {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
           {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
         </motion.div>
       </div>
 
-      <div className="flex absolute top-[40%] opacity-[0.03]">
+      <div className="flex absolute top-[40%] opacity-[0.03] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-32 pr-32 whitespace-nowrap"
+          className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
           {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
           {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
@@ -62,13 +62,54 @@ const ContinuousSportsBackground = () => {
   )
 }
 
+/* ---------------------------------------------------------------
+   PARALLAX IMAGE BACKGROUND
+--------------------------------------------------------------- */
+const ParallaxImageBackground = ({ image }) => {
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
+  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+  const { scrollY } = useScroll();
+  const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div ref={containerRef} className="fixed left-0 w-full overflow-hidden -z-10" style={{ top: "-10vh", height: "130vh" }}>
+      <motion.img
+        src={image}
+        alt=""
+        style={{ x: translateX, y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy), scale }}
+        className="w-full h-full object-cover object-center will-change-transform"
+        transition={{ type: "tween" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+    </div>
+  );
+};
+
 // --- DATA ARRAYS ---
 const sponsers = [
-  { id: 1, href: "/sponsors/sponsor1", name: "Sponser 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1" },
-  { id: 2, href: "/sponsors/sponsor2", name: "Sponser 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2" },
-  { id: 3, href: "/sponsors/sponsor3", name: "Sponser 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3" },
-  { id: 4, href: "/sponsors/sponsor4", name: "Sponser 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4" },
-  { id: 5, href: "/sponsors/sponsor5", name: "Sponser 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5" },
+  { id: 1, href: "/sponsors/sponsor1", name: "Sponsor 1", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1" },
+  { id: 2, href: "/sponsors/sponsor2", name: "Sponsor 2", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2" },
+  { id: 3, href: "/sponsors/sponsor3", name: "Sponsor 3", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3" },
+  { id: 4, href: "/sponsors/sponsor4", name: "Sponsor 4", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4" },
+  { id: 5, href: "/sponsors/sponsor5", name: "Sponsor 5", logo: "https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5" },
 ];
 
 const clients = [
@@ -125,20 +166,10 @@ export default function Clients() {
       {/* BACKGROUND ELEMENTS */}
       <ContinuousSportsBackground />
       
-      {/* Video Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src={backgroundVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
-      </div>
+      {/* Parallax Image Background */}
+      <ParallaxImageBackground image={backgroundImage} />
 
-      <div className="relative z-10">
+      <div className="relative z-10 w-full">
         {/* HERO SECTION */}
         <section className="relative pt-20 pb-8">
           <div className="max-w-7xl mx-auto px-6 text-center">
@@ -211,7 +242,7 @@ export default function Clients() {
           { data: sponsers, label: "Our Sponsors", icon: <Building className="w-4 h-4" /> },
           { data: clients, label: "Our Partners", icon: <Users className="w-4 h-4" /> }
         ].map((section, idx) => (
-          <section key={idx} className="py-12 overflow-hidden">
+          <section key={idx} className="py-12 w-full overflow-hidden">
             <div className="text-center mb-8 px-6">
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-md">
                 <span className="text-red-500">{section.icon}</span>
@@ -219,45 +250,49 @@ export default function Clients() {
               </div>
             </div>
             
-            <div className="relative flex overflow-hidden w-full py-6">
+            {/* Added explicit width and mask setups to guarantee mobile compatibility */}
+            <div className="relative w-full overflow-hidden py-4 px-4 select-none">
               <motion.div
-                className="flex items-center gap-10 whitespace-nowrap"
+                className="flex items-center gap-6 md:gap-10 w-max flex-nowrap"
                 animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               >
-                {[...section.data, ...section.data].map((item, index) => (
-                  item.href.startsWith("/") ? (
-                    <MotionLink
-                      key={index}
-                      to={item.href}
-                      whileHover={{ y: -5 }}
-                      className="bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-700 cursor-pointer transition-all"
-                      aria-label={`Open ${item.name}`}
-                    >
+                {/* Loop twice for continuous slide effect with unique responsive grid keys */}
+                {[...section.data, ...section.data].map((item, index) => {
+                  const cardElement = (
+                    <div className="bg-slate-800/90 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg border border-slate-700 flex items-center justify-center w-[140px] sm:w-[180px] md:w-[220px] shrink-0 h-24 sm:h-28 md:h-32">
                       <img
                         src={item.logo}
                         alt={item.name}
-                        className="h-12 w-32 object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                        className="h-full w-full object-contain grayscale hover:grayscale-0 transition-all duration-500"
                       />
+                    </div>
+                  );
+
+                  return item.href.startsWith("/") ? (
+                    <MotionLink
+                      key={`${idx}-${item.id}-${index}`}
+                      to={item.href}
+                      whileHover={{ y: -5 }}
+                      className="inline-block shrink-0 cursor-pointer"
+                      aria-label={`Open ${item.name}`}
+                    >
+                      {cardElement}
                     </MotionLink>
                   ) : (
                     <motion.a
-                      key={index}
+                      key={`${idx}-${item.id}-${index}`}
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
                       whileHover={{ y: -5 }}
-                      className="bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-700 cursor-pointer transition-all"
+                      className="inline-block shrink-0 cursor-pointer"
                       aria-label={`Open ${item.name}`}
                     >
-                      <img
-                        src={item.logo}
-                        alt={item.name}
-                        className="h-12 w-32 object-contain grayscale hover:grayscale-0 transition-all duration-500"
-                      />
+                      {cardElement}
                     </motion.a>
-                  )
-                ))}
+                  );
+                })}
               </motion.div>
             </div>
           </section>
@@ -283,20 +318,20 @@ export default function Clients() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.5 }}
-                className="bg-slate-800/90 backdrop-blur-lg rounded-[3rem] shadow-2xl p-8 md:p-16 border border-slate-700 relative overflow-hidden"
+                className="bg-slate-800/90 backdrop-blur-lg rounded-[2rem] md:rounded-[3rem] shadow-2xl p-6 sm:p-8 md:p-16 border border-slate-700 relative overflow-hidden"
               >
-                <Quote className="absolute top-8 right-8 w-12 h-12 text-red-500/10" />
+                <Quote className="absolute top-6 right-6 md:top-8 md:right-8 w-8 h-8 md:w-12 md:h-12 text-red-500/10" />
                 
-                <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+                <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
                   <img 
                     src={testimonials[currentTestimonial].avatar} 
-                    className="w-24 h-24 rounded-2xl object-cover border-4 border-red-900/30 shadow-xl" 
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-red-900/30 shadow-xl shrink-0" 
                     alt={testimonials[currentTestimonial].person} 
                   />
-                  <div className="text-center md:text-left">
-                    <h3 className="text-2xl font-bold text-white">{testimonials[currentTestimonial].person}</h3>
-                    <p className="text-red-400 font-semibold">{testimonials[currentTestimonial].position}</p>
-                    <div className="flex gap-1 mt-2 justify-center md:justify-start">
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">{testimonials[currentTestimonial].person}</h3>
+                    <p className="text-red-400 font-semibold text-sm sm:text-base">{testimonials[currentTestimonial].position}</p>
+                    <div className="flex gap-1 mt-2 justify-center sm:justify-start">
                       {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                       ))}
@@ -304,7 +339,7 @@ export default function Clients() {
                   </div>
                 </div>
 
-                <blockquote className="text-lg md:text-xl text-slate-200 leading-relaxed italic border-l-4 border-red-500 pl-6">
+                <blockquote className="text-base sm:text-lg md:text-xl text-slate-200 leading-relaxed italic border-l-4 border-red-500 pl-4 sm:pl-6">
                   "{testimonials[currentTestimonial].message}"
                 </blockquote>
               </motion.div>

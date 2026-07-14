@@ -1,50 +1,93 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
-import { motion, AnimatePresence } from "framer-motion"; // Fixed import
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import {
   Mail, Phone, MapPin, Clock, Send, MessageSquare, Linkedin,
-  Instagram, Twitter, Youtube, Star, Facebook, Trophy, Activity, 
+  Instagram, Youtube, Star, Facebook, Trophy, Activity, 
   Target, CircleDot, Dumbbell, Flag, Zap
 } from "lucide-react";
-import backgroundVideo from "../assets/Hero/About.mp4";
+import backgroundImage from "../assets/Hero/Backimage.png"; // Kept consistent with visual template parallax assets
 
-// --- BACKGROUND SUB-COMPONENT (Consistent with Clients page) ---
+// --- BACKGROUND SUB-COMPONENT (Consistent layout architecture) ---
 const ContinuousSportsBackground = () => {
   const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
 
-      <div className="flex absolute top-[10%] opacity-[0.04]">
+      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 pr-24 whitespace-nowrap"
+          className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
           {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
           {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
         </motion.div>
       </div>
 
-      <div className="flex absolute top-[60%] opacity-[0.03]">
+      <div className="flex absolute top-[60%] opacity-[0.03] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-32 pr-32 whitespace-nowrap"
+          className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
           {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
           {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
         </motion.div>
       </div>
+
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
+      }} />
     </div>
   )
 }
+
+// --- PARALLAX IMAGE BACKGROUND (Consistent with core framework pages) ---
+const ParallaxImageBackground = ({ image }) => {
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
+  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+  const { scrollY } = useScroll();
+  const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div ref={containerRef} className="fixed left-0 w-full overflow-hidden -z-10" style={{ top: "-10vh", height: "130vh" }}>
+      <motion.img
+        src={image}
+        alt=""
+        style={{ x: translateX, y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy), scale }}
+        className="w-full h-full object-cover object-center will-change-transform"
+        transition={{ type: "tween" }}
+      />
+      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+    </div>
+  );
+};
 
 const contactDetails = {
   email: "Support@hakirush.com",
@@ -71,13 +114,9 @@ const socialLinks = [
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(() => typeof window !== "undefined" ? window.innerWidth >= 768 : false);
 
   useEffect(() => {
     if (emailjs && emailjs.init) emailjs.init("pcWFF4SE3MMUSZ8RT");
-    const onResize = () => setIsDesktop(window.innerWidth >= 768);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   const handleInput = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -107,22 +146,13 @@ export default function Contact() {
 
   return (
     <div className="relative overflow-hidden min-h-screen">
+      {/* BACKGROUND MATRIX */}
       <ContinuousSportsBackground />
       
-      {/* Video Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src={backgroundVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
-      </div>
+      {/* MOUSE RESPONSIVE PARALLAX HERO */}
+      <ParallaxImageBackground image={backgroundImage} />
 
-      <div className="relative z-10">
+      <div className="relative z-10 w-full">
         {/* HERO SECTION */}
         <section className="pt-20 pb-10">
           <div className="max-w-7xl mx-auto px-6 text-center">
@@ -194,7 +224,7 @@ export default function Contact() {
                 <div className="flex gap-3">
                   {socialLinks.map((s, i) => (
                     <motion.a 
-                      key={i} href={s.url} target="_blank"
+                      key={i} href={s.url} target="_blank" rel="noopener noreferrer"
                       whileHover={{ y: -5, scale: 1.1 }}
                       className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white hover:text-red-900 flex items-center justify-center transition-all"
                     >
@@ -223,7 +253,7 @@ export default function Contact() {
                   <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInput} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-slate-200 mb-2">Message</label>
+                  <label className="block text-sm font-bold text-slate-200 mb-2">Message *</label>
                   <textarea
                     name="message" rows="4" required value={formData.message} onChange={handleInput}
                     placeholder="How can we help you?"
@@ -247,9 +277,9 @@ export default function Contact() {
         <section className="max-w-7xl mx-auto px-6 py-20">
           <div className="rounded-[3rem] overflow-hidden border-8 border-slate-700 shadow-2xl bg-white">
             <iframe
-              title="Location" className="w-full h-[450px]"
+              title="Location" className="w-full h-[450px] border-0"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.514686411516!2d77.6256!3d12.9392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzIxLjEiTiA3N8KwMzcnMzIuMiJF!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin"
-              allowFullScreen loading="lazy"
+              allowFullScreen={true} loading="lazy"
             />
           </div>
         </section>

@@ -1,9 +1,9 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import Ourplans from '../components/Ourplans'
+import Whyhakirush from '../components/Whyhakirush'
 import Newsletter from '../components/Newsletter'
 import Sponsor from '../components/Sponsor';
-import Impact from '../components/Impact';
+import Roadtoglory from '../components/Roadtoglory';
 import Partners from '../components/Partners';
 import backgroundVideo from '../assets/Hero/Home.mp4';
 
@@ -24,8 +24,8 @@ const Home = () => {
             />
             <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
           </div>
-        <Ourplans />
-        <Impact />
+        <Whyhakirush />
+        <Roadtoglory />
         <Sponsor />
         <Partners />
         <Newsletter />

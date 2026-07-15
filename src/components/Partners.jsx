@@ -6,9 +6,16 @@ import {
   Newspaper, Briefcase,
 } from "lucide-react";
 
-// ── Design tokens (matched to Sponsorship.jsx) ─────────────────────────────
-// Ink #0A0A0A · Paper (transparent) · Crimson #C21807 · Crimson-D #8F1204
-// Brass #B8923D — reserved for premium/editorial touches
+
+const FONT_DISPLAY = "'Oswald', 'Arial Narrow', sans-serif";
+const FONT_MONO = "'JetBrains Mono', 'IBM Plex Mono', monospace";
+const FONT_SERIF = "'Fraunces', Georgia, serif";
+
+const FontImports = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&display=swap');
+  `}</style>
+);
 
 // ── Scrolling Icon Belt ──────────────────────────────────────────────────────
 const Belt = ({ icons, directionX, speed, opacity }) => (
@@ -32,13 +39,21 @@ const ContinuousSportsBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Belts */}
+      {/* Scoreboard dot-grid, matched to Sponsorship.jsx */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "radial-gradient(rgba(10,10,10,0.05) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage: "radial-gradient(ellipse 60% 50% at 50% 20%, black, transparent)",
+        }}
+      />
+
       <div className="absolute top-[15%]    left-0 w-full"><Belt icons={row1} directionX={[0, -1500]}  speed={50} opacity={0.035} /></div>
       <div className="absolute top-[35%]    left-0 w-full"><Belt icons={row1} directionX={[0,  1500]}  speed={55} opacity={0.025} /></div>
       <div className="absolute bottom-[37%] left-0 w-full"><Belt icons={row2} directionX={[1500, 0]}   speed={70} opacity={0.025} /></div>
       <div className="absolute bottom-[10%] left-0 w-full"><Belt icons={row2} directionX={[-1500, 0]}  speed={65} opacity={0.02}/></div>
 
-      {/* Ambient glows */}
       <div className="absolute top-0    right-0 w-[500px] h-[500px] bg-red-50/40   blur-[120px] rounded-full" />
       <div className="absolute bottom-0 left-0  w-[600px] h-[600px] bg-slate-50/60 blur-[100px] rounded-full" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#B8923D]/[0.04] blur-[140px] rounded-full" />
@@ -61,16 +76,23 @@ const partners = [
 ];
 
 const careers = [
-  { title: "Event Coordinator", location: "Bengaluru", type: "Full-time" },
-  { title: "Content Producer", location: "Hyderabad", type: "Contract" },
-  { title: "Sales & Partnerships", location: "Remote", type: "Full-time" },
+  { code: "01", title: "Event Coordinator", location: "Bengaluru", type: "Full-time" },
+  { code: "02", title: "Content Producer", location: "Hyderabad", type: "Contract" },
+  { code: "03", title: "Sales & Partnerships", location: "Remote", type: "Full-time" },
 ];
 
 // ── Section eyebrow (matched to Sponsorship.jsx badge pattern) ─────────────
-const Eyebrow = ({ icon: Icon, children, accent = "#C21807" }) => (
-  <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-slate-200 bg-white px-4 py-1.5 shadow-sm">
+const Eyebrow = ({ icon: Icon, children, accent = "#C21807", dark = false }) => (
+  <div
+    className={`mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 ${
+      dark ? "border-white/10 bg-white/[0.06]" : "border-slate-200 bg-white shadow-sm"
+    }`}
+  >
     <Icon size={14} style={{ color: accent }} />
-    <span className="text-[9px] font-black uppercase tracking-[0.38em] text-slate-500">
+    <span
+      className={`text-[9px] font-semibold uppercase tracking-[0.38em] ${dark ? "text-slate-400" : "text-slate-500"}`}
+      style={{ fontFamily: FONT_MONO }}
+    >
       {children}
     </span>
   </div>
@@ -88,11 +110,23 @@ const CareerCard = ({ job, index, onApply }) => (
   >
     <div className="absolute inset-x-8 top-0 h-[1px] scale-x-0 bg-gradient-to-r from-transparent via-[#C21807] to-transparent transition-transform duration-500 group-hover:scale-x-100" />
 
-    <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#C21807] to-[#8F1204] shadow-lg transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3">
-      <Briefcase size={18} className="text-white" strokeWidth={1.75} />
+    {/* Roster number + role icon */}
+    <div className="mb-6 flex items-center justify-between">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#C21807] to-[#8F1204] shadow-lg transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3">
+        <Briefcase size={18} className="text-white" strokeWidth={1.75} />
+      </div>
+      <span
+        className="text-2xl tabular-nums text-white/15 transition-colors duration-500 group-hover:text-[#C21807]/40"
+        style={{ fontFamily: FONT_MONO, fontWeight: 600 }}
+      >
+        {job.code}
+      </span>
     </div>
 
-    <h4 className="mb-6 text-2xl font-black italic tracking-tight text-white transition-colors group-hover:text-[#E2634F]">
+    <h4
+      className="mb-6 text-2xl uppercase tracking-tight text-white transition-colors group-hover:text-[#E2634F]"
+      style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
+    >
       {job.title}
     </h4>
 
@@ -107,7 +141,8 @@ const CareerCard = ({ job, index, onApply }) => (
 
     <button
       onClick={onApply}
-      className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C21807] to-[#8F1204] py-4 text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-red-900/20 transition-all duration-300 hover:shadow-red-900/40 active:scale-95"
+      className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C21807] to-[#8F1204] py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-red-900/20 transition-all duration-300 hover:shadow-red-900/40 active:scale-95"
+      style={{ fontFamily: FONT_MONO }}
     >
       Apply Now
       <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -123,6 +158,7 @@ const Partners = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-transparent">
+      <FontImports />
       <ContinuousSportsBackground />
 
       <div className="relative z-10">
@@ -136,8 +172,11 @@ const Partners = () => {
               className="flex flex-col items-center"
             >
               <Eyebrow icon={Newspaper} accent="#B8923D">In The Media</Eyebrow>
-              <h2 className="text-4xl font-black uppercase italic leading-[0.9] tracking-[-0.04em] text-slate-950 md:text-5xl">
-                Partners & <span className="not-italic text-[#C21807]">Press.</span>
+              <h2
+                className="text-4xl uppercase leading-[0.92] tracking-tight text-slate-950 md:text-5xl"
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
+              >
+                Partners & <span className="text-[#C21807]">Press.</span>
               </h2>
             </motion.div>
           </div>
@@ -189,16 +228,17 @@ const Partners = () => {
                 viewport={{ once: true }}
                 className="flex flex-col items-center"
               >
-                <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.06] px-4 py-1.5">
-                  <Award size={14} className="text-[#E2634F]" />
-                  <span className="text-[9px] font-black uppercase tracking-[0.38em] text-slate-400">
-                    We're Hiring
-                  </span>
-                </div>
-                <h2 className="mb-5 text-4xl font-black uppercase italic leading-[0.9] tracking-[-0.04em] text-white md:text-5xl">
-                  Join The <span className="not-italic text-[#C21807]">Rush.</span>
+                <Eyebrow icon={Award} accent="#E2634F" dark>We're Hiring</Eyebrow>
+                <h2
+                  className="mb-5 text-4xl uppercase leading-[0.92] tracking-tight text-white md:text-5xl"
+                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
+                >
+                  Join The <span className="text-[#C21807]">Rush.</span>
                 </h2>
-                <p className="max-w-md text-lg font-light text-slate-400">
+                <p
+                  className="max-w-md text-lg leading-relaxed text-slate-400"
+                  style={{ fontFamily: FONT_SERIF, fontStyle: "italic" }}
+                >
                   We're always looking for high-energy talent.
                 </p>
               </motion.div>

@@ -1,189 +1,196 @@
 import React, { useRef, useMemo } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import heroVideo from '../assets/Hero/cricket.mp4';
+import heroVideo from '../assets/Hero/Cricket.mp4';
+
+/*
+  DESIGN TOKENS (add once, e.g. in index.html <head> or index.css)
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+  Palette:
+    --turf-ink:      #0E1712   (background)
+    --chalk:         #F5F3EC   (primary text / lines)
+    --brick:         #C1392B   (primary accent — headline, CTA, ticker digits)
+    --pitch-green:   #2F5233   (secondary accent — live-status dot)
+    --steel:         #8B948C   (muted captions)
+*/
 
 const stats = [
-  { value: '25K+', label: 'Employees Engaged' },
-  { value: '180+', label: 'Activities Conducted' },
-  { value: '120+', label: 'Corporate Clients' },
-  { value: '18', label: 'Cities Served' },
+  { value: '25K+', label: 'EMPLOYEES ENGAGED' },
+  { value: '180+', label: 'ACTIVITIES CONDUCTED' },
+  { value: '120+', label: 'CORPORATE CLIENTS' },
+  { value: '18', label: 'CITIES SERVED' },
 ];
-
-// Ambient embers drifting independently of scroll — constant low-level motion
-const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
-  id: i,
-  left: `${5 + Math.random() * 90}%`,
-  top: `${8 + Math.random() * 75}%`,
-  size: 2 + Math.random() * 4,
-  duration: 5 + Math.random() * 7,
-  delay: Math.random() * 5,
-}));
 
 const Hero = () => {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
 
-  // --- Video plane: now tilts on BOTH axes and pushes back in Z ---
-  const videoRotateX = useTransform(scrollYProgress, [0, 1], [0, 14]);
-  const videoRotateY = useTransform(scrollYProgress, [0, 1], [0, -6]);
-  const videoZ = useTransform(scrollYProgress, [0, 1], [0, -220]);
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.5, 0.9]);
+  // One deliberate motion idea: the video breathes in slowly, like a
+  // broadcast camera easing toward the pitch. Nothing else moves with scroll.
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
 
-  // --- Perspective floor grid: sits behind the video, recedes faster ---
-  const gridRotateX = useTransform(scrollYProgress, [0, 1], [55, 68]);
-  const gridZ = useTransform(scrollYProgress, [0, 1], [-320, -520]);
-  const gridOpacity = useTransform(scrollYProgress, [0, 0.6], [0.35, 0.1]);
-
-  // --- Glow orbs at two different depths, drifting at different scroll rates ---
-  const orbFarZ = useTransform(scrollYProgress, [0, 1], [-380, -560]);
-  const orbFarY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const orbFarRotate = useTransform(scrollYProgress, [0, 1], [0, 30]);
-
-  const orbNearZ = useTransform(scrollYProgress, [0, 1], [-40, 60]);
-  const orbNearY = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
-  const orbNearRotate = useTransform(scrollYProgress, [0, 1], [0, -22]);
-
-  // --- Content: forward Z layer, drifts less than everything behind it ---
-  const contentZ = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
-  const particles = useMemo(() => PARTICLES, []);
+  // Ticker content, duplicated once for a seamless marquee loop.
+  const tickerItems = useMemo(() => [...stats, ...stats], []);
 
   return (
     <section
       ref={sectionRef}
-      className="hero-section relative overflow-hidden text-white min-h-screen flex items-start"
-      style={{ perspective: '1400px' }}
+      className="relative min-h-screen overflow-hidden bg-[#0E1712] text-[#F5F3EC]"
     >
-      {/* 3D stage: preserve-3d lets child translateZ/rotateX values actually stack in depth */}
-      <div className="absolute inset-0" style={{ transformStyle: 'preserve-3d' }}>
-
-        {/* Perspective floor grid — deepest layer, sells the "stadium in 3D space" feel */}
-        <motion.div
-          className="absolute left-0 right-0 bottom-0 h-[70%] origin-bottom"
-          style={{
-            rotateX: gridRotateX,
-            z: gridZ,
-            opacity: gridOpacity,
-            backgroundImage:
-              'linear-gradient(rgba(229,9,20,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(229,9,20,0.4) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-            transformStyle: 'preserve-3d',
-          }}
-        />
-
-        {/* Far glow orb — slowest, deepest, largest */}
-        <motion.div
-          className="absolute -top-40 -left-32 h-[560px] w-[560px] rounded-full blur-[120px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(229,9,20,0.28), transparent 70%)',
-            z: orbFarZ,
-            y: orbFarY,
-            rotate: orbFarRotate,
-          }}
-        />
-
-        {/* Near glow orb — moves opposite direction, closer to camera */}
-        <motion.div
-          className="absolute -bottom-32 -right-24 h-[420px] w-[420px] rounded-full blur-[100px]"
-          style={{
-            background: 'radial-gradient(circle, rgba(212,168,83,0.22), transparent 70%)',
-            z: orbNearZ,
-            y: orbNearY,
-            rotate: orbNearRotate,
-          }}
-        />
-
-        {/* Video plane — tilts on two axes now, not just one */}
-        <motion.div
-          className="absolute inset-0 origin-bottom"
-          style={{
-            rotateX: videoRotateX,
-            rotateY: videoRotateY,
-            z: videoZ,
-            scale: videoScale,
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          <video
-            className="h-full w-full object-cover"
-            src={heroVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        </motion.div>
-
-        {/* Ambient embers — constant motion independent of scroll */}
-        {particles.map((p) => (
-          <motion.span
-            key={p.id}
-            className="absolute rounded-full bg-[#E50914]/70"
-            style={{ left: p.left, top: p.top, width: p.size, height: p.size }}
-            animate={{ y: [0, -20, 0], opacity: [0.15, 0.75, 0.15] }}
-            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        ))}
-
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-[#050505]/10"
-          style={{ opacity: overlayOpacity }}
-        />
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(229,9,20,0.16),transparent_22%)]" />
-      </div>
-
-      {/* Content sits on its own forward Z layer so it reads as "in front of" everything behind it */}
+      {/* Video plane */}
       <motion.div
-        className="section-shell relative w-full py-16 lg:py-20"
-        style={{ y: contentY, opacity: contentOpacity, z: contentZ, transformStyle: 'preserve-3d' }}
+        className="absolute inset-0"
+        style={{ scale: prefersReducedMotion ? 1 : videoScale }}
+      >
+        <video
+          className="h-full w-full object-cover"
+          src={heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        {/* Duotone turf wash — replaces a generic dark gradient with the
+            two colors actually in the palette, so the video reads as part
+            of the same world as the type and UI, not a stock clip laid on top. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0E1712] via-[#0E1712]/70 to-[#0E1712]/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[#2F5233]/25 mix-blend-color" />
+      </motion.div>
+
+      {/* Floodlight glow — a single soft light source, top-right, like a
+          stadium floodlight catching the corner of the frame. */}
+      <div className="pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(193,57,43,0.20),transparent_70%)] blur-[80px]" />
+
+      {/* Faint scoreboard scanlines — a texture, not decoration: it ties
+          the panel behind the copy to an actual scoreboard display. */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, #F5F3EC 0px, #F5F3EC 1px, transparent 1px, transparent 3px)',
+        }}
+      />
+
+      {/* Content */}
+      <motion.div
+        className="relative flex min-h-screen flex-col justify-center px-6 pb-28 pt-32 sm:px-10 lg:px-16"
+        style={{ opacity: contentOpacity, y: prefersReducedMotion ? 0 : contentY }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="max-w-3xl"
         >
-          <div className="hero-badge mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#C0C0C0] backdrop-blur-sm">
-            <Sparkles size={14} className="text-[#E50914]" />
-            Corporate Employee Engagement Platform
+          {/* Match-status badge, standing in for the generic "icon + label" pill */}
+          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#F5F3EC]/15 bg-[#0E1712]/60 px-4 py-1.5 backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              {!prefersReducedMotion && (
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2F5233] opacity-75" />
+              )}
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2F5233]" />
+            </span>
+            <span
+              className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#8B948C]"
+              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+            >
+              Live · Corporate Fixture
+            </span>
           </div>
-          <h1 className="hero-heading text-5xl leading-[0.95] sm:text-6xl lg:text-7xl">
-            Building Stronger Workplaces Through
-            <span className="hero-heading-highlight block">Sports, Team Building &amp; Employee Engagement</span>
+
+          <h1
+            className="text-[3.2rem] leading-[0.98] sm:text-7xl lg:text-[5.5rem]"
+            style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700 }}
+          >
+            BUILDING STRONGER
+            <br />
+            WORKPLACES
+            <br />
+            <span className="relative inline-block text-[#C1392B]">
+              through sport.
+              {/* Hand-drawn underline — a scorer circling a boundary on a scorecard */}
+              <svg
+                className="absolute -bottom-3 left-0 w-full"
+                height="14"
+                viewBox="0 0 320 14"
+                fill="none"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M2 8C60 2 140 2 200 6C240 8.5 280 8 318 5"
+                  stroke="#C1392B"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[#C0C0C0]">
-            HAKIRUSH helps organizations strengthen workplace culture through professionally managed corporate sports, employee engagement programs, team building experiences and workplace wellness initiatives.
+
+          <p
+            className="mt-8 max-w-xl text-lg leading-8 text-[#8B948C]"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            HAKIRUSH helps organizations strengthen workplace culture through
+            professionally managed corporate sports, employee engagement
+            programs, team building experiences and workplace wellness
+            initiatives.
           </p>
-          <div className="hero-cta-grid mt-8">
-            <button className="btn-primary cursor-pointer" onClick={() => navigate('/services')}>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <button
+              onClick={() => navigate('/services')}
+              className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#C1392B] px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-[#0E1712] transition-transform hover:-translate-y-0.5"
+            >
               Explore Solutions
-              <ArrowRight size={16} />
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
-            <button className="btn-secondary cursor-pointer" onClick={() => navigate('/contact')}>
+            <button
+              onClick={() => navigate('/contact')}
+              className="cursor-pointer rounded-full border border-[#F5F3EC]/25 px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-[#F5F3EC] transition-colors hover:border-[#F5F3EC]/60"
+            >
               Schedule Consultation
             </button>
           </div>
         </motion.div>
+      </motion.div>
 
-        <div className="mt-14 grid gap-6 border-t border-white/10 pt-8 sm:grid-cols-2 xl:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <div className="text-2xl font-semibold text-white">{stat.value}</div>
-              <div className="mt-1 text-sm text-[#C0C0C0]">{stat.label}</div>
+      {/* Scoreboard ticker — the signature element. A real stadium LED
+          ticker, not a static stat grid: numbers move the way a scoreboard
+          actually behaves. Pauses on hover and under reduced-motion. */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-[#F5F3EC]/10 bg-[#0E1712]/80 py-4 backdrop-blur-sm">
+        <motion.div
+          className="flex w-max gap-16 whitespace-nowrap [animation-play-state:running] hover:[animation-play-state:paused]"
+          animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+        >
+          {tickerItems.map((stat, i) => (
+            <div key={`${stat.label}-${i}`} className="flex items-baseline gap-3">
+              <span
+                className="text-xl text-[#C1392B]"
+                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+              >
+                {stat.value}
+              </span>
+              <span className="text-xs uppercase tracking-[0.2em] text-[#8B948C]">
+                {stat.label}
+              </span>
+              <span className="ml-8 text-[#F5F3EC]/20">•</span>
             </div>
           ))}
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };

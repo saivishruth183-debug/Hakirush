@@ -116,8 +116,8 @@ const ParallaxBackground = ({ image }) => {
 };
 
 const mission = [
-  { icon: <Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To unleash team spirit through thoughtfully designed sports experiences that drive employee wellbeing, collaboration and long-term loyalty." },
-  { icon: <Eye className="w-8 h-8 text-red-600" />, title: "Vision", description: "To be India's most trusted corporate sports partner — delivering repeatable ROI in employee engagement and employer branding." },
+  { icon: <Target className="w-8 h-8 text-red-600" />, title: "Mission", description: "To help organizations transform employee engagement into a continuous journey through professionally managed sports, team-building experiences, wellness initiatives and recognition programs that inspire collaboration, belonging and long-term workplace culture." },
+  { icon: <Eye className="w-8 h-8 text-red-600" />, title: "Vision", description: "To become India's most trusted Employee Engagement Ecosystem, helping organizations build stronger workplace cultures through sports, wellness, recognition and meaningful shared experiences." },
 ];
 
 const founding = [
@@ -246,7 +246,7 @@ export default function About() {
                 </h1>
               </div>
               <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-medium px-4">
-                HAKIRUSH is a corporate sports management company built for today's fast-paced work culture, bringing organizations together through high-energy sports experiences.
+                HAKIRUSH is an Employee Engagement Ecosystem designed to help organizations build stronger workplace cultures through professionally managed sports, team-building experiences, wellness initiatives and year-round engagement programs.
               </p>
             </motion.div>
           </div>

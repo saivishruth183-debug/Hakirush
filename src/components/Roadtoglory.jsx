@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Sparkles, Trophy, Users2 } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /*  Shared tilt hook — safely handles touch/mobile screens            */
 /* ------------------------------------------------------------------ */
-const useTilt = (strength = 8) => {
+const useTilt = (strength = 8, disabled = false) => {
   const ref = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const x = useMotionValue(0);
@@ -21,7 +21,7 @@ const useTilt = (strength = 8) => {
   });
 
   const handleMouseMove = (e) => {
-    if (!ref.current || window.matchMedia('(max-width: 768px)').matches) return;
+    if (disabled || !ref.current || window.matchMedia('(max-width: 768px)').matches) return;
     const rect = ref.current.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width - 0.5);
     y.set((e.clientY - rect.top) / rect.height - 0.5);
@@ -40,6 +40,51 @@ const GOLD = '#D4AF37';
 const SILVER = '#C7CBD1';
 const BRONZE = '#B8763E';
 const RED = '#E50914';
+
+/* ------------------------------------------------------------------ */
+/*  Corner frame — shared signature: a museum-plaque bracket that      */
+/*  draws in tighter on hover, gold at rest → red active               */
+/* ------------------------------------------------------------------ */
+const CornerMark = ({ corner, active }) => {
+  const pos = {
+    tl: 'top-3 left-3 border-t border-l',
+    tr: 'top-3 right-3 border-t border-r',
+    bl: 'bottom-3 left-3 border-b border-l',
+    br: 'bottom-3 right-3 border-b border-r',
+  }[corner];
+
+  const shift = {
+    tl: active ? { x: -2, y: -2 } : { x: 0, y: 0 },
+    tr: active ? { x: 2, y: -2 } : { x: 0, y: 0 },
+    bl: active ? { x: -2, y: 2 } : { x: 0, y: 0 },
+    br: active ? { x: 2, y: 2 } : { x: 0, y: 0 },
+  }[corner];
+
+  return (
+    <motion.span
+      className={`pointer-events-none absolute h-3.5 w-3.5 ${pos}`}
+      animate={{
+        ...shift,
+        opacity: active ? 1 : 0.5,
+        borderColor: active ? RED : 'rgba(212,175,55,0.35)',
+      }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+    />
+  );
+};
+
+/* One-pass gold→red foil sweep — shared signature, never loops */
+const FoilSweep = ({ active, reduceMotion }) => (
+  <motion.div
+    className="pointer-events-none absolute inset-0 rounded-[inherit]"
+    style={{
+      background: `linear-gradient(115deg, transparent 30%, ${GOLD}22 45%, ${RED}2A 50%, ${GOLD}22 55%, transparent 70%)`,
+    }}
+    initial={{ x: '-120%' }}
+    animate={{ x: active && !reduceMotion ? '120%' : '-120%' }}
+    transition={{ duration: 0.9, ease: 'easeInOut' }}
+  />
+);
 
 const roadToGloryMonths = [
   { month: 'January', theme: 'Ignite', icon: Sparkles, event: 'Corporate Marathon', sponsor: 'Performance Apparel', badge: 'Launch Badge' },
@@ -84,7 +129,16 @@ const xpRules = [
 
 const badges = ['Early Challenger', 'Team Performer', 'Precision Master', 'Strategic Thinker', 'Wellness Warrior', 'Momentum Builder', 'Team Builder', 'Spirit Champion', 'Game Changer', 'Culture Builder', 'Elite Performer', 'Legend'];
 
-const timelineSteps = ['Join HAKIRUSH', 'Receive Team Jerseys', 'Participate in Monthly Experiences', 'Earn Experience Points (XP)', 'Unlock Achievement Badges', 'Improve HAKI RANK', 'Represent Your Organization', 'Become Annual Champions'];
+const journeySteps = [
+  { title: 'Join HAKIRUSH', icon: Sparkles, blurb: 'Start your journey with the community.' },
+  { title: 'Receive Team Jerseys', icon: Users2, blurb: 'Gear up and represent your organization.' },
+  { title: 'Participate in Monthly Experiences', icon: Trophy, blurb: 'Show up, compete, and connect.' },
+  { title: 'Earn Experience Points (XP)', icon: BadgeCheck, blurb: 'Collect progress with every milestone.' },
+  { title: 'Unlock Achievement Badges', icon: BarChart3, blurb: 'Celebrate distinction and consistency.' },
+  { title: 'Improve HAKI RANK', icon: Crown, blurb: 'Rise through recognition and impact.' },
+  { title: 'Represent Your Organization', icon: Sparkles, blurb: 'Lead with pride and team spirit.' },
+  { title: 'Become Annual Champions', icon: Trophy, blurb: 'Finish the year as a standout team.' },
+];
 
 /* Podium tier lookup — the one signature move on this page */
 const tierFor = (rank) => {
@@ -96,7 +150,8 @@ const tierFor = (rank) => {
 
 
 const MonthCard3D = ({ item, index }) => {
-  const { ref, x, y, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(7);
+  const reduceMotion = useReducedMotion();
+  const { ref, x, y, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(7, reduceMotion);
   const Icon = item.icon;
 
   const glow = useTransform([x, y], ([xv, yv]) =>
@@ -104,17 +159,17 @@ const MonthCard3D = ({ item, index }) => {
   );
 
   return (
-    <div style={{ perspective: 900 }}>
+    <div className="h-full" style={{ perspective: 900 }}>
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.45, delay: index * 0.04 }}
-        animate={{ y: isHovered ? -6 : 0 }}
+        animate={{ y: isHovered && !reduceMotion ? -6 : 0 }}
         className="h-full rounded-[20px] p-px transition-colors duration-500"
         style={{
           background: isHovered
-            ? `linear-gradient(135deg, ${GOLD}50, rgba(255,255,255,0.06) 45%, ${RED}40)`
+            ? `linear-gradient(135deg, ${GOLD}70, rgba(255,255,255,0.06) 45%, ${RED}55)`
             : 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
         }}
       >
@@ -123,21 +178,31 @@ const MonthCard3D = ({ item, index }) => {
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={handleMouseLeave}
-          style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+          style={{
+            rotateX: isHovered && !reduceMotion ? rotateX : 0,
+            rotateY: isHovered && !reduceMotion ? rotateY : 0,
+            transformStyle: 'preserve-3d',
+          }}
           className="group relative h-full overflow-hidden rounded-[19px] bg-[#111111]/95 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.22)] backdrop-blur-xl"
         >
           <motion.div
             className="absolute inset-0 pointer-events-none rounded-[inherit]"
             style={{ background: glow, opacity: isHovered ? 1 : 0, transition: 'opacity 0.3s' }}
           />
+          <FoilSweep active={isHovered} reduceMotion={reduceMotion} />
+
+          <CornerMark corner="tl" active={isHovered} />
+          <CornerMark corner="tr" active={isHovered} />
+          <CornerMark corner="bl" active={isHovered} />
+          <CornerMark corner="br" active={isHovered} />
 
           <div className="relative flex items-center justify-between gap-3" style={{ transform: 'translateZ(10px)' }}>
             <div className="rounded-full bg-[#E50914]/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#E50914]">{item.month}</div>
             <div className="text-xs font-medium text-[#A8A8A8]">{item.theme}</div>
           </div>
 
-          <div className="relative mt-4 rounded-[16px] border border-white/10 bg-gradient-to-br from-[#242424] via-[#161616] to-[#0D0D0D] p-3" style={{ transform: 'translateZ(6px)' }}>
-            <div className="flex min-h-[112px] flex-col justify-between rounded-[14px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(229,9,20,0.18),transparent_55%)] p-3">
+          <div className="relative mt-4 rounded-[16px] border border-white/10 bg-gradient-to-br from-[#242424] via-[#161616] to-[#0D0D0D] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]" style={{ transform: 'translateZ(6px)' }}>
+            <div className="flex min-h-[112px] flex-col justify-between rounded-[14px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(229,9,20,0.18),transparent_55%)] p-3 shadow-inner shadow-black/30">
               <div className="relative inline-flex h-9 w-9 items-center justify-center" style={{ transform: 'translateZ(28px)' }}>
                 <motion.span
                   className="absolute inset-0 rounded-full opacity-70"
@@ -146,8 +211,8 @@ const MonthCard3D = ({ item, index }) => {
                     mask: 'radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))',
                     WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))',
                   }}
-                  animate={{ rotate: isHovered ? 360 : 0 }}
-                  transition={{ duration: 2.2, ease: 'linear', repeat: isHovered ? Infinity : 0 }}
+                  animate={{ rotate: isHovered && !reduceMotion ? 360 : 0 }}
+                  transition={{ duration: 2.2, ease: 'linear', repeat: isHovered && !reduceMotion ? Infinity : 0 }}
                 />
                 <motion.div
                   animate={{ scale: isHovered ? 1.1 : 1 }}
@@ -176,27 +241,52 @@ const MonthCard3D = ({ item, index }) => {
 /* ------------------------------------------------------------------ */
 /*  3D STEP CARD — lighter tilt for the journey steps grid             */
 /* ------------------------------------------------------------------ */
-const StepCard3D = ({ step, index }) => {
-  const { ref, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(6);
+const StepCard3D = ({ step, index, icon: Icon }) => {
+  const reduceMotion = useReducedMotion();
+  const { ref, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(6, reduceMotion);
 
   return (
-    <div style={{ perspective: 800 }}>
+    <div className="h-full" style={{ perspective: 800 }}>
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
-        animate={{ y: isHovered ? -5 : 0 }}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="group rounded-[20px] border border-white/10 bg-[#0D0D0D]/80 p-5 transition-colors duration-300 hover:border-[#E50914]/35"
+        animate={{ y: isHovered && !reduceMotion ? -5 : 0 }}
+        style={{
+          rotateX: isHovered && !reduceMotion ? rotateX : 0,
+          rotateY: isHovered && !reduceMotion ? rotateY : 0,
+          transformStyle: 'preserve-3d',
+        }}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#050505]/90 p-5 shadow-[0_16px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-colors duration-300 hover:border-[#E50914]/35"
       >
-        <div className="flex items-center justify-between" style={{ transform: 'translateZ(14px)' }}>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E50914]/15 text-sm font-semibold text-[#E50914]">
-            {index + 1}
+        <FoilSweep active={isHovered} reduceMotion={reduceMotion} />
+
+        <CornerMark corner="tl" active={isHovered} />
+        <CornerMark corner="tr" active={isHovered} />
+        <CornerMark corner="bl" active={isHovered} />
+        <CornerMark corner="br" active={isHovered} />
+
+        <div className="relative flex items-center justify-between" style={{ transform: 'translateZ(14px)' }}>
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E50914]/20 bg-[#E50914]/10 text-[#E50914] shadow-[0_0_20px_rgba(229,9,20,0.12)]">
+              <Icon size={16} />
+            </div>
+            <div className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#A8A8A8]">
+              Step {index + 1}
+            </div>
           </div>
-          <div className="h-2 w-2 rounded-full bg-[#E50914]" />
+          <div className="text-[10px] uppercase tracking-[0.28em] text-[#E50914]">Next</div>
         </div>
-        <div className="mt-4 text-sm leading-7 text-[#CFCFCF]" style={{ transform: 'translateZ(10px)' }}>{step}</div>
+        <div className="relative mt-4 text-sm font-semibold leading-7 text-[#F3F3F3]" style={{ transform: 'translateZ(10px)' }}>{step.title}</div>
+        <p className="relative mt-2 flex-1 text-sm leading-6 text-[#8E8E8E]" style={{ transform: 'translateZ(10px)' }}>{step.blurb}</p>
+        <div className="relative mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] uppercase tracking-[0.28em] text-[#A8A8A8]" style={{ transform: 'translateZ(10px)' }}>
+          <span>Progression</span>
+          <div className="flex items-center gap-2">
+            <div className="h-px w-8 bg-gradient-to-r from-white/20 via-white/40 to-[#E50914]/70" />
+            <ArrowRight size={12} className="text-[#E50914]" />
+          </div>
+        </div>
       </motion.div>
     </div>
   );
@@ -225,6 +315,81 @@ const RankBadge = ({ rank }) => {
   );
 };
 
+/* ------------------------------------------------------------------ */
+/*  CTA BANNER — the closing moment. Ambient glow, a faint watermark   */
+/*  crown, the corner-frame/foil-sweep signature, and a foil-reveal    */
+/*  primary button where red gives way to gold on hover.               */
+/* ------------------------------------------------------------------ */
+const CTABanner = () => {
+  const reduceMotion = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative rounded-[33px] p-px"
+      style={{ background: `linear-gradient(135deg, ${RED}70, rgba(255,255,255,0.06) 45%, ${GOLD}55)` }}
+    >
+      <div
+        className="relative overflow-hidden rounded-[32px] p-8 sm:p-12"
+        style={{ background: 'linear-gradient(135deg, rgba(23,7,8,0.92), rgba(10,10,11,0.97) 55%, rgba(26,20,4,0.88))' }}
+      >
+        {/* ambient glow, red + gold each anchored to a corner */}
+        <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full blur-[110px]" style={{ background: `${RED}30` }} />
+        <div className="pointer-events-none absolute -left-16 -bottom-20 h-64 w-64 rounded-full blur-[100px]" style={{ background: `${GOLD}22` }} />
+
+        {/* faint watermark — ties back to the crown used throughout HAKI RANK */}
+        <Crown className="pointer-events-none absolute -right-8 -top-10 text-white/[0.04]" size={240} strokeWidth={0.6} />
+
+        <FoilSweep active={isHovered} reduceMotion={reduceMotion} />
+        <CornerMark corner="tl" active={isHovered} />
+        <CornerMark corner="tr" active={isHovered} />
+        <CornerMark corner="bl" active={isHovered} />
+        <CornerMark corner="br" active={isHovered} />
+
+        <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.35em] text-[#D4AF37]">
+              <Crown size={12} />
+              Ready to Climb HAKI RANK?
+            </div>
+            <h3 className="mt-4 text-2xl sm:text-4xl font-bold tracking-tight leading-tight text-white">
+              Become a corporate member and turn every month into{' '}
+              <span className="text-[#D4AF37]">a shared celebration.</span>
+            </h3>
+            <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-[#C7C7C7]">
+              Create a culture of participation, celebration and recognition that lasts all year long.
+            </p>
+          </div>
+
+          <div className="flex w-full shrink-0 flex-col gap-3 sm:flex-row lg:w-auto">
+            <motion.button
+              whileHover={{ scale: reduceMotion ? 1 : 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative w-full overflow-hidden rounded-xl px-7 py-3.5 text-center text-sm font-semibold text-white shadow-[0_10px_30px_rgba(229,9,20,0.35)] sm:w-auto"
+              style={{ background: `linear-gradient(135deg, ${RED}, ${RED}CC)` }}
+            >
+              <span
+                className="absolute inset-0 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                style={{ background: `linear-gradient(135deg, ${GOLD}, #B8912B)` }}
+              />
+              <span className="relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap">
+                Become a Corporate Member
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </motion.button>
+
+            <button className="w-full whitespace-nowrap rounded-xl border border-white/15 bg-white/[0.04] px-7 py-3.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-[#D4AF37]/50 hover:bg-white/[0.08] sm:w-auto">
+              Download Brochure
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Impact = () => {
   const timelineRows = [roadToGloryMonths.slice(0, 6), roadToGloryMonths.slice(6)];
 
@@ -243,14 +408,17 @@ const Impact = () => {
               The Road to Glory
             </div>
             <h2 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-              A year of momentum, milestones and unforgettable experiences.
+              A year of momentum, milestones and{' '}
+              <span className="text-[#D4AF37]">unforgettable experiences.</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#CFCFCF]">
               Every great workplace is built through consistent engagement, shared experiences and meaningful recognition.
             </p>
           </div>
 
-          <div className="grid gap-3 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-xl grid-cols-3">
+          <div className="relative grid gap-3 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-xl grid-cols-3">
+            <CornerMark corner="tl" active={false} />
+            <CornerMark corner="br" active={false} />
             {[
               { value: '12', label: 'Monthly moments' },
               { value: '100%', label: 'Shared participation' },
@@ -265,7 +433,7 @@ const Impact = () => {
         </div>
 
         {/* Timeline Section */}
-        <div className="rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(229,9,20,0.06))] p-5 shadow-[0_30px_80px_rgba(0,0,0,0.25)] sm:p-8">
+        <div className="rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,rgba(8,8,8,0.95),rgba(20,20,20,0.9))] p-5 shadow-[0_30px_80px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <div className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">Journey Timeline</div>
@@ -290,7 +458,7 @@ const Impact = () => {
 
         {/* Steps Journey Section */}
         <div>
-          <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(229,9,20,0.08))] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.22)] sm:p-8">
+          <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(5,5,5,0.96),rgba(18,18,18,0.9))] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:p-8">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <div className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">How the journey unfolds</div>
@@ -302,8 +470,8 @@ const Impact = () => {
             </div>
 
             <div className="mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
-              {timelineSteps.map((step, index) => (
-                <StepCard3D key={step} step={step} index={index} />
+              {journeySteps.map((step, index) => (
+                <StepCard3D key={step.title} step={step} index={index} icon={step.icon} />
               ))}
             </div>
           </div>
@@ -351,7 +519,6 @@ const Impact = () => {
                         <th className="px-4 py-3">Level</th>
                         <th className="px-4 py-3">Badges</th>
                         <th className="px-4 py-3">Movement</th>
-                        <th className="px-4 py-3 text-right">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -369,7 +536,6 @@ const Impact = () => {
                             <td className="px-4 py-3 text-[#A8A8A8]">{entry.level}</td>
                             <td className="px-4 py-3 text-[#A8A8A8]">{entry.badges}</td>
                             <td className="px-4 py-3 text-[#E50914]">{entry.movement}</td>
-                            <td className="px-4 py-3 text-[#E50914] text-right cursor-pointer hover:underline">{entry.profile}</td>
                           </tr>
                         );
                       })}
@@ -413,7 +579,7 @@ const Impact = () => {
 
               {/* Right Side Info Panels */}
               <div className="space-y-6">
-                <div className="rounded-[24px] border border-white/10 bg-[#0D0D0D] p-5">
+                <div className="relative rounded-[24px] border border-white/10 bg-[#0D0D0D] p-5">
                   <div className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#E50914]">Company Profile Preview</div>
                   <div
                     className="flex items-center gap-4 rounded-[16px] border p-4"
@@ -497,34 +663,7 @@ const Impact = () => {
           </div>
         </div>
 
-        {/* CTA Banner Section */}
-        <div
-          className="rounded-[33px] p-px"
-          style={{ background: `linear-gradient(135deg, ${RED}60, rgba(255,255,255,0.05) 45%, ${GOLD}45)` }}
-        >
-          <div className="rounded-[32px] bg-[linear-gradient(135deg,rgba(229,9,20,0.16),rgba(255,255,255,0.04))] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#E50914]/25 bg-[#E50914]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">
-                <span className="h-2 w-2 rounded-full bg-[#E50914]" />
-                Ready to Climb HAKI RANK?
-              </div>
-              <h3 className="mt-3 text-xl sm:text-3xl font-bold tracking-tight text-white">
-                Become a corporate member and turn every month into a shared celebration.
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm text-[#D1D1D1] leading-relaxed">
-                Create a culture of participation, celebration and recognition that lasts all year long.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-              <button className="w-full sm:w-auto px-6 py-3 bg-[#E50914] text-white rounded-xl text-sm font-semibold text-center whitespace-nowrap active:scale-[0.98] transition-transform">
-                Become a Corporate Member
-              </button>
-              <button className="w-full sm:w-auto px-6 py-3 border border-white/10 bg-white/5 hover:bg-white/10 text-white rounded-xl text-sm font-semibold text-center whitespace-nowrap active:scale-[0.98] transition-transform">
-                Download Brochure
-              </button>
-            </div>
-          </div>
-        </div>
+        <CTABanner />
 
       </div>
     </section>

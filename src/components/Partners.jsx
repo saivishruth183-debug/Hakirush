@@ -163,7 +163,7 @@ const Partners = () => {
 
       <div className="relative z-10">
         {/* ── PARTNERS SECTION ── */}
-        <section className="overflow-hidden py-20">
+        {/* <section className="overflow-hidden py-20">
           <div className="mx-auto mb-14 max-w-7xl px-4 text-center sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -181,7 +181,6 @@ const Partners = () => {
             </motion.div>
           </div>
 
-          {/* Marquee with edge fade for a cleaner, premium infinite-scroll feel */}
           <div
             className="flex overflow-hidden"
             style={{
@@ -208,7 +207,7 @@ const Partners = () => {
               ))}
             </motion.div>
           </div>
-        </section>
+        </section> */}
 
         {/* ── CAREERS SECTION ── */}
         <section className="relative mx-4 mb-20 overflow-hidden rounded-[3rem] bg-[#0A0A0A] py-24 shadow-2xl sm:mx-8">

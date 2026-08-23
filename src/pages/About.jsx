@@ -3,8 +3,9 @@ import { motion, useMotionValue, useSpring, useTransform, useScroll } from "fram
 import { useNavigate } from "react-router-dom";
 import { 
   Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Quote, MapPin, Clock, Users, 
-  Activity, CircleDot, Star, Dumbbell, Flag, MoveRight, Linkedin, ExternalLink, ArrowRight
+  MoveRight, Linkedin, ExternalLink, ArrowRight, Star
 } from "lucide-react";
+import PageBackground from "../components/PageBackground";
 
 import Krishna from "../assets/Team/krishna.png";
 import Vishruth from "../assets/Team/vishruth.png";
@@ -13,62 +14,27 @@ import Sharavanthi from "../assets/Team/sharvanthi.jpeg";
 import Umesh from "../assets/Team/Umesh.jpeg";
 import backgroundImage from "../assets/Hero/Backimage.png";
 
-/* Unified premium accent pair used across the page */
+/* ------------------------------------------------------------------ */
+/*  DESIGN SYSTEM — one accent pair, one signature device             */
+/*                                                                      */
+/*  Colors:  ACCENT (deep burgundy) + GOLD (highlight) — unchanged      */
+/*  from your original, now applied consistently everywhere instead     */
+/*  of ad hoc per section.                                              */
+/*                                                                      */
+/*  Signature element: a thin burgundy→gold hairline that sits along    */
+/*  the top edge of every card on the page (mission, founding, process, */
+/*  team badge). It's the one recurring visual motif that ties the      */
+/*  page together — like a wax-seal ribbon running through the whole    */
+/*  document.                                                           */
+/*                                                                      */
+/*  Type: pair font-serif (display, used with restraint on headings)    */
+/*  with the body sans already in use. If you want to sharpen this      */
+/*  further, swap in a proper display serif — e.g. Fraunces or Playfair */
+/*  Display — via Google Fonts + tailwind.config.js fontFamily.display. */
+/* ------------------------------------------------------------------ */
 const ACCENT = "#8C1D2B"; // deep burgundy
 const GOLD = "#D4AF37";   // highlight gold
-
-/* ---------------- BACKGROUND — untouched, exactly as given ---------------- */
-const ContinuousSportsBackground = () => {
-  const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
-  const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
-
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
-      
-      <div className="flex absolute top-[10%] opacity-[0.04]">
-        <motion.div 
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 pr-24 whitespace-nowrap"
-        >
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
-        </motion.div>
-      </div>
-
-      <div className="flex absolute top-[40%] opacity-[0.03]">
-        <motion.div 
-          initial={{ x: "-100%" }}
-          animate={{ x: 0 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-32 pr-32 whitespace-nowrap"
-        >
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
-        </motion.div>
-      </div>
-
-      <div className="flex absolute top-[70%] opacity-[0.04]">
-        <motion.div 
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          className="flex gap-20 pr-20 whitespace-nowrap"
-        >
-          {row1.map((Icon, i) => <Icon key={i} size={80} className="text-red-900" strokeWidth={0.8} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={80} className="text-red-900" strokeWidth={0.8} />)}
-        </motion.div>
-      </div>
-
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
-      }} />
-    </div>
-  )
-}
+const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
 
 const ParallaxBackground = ({ image }) => {
   const containerRef = useRef(null);
@@ -115,15 +81,16 @@ const ParallaxBackground = ({ image }) => {
         className="w-full h-full object-cover object-center will-change-transform"
         transition={{ type: "tween" }}
       />
-      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/55 to-slate-950/80" />
+      <div className="absolute inset-0 bg-slate-950/30 mix-blend-multiply" />
     </div>
   );
 };
 /* -------------------------- END BACKGROUND -------------------------- */
 
 const mission = [
-  { icon: <Target className="w-7 h-7" style={{ color: ACCENT }} />, title: "Mission", description: "To help organizations transform employee engagement into a continuous journey through professionally managed sports, team-building experiences, wellness initiatives and recognition programs that inspire collaboration, belonging and long-term workplace culture." },
-  { icon: <Eye className="w-7 h-7" style={{ color: ACCENT }} />, title: "Vision", description: "To become India's most trusted Employee Engagement Ecosystem, helping organizations build stronger workplace cultures through sports, wellness, recognition and meaningful shared experiences." },
+  { icon: <Target className="w-6 h-6" style={{ color: ACCENT }} />, title: "Mission", description: "To help organizations transform employee engagement into a continuous journey through professionally managed sports, team-building experiences, wellness initiatives and recognition programs that inspire collaboration, belonging and long-term workplace culture." },
+  { icon: <Eye className="w-6 h-6" style={{ color: ACCENT }} />, title: "Vision", description: "To become India's most trusted Employee Engagement Ecosystem, helping organizations build stronger workplace cultures through sports, wellness, recognition and meaningful shared experiences." },
 ];
 
 const founding = [
@@ -166,20 +133,82 @@ const Kicker = ({ icon: Icon, children }) => (
   </motion.div>
 );
 
+/* Shared card shell — carries the hairline signature so every card on
+   the page reads as part of one system rather than one-off styling. */
+const PremiumCard = ({ children, className = "" }) => (
+  <div className={`relative bg-white rounded-2xl overflow-hidden ring-1 ring-slate-100 ${className}`}>
+    <span className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: HAIRLINE }} />
+    {children}
+  </div>
+);
+
 export default function About() {
   const navigate = useNavigate();
   const handleApplyClick = () => { navigate('/contact'); };
 
   return (
     <div className="relative overflow-hidden min-h-screen">
-      <ContinuousSportsBackground />
+      <PageBackground />
       <ParallaxBackground image={backgroundImage} />
 
       <div className="relative z-10">
 
+        {/* HERO SECTION */}
+        <section className="relative pt-24 pb-14 md:pb-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="space-y-7"
+            >
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <div
+                  className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center shadow-lg ring-1 ring-black/5 overflow-hidden"
+                  style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
+                >
+                  <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+                  <Zap className="relative w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                </div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.35em]" style={{ color: GOLD }}>
+                  Employee Engagement, Elevated
+                </p>
+              </div>
+
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05]">
+                About <span style={{ color: GOLD }}>HAKIRUSH</span>
+              </h1>
+
+              <div className="w-16 h-px mx-auto rounded-full" style={{ background: HAIRLINE }} />
+
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium px-2">
+                HAKIRUSH is an Employee Engagement Ecosystem designed to help organizations build stronger workplace cultures through professionally managed sports, team-building experiences, wellness initiatives and year-round engagement programs.
+              </p>
+            </motion.div>
+
+            {/* Stat bar — one dark glass strip with hairline dividers, not four floating boxes */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-12 max-w-3xl mx-auto rounded-2xl bg-slate-950/50 backdrop-blur-md ring-1 ring-white/10 shadow-2xl overflow-hidden"
+            >
+              <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-white/10">
+                {stats.map((s) => (
+                  <div key={s.label} className="px-3 py-5 text-center">
+                    <p className="font-serif text-xl sm:text-2xl font-black" style={{ color: GOLD }}>{s.value}</p>
+                    <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mt-1.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* TEAM SECTION — premium employee ID badge cards */}
         <section className="relative py-16 md:py-24 bg-transparent overflow-hidden font-sans">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-50/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
           
           <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
             <div className="text-center mb-12 md:mb-16">
@@ -189,9 +218,9 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="font-serif text-4xl md:text-5xl font-black text-slate-900 tracking-tight"
+                className="font-serif text-4xl md:text-5xl font-black text-white tracking-tight"
               >
-                Meet The <span style={{ color: ACCENT }}>Dream Team</span>
+                Meet The <span style={{ color: GOLD }}>Dream Team</span>
               </motion.h2>
               <div className="w-14 h-1.5 mx-auto mt-4 rounded-full" style={{ background: GOLD }} />
             </div>
@@ -213,6 +242,9 @@ export default function About() {
                   />
 
                   <div className="relative h-full bg-gradient-to-b from-slate-900 to-slate-950 rounded-xl sm:rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] group-hover:-translate-y-2">
+
+                    {/* Signature hairline — same device as every other card on the page */}
+                    <span className="absolute top-0 left-0 right-0 h-[3px] z-10" style={{ background: HAIRLINE }} />
 
                     {/* Badge lanyard hole */}
                     <div className="flex justify-center pt-2 sm:pt-2.5">
@@ -238,8 +270,11 @@ export default function About() {
                         <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 border-t border-l opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: GOLD }} />
                         <div className="absolute bottom-1.5 right-1.5 sm:bottom-2 sm:right-2 w-3 h-3 sm:w-4 sm:h-4 border-b border-r opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: GOLD }} />
 
-                        {/* LinkedIn Button - Standard <a> tag for external tab navigation */}
-                        <div className="absolute inset-x-0 bottom-0 p-1.5 sm:p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out">
+                        {/*
+                          LinkedIn button: visible by default on mobile (no hover state on
+                          touch), reverts to the hover-reveal animation from `sm:` up.
+                        */}
+                        <div className="absolute inset-x-0 bottom-0 p-1.5 sm:p-2 translate-y-0 sm:translate-y-full sm:group-hover:translate-y-0 transition-transform duration-400 ease-out">
                           <a
                             href={member.linkedin.trim()}
                             target="_blank" 
@@ -260,7 +295,7 @@ export default function About() {
                       <p className="font-bold text-[7px] sm:text-[9px] uppercase tracking-[0.2em] mb-1 sm:mb-1.5" style={{ color: GOLD }}>
                         {member.role.split('-')[0]}
                       </p>
-                      <h3 className="font-serif text-sm sm:text-lg font-bold text-red-600 leading-snug mb-1 sm:mb-1.5 truncate tracking-widest">
+                      <h3 className="font-serif text-sm sm:text-lg font-bold text-red-500 leading-snug mb-1 sm:mb-1.5 truncate tracking-widest">
                         {member.name}
                       </h3>
                       <p className="text-slate-300 text-[8px] sm:text-[11px] font-medium uppercase tracking-wide line-clamp-1">
@@ -290,59 +325,6 @@ export default function About() {
           </div>
         </section>
 
-        {/* HERO SECTION */}
-        <section className="relative pt-16 pb-12 md:pb-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="space-y-7"
-            >
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                <div
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center shadow-lg ring-1 ring-black/5"
-                  style={{ background: `linear-gradient(135deg, ${ACCENT}, #5C1119)` }}
-                >
-                  <Zap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                </div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.35em]" style={{ color: ACCENT }}>
-                  Employee Engagement, Elevated
-                </p>
-              </div>
-
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.05]">
-                About <span style={{ color: ACCENT }}>HAKIRUSH</span>
-              </h1>
-
-              <div className="w-16 h-[3px] mx-auto rounded-full" style={{ background: GOLD }} />
-
-              <p className="text-base sm:text-lg md:text-xl text-slate-100 max-w-3xl mx-auto leading-relaxed font-medium px-2">
-                HAKIRUSH is an Employee Engagement Ecosystem designed to help organizations build stronger workplace cultures through professionally managed sports, team-building experiences, wellness initiatives and year-round engagement programs.
-              </p>
-            </motion.div>
-
-            {/* Stat strip — quiet, premium proof points */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"
-            >
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl bg-white/70 backdrop-blur-md ring-1 ring-slate-200 px-3 py-4 sm:py-5 shadow-sm"
-                >
-                  <p className="font-serif text-xl sm:text-2xl font-black text-slate-900">{s.value}</p>
-                  <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mt-1">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
         {/* MISSION & VISION */}
         <section className="py-14 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -354,18 +336,22 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="relative group p-8 sm:p-10 bg-white rounded-[1.75rem] shadow-[0_10px_40px_-15px_rgba(15,23,42,0.12)] hover:shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18)] transition-all duration-500 ring-1 ring-slate-100 hover:-translate-y-1"
                 >
-                  <Quote className="absolute top-6 right-7 w-10 h-10 text-slate-100" strokeWidth={1.5} />
-                  <div className="flex items-center gap-5 mb-6">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ring-1 ring-slate-100 group-hover:scale-105 transition-transform" style={{ background: "#8C1D2B0D" }}>
-                      {item.icon}
+                  <PremiumCard className="group p-8 sm:p-10 shadow-[0_10px_40px_-15px_rgba(15,23,42,0.35)] hover:shadow-[0_25px_60px_-15px_rgba(15,23,42,0.45)] transition-all duration-500 hover:-translate-y-1">
+                    <Quote className="absolute top-7 right-7 w-10 h-10 text-slate-100" strokeWidth={1.5} />
+                    <div className="flex items-center gap-5 mb-6">
+                      <div
+                        className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 ring-1 ring-slate-100 group-hover:scale-105 transition-transform"
+                        style={{ background: `radial-gradient(circle at 30% 30%, ${ACCENT}14, ${ACCENT}05)` }}
+                      >
+                        {item.icon}
+                      </div>
+                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
+                        Our <span style={{ color: ACCENT }}>{item.title}</span>
+                      </h3>
                     </div>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
-                      Our <span style={{ color: ACCENT }}>{item.title}</span>
-                    </h3>
-                  </div>
-                  <p className="text-slate-600 leading-relaxed text-base sm:text-lg">{item.description}</p>
+                    <p className="text-slate-600 leading-relaxed text-base sm:text-lg">{item.description}</p>
+                  </PremiumCard>
                 </motion.div>
               ))}
             </div>
@@ -378,15 +364,19 @@ export default function About() {
             <div className="text-center mb-4">
               <Kicker icon={Star}>Our Story</Kicker>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 text-center">
-              How It All <span style={{ color: ACCENT }}>Began</span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white text-center">
+              How It All <span style={{ color: GOLD }}>Began</span>
             </h2>
 
-            <div className="max-w-3xl mx-auto mt-8 relative">
-              <Quote className="w-10 h-10 mx-auto mb-4" style={{ color: GOLD, opacity: 0.6 }} />
-              <p className="text-lg sm:text-xl text-slate-100 leading-relaxed font-medium text-center italic">
-                HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. We combine event management, digital storytelling, and scalable operations to serve both startups and enterprises.
-              </p>
+            {/* Editorial pull-quote — vertical rule instead of plain centered italic */}
+            <div className="max-w-2xl mx-auto mt-10 flex gap-5 items-start">
+              <span className="hidden sm:block w-px self-stretch shrink-0 mt-1" style={{ background: HAIRLINE }} />
+              <div>
+                <Quote className="w-8 h-8 mb-3" style={{ color: GOLD, opacity: 0.7 }} />
+                <p className="text-lg sm:text-xl text-slate-200 leading-relaxed font-medium">
+                  HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. We combine event management, digital storytelling, and scalable operations to serve both startups and enterprises.
+                </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-14">
@@ -397,14 +387,15 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="relative p-7 sm:p-8 bg-white rounded-2xl shadow-[0_8px_30px_-15px_rgba(15,23,42,0.12)] ring-1 ring-slate-100 hover:ring-[#8C1D2B]/20 hover:shadow-[0_20px_45px_-15px_rgba(15,23,42,0.16)] transition-all duration-400 text-left"
                 >
-                  <span className="absolute top-5 right-6 font-serif text-3xl font-black text-slate-100 select-none">0{index + 1}</span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 ring-1 ring-slate-100" style={{ background: "#8C1D2B0D" }}>
-                    {item.icon}
-                  </div>
-                  <h4 className="font-serif font-bold text-lg sm:text-xl text-slate-900 mb-2.5">{item.title}</h4>
-                  <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{item.description}</p>
+                  <PremiumCard className="relative p-7 sm:p-8 shadow-[0_8px_30px_-15px_rgba(15,23,42,0.3)] hover:shadow-[0_20px_45px_-15px_rgba(15,23,42,0.4)] transition-all duration-400 text-left h-full">
+                    <span className="absolute top-5 right-6 font-serif text-3xl font-black text-slate-100 select-none">0{index + 1}</span>
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 ring-1 ring-slate-100" style={{ background: "#8C1D2B0D" }}>
+                      {item.icon}
+                    </div>
+                    <h4 className="font-serif font-bold text-lg sm:text-xl text-slate-900 mb-2.5">{item.title}</h4>
+                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{item.description}</p>
+                  </PremiumCard>
                 </motion.div>
               ))}
             </div>
@@ -416,12 +407,15 @@ export default function About() {
           <div className="text-center mb-4">
             <Kicker icon={Bolt}>The Process</Kicker>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-center mb-14 text-slate-900">
-            How We <span style={{ color: ACCENT }}>Work</span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-center mb-14 text-white">
+            How We <span style={{ color: GOLD }}>Work</span>
           </h2>
 
           <div className="relative">
-            <div className="absolute left-[27px] sm:left-9 top-2 bottom-2 w-px bg-gradient-to-b from-slate-200 via-slate-200 to-transparent hidden sm:block" />
+            <div
+              className="absolute left-[27px] sm:left-9 top-2 bottom-2 w-px hidden sm:block"
+              style={{ background: `linear-gradient(180deg, ${ACCENT}, ${GOLD}, transparent)` }}
+            />
 
             <div className="space-y-4 sm:space-y-5">
               {work.map((step, i) => (
@@ -431,18 +425,20 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="relative flex items-start gap-5 sm:gap-6 p-5 sm:p-6 bg-white rounded-2xl ring-1 ring-slate-100 shadow-[0_6px_24px_-14px_rgba(15,23,42,0.15)] hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.2)] hover:ring-[#8C1D2B]/20 transition-all duration-300"
                 >
-                  <div
-                    className="relative z-10 shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-serif font-black text-white text-base sm:text-lg shadow-md"
-                    style={{ background: `linear-gradient(135deg, ${ACCENT}, #5C1119)` }}
-                  >
-                    0{step.id}
-                  </div>
-                  <div className="pt-1">
-                    <h4 className="text-lg sm:text-xl font-bold mb-1.5 text-slate-900">{step.title}</h4>
-                    <p className="text-slate-600 font-medium text-sm sm:text-base">{step.description}</p>
-                  </div>
+                  <PremiumCard className="relative flex items-start gap-5 sm:gap-6 p-5 sm:p-6 shadow-[0_6px_24px_-14px_rgba(15,23,42,0.3)] hover:shadow-[0_16px_36px_-14px_rgba(15,23,42,0.4)] hover:ring-[#8C1D2B]/20 transition-all duration-300">
+                    <div
+                      className="relative z-10 shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-serif font-black text-white text-base sm:text-lg shadow-md overflow-hidden"
+                      style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
+                    >
+                      <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+                      <span className="relative">0{step.id}</span>
+                    </div>
+                    <div className="pt-1">
+                      <h4 className="text-lg sm:text-xl font-bold mb-1.5 text-slate-900">{step.title}</h4>
+                      <p className="text-slate-600 font-medium text-sm sm:text-base">{step.description}</p>
+                    </div>
+                  </PremiumCard>
                 </motion.div>
               ))}
             </div>
@@ -456,11 +452,11 @@ export default function About() {
           >
             <button
               onClick={handleApplyClick}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-bold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
-              style={{ background: `linear-gradient(135deg, ${ACCENT}, #5C1119)` }}
+              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-bold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+              style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
             >
               Start a Conversation
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </motion.div>
         </section>

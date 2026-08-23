@@ -1,22 +1,14 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import heroVideo from '../assets/Hero/Cricket.mp4';
 
-/*
-  DESIGN TOKENS (add once, e.g. in index.html <head> or index.css)
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-
-  Palette:
-    --turf-ink:      #0E1712   (background)
-    --chalk:         #F5F3EC   (primary text / lines)
-    --brick:         #C1392B   (primary accent — headline, CTA, ticker digits)
-    --pitch-green:   #2F5233   (secondary accent — live-status dot)
-    --steel:         #8B948C   (muted captions)
-*/
+const PITCH = '#0E1712';
+const CREAM = '#F5F3EC';
+const SAGE = '#8B948C';
+const SIGNAL = '#DC2626';
+const GOLD = '#D9A441';
 
 const stats = [
   { value: '25K+', label: 'EMPLOYEES ENGAGED' },
@@ -24,6 +16,26 @@ const stats = [
   { value: '120+', label: 'CORPORATE CLIENTS' },
   { value: '18', label: 'CITIES SERVED' },
 ];
+
+/* ---------------------------------------------------------------
+   SIGNATURE ELEMENT — Matchday Scoreboard
+   Turns the "workplace vs disengagement" idea from the headline
+   into an actual broadcast-style object: a live fixture card with
+   a ticking clock, sitting in the corner like a TV score bug.
+--------------------------------------------------------------- */
+const MatchScoreboard = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const [seconds, setSeconds] = useState(37 * 60 + 12); // starts mid-match
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const id = setInterval(() => setSeconds((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, [prefersReducedMotion]);
+
+  const mm = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const ss = String(seconds % 60).padStart(2, '0');
+};
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -35,19 +47,16 @@ const Hero = () => {
     offset: ['start start', 'end start'],
   });
 
-  // One deliberate motion idea: the video breathes in slowly, like a
-  // broadcast camera easing toward the pitch. Nothing else moves with scroll.
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
-
-  // Ticker content, duplicated once for a seamless marquee loop.
   const tickerItems = useMemo(() => [...stats, ...stats], []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-[#0E1712] text-[#F5F3EC]"
+      className="relative min-h-screen overflow-hidden"
+      style={{ backgroundColor: PITCH, color: CREAM }}
     >
       {/* Video plane */}
       <motion.div
@@ -62,26 +71,30 @@ const Hero = () => {
           loop
           playsInline
         />
-        {/* Duotone turf wash — replaces a generic dark gradient with the
-            two colors actually in the palette, so the video reads as part
-            of the same world as the type and UI, not a stock clip laid on top. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0E1712] via-[#0E1712]/70 to-[#0E1712]/20 mix-blend-multiply" />
+        <div
+          className="absolute inset-0 mix-blend-multiply"
+          style={{ background: `linear-gradient(to top, ${PITCH}, ${PITCH}B3, ${PITCH}33)` }}
+        />
         <div className="absolute inset-0 bg-[#2F5233]/25 mix-blend-color" />
       </motion.div>
 
-      {/* Floodlight glow — a single soft light source, top-right, like a
-          stadium floodlight catching the corner of the frame. */}
-      <div className="pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(193,57,43,0.20),transparent_70%)] blur-[80px]" />
-
-      {/* Faint scoreboard scanlines — a texture, not decoration: it ties
-          the panel behind the copy to an actual scoreboard display. */}
+      <div
+        className="pointer-events-none absolute -top-24 right-0 h-[520px] w-[520px] rounded-full blur-[80px]"
+        style={{ background: `radial-gradient(circle, ${SIGNAL}33, transparent 70%)` }}
+      />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg, #F5F3EC 0px, #F5F3EC 1px, transparent 1px, transparent 3px)',
+          backgroundImage: `repeating-linear-gradient(0deg, ${CREAM} 0px, ${CREAM} 1px, transparent 1px, transparent 3px)`,
         }}
       />
+
+      {/* Scoreboard — desktop only, pinned like a broadcast overlay */}
+      <div className="pointer-events-none absolute right-6 top-28 z-10 hidden lg:block xl:right-16">
+        <div className="pointer-events-auto">
+          <MatchScoreboard />
+        </div>
+      </div>
 
       {/* Content */}
       <motion.div
@@ -94,17 +107,23 @@ const Hero = () => {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="max-w-3xl"
         >
-          {/* Match-status badge, standing in for the generic "icon + label" pill */}
-          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#F5F3EC]/15 bg-[#0E1712]/60 px-4 py-1.5 backdrop-blur-sm">
+          {/* Match-status badge */}
+          <div
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 backdrop-blur-sm"
+            style={{ borderColor: `${CREAM}26`, backgroundColor: `${PITCH}99` }}
+          >
             <span className="relative flex h-2 w-2">
               {!prefersReducedMotion && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2F5233] opacity-75" />
+                <span
+                  className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                  style={{ backgroundColor: SIGNAL }}
+                />
               )}
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2F5233]" />
+              <span className="relative inline-flex h-2 w-2 rounded-full" style={{ backgroundColor: SIGNAL }} />
             </span>
             <span
-              className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#8B948C]"
-              style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+              className="text-[11px] font-medium uppercase tracking-[0.25em]"
+              style={{ fontFamily: "'IBM Plex Mono', monospace", color: SAGE }}
             >
               Live · Corporate Fixture
             </span>
@@ -118,29 +137,12 @@ const Hero = () => {
             <br />
             WORKPLACES
             <br />
-            <span className="relative inline-block text-[#C1392B]">
-              through sport.
-              {/* Hand-drawn underline — a scorer circling a boundary on a scorecard */}
-              <svg
-                className="absolute -bottom-3 left-0 w-full"
-                height="14"
-                viewBox="0 0 320 14"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M2 8C60 2 140 2 200 6C240 8.5 280 8 318 5"
-                  stroke="#C1392B"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+            <span style={{ color: SIGNAL }}>through sport</span>
           </h1>
 
           <p
-            className="mt-8 max-w-xl text-lg leading-8 text-[#8B948C]"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="mt-8 max-w-xl text-lg leading-8"
+            style={{ fontFamily: "'Inter', sans-serif", color: SAGE }}
           >
             HAKIRUSH helps organizations strengthen workplace culture through
             professionally managed corporate sports, employee engagement
@@ -148,17 +150,41 @@ const Hero = () => {
             initiatives.
           </p>
 
+          {/* Compact scoreline — mobile/tablet substitute for the pinned scoreboard */}
+          <div
+            className="mt-8 inline-flex items-center gap-3 rounded-full border px-4 py-2 lg:hidden"
+            style={{ borderColor: `${CREAM}1F`, backgroundColor: `${PITCH}80` }}
+          >
+            <span
+              className="text-xs font-semibold uppercase tracking-wide"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Hakirush XI <span style={{ color: GOLD }}>04</span>
+            </span>
+            <span className="h-3 w-px" style={{ backgroundColor: `${CREAM}26` }} />
+            <span
+              className="text-xs font-semibold uppercase tracking-wide"
+              style={{ fontFamily: "'Inter', sans-serif", color: SAGE }}
+            >
+              Disengagement <span className="opacity-70">00</span>
+            </span>
+          </div>
+
           <div className="mt-10 flex flex-wrap gap-4">
             <button
               onClick={() => navigate('/services')}
-              className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#C1392B] px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-[#0E1712] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{ backgroundColor: SIGNAL, color: CREAM, outlineColor: GOLD }}
             >
               Explore Solutions
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={() => navigate('/contact')}
-              className="cursor-pointer rounded-full border border-[#F5F3EC]/25 px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-[#F5F3EC] transition-colors hover:border-[#F5F3EC]/60"
+              className="cursor-pointer rounded-full border px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{ borderColor: `${CREAM}40`, color: CREAM, outlineColor: GOLD }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = `${CREAM}99`)}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = `${CREAM}40`)}
             >
               Schedule Consultation
             </button>
@@ -166,10 +192,11 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scoreboard ticker — the signature element. A real stadium LED
-          ticker, not a static stat grid: numbers move the way a scoreboard
-          actually behaves. Pauses on hover and under reduced-motion. */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-[#F5F3EC]/10 bg-[#0E1712]/80 py-4 backdrop-blur-sm">
+      {/* Ticker */}
+      <div
+        className="absolute bottom-0 left-0 right-0 overflow-hidden border-t py-4 backdrop-blur-sm"
+        style={{ borderColor: `${CREAM}1A`, backgroundColor: `${PITCH}CC` }}
+      >
         <motion.div
           className="flex w-max gap-16 whitespace-nowrap [animation-play-state:running] hover:[animation-play-state:paused]"
           animate={prefersReducedMotion ? {} : { x: ['0%', '-50%'] }}
@@ -178,15 +205,15 @@ const Hero = () => {
           {tickerItems.map((stat, i) => (
             <div key={`${stat.label}-${i}`} className="flex items-baseline gap-3">
               <span
-                className="text-xl text-[#C1392B]"
-                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                className="text-xl"
+                style={{ fontFamily: "'IBM Plex Mono', monospace", color: SIGNAL }}
               >
                 {stat.value}
               </span>
-              <span className="text-xs uppercase tracking-[0.2em] text-[#8B948C]">
+              <span className="text-xs uppercase tracking-[0.2em]" style={{ color: SAGE }}>
                 {stat.label}
               </span>
-              <span className="ml-8 text-[#F5F3EC]/20">•</span>
+              <span className="ml-8" style={{ color: `${CREAM}33` }}>•</span>
             </div>
           ))}
         </motion.div>

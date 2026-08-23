@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
-import { 
-  CheckCircle, Trophy, ArrowRight, ArrowLeft, 
-  Activity, Target, CircleDot, Star, Dumbbell, Flag, Zap 
+import {
+  CheckCircle2, Trophy, ArrowRight, ArrowLeft,
+  Activity, Target, CircleDot, Star, Dumbbell, Flag, Zap
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import backgroundImage from "../assets/Hero/Backimage.png";
@@ -35,48 +35,39 @@ const benefits = [
   "Attract sponsors and PR coverage",
 ];
 
-// --- BACKGROUND SUB-COMPONENT (MATCHED) ---
-const ContinuousSportsBackground = () => {
-  const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
-  const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
+const tickerIcons = [Trophy, Activity, Target, CircleDot, Star, Dumbbell, Flag];
 
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
+// --- AMBIENT SCOREBOARD BACKGROUND (shared with Annual Plan) -------------
+const ScoreboardBackground = () => (
+  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20 bg-[#0B0C0E]">
+    <div className="absolute top-[-15%] left-[-10%] w-[55%] h-[55%] bg-[#D4142A]/10 blur-[140px] rounded-full" />
+    <div className="absolute bottom-[-15%] right-[-10%] w-[45%] h-[45%] bg-[#E8B923]/[0.06] blur-[140px] rounded-full" />
 
-      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
-        <motion.div 
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
-        >
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
-        </motion.div>
-      </div>
+    <div
+      className="absolute inset-0 opacity-[0.05]"
+      style={{
+        backgroundImage:
+          'linear-gradient(#F4F2ED 1px, transparent 1px), linear-gradient(90deg, #F4F2ED 1px, transparent 1px)',
+        backgroundSize: '64px 64px',
+      }}
+    />
 
-      <div className="flex absolute top-[40%] opacity-[0.03] w-full overflow-hidden">
-        <motion.div 
-          initial={{ x: "-100%" }}
-          animate={{ x: 0 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
-        >
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
-        </motion.div>
-      </div>
-
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
-      }} />
+    <div className="flex absolute top-[8%] opacity-[0.05] w-full overflow-hidden">
+      <motion.div
+        initial={{ x: 0 }}
+        animate={{ x: '-50%' }}
+        transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
+        className="flex gap-28 pr-28 whitespace-nowrap flex-nowrap"
+      >
+        {[...tickerIcons, ...tickerIcons, ...tickerIcons].map((Icon, i) => (
+          <Icon key={i} size={64} className="text-[#F4F2ED]" strokeWidth={1} />
+        ))}
+      </motion.div>
     </div>
-  )
-}
+  </div>
+);
 
-// --- PARALLAX IMAGE BACKGROUND (MATCHED) ---
+// --- PARALLAX HERO IMAGE (shared with Annual Plan) -----------------------
 const ParallaxImageBackground = ({ image }) => {
   const containerRef = useRef(null);
   const mouseX = useMotionValue(0);
@@ -84,48 +75,96 @@ const ParallaxImageBackground = ({ image }) => {
   const springConfig = { damping: 30, stiffness: 80, mass: 0.6 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
-  const translateX = useTransform(smoothX, [-1, 1], [-30, 30]);
-  const translateY = useTransform(smoothY, [-1, 1], [-20, 20]);
-  const scale = useTransform(smoothX, [-1, 1], [1.08, 1.12]);
+  const translateX = useTransform(smoothX, [-1, 1], [-24, 24]);
+  const translateY = useTransform(smoothY, [-1, 1], [-16, 16]);
+  const scale = useTransform(smoothX, [-1, 1], [1.06, 1.1]);
   const { scrollY } = useScroll();
   const scrollTranslateY = useTransform(scrollY, [0, 1500], [0, 150]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      mouseX.set(x);
-      mouseY.set(y);
+      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mouseY.set((e.clientY / window.innerHeight) * 2 - 1);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
   return (
-    <div ref={containerRef} className="fixed left-0 w-full overflow-hidden -z-10" style={{ top: "-10vh", height: "130vh" }}>
+    <div ref={containerRef} className="fixed left-0 w-full overflow-hidden -z-10" style={{ top: "-10vh", height: "125vh" }}>
       <motion.img
         src={image}
         alt=""
-        style={{ x: translateX, y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy), scale }}
-        className="w-full h-full object-cover object-center will-change-transform"
-        transition={{ type: "tween" }}
+        style={{
+          x: translateX,
+          y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy),
+          scale,
+        }}
+        className="w-full h-full object-cover object-center will-change-transform grayscale-[25%]"
       />
-      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0B0C0E]/60 via-[#0B0C0E]/70 to-[#0B0C0E]" />
     </div>
   );
 };
 
+// --- FIGHT-CARD TILE -------------------------------------------------------
+const MatchCard = ({ item, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+    viewport={{ once: true }}
+    whileHover={{ y: -6 }}
+    className="group relative h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-[#14161A]"
+  >
+    <img
+      src={item.image}
+      alt={item.name}
+      className="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-108"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-[#0B0C0E]/50 to-[#0B0C0E]/10" />
+
+    {/* giant ghosted round marker */}
+    <span
+      className="pointer-events-none absolute -top-3 -right-2 select-none font-black text-white/[0.08] leading-none z-0"
+      style={{ fontFamily: '"Anton", sans-serif', fontSize: '7.5rem' }}
+    >
+      {item.quarter}
+    </span>
+
+    {/* round tag */}
+    <div className="absolute top-6 left-6 z-10">
+      <span
+        className="px-3 py-1 bg-[#D4142A] text-white text-xs rounded-md shadow-lg"
+        style={{ fontFamily: '"Anton", sans-serif', letterSpacing: '0.05em' }}
+      >
+        ROUND {item.quarter.replace('Q', '')}
+      </span>
+    </div>
+
+    <div className="absolute bottom-7 left-7 right-7 z-10">
+      <span className="text-[11px] font-bold uppercase tracking-[0.25em]" style={{ color: '#E8B923' }}>
+        {item.sport}
+      </span>
+      <h3
+        className="text-white mt-2 leading-[1.05]"
+        style={{ fontFamily: '"Anton", sans-serif', fontSize: '1.65rem', letterSpacing: '0.01em' }}
+      >
+        {item.name}
+      </h3>
+      <div className="mt-3 h-[3px] w-8 bg-[#D4142A] rounded-full transition-all duration-500 group-hover:w-14" />
+    </div>
+  </motion.div>
+);
+
 const QLeague = () => {
   const navigate = useNavigate();
-  
+
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      {/* MATCHED SPORTS BACKGROUND MATRIX */}
-      <ContinuousSportsBackground />
-      
-      {/* MATCHED PARALLAX IMAGE BACKGROUND */}
+    <div className="relative min-h-screen overflow-x-hidden" style={{ fontFamily: '"Manrope", sans-serif' }}>
+      <ScoreboardBackground />
       <ParallaxImageBackground image={backgroundImage} />
-      
+
       <div className="relative z-10 w-full">
         {/* Navigation */}
         <nav className="max-w-7xl mx-auto px-6 pt-10">
@@ -133,78 +172,65 @@ const QLeague = () => {
             onClick={() => navigate(-1)}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-gray-200 text-gray-700 hover:text-[#C21807] transition-all shadow-sm cursor-pointer"
+            className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/15 text-[#F4F2ED] hover:border-[#D4142A]/60 hover:text-white transition-all cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-semibold">Back to Services</span>
           </motion.button>
         </nav>
 
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 text-center px-6">
-          <div className="max-w-4xl mx-auto space-y-6">
+        {/* Hero — scale: eyebrow 11px / h1 clamp 1.75–2.75rem / body 1rem */}
+        <section className="pt-12 pb-14 px-6 text-center">
+          <div className="max-w-2xl mx-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#D4142A]/40 bg-[#D4142A]/10 mb-5"
             >
-              <Trophy className="w-4 h-4 text-[#C21807]" />
-              <span className="text-xs font-bold text-[#C21807] uppercase tracking-widest">Quarterly Tournaments</span>
+              <Trophy className="w-3.5 h-3.5 text-[#E8B923]" />
+              <span className="text-[11px] font-bold text-[#E8B923] uppercase tracking-[0.2em]">
+                Quarterly Tournaments
+              </span>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-black text-white leading-tight"
+              className="text-[#F4F2ED] leading-[1.15] font-bold text-5xl"
             >
-              Q-League — <br />
-              <span className="text-red-500">
-                Compete. Connect. Conquer.
-              </span>
+              Q-LEAGUE —{' '}
+              <span className="text-[#D4142A]">COMPETE. CONNECT. CONQUER.</span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-slate-300 text-lg max-w-2xl mx-auto font-medium"
+              className="mt-5 text-white/60 text-base max-w-md mx-auto leading-relaxed"
             >
-              Every quarter, <span className="text-white font-bold">HAKIRUSH</span> brings together <span className="text-red-500 font-bold">10+ companies</span> for high-octane corporate showdowns.
+              Every quarter, <span className="text-[#F4F2ED] font-semibold">HAKIRUSH</span> brings{' '}
+              <span className="text-[#D4142A] font-semibold">10+ companies</span> together for
+              high-octane corporate showdowns.
             </motion.p>
           </div>
         </section>
 
-        {/* Calendar Grid */}
-        <section className="pb-20 px-6">
+        {/* Tournament grid */}
+        <section className="pb-24 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {quarters.map((item, index) => (
-                <motion.div 
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-                  viewport={{ once: true }}
-                  className="group relative h-[450px] rounded-[2rem] overflow-hidden shadow-2xl bg-slate-800/90 border border-slate-700"
-                >
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                  
-                  <div className="absolute top-6 left-6">
-                    <span className="px-4 py-1.5 bg-[#C21807] text-white text-xs font-black rounded-full shadow-lg">
-                      {item.quarter}
-                    </span>
-                  </div>
+            <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
+              <h2
+                className="text-[#F4F2ED]"
+                style={{ fontSize: '1.85rem' }}
+              >
+                THE FOUR ROUNDS
+              </h2>
+              <span className="text-sm text-white/40 font-medium">4 tournaments · one calendar year</span>
+            </div>
 
-                  <div className="absolute bottom-8 left-8 right-8 space-y-1">
-                    <h3 className="text-2xl font-black text-white">{item.name}</h3>
-                    <p className="text-red-400 font-bold uppercase tracking-widest text-xs">{item.sport}</p>
-                  </div>
-                </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {quarters.map((item, index) => (
+                <MatchCard key={item.id} item={item} index={index} />
               ))}
             </div>
           </div>
@@ -212,57 +238,94 @@ const QLeague = () => {
 
         {/* Benefits & CTA */}
         <section className="pb-24 px-6">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6">
             {/* Features Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-slate-800/90 backdrop-blur-md p-10 rounded-[2.5rem] shadow-xl border border-slate-700"
+              className="relative bg-[#14161A] p-8 md:p-10 rounded-3xl border border-white/10 overflow-hidden"
             >
-              <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-3">
-                <CheckCircle className="text-[#C21807]" /> What's Included
-              </h2>
-              <ul className="space-y-5">
-                {features.map((item, i) => (
-                  <li key={i} className="flex gap-4 text-slate-300 font-medium italic">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#C21807] mt-2.5 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div
+                className="absolute -bottom-8 -right-4 select-none font-black text-white/[0.03] leading-none pointer-events-none"
+                style={{ fontFamily: '"Anton", sans-serif', fontSize: '10rem' }}
+              >
+                01
+              </div>
+              <div className="relative z-10">
+                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8B923]">
+                  The Kit
+                </span>
+                <div className="flex items-center gap-3 mt-3 mb-8">
+                  <div className="p-2.5 bg-[#D4142A] rounded-xl">
+                    <CheckCircle2 className="w-5 h-5 text-white" strokeWidth={2.5} />
+                  </div>
+                  <h3 className="text-[#F4F2ED]" style={{ fontFamily: '"Anton", sans-serif', fontSize: '1.4rem' }}>
+                    What's Included
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  {features.map((item, i) => (
+                    <li key={i} className="flex gap-3 items-start text-white/65">
+                      <div className="mt-2 w-1 h-1 rounded-full bg-[#D4142A] shrink-0" />
+                      <span className="text-[15px] leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
 
             {/* Benefits Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-slate-800/90 backdrop-blur-md p-10 rounded-[2.5rem] shadow-xl border border-slate-700"
+              className="relative bg-[#14161A] p-8 md:p-10 rounded-3xl border border-white/10 overflow-hidden"
             >
-              <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-3">
-                <Trophy className="text-[#C21807]" /> Core Benefits
-              </h2>
-              <ul className="space-y-5">
-                {benefits.map((item, i) => (
-                  <li key={i} className="flex gap-4 text-slate-300 font-medium">
-                    <CheckCircle className="w-5 h-5 text-[#C21807] shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div
+                className="absolute -bottom-8 -right-4 select-none font-black text-white/[0.03] leading-none pointer-events-none"
+                style={{ fontFamily: '"Anton", sans-serif', fontSize: '10rem' }}
+              >
+                02
+              </div>
+              <div className="relative z-10">
+                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8B923]">
+                  The Payoff
+                </span>
+                <div className="flex items-center gap-3 mt-3 mb-8">
+                  <div className="p-2.5 bg-[#D4142A] rounded-xl">
+                    <Trophy className="w-5 h-5 text-white" strokeWidth={2.5} />
+                  </div>
+                  <h3 className="text-[#F4F2ED]" style={{ fontFamily: '"Anton", sans-serif', fontSize: '1.4rem' }}>
+                    Core Benefits
+                  </h3>
+                </div>
+                <ul className="space-y-4">
+                  {benefits.map((item, i) => (
+                    <li key={i} className="flex gap-3 items-start text-white/65">
+                      <div className="mt-2 w-1 h-1 rounded-full bg-[#D4142A] shrink-0" />
+                      <span className="text-[15px] leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           </div>
 
-          <div className="mt-20 text-center">
+          {/* CTA */}
+          <div className="mt-16 flex flex-col items-center text-center">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+              Four rounds. One champion.
+            </span>
             <Link to="/contact">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative inline-flex items-center gap-4 px-12 py-6 bg-[#C21807] text-white font-black text-xl rounded-2xl shadow-[0_20px_50px_rgba(194,24,7,0.3)] hover:bg-red-700 transition-all duration-300 cursor-pointer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-3 px-10 py-5 bg-[#D4142A] text-white font-bold text-lg rounded-2xl shadow-[0_20px_60px_-15px_rgba(212,20,42,0.5)] hover:bg-[#B5102380] transition-colors cursor-pointer"
+                style={{ fontFamily: '"Anton", sans-serif', letterSpacing: '0.02em' }}
               >
-                Register for Q-League
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                REGISTER FOR Q-LEAGUE
+                <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
           </div>

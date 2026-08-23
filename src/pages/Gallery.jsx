@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
-import { 
-  Camera, Sparkles, X, Star, Trophy, Activity, 
-  Target, CircleDot, Dumbbell, Flag, Zap, Play 
-} from "lucide-react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import { Camera, Sparkles, X, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import PageBackground from "../components/PageBackground";
 import backgroundImage from "../assets/Hero/Backimage.png";
 
 // Import your assets
@@ -21,39 +19,21 @@ import Behind2 from "../assets/Gallery/BehindTheSceans/behind2.JPG";
 import Behind3 from "../assets/Gallery/BehindTheSceans/behind3.JPG";
 import VideoThumbnail1 from "../assets/Pilot/Video 1.mp4";
 
-// --- BACKGROUND SUB-COMPONENT ---
-const ContinuousSportsBackground = () => {
-  const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
-  const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
-
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
-      <div className="flex absolute top-[10%] opacity-[0.04]">
-        <motion.div initial={{ x: 0 }} animate={{ x: "-100%" }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }} className="flex gap-24 pr-24 whitespace-nowrap">
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
-        </motion.div>
-      </div>
-      <div className="flex absolute top-[40%] opacity-[0.03]">
-        <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ duration: 50, repeat: Infinity, ease: "linear" }} className="flex gap-32 pr-32 whitespace-nowrap">
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
-        </motion.div>
-      </div>
-      <div className="flex absolute top-[70%] opacity-[0.04]">
-        <motion.div initial={{ x: 0 }} animate={{ x: "-100%" }} transition={{ duration: 35, repeat: Infinity, ease: "linear" }} className="flex gap-20 pr-20 whitespace-nowrap">
-          {row1.map((Icon, i) => <Icon key={i} size={80} className="text-red-900" strokeWidth={0.8} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={80} className="text-red-900" strokeWidth={0.8} />)}
-        </motion.div>
-      </div>
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
-      }} />
-    </div>
-  )
-}
+/* ------------------------------------------------------------------ */
+/*  NOTE ON TYPE: this design pairs a restrained serif display face   */
+/*  with a clean grotesque body face for an "editorial trophy room"   */
+/*  feel. Add these once, e.g. in index.html <head> or your global    */
+/*  CSS, then the `font-display` / `font-body` classes below work:    */
+/*                                                                    */
+/*  <link rel="preconnect" href="https://fonts.googleapis.com">       */
+/*  <link href="https://fonts.googleapis.com/css2?family=Fraunces:   */
+/*  opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&   */
+/*  display=swap" rel="stylesheet">                                   */
+/*                                                                    */
+/*  tailwind.config.js:                                               */
+/*  fontFamily: { display: ['"Fraunces"', 'serif'],                   */
+/*                body: ['"Inter"', 'sans-serif'] }                   */
+/* ------------------------------------------------------------------ */
 
 const ParallaxImageBackground = ({ image }) => {
   const containerRef = useRef(null);
@@ -88,15 +68,17 @@ const ParallaxImageBackground = ({ image }) => {
         className="w-full h-full object-cover object-center will-change-transform"
         transition={{ type: "tween" }}
       />
-      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      {/* Deeper, warmer vignette for a more premium, less "raw photo" feel */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/50 to-slate-950/85" />
+      <div className="absolute inset-0 bg-slate-950/30 mix-blend-multiply" />
     </div>
   );
 };
 
 const galleryData = {
   annual: [
-    { id: 1, type: "video", img: Cricket, city: "City A", },
-    { id: 2, type: "video", img: Badminton, city: "City A", },
+    { id: 1, type: "video", img: Cricket, city: "City A" },
+    { id: 2, type: "video", img: Badminton, city: "City A" },
   ],
   quarterly: [
     { id: 4, type: "image", img: Basketball, city: "City C" },
@@ -126,161 +108,286 @@ const tabLabels = {
 const GalleryPage = () => {
   const [activeTab, setActiveTab] = useState("annual");
   const [cityFilter] = useState("All");
-  const [lightbox, setLightbox] = useState(null);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const filteredImages =
     cityFilter === "All"
       ? galleryData[activeTab]
       : galleryData[activeTab].filter((img) => img.city === cityFilter);
 
+  const lightbox = lightboxIndex !== null ? filteredImages[lightboxIndex] : null;
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const showPrev = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setLightboxIndex((i) => (i - 1 + filteredImages.length) % filteredImages.length);
+    },
+    [filteredImages.length]
+  );
+  const showNext = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setLightboxIndex((i) => (i + 1) % filteredImages.length);
+    },
+    [filteredImages.length]
+  );
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showPrev(e);
+      if (e.key === "ArrowRight") showNext(e);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIndex, closeLightbox, showPrev, showNext]);
+
   return (
-    <div className="relative overflow-hidden min-h-screen">
-      <ContinuousSportsBackground />
+    <div className="relative overflow-hidden min-h-screen font-body">
+      <PageBackground />
       <ParallaxImageBackground image={backgroundImage} />
 
       <div className="relative z-10">
-        <section className="relative pt-20 pb-8">
-          <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-4xl mx-auto px-6">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-6">
-              <Camera className="w-4 h-4 text-red-500" />
-              <span className="text-sm font-bold text-slate-200">Visual Memories</span>
+        <section className="relative pt-24 pb-10">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center max-w-4xl mx-auto px-6"
+          >
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 shadow-lg backdrop-blur-md mb-8">
+              <Camera className="w-3.5 h-3.5 text-red-400" />
+              <span className="text-[11px] tracking-[0.25em] uppercase font-semibold text-slate-300">
+                Visual Memories
+              </span>
             </div>
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-red-600 shadow-2xl shrink-0">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-                Event <span className="text-red-500">Gallery</span>
-              </h1>
-            </div>
-            <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium">
+
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight leading-[1.05]">
+              Event <span className="text-red-600">Gallery</span>
+            </h1>
+
+            <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mx-auto">
               Relive the energy, passion, and competition from our corporate tournaments through stunning visual moments.
             </p>
           </motion.div>
         </section>
 
-        <section className="py-12">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-              {Object.keys(tabLabels).map((tab) => (
-                <motion.button
-                  key={tab}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-semibold border-2 cursor-pointer transition-all duration-300 shadow-md ${
-                    activeTab === tab
-                      ? "bg-red-600 text-white border-transparent shadow-lg shadow-red-600/30"
-                      : "text-slate-300 border-slate-700 hover:border-red-500 bg-slate-800/80 backdrop-blur-sm"
-                  }`}
-                >
-                  {tabLabels[tab]}
-                </motion.button>
-              ))}
+        <section className="py-8 sticky top-0 z-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="max-w-7xl mx-auto px-6"
+          >
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-1 sm:gap-2 rounded-full border border-white/10 bg-slate-950/60 backdrop-blur-xl px-1.5 py-1.5 shadow-2xl overflow-x-auto max-w-full">
+                {Object.keys(tabLabels).map((tab) => {
+                  const isActive = activeTab === tab;
+                  return (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`relative whitespace-nowrap px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-colors duration-300 ${
+                        isActive ? "text-slate-950" : "text-slate-300 hover:text-white"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="tab-pill"
+                          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                          className="absolute inset-0 rounded-full bg-red-600 shadow-md pointer-events-none"
+                        />
+                      )}
+                      <span className="relative z-10">{tabLabels[tab]}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
         </section>
 
-        <section className="py-12">
+        <section className="py-10">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredImages.map((item, idx) => {
-                const isVideo = item.type === "video";
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[220px] gap-4 sm:gap-5"
+              >
+                {filteredImages.map((item, idx) => {
+                  const isVideo = item.type === "video";
+                  const isFeature = idx === 0 && filteredImages.length > 2;
 
-                return (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.05 }}
-                    viewport={{ once: true }}
-                    whileHover={{ y: -8 }}
-                    onClick={() => setLightbox(item)}
-                    className="group relative cursor-pointer rounded-2xl overflow-hidden aspect-square bg-slate-800 shadow-xl border border-slate-800/50"
-                  >
-                    {/* FIXED: Removed autoPlay so card is a static, paused preview frame */}
-                    {isVideo ? (
-                      <video
-                        src={item.img}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 relative z-0"
-                        preload="metadata"
-                        muted
-                        playsInline
-                      />
-                    ) : (
-                      <img
-                        src={item.img}
-                        alt="Gallery Grid item"
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      whileHover={{ y: -6 }}
+                      onClick={() => setLightboxIndex(idx)}
+                      className={`group relative cursor-pointer rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-xl ${
+                        isFeature ? "col-span-2 row-span-2" : ""
+                      }`}
+                    >
                       {isVideo ? (
-                        <Play className="w-8 h-8 text-white" fill="currentColor" />
+                        <video
+                          src={item.img}
+                          className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out relative z-0"
+                          preload="metadata"
+                          muted
+                          playsInline
+                        />
                       ) : (
-                        <Camera className="w-8 h-8 text-white" />
+                        <img
+                          src={item.img}
+                          alt="Gallery item"
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[900ms] ease-out"
+                        />
                       )}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+
+                      {/* Gradient scrim always faintly present, deepens on hover — reads as premium, not flat black overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-slate-950/0 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <div className="absolute inset-0 flex flex-col justify-end p-4 z-10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                        <div className="flex items-center gap-2">
+                          {isVideo ? (
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20">
+                              <Play className="w-3.5 h-3.5 text-white" fill="currentColor" />
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20">
+                              <Camera className="w-3.5 h-3.5 text-white" />
+                            </span>
+                          )}
+                          <span className="text-xs font-medium text-slate-200 tracking-wide">{item.city}</span>
+                        </div>
+                      </div>
+
+                      {/* Hairline border glow on hover */}
+                      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 group-hover:ring-amber-400/30 transition-all duration-500 pointer-events-none" />
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
       </div>
 
-      <div className="relative z-10 px-6 py-16">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-            Our Pilot Event <span className="text-red-500">Highlight</span>
-          </h2>
-          <p className="mt-4 max-w-3xl text-slate-300 leading-relaxed">
-            Watch the highlights from our pilot event below. The video captures the best moments from the opening showcase.
-          </p>
-          <section className="py-12">
-            <div className="mx-auto max-w-4xl overflow-hidden rounded-[28px] shadow-2xl border border-slate-700">
-              <video src={VideoThumbnail1} controls className="w-full h-auto max-h-[620px]" poster="">
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </section>
+      <div className="relative z-10 px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <span className="text-[11px] tracking-[0.25em] uppercase font-semibold text-amber-400">Featured</span>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight mt-3">
+              Our Pilot Event <span className="italic text-red-500">Highlight</span>
+            </h2>
+            <p className="mt-4 max-w-xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
+              Watch the highlights from our pilot event below — the best moments from the opening showcase.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative mx-auto max-w-4xl rounded-[28px] overflow-hidden shadow-2xl border border-white/10 ring-1 ring-black/40"
+          >
+            <div className="absolute -inset-px rounded-[28px] bg-gradient-to-r from-amber-400/20 via-transparent to-red-500/20 pointer-events-none" />
+            <video src={VideoThumbnail1} controls className="w-full h-auto max-h-[620px] relative z-10" poster="">
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
         </div>
       </div>
 
-      {lightbox && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/95 backdrop-blur-sm flex justify-center items-center z-50 p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button className="absolute top-6 right-6 text-white bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors">
-            <X />
-          </button>
-          {/* Lightbox plays the video immediately on opening */}
-          {lightbox.type === "video" ? (
-            <motion.video
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              src={lightbox.img}
-              controls
-              autoPlay
-              playsInline
-              className="max-h-[90vh] max-w-[90vw] rounded-2xl shadow-2xl"
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-950/95 backdrop-blur-md flex justify-center items-center z-50 p-4"
+            onClick={closeLightbox}
+          >
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-20"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {filteredImages.length > 1 && (
+              <>
+                <button
+                  onClick={showPrev}
+                  className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-20"
+                  aria-label="Previous"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={showNext}
+                  className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-20"
+                  aria-label="Next"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+
+            <motion.div
+              key={lightbox.id}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center max-w-[92vw]"
               onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <motion.img
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              src={lightbox.img}
-              className="max-h-[90vh] max-w-[90vw] rounded-2xl shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
-        </motion.div>
-      )}
+            >
+              {lightbox.type === "video" ? (
+                <video
+                  src={lightbox.img}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="max-h-[78vh] max-w-[92vw] rounded-2xl shadow-2xl border border-white/10"
+                />
+              ) : (
+                <img
+                  src={lightbox.img}
+                  alt="Gallery enlarged"
+                  className="max-h-[78vh] max-w-[92vw] rounded-2xl shadow-2xl border border-white/10"
+                />
+              )}
+              <div className="mt-4 flex items-center gap-3 text-slate-300 text-xs tracking-wide">
+                <span>{lightbox.city}</span>
+                <span className="w-1 h-1 rounded-full bg-slate-500" />
+                <span>
+                  {lightboxIndex + 1} / {filteredImages.length}
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

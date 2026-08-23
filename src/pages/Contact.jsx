@@ -9,43 +9,49 @@ import {
 } from "lucide-react";
 import backgroundImage from "../assets/Hero/Backimage.png"; // Kept consistent with visual template parallax assets
 
-// --- BACKGROUND SUB-COMPONENT (Consistent layout architecture) ---
+/* ------------------------------------------------------------------ */
+/*  Same accent pair + hairline signature as About.jsx, so Contact      */
+/*  reads as the same site rather than a different template.            */
+/* ------------------------------------------------------------------ */
+const ACCENT = "#8C1D2B"; // deep burgundy
+const GOLD = "#D4AF37";   // highlight gold
+const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
+
+// --- BACKGROUND SUB-COMPONENT (dark theme, matching Navbar/About/Gallery) ---
 const ContinuousSportsBackground = () => {
   const row1 = [Trophy, Activity, Target, CircleDot, Star, Dumbbell];
   const row2 = [Flag, Zap, Trophy, Activity, Target, Star];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20 bg-[#05070a]">
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[120px]" style={{ background: `${ACCENT}22` }} />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full blur-[120px]" style={{ background: `${GOLD}14` }} />
 
-      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
+      <div className="flex absolute top-[10%] opacity-[0.05] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-white" strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-white" strokeWidth={1} />)}
         </motion.div>
       </div>
 
-      <div className="flex absolute top-[60%] opacity-[0.03] w-full overflow-hidden">
+      <div className="flex absolute top-[60%] opacity-[0.04] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-white" strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-white" strokeWidth={0.5} />)}
         </motion.div>
       </div>
 
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: "radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.7) 100%)"
-      }} />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-slate-950/10 via-slate-950/40 to-slate-950/80" />
     </div>
   )
 }
@@ -81,10 +87,10 @@ const ParallaxImageBackground = ({ image }) => {
         src={image}
         alt=""
         style={{ x: translateX, y: useTransform([translateY, scrollTranslateY], ([ty, sy]) => ty + sy), scale }}
-        className="w-full h-full object-cover object-center will-change-transform"
+        className="w-full h-full object-cover object-center will-change-transform opacity-70"
         transition={{ type: "tween" }}
       />
-      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/55 to-slate-950/85" />
     </div>
   );
 };
@@ -110,6 +116,15 @@ const socialLinks = [
   { icon: TwitterIcon, url: "https://x.com/Hakirush_sports?t=imr-ZZmYL7pGFek5b_8J9A&s=09" },
   { icon: Youtube, url: "https://www.youtube.com/@HakirushSportsEvents" },
 ];
+
+/* Shared dark card shell — same hairline signature as the white
+   PremiumCard on About.jsx, adapted for dark glass surfaces. */
+const PremiumDarkCard = ({ children, className = "" }) => (
+  <div className={`relative overflow-hidden rounded-2xl bg-slate-800/90 backdrop-blur-md border border-slate-700 ${className}`}>
+    <span className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: HAIRLINE }} />
+    {children}
+  </div>
+);
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", message: "" });
@@ -154,22 +169,28 @@ export default function Contact() {
 
       <div className="relative z-10 w-full">
         {/* HERO SECTION */}
-        <section className="pt-20 pb-10">
+        <section className="pt-24 pb-10">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-8">
-                <MessageSquare className="w-4 h-4 text-red-500" />
+                <MessageSquare className="w-4 h-4" style={{ color: GOLD }} />
                 <span className="text-sm font-bold text-slate-200">We're Here to Help</span>
               </div>
 
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-3xl bg-red-600 shadow-xl flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-white" />
+                <div
+                  className="relative w-16 h-16 rounded-3xl shadow-xl flex items-center justify-center overflow-hidden"
+                  style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
+                >
+                  <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+                  <Mail className="relative w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">
-                  Get in <span className="text-red-500">Touch</span>
+                <h1 className="font-serif text-4xl md:text-5xl font-black tracking-tight text-white">
+                  Get in <span style={{ color: GOLD }}>Touch</span>
                 </h1>
               </div>
+
+              <div className="w-16 h-px mx-auto rounded-full" style={{ background: HAIRLINE }} />
             </motion.div>
           </div>
         </section>
@@ -186,7 +207,7 @@ export default function Contact() {
               className="space-y-8"
             >
               <div className="space-y-4">
-                <h2 className="text-3xl font-black text-white">Let's <span className="text-red-500">Connect</span></h2>
+                <h2 className="font-serif text-3xl font-black text-white">Let's <span style={{ color: GOLD }}>Connect</span></h2>
                 <p className="text-slate-300 font-medium">Ready to transform your workplace culture? Let's create sports experiences that inspire energy, unity & performance.</p>
               </div>
 
@@ -198,35 +219,45 @@ export default function Contact() {
                   { icon: <MapPin />, label: "Address", value: contactDetails.address },
                   { icon: <Clock />, label: "Hours", value: contactDetails.hours },
                 ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ x: 10 }}
-                    className="flex items-center gap-5 p-5 rounded-2xl bg-slate-800/90 backdrop-blur-md border border-slate-700 shadow-sm hover:shadow-md hover:border-red-600 transition-all"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center shrink-0">
-                      {React.cloneElement(item.icon, { size: 20 })}
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider text-red-400">{item.label}</p>
-                      {item.href ? (
-                        <a href={item.href} className="text-white font-bold hover:text-red-400 transition-colors">{item.value}</a>
-                      ) : (
-                        <p className="text-white font-bold leading-tight">{item.value}</p>
-                      )}
-                    </div>
+                  <motion.div key={i} whileHover={{ x: 10 }}>
+                    <PremiumDarkCard className="flex items-center gap-5 p-5 shadow-sm hover:shadow-md transition-all" >
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ring-1 ring-white/10"
+                        style={{ background: `${ACCENT}33`, color: GOLD }}
+                      >
+                        {React.cloneElement(item.icon, { size: 20 })}
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider" style={{ color: GOLD }}>{item.label}</p>
+                        {item.href ? (
+                          <a href={item.href} className="text-white font-bold transition-colors" style={{ '--tw-text-opacity': 1 }} onMouseEnter={(e) => e.currentTarget.style.color = GOLD} onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}>
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="text-white font-bold leading-tight">{item.value}</p>
+                        )}
+                      </div>
+                    </PremiumDarkCard>
                   </motion.div>
                 ))}
               </div>
 
               {/* SOCIALS */}
-              <div className="p-6 rounded-3xl bg-red-900 text-white shadow-2xl">
+              <div
+                className="relative overflow-hidden p-6 rounded-3xl text-white shadow-2xl"
+                style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
+              >
+                <span className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: HAIRLINE }} />
                 <h3 className="font-bold mb-4">Follow Our Journey</h3>
                 <div className="flex gap-3">
                   {socialLinks.map((s, i) => (
                     <motion.a 
                       key={i} href={s.url} target="_blank" rel="noopener noreferrer"
                       whileHover={{ y: -5, scale: 1.1 }}
-                      className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white hover:text-red-900 flex items-center justify-center transition-all"
+                      className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white flex items-center justify-center transition-all"
+                      style={{ color: 'white' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'white')}
                     >
                       <s.icon className="w-5 h-5" />
                     </motion.a>
@@ -240,42 +271,46 @@ export default function Contact() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-slate-800/90 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-slate-700 relative"
             >
-              <h2 className="text-2xl font-black text-white mb-8">Send a <span className="text-red-500">Message</span></h2>
-              <form onSubmit={(e) => { e.preventDefault(); sendMail(); }} className="space-y-5">
-                <div className="grid md:grid-cols-2 gap-5">
-                  <InputField label="Name" name="name" value={formData.name} onChange={handleInput} required />
-                  <InputField label="Email" name="email" type="email" value={formData.email} onChange={handleInput} required />
-                </div>
-                <div className="grid md:grid-cols-2 gap-5">
-                  <InputField label="Company" name="company" value={formData.company} onChange={handleInput} />
-                  <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInput} />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-200 mb-2">Message *</label>
-                  <textarea
-                    name="message" rows="4" required value={formData.message} onChange={handleInput}
-                    placeholder="How can we help you?"
-                    className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-red-500 focus:bg-slate-700 transition-all"
-                  />
-                </div>
-                <motion.button
-                  type="submit" disabled={!canSubmit}
-                  whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  className="w-full bg-red-600 text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl shadow-red-600/30 disabled:opacity-50 disabled:shadow-none hover:bg-red-700 transition-all cursor-pointer"
-                >
-                  <Send size={20} />
-                  {loading ? "Sending..." : "Send Message"}
-                </motion.button>
-              </form>
+              <PremiumDarkCard className="p-8 md:p-10 rounded-[2.5rem] shadow-2xl">
+                <h2 className="font-serif text-2xl font-black text-white mb-8">Send a <span style={{ color: GOLD }}>Message</span></h2>
+                <form onSubmit={(e) => { e.preventDefault(); sendMail(); }} className="space-y-5">
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <InputField label="Name" name="name" value={formData.name} onChange={handleInput} required />
+                    <InputField label="Email" name="email" type="email" value={formData.email} onChange={handleInput} required />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <InputField label="Company" name="company" value={formData.company} onChange={handleInput} />
+                    <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInput} />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-200 mb-2">Message *</label>
+                    <textarea
+                      name="message" rows="4" required value={formData.message} onChange={handleInput}
+                      placeholder="How can we help you?"
+                      className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:bg-slate-700 transition-all"
+                    />
+                  </div>
+                  <motion.button
+                    type="submit" disabled={!canSubmit}
+                    whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                    className="group relative w-full overflow-hidden text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-xl disabled:opacity-50 disabled:shadow-none transition-all cursor-pointer"
+                    style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)`, boxShadow: `0 20px 40px -15px ${ACCENT}80` }}
+                  >
+                    <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
+                    <Send size={20} className="relative" />
+                    <span className="relative">{loading ? "Sending..." : "Send Message"}</span>
+                  </motion.button>
+                </form>
+              </PremiumDarkCard>
             </motion.div>
           </div>
         </section>
 
         {/* MAP SECTION */}
         <section className="max-w-7xl mx-auto px-6 py-20">
-          <div className="rounded-[3rem] overflow-hidden border-8 border-slate-700 shadow-2xl bg-white">
+          <div className="relative rounded-[3rem] overflow-hidden shadow-2xl bg-white ring-1 ring-slate-700" style={{ border: `8px solid #1e293b` }}>
+            <span className="absolute top-0 left-0 right-0 h-[3px] z-10" style={{ background: HAIRLINE }} />
             <iframe
               title="Location" className="w-full h-[450px] border-0"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.514686411516!2d77.6256!3d12.9392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzIxLjEiTiA3N8KwMzcnMzIuMiJF!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin"
@@ -294,7 +329,7 @@ function InputField({ label, name, type = "text", value, onChange, required }) {
       <label className="block text-sm font-bold text-slate-200">{label} {required && "*"}</label>
       <input
         type={type} name={name} required={required} value={value} onChange={onChange}
-        className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-red-500 focus:bg-slate-700 transition-all"
+        className="w-full p-4 bg-slate-700/50 border border-slate-600 rounded-2xl outline-none text-white placeholder-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:bg-slate-700 transition-all"
       />
     </div>
   );

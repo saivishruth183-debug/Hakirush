@@ -3,9 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } fro
 import { ArrowRight, BadgeCheck, BarChart3, HeartPulse, ShieldCheck, Sparkles, Users2, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-/* ------------------------------------------------------------------ */
-/*  Shared tilt hook — same physics as the navbar/footer 3D elements   */
-/* ------------------------------------------------------------------ */
+
 const useTilt = (strength = 10, disabled = false) => {
   const ref = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -37,7 +35,6 @@ const useTilt = (strength = 10, disabled = false) => {
   return { ref, x, y, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave };
 };
 
-/* Palette — gold for premium/structural detail, red for energy/action. Both, deliberately. */
 const GOLD = '#D4AF37';
 const RED = '#E50914';
 const CARD = '#111112';
@@ -75,11 +72,7 @@ const reasons = [
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Corner frame — the signature: a museum-plaque bracket that draws   */
-/*  in tighter on hover and shifts from gold to red, echoing           */
-/*  HAKIRUSH's badge/recognition language in both accent colors        */
-/* ------------------------------------------------------------------ */
+
 const CornerMark = ({ corner, active }) => {
   const pos = {
     tl: 'top-3 left-3 border-t border-l',
@@ -214,7 +207,7 @@ const TrustPlaque = () => (
     <div className="relative rounded-[15px] p-6" style={{ background: CARD }}>
       <CornerMark corner="tl" active={false} />
       <CornerMark corner="br" active={false} />
-      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#D4AF37]">
+      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-red-600">
         <BadgeCheck size={14} />
         Trusted Nationwide
       </div>
@@ -244,19 +237,11 @@ const OurPlans = () => (
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl leading-tight">
             Premium employee engagement,{' '}
-            <span className="text-[#C1392B]">built for modern organisations.</span>
+            <span className="text-red-600">built for modern organisations.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#A8A8A8]">
             HAKIRUSH brings together sport, culture, wellness and recognition in one platform for companies that want engagement they can actually measure.
           </p>
-
-          <Link
-            to="/haki-rank"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37] transition-colors hover:text-[#E50914]"
-          >
-            See how HAKI RANK turns participation into recognition
-            <ArrowRight size={15} />
-          </Link>
         </div>
 
         <TrustPlaque />

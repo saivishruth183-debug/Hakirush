@@ -1,12 +1,8 @@
-import { Menu, X, Linkedin, Instagram, Youtube, Facebook, Zap } from 'lucide-react'
+import { Linkedin, Instagram, Facebook, Zap, Home as HomeIcon, Info, Briefcase, Image as ImageIcon, Users, Mail } from 'lucide-react'
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
-/* ------------------------------------------------------------------ */
-/*  Small reusable hook: tracks normalized cursor position (-0.5..0.5) */
-/*  over a ref'd element, for consistent 3D tilt behavior everywhere.  */
-/* ------------------------------------------------------------------ */
 const useTilt = (strength = 16) => {
   const ref = useRef(null)
   const [isHovered, setIsHovered] = useState(false)
@@ -235,30 +231,48 @@ const JoinUsButton3D = () => {
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  3D MOBILE TOGGLE — presses inward in Z-space on tap                */
-/* ------------------------------------------------------------------ */
-const MobileToggle3D = ({ isOpen, onClick }) => (
-  <div style={{ perspective: 400 }}>
-    <motion.button
-      onClick={onClick}
-      whileTap={{ rotateX: 25, scale: 0.9 }}
-      style={{ transformStyle: 'preserve-3d' }}
-      className="relative md:hidden p-3 rounded-xl bg-white/10 border border-white/10 text-white shadow-sm"
-      aria-label="Toggle menu"
-    >
-      <span style={{ transform: 'translateZ(6px)', display: 'block' }}>
-        {isOpen ? <X size={22} /> : <Menu size={22} />}
-      </span>
-    </motion.button>
-  </div>
-)
+const BottomNav = ({ items }) => {
+  const { pathname } = useLocation()
+
+  return (
+    <div className="md:hidden fixed bottom-4 inset-x-0 z-[100] flex justify-center px-4 pointer-events-none">
+      <div className="pointer-events-auto flex items-center gap-0.5 px-2 py-2 rounded-full bg-[#0b0e14]/90 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+        {items.map((item) => {
+          const isActive = pathname === item.href
+          const Icon = item.icon
+          return (
+            <Link
+              key={item.name}
+              to={item.href}
+              aria-label={item.name}
+              className="relative flex items-center justify-center w-11 h-11 rounded-full"
+            >
+              {isActive && (
+                <motion.span
+                  layoutId="bottom-nav-active"
+                  className="absolute inset-0 rounded-full bg-red-600/15 ring-1 ring-red-600/50"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Icon
+                size={19}
+                strokeWidth={isActive ? 2.5 : 2}
+                className={`relative z-10 transition-colors duration-200 ${
+                  isActive ? 'text-red-500' : 'text-slate-400'
+                }`}
+              />
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
 /* ------------------------------------------------------------------ */
 /*  MAIN NAVBAR                                                        */
 /* ------------------------------------------------------------------ */
 const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
 
@@ -276,6 +290,15 @@ const Navbar = () => {
     { name: 'Clients', href: '/clients' },
   ]
 
+  // Same destinations as `navigation`, plus Contact — icon-mapped for the bottom nav.
+  const bottomNavItems = [
+    { name: 'Home', href: '/', icon: HomeIcon },
+    { name: 'About', href: '/about', icon: Info },
+    { name: 'Services', href: '/services', icon: Briefcase },
+    { name: 'Gallery', href: '/gallery', icon: ImageIcon },
+    { name: 'Clients', href: '/clients', icon: Users },
+  ]
+
   const TwitterIcon = ({ className }) => (
     <svg viewBox="0 0 1200 1227" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
       <path d="M714.2 519.1L1160.9 0H1055.7L667.1 450.2L358.1 0H0L468.6 681.8L0 1226.4H105.3L515.8 750.8L842 1226.4H1200L714.2 519.1ZM570.9 687.5L523.4 620.1L146.7 79.7H311.5L615.4 520.2L662.9 587.6L1055.7 1146.7H890.9L570.9 687.5Z" />
@@ -290,85 +313,42 @@ const Navbar = () => {
   ]
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 font-sans ${
-        scrolled
-          ? 'py-2 bg-[#05070a]/95 backdrop-blur-xl border-b border-white/10 shadow-lg'
-          : 'py-2 bg-[#05070a]'
-      }`}
-    >
-      <nav className="px-9 sm:px-15">
-        <div className="flex justify-between items-center h-16">
-          {/* LOGO — full 3D extruded badge */}
-          <Logo3D />
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 font-sans ${
+          scrolled
+            ? 'py-2 bg-[#05070a]/95 backdrop-blur-xl border-b border-white/10 shadow-lg'
+            : 'py-2 bg-[#05070a]'
+        }`}
+      >
+        <nav className="px-9 sm:px-15">
+          <div className="flex justify-between items-center h-16">
+            {/* LOGO — full 3D extruded badge */}
+            <Logo3D />
 
-          {/* DESKTOP NAV — each pill tilts toward the cursor */}
-          <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-2xl px-2 py-1 shadow-sm">
-            {navigation.map((item) => (
-              <NavLink3D key={item.name} item={item} isActive={pathname === item.href} />
-            ))}
-          </div>
-
-          {/* RIGHT ACTION AREA */}
-          <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
-              {socialmedia.map((item, index) => (
-                <SocialIcon3D key={index} item={item} />
-              ))}
-            </div>
-
-            {/* "Join Us" CTA — full 3D extruded slab */}
-            <JoinUsButton3D />
-
-            {/* Mobile Toggle — 3D press */}
-            <MobileToggle3D isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
-          </div>
-        </div>
-      </nav>
-
-      {/* MOBILE OVERLAY */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#05070a] backdrop-blur-2xl border-b border-white/10 overflow-hidden shadow-lg"
-          >
-            <div className="p-6 space-y-4">
+            {/* DESKTOP NAV — each pill tilts toward the cursor */}
+            <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-2xl px-2 py-1 shadow-sm">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block text-xl font-bold uppercase tracking-tight italic py-2 px-2 rounded-lg transition-colors ${
-                    pathname === item.href ? 'text-red-600 bg-white/5' : 'text-white hover:text-red-600 hover:bg-white/5'
-                  }`}
-                >
-                  {item.name}
-                </Link>
+                <NavLink3D key={item.name} item={item} isActive={pathname === item.href} />
               ))}
-              <div className="pt-6 border-t border-white/10 flex gap-6 justify-center">
-                {socialmedia.map((item, i) => {
-                  const Icon = item.icon
-                  return (
-                    <a
-                      key={i}
-                      href={item.href}
-                      className="text-slate-400 hover:text-red-600 transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Icon size={24} />
-                    </a>
-                  )
-                })}
-              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+
+            {/* RIGHT ACTION AREA */}
+            <div className="flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
+                {socialmedia.map((item, index) => (
+                  <SocialIcon3D key={index} item={item} />
+                ))}
+              </div>
+
+              <JoinUsButton3D />
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <BottomNav items={bottomNavItems} />
+    </>
   )
 }
 

@@ -409,7 +409,7 @@ const Impact = () => {
             </div>
             <h2 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
               A year of momentum, milestones and{' '}
-              <span className="text-[#D4AF37]">unforgettable experiences.</span>
+              <span className="text-red-600">unforgettable experiences.</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-[#CFCFCF]">
               Every great workplace is built through consistent engagement, shared experiences and meaningful recognition.

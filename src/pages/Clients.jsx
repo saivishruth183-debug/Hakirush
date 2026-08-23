@@ -239,7 +239,7 @@ export default function Clients() {
 
         {/* LOGO SECTIONS */}
         {[
-          { data: sponsers, label: "Our Sponsors", icon: <Building className="w-4 h-4" /> },
+          // { data: sponsers, label: "Our Sponsors", icon: <Building className="w-4 h-4" /> },
           { data: clients, label: "Our Partners", icon: <Users className="w-4 h-4" /> }
         ].map((section, idx) => (
           <section key={idx} className="py-12 w-full overflow-hidden">
@@ -299,7 +299,7 @@ export default function Clients() {
         ))}
 
         {/* TESTIMONIALS SECTION */}
-        <section className="py-20">
+        {/* <section className="py-20">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg mb-6">
@@ -345,7 +345,7 @@ export default function Clients() {
               </motion.div>
             </AnimatePresence>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

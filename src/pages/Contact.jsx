@@ -10,8 +10,9 @@ import {
 import backgroundImage from "../assets/Hero/Backimage.png"; // Kept consistent with visual template parallax assets
 
 /* ------------------------------------------------------------------ */
-/*  Same accent pair + hairline signature as About.jsx, so Contact      */
-/*  reads as the same site rather than a different template.            */
+/*  Same accent pair + hairline signature as About.jsx, Package.jsx,    */
+/*  GalleryPage.jsx and Clients.jsx, so Contact reads as the same site   */
+/*  rather than a different template.                                   */
 /* ------------------------------------------------------------------ */
 const ACCENT = "#8C1D2B"; // deep burgundy
 const GOLD = "#D4AF37";   // highlight gold
@@ -27,27 +28,30 @@ const ContinuousSportsBackground = () => {
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[120px]" style={{ background: `${ACCENT}22` }} />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full blur-[120px]" style={{ background: `${GOLD}14` }} />
 
-      <div className="flex absolute top-[10%] opacity-[0.05] w-full overflow-hidden">
+      {/* Icon tint now matches Clients.jsx's ACCENT-tinted background icons
+          instead of plain white, so the two dark-themed pages read as one
+          system. */}
+      <div className="flex absolute top-[10%] opacity-[0.06] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-white" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-white" strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={i} size={70} style={{ color: ACCENT }} strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} style={{ color: ACCENT }} strokeWidth={1} />)}
         </motion.div>
       </div>
 
-      <div className="flex absolute top-[60%] opacity-[0.04] w-full overflow-hidden">
+      <div className="flex absolute top-[60%] opacity-[0.05] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-white" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-white" strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={i} size={100} style={{ color: ACCENT }} strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} style={{ color: ACCENT }} strokeWidth={0.5} />)}
         </motion.div>
       </div>
 
@@ -94,6 +98,17 @@ const ParallaxImageBackground = ({ image }) => {
     </div>
   );
 };
+
+/* KIT-STRIPE DIVIDER — same diagonal jersey-trim seam used on About,
+   Package, Gallery and Clients, marking the hero-to-content transition. */
+const KitStripeDivider = () => (
+  <div className="relative h-8 sm:h-10 w-full overflow-hidden" aria-hidden="true">
+    <svg viewBox="0 0 1200 56" preserveAspectRatio="none" className="w-full h-full">
+      <polygon points="0,56 480,0 560,0 80,56" fill={ACCENT} />
+      <polygon points="560,56 1040,0 1120,0 640,56" fill={GOLD} opacity="0.85" />
+    </svg>
+  </div>
+);
 
 const contactDetails = {
   email: "Support@hakirush.com",
@@ -169,12 +184,15 @@ export default function Contact() {
 
       <div className="relative z-10 w-full">
         {/* HERO SECTION */}
-        <section className="pt-24 pb-10">
+        <section className="pt-24 pb-6">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-8">
-                <MessageSquare className="w-4 h-4" style={{ color: GOLD }} />
-                <span className="text-sm font-bold text-slate-200">We're Here to Help</span>
+              {/* Eyebrow pill now matches the solid Kicker style used on
+                  About/Package/Gallery/Clients instead of the lighter
+                  bordered pill. */}
+              <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-slate-900 shadow-xl shadow-slate-200 mb-8">
+                <MessageSquare className="w-3.5 h-3.5" style={{ color: GOLD }} />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">We're Here to Help</span>
               </div>
 
               <div className="flex items-center justify-center gap-4 mb-6">
@@ -194,6 +212,8 @@ export default function Contact() {
             </motion.div>
           </div>
         </section>
+
+        <KitStripeDivider />
 
         {/* MAIN CONTENT */}
         <section className="max-w-7xl mx-auto px-6 py-12">

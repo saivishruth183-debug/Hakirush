@@ -20,20 +20,14 @@ import Behind3 from "../assets/Gallery/BehindTheSceans/behind3.JPG";
 import VideoThumbnail1 from "../assets/Pilot/Video 1.mp4";
 
 /* ------------------------------------------------------------------ */
-/*  NOTE ON TYPE: this design pairs a restrained serif display face   */
-/*  with a clean grotesque body face for an "editorial trophy room"   */
-/*  feel. Add these once, e.g. in index.html <head> or your global    */
-/*  CSS, then the `font-display` / `font-body` classes below work:    */
-/*                                                                    */
-/*  <link rel="preconnect" href="https://fonts.googleapis.com">       */
-/*  <link href="https://fonts.googleapis.com/css2?family=Fraunces:   */
-/*  opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&   */
-/*  display=swap" rel="stylesheet">                                   */
-/*                                                                    */
-/*  tailwind.config.js:                                               */
-/*  fontFamily: { display: ['"Fraunces"', 'serif'],                   */
-/*                body: ['"Inter"', 'sans-serif'] }                   */
+/*  BRAND TOKENS — same maroon/gold system as About.jsx and            */
+/*  Package.jsx. Headings use `font-serif` (your existing Tailwind      */
+/*  serif stack) rather than a separate Fraunces/Inter pairing, so      */
+/*  this page matches the rest of the site without new font imports.    */
 /* ------------------------------------------------------------------ */
+const ACCENT = "#8C1D2B";
+const GOLD = "#D4AF37";
+const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
 
 const ParallaxImageBackground = ({ image }) => {
   const containerRef = useRef(null);
@@ -74,6 +68,17 @@ const ParallaxImageBackground = ({ image }) => {
     </div>
   );
 };
+
+/* KIT-STRIPE DIVIDER — same diagonal jersey-trim seam used on About and
+   Package, marking the transition from the hero into the tab bar. */
+const KitStripeDivider = () => (
+  <div className="relative h-8 sm:h-10 w-full overflow-hidden" aria-hidden="true">
+    <svg viewBox="0 0 1200 56" preserveAspectRatio="none" className="w-full h-full">
+      <polygon points="0,56 480,0 560,0 80,56" fill={ACCENT} />
+      <polygon points="560,56 1040,0 1120,0 640,56" fill={GOLD} opacity="0.85" />
+    </svg>
+  </div>
+);
 
 const galleryData = {
   annual: [
@@ -145,34 +150,38 @@ const GalleryPage = () => {
   }, [lightboxIndex, closeLightbox, showPrev, showNext]);
 
   return (
-    <div className="relative overflow-hidden min-h-screen font-body">
+    <div className="relative overflow-hidden min-h-screen font-sans">
       <PageBackground />
       <ParallaxImageBackground image={backgroundImage} />
 
       <div className="relative z-10">
-        <section className="relative pt-24 pb-10">
+        <section className="relative pt-24 pb-6">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-center max-w-4xl mx-auto px-6"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.04] border border-white/10 shadow-lg backdrop-blur-md mb-8">
-              <Camera className="w-3.5 h-3.5 text-red-400" />
-              <span className="text-[11px] tracking-[0.25em] uppercase font-semibold text-slate-300">
+            <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-slate-900 shadow-xl shadow-slate-200 mb-8">
+              <Camera className="w-3.5 h-3.5" style={{ color: GOLD }} />
+              <span className="text-[10px] tracking-[0.3em] uppercase font-black text-white">
                 Visual Memories
               </span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight leading-[1.05]">
-              Event <span className="text-red-600">Gallery</span>
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05]">
+              Event <span style={{ color: GOLD }}>Gallery</span>
             </h1>
+
+            <div className="w-16 h-px mx-auto rounded-full my-5" style={{ background: HAIRLINE }} />
 
             <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mx-auto">
               Relive the energy, passion, and competition from our corporate tournaments through stunning visual moments.
             </p>
           </motion.div>
         </section>
+
+        <KitStripeDivider />
 
         <section className="py-8 sticky top-0 z-20">
           <motion.div
@@ -198,7 +207,8 @@ const GalleryPage = () => {
                         <motion.span
                           layoutId="tab-pill"
                           transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                          className="absolute inset-0 rounded-full bg-red-600 shadow-md pointer-events-none"
+                          className="absolute inset-0 rounded-full shadow-md pointer-events-none"
+                          style={{ background: GOLD }}
                         />
                       )}
                       <span className="relative z-10">{tabLabels[tab]}</span>
@@ -274,7 +284,10 @@ const GalleryPage = () => {
                       </div>
 
                       {/* Hairline border glow on hover */}
-                      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 group-hover:ring-amber-400/30 transition-all duration-500 pointer-events-none" />
+                      <div
+                        className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/0 transition-all duration-500 pointer-events-none group-hover:ring-2"
+                        style={{ '--tw-ring-color': `${GOLD}4D` }}
+                      />
                     </motion.div>
                   );
                 })}
@@ -293,9 +306,9 @@ const GalleryPage = () => {
             viewport={{ once: true }}
             className="text-center mb-10"
           >
-            <span className="text-[11px] tracking-[0.25em] uppercase font-semibold text-amber-400">Featured</span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight mt-3">
-              Our Pilot Event <span className="italic text-red-500">Highlight</span>
+            <span className="text-[11px] tracking-[0.25em] uppercase font-black" style={{ color: GOLD }}>Featured</span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mt-3">
+              Our Pilot Event <span style={{ color: GOLD }}>Highlight</span>
             </h2>
             <p className="mt-4 max-w-xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
               Watch the highlights from our pilot event below — the best moments from the opening showcase.
@@ -309,7 +322,10 @@ const GalleryPage = () => {
             viewport={{ once: true }}
             className="relative mx-auto max-w-4xl rounded-[28px] overflow-hidden shadow-2xl border border-white/10 ring-1 ring-black/40"
           >
-            <div className="absolute -inset-px rounded-[28px] bg-gradient-to-r from-amber-400/20 via-transparent to-red-500/20 pointer-events-none" />
+            <div
+              className="absolute -inset-px rounded-[28px] pointer-events-none"
+              style={{ background: `linear-gradient(90deg, ${GOLD}33, transparent, ${ACCENT}33)` }}
+            />
             <video src={VideoThumbnail1} controls className="w-full h-auto max-h-[620px] relative z-10" poster="">
               Your browser does not support the video tag.
             </video>

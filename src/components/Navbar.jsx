@@ -1,4 +1,4 @@
-import { Linkedin, Instagram, Facebook, Zap, Home as HomeIcon, Info, Briefcase, Image as ImageIcon, Users, Mail } from 'lucide-react'
+import { Linkedin, Instagram, Facebook, Zap, Home as Info, Briefcase, Image as ImageIcon, Users } from 'lucide-react'
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
@@ -236,7 +236,7 @@ const BottomNav = ({ items }) => {
 
   return (
     <div className="md:hidden fixed bottom-4 inset-x-0 z-[100] flex justify-center px-4 pointer-events-none">
-      <div className="pointer-events-auto flex items-center gap-0.5 px-2 py-2 rounded-full bg-[#0b0e14]/90 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+      <div className="pointer-events-auto flex items-center gap-0.5 px-2 py-2">
         {items.map((item) => {
           const isActive = pathname === item.href
           const Icon = item.icon
@@ -283,7 +283,6 @@ const Navbar = () => {
   }, [])
 
   const navigation = [
-    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Gallery', href: '/gallery' },
@@ -292,7 +291,6 @@ const Navbar = () => {
 
   // Same destinations as `navigation`, plus Contact — icon-mapped for the bottom nav.
   const bottomNavItems = [
-    { name: 'Home', href: '/', icon: HomeIcon },
     { name: 'About', href: '/about', icon: Info },
     { name: 'Services', href: '/services', icon: Briefcase },
     { name: 'Gallery', href: '/gallery', icon: ImageIcon },
@@ -315,11 +313,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 font-sans ${
-          scrolled
-            ? 'py-2 bg-[#05070a]/95 backdrop-blur-xl border-b border-white/10 shadow-lg'
-            : 'py-2 bg-[#05070a]'
-        }`}
+        className="fixed top-0 left-0 right-0 z-[100] py-2 bg-transparent font-sans"
       >
         <nav className="px-9 sm:px-15">
           <div className="flex justify-between items-center h-16">
@@ -327,7 +321,7 @@ const Navbar = () => {
             <Logo3D />
 
             {/* DESKTOP NAV — each pill tilts toward the cursor */}
-            <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-2xl px-2 py-1 shadow-sm">
+            <div className="hidden md:flex items-center px-2 py-1">
               {navigation.map((item) => (
                 <NavLink3D key={item.name} item={item} isActive={pathname === item.href} />
               ))}

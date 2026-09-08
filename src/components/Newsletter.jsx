@@ -32,7 +32,7 @@ const CTASection = () => {
     <section className="relative py-24 bg-transparent overflow-hidden font-sans">
 
       {/* AMBIENT GLOW */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-red-100/30 blur-[120px] rounded-full z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px]  blur-[120px] rounded-full z-0" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
@@ -111,7 +111,7 @@ const CTASection = () => {
           </div>
 
           {/* ── Dark: CTA finale ── */}
-          <div className="mt-8 shadow-2xl shadow-red-900/30 relative rounded-[3.5rem] p-8 md:p-20 overflow-hidden transition-all duration-700 bg-gradient-to-br from-[#0D0D0D] via-[#171717] to-[#1a0808] border border-white/10">
+<div className="mt-8 shadow-2xl shadow-red-900/30 relative rounded-[3.5rem] p-8 md:p-20 overflow-hidden transition-all duration-700">
 
             {/* decorative glows */}
             <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-red-600/15 blur-[100px]" />

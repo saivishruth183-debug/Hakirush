@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrolltoTop'
+import CustomCursor from './components/CustomCursor'
 
 // Pages
 import Home from './pages/Home'
@@ -33,8 +34,9 @@ import Sponsor5 from './sponsors/Sponsor5'
 const App = () => {
   return (
     <div>
+      <CustomCursor />
       <Navbar />
-      <div className='pt-16'>
+      <div>
         <ScrollToTop />   
         <Routes >
           <Route path='/' element={<Home />} />

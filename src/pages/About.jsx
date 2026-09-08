@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll, useReducedMotion, useInView, animate } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { 
   Zap, Target, Eye, Crosshair, Lightbulb, Bolt, Trophy, Quote, MapPin, Clock, Users, 
@@ -14,27 +14,18 @@ import Sharavanthi from "../assets/Team/sharvanthi.jpeg";
 import Umesh from "../assets/Team/Umesh.jpeg";
 import backgroundImage from "../assets/Hero/Backimage.png";
 
-/* ------------------------------------------------------------------ */
-/*  DESIGN SYSTEM — one accent pair, one signature device             */
-/*                                                                      */
-/*  Colors:  ACCENT (deep burgundy) + GOLD (highlight) — unchanged      */
-/*  from your original, now applied consistently everywhere instead     */
-/*  of ad hoc per section.                                              */
-/*                                                                      */
-/*  Signature element: a thin burgundy→gold hairline that sits along    */
-/*  the top edge of every card on the page (mission, founding, process, */
-/*  team badge). It's the one recurring visual motif that ties the      */
-/*  page together — like a wax-seal ribbon running through the whole    */
-/*  document.                                                           */
-/*                                                                      */
-/*  Type: pair font-serif (display, used with restraint on headings)    */
-/*  with the body sans already in use. If you want to sharpen this      */
-/*  further, swap in a proper display serif — e.g. Fraunces or Playfair */
-/*  Display — via Google Fonts + tailwind.config.js fontFamily.display. */
-/* ------------------------------------------------------------------ */
-const ACCENT = "#8C1D2B"; // deep burgundy
-const GOLD = "#D4AF37";   // highlight gold
+const ACCENT = "#8C1D2B";
+const GOLD = "#D4AF37";   
+const RED = '#E50914';
 const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
+
+/* ------------------------------------------------------------------ */
+/*  HEADING SYSTEM — every top-level section title ("Meet The Dream    */
+/*  Team", "How It All Began", "How We Work") shares this exact class   */
+/*  string so size, weight, tracking and family stay identical across   */
+/*  the page. Card-level sub-headings (h3/h4) all use font-serif too.   */
+/* ------------------------------------------------------------------ */
+const SECTION_HEADING = "font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight text-center";
 
 const ParallaxBackground = ({ image }) => {
   const containerRef = useRef(null);
@@ -87,6 +78,101 @@ const ParallaxBackground = ({ image }) => {
   );
 };
 /* -------------------------- END BACKGROUND -------------------------- */
+
+/* ------------------------------------------------------------------ */
+/*  SCROLL-REVEAL TEXT — word-by-word opacity/color reveal tied to      */
+/*  scroll position. Ported from WhyHakirush.jsx so the hero subtitle   */
+/*  (and optionally the story pull-quote) get the same treatment.       */
+/* ------------------------------------------------------------------ */
+const ScrollRevealWord = ({ word, index, total, scrollYProgress }) => {
+  const start = index / total;
+  const end = start + 1 / total;
+  const opacity = useTransform(scrollYProgress, [start, end], [0.25, 1]);
+  const color = useTransform(
+    scrollYProgress,
+    [start, end],
+    ['rgba(255,255,255,0.3)', 'rgba(255,255,255,1)']
+  );
+
+  return (
+    <motion.span style={{ opacity, color }} className="inline-block">
+      {word}{'\u00A0'}
+    </motion.span>
+  );
+};
+
+const ScrollRevealText = ({ text, className = '' }) => {
+  const ref = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 0.9', 'start 0.25'],
+  });
+  const words = text.split(' ');
+
+  if (reduceMotion) {
+    return (
+      <p ref={ref} className={className}>
+        {text}
+      </p>
+    );
+  }
+
+  return (
+    <p ref={ref} className={className}>
+      {words.map((word, i) => (
+        <ScrollRevealWord key={i} word={word} index={i} total={words.length} scrollYProgress={scrollYProgress} />
+      ))}
+    </p>
+  );
+};
+/* ----------------------- END SCROLL REVEAL TEXT ----------------------- */
+
+/* ------------------------------------------------------------------ */
+/*  SCOREBOARD COUNTER — turns the stat bar into a stadium scoreboard   */
+/*  readout: tabular LCD-style digits that tick up once the strip       */
+/*  scrolls into view, instead of static text. This is the page's one   */
+/*  deliberate "sports" hero moment, tied to real content (the stats).  */
+/* ------------------------------------------------------------------ */
+const ScoreboardValue = ({ value }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const reduceMotion = useReducedMotion();
+  const [display, setDisplay] = useState(reduceMotion ? value : "0");
+
+  // Split "220+" into numeric part (220) and suffix (+ / K+)
+  const match = value.match(/^([\d,]+)(.*)$/);
+  const numeric = match ? parseInt(match[1].replace(/,/g, ""), 10) : null;
+  const suffix = match ? match[2] : "";
+
+  useEffect(() => {
+    if (!inView || reduceMotion || numeric === null) return;
+    const controls = animate(0, numeric, {
+      duration: 1.4,
+      ease: "easeOut",
+      onUpdate: (v) => setDisplay(Math.round(v).toLocaleString()),
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, numeric]);
+
+  return (
+    <span ref={ref} className="font-mono tabular-nums">
+      {numeric === null ? value : `${display}${suffix}`}
+    </span>
+  );
+};
+
+/* KIT-STRIPE DIVIDER — a diagonal chevron seam referencing a team kit's
+   trim, used once as the transition from Hero into the Team section. */
+const KitStripeDivider = () => (
+  <div className="relative h-10 sm:h-14 w-full overflow-hidden" aria-hidden="true">
+    <svg viewBox="0 0 1200 56" preserveAspectRatio="none" className="w-full h-full">
+      <polygon points="0,56 480,0 560,0 80,56" fill={ACCENT} />
+      <polygon points="560,56 1040,0 1120,0 640,56" fill={GOLD} opacity="0.85" />
+    </svg>
+  </div>
+);
+/* ----------------------- END SPORTS MOTIF DEVICES ----------------------- */
 
 const mission = [
   { icon: <Target className="w-6 h-6" style={{ color: ACCENT }} />, title: "Mission", description: "To help organizations transform employee engagement into a continuous journey through professionally managed sports, team-building experiences, wellness initiatives and recognition programs that inspire collaboration, belonging and long-term workplace culture." },
@@ -154,8 +240,18 @@ export default function About() {
       <div className="relative z-10">
 
         {/* HERO SECTION */}
-        <section className="relative pt-24 pb-14 md:pb-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <section className="relative pt-24 pb-6 md:pb-10 overflow-hidden">
+          {/* Ghosted jersey-number watermark — a single oversized "01" behind
+              the headline, standing in for "team member No. 1 in engagement". 
+              One bold move rather than scattered decoration. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none select-none absolute -top-6 sm:-top-10 left-1/2 -translate-x-1/2 font-serif font-black text-white/[0.05] leading-none text-[9rem] sm:text-[13rem] md:text-[16rem] tracking-tighter"
+          >
+            01
+          </span>
+
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative">
             <motion.div
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,29 +271,41 @@ export default function About() {
                 </p>
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.05]">
-                About <span style={{ color: GOLD }}>HAKIRUSH</span>
+              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[0.98]">
+                About <span style={{ color: RED }}>HAKIRUSH</span>
               </h1>
 
               <div className="w-16 h-px mx-auto rounded-full" style={{ background: HAIRLINE }} />
 
-              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium px-2">
-                HAKIRUSH is an Employee Engagement Ecosystem designed to help organizations build stronger workplace cultures through professionally managed sports, team-building experiences, wellness initiatives and year-round engagement programs.
-              </p>
+              <ScrollRevealText
+                className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium px-2"
+                text="HAKIRUSH is an Employee Engagement Ecosystem designed to help organizations build stronger workplace cultures through professionally managed sports, team-building experiences, wellness initiatives and year-round engagement programs."
+              />
             </motion.div>
 
-            {/* Stat bar — one dark glass strip with hairline dividers, not four floating boxes */}
+            {/* Stat bar — stadium scoreboard readout: LCD-style tabular digits
+                on a near-black panel with lane-line dividers, counting up
+                once in view instead of sitting static. */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="mt-12 max-w-3xl mx-auto rounded-2xl bg-slate-950/50 backdrop-blur-md ring-1 ring-white/10 shadow-2xl overflow-hidden"
+              className="mt-12 max-w-3xl mx-auto rounded-2xl bg-slate-950/60 backdrop-blur-md ring-1 ring-white/10 shadow-2xl overflow-hidden"
             >
+              <div className="flex items-center justify-between px-4 sm:px-5 pt-3 pb-1">
+                <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-white/40">Live Numbers</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: GOLD }} />
+                  <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-white/40">Season to date</span>
+                </span>
+              </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-white/10">
                 {stats.map((s) => (
                   <div key={s.label} className="px-3 py-5 text-center">
-                    <p className="font-serif text-xl sm:text-2xl font-black" style={{ color: GOLD }}>{s.value}</p>
+                    <p className="font-serif text-2xl sm:text-3xl font-black" style={{ color: GOLD }}>
+                      <ScoreboardValue value={s.value} />
+                    </p>
                     <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mt-1.5">{s.label}</p>
                   </div>
                 ))}
@@ -205,6 +313,8 @@ export default function About() {
             </motion.div>
           </div>
         </section>
+
+        <KitStripeDivider />
 
         {/* TEAM SECTION — premium employee ID badge cards */}
         <section className="relative py-16 md:py-24 bg-transparent overflow-hidden font-sans">
@@ -218,7 +328,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="font-serif text-4xl md:text-5xl font-black text-white tracking-tight"
+                className={SECTION_HEADING}
               >
                 Meet The <span style={{ color: GOLD }}>Dream Team</span>
               </motion.h2>
@@ -303,7 +413,7 @@ export default function About() {
                       </p>
                     </div>
 
-                    {/* ID footer strip — barcode + employee number */}
+                    {/* ID footer strip — barcode + employee (jersey) number */}
                     <div className="mt-2 sm:mt-2.5 px-1.5 sm:px-2 pb-1.5 sm:pb-2 flex items-center justify-between gap-1 border-t border-white/10 pt-1.5 sm:pt-2">
                       <div className="flex items-end gap-[1.5px] sm:gap-[2px] h-2.5 sm:h-3">
                         {[3,1,2,1,3,2,1,2,1,3,1,2].map((h, i) => (
@@ -328,7 +438,7 @@ export default function About() {
         {/* MISSION & VISION */}
         <section className="py-14 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto items-stretch">
               {mission.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -336,8 +446,9 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
+                  className="h-full"
                 >
-                  <PremiumCard className="group p-8 sm:p-10 shadow-[0_10px_40px_-15px_rgba(15,23,42,0.35)] hover:shadow-[0_25px_60px_-15px_rgba(15,23,42,0.45)] transition-all duration-500 hover:-translate-y-1">
+                  <PremiumCard className="group h-full flex flex-col p-8 sm:p-10 shadow-[0_10px_40px_-15px_rgba(15,23,42,0.35)] hover:shadow-[0_25px_60px_-15px_rgba(15,23,42,0.45)] transition-all duration-500 hover:-translate-y-1">
                     <Quote className="absolute top-7 right-7 w-10 h-10 text-slate-100" strokeWidth={1.5} />
                     <div className="flex items-center gap-5 mb-6">
                       <div
@@ -350,7 +461,7 @@ export default function About() {
                         Our <span style={{ color: ACCENT }}>{item.title}</span>
                       </h3>
                     </div>
-                    <p className="text-slate-600 leading-relaxed text-base sm:text-lg">{item.description}</p>
+                    <p className="text-slate-600 leading-relaxed text-base sm:text-lg flex-1">{item.description}</p>
                   </PremiumCard>
                 </motion.div>
               ))}
@@ -364,7 +475,7 @@ export default function About() {
             <div className="text-center mb-4">
               <Kicker icon={Star}>Our Story</Kicker>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white text-center">
+            <h2 className={SECTION_HEADING}>
               How It All <span style={{ color: GOLD }}>Began</span>
             </h2>
 
@@ -373,13 +484,14 @@ export default function About() {
               <span className="hidden sm:block w-px self-stretch shrink-0 mt-1" style={{ background: HAIRLINE }} />
               <div>
                 <Quote className="w-8 h-8 mb-3" style={{ color: GOLD, opacity: 0.7 }} />
-                <p className="text-lg sm:text-xl text-slate-200 leading-relaxed font-medium">
-                  HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. We combine event management, digital storytelling, and scalable operations to serve both startups and enterprises.
-                </p>
+                <ScrollRevealText
+                  className="text-lg sm:text-xl text-slate-200 leading-relaxed font-medium"
+                  text="HAKIRUSH began with a simple idea—to deliver effortless, professional sports experiences for corporate teams. We combine event management, digital storytelling, and scalable operations to serve both startups and enterprises."
+                />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-14">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-14 items-stretch">
               {founding.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -387,14 +499,15 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
+                  className="h-full"
                 >
-                  <PremiumCard className="relative p-7 sm:p-8 shadow-[0_8px_30px_-15px_rgba(15,23,42,0.3)] hover:shadow-[0_20px_45px_-15px_rgba(15,23,42,0.4)] transition-all duration-400 text-left h-full">
+                  <PremiumCard className="relative h-full flex flex-col p-7 sm:p-8 shadow-[0_8px_30px_-15px_rgba(15,23,42,0.3)] hover:shadow-[0_20px_45px_-15px_rgba(15,23,42,0.4)] transition-all duration-400 text-left">
                     <span className="absolute top-5 right-6 font-serif text-3xl font-black text-slate-100 select-none">0{index + 1}</span>
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 ring-1 ring-slate-100" style={{ background: "#8C1D2B0D" }}>
                       {item.icon}
                     </div>
                     <h4 className="font-serif font-bold text-lg sm:text-xl text-slate-900 mb-2.5">{item.title}</h4>
-                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">{item.description}</p>
+                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base flex-1">{item.description}</p>
                   </PremiumCard>
                 </motion.div>
               ))}
@@ -407,7 +520,7 @@ export default function About() {
           <div className="text-center mb-4">
             <Kicker icon={Bolt}>The Process</Kicker>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-center mb-14 text-white">
+          <h2 className={`${SECTION_HEADING} mb-14`}>
             How We <span style={{ color: GOLD }}>Work</span>
           </h2>
 
@@ -435,7 +548,7 @@ export default function About() {
                       <span className="relative">0{step.id}</span>
                     </div>
                     <div className="pt-1">
-                      <h4 className="text-lg sm:text-xl font-bold mb-1.5 text-slate-900">{step.title}</h4>
+                      <h4 className="font-serif text-lg sm:text-xl font-bold mb-1.5 text-slate-900">{step.title}</h4>
                       <p className="text-slate-600 font-medium text-sm sm:text-base">{step.description}</p>
                     </div>
                   </PremiumCard>

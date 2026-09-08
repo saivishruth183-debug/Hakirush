@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useScroll, useReducedMotion, useInView, animate } from "framer-motion";
 import { 
   Star, Users, Building, Award, TrendingUp, Quote, MessageCircle,
   Trophy, Activity, Target, CircleDot, Dumbbell, Flag, Zap 
@@ -19,7 +19,15 @@ import Priya from "../assets//Terminals/Priya.png";
 import Rajesh from "../assets/Terminals/Rajesh.png";
 import Sarah from "../assets/Terminals/Sarah.png";
 
-const MotionLink = motion(Link);
+/* ------------------------------------------------------------------ */
+/*  BRAND TOKENS — same maroon/gold system as About.jsx, Package.jsx    */
+/*  and GalleryPage.jsx.                                                */
+/* ------------------------------------------------------------------ */
+const ACCENT = "#8C1D2B";
+const GOLD = "#D4AF37";
+const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
+
+const MotionLink = motion.create(Link);
 
 // --- BACKGROUND SUB-COMPONENT ---
 const ContinuousSportsBackground = () => {
@@ -28,30 +36,30 @@ const ContinuousSportsBackground = () => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] blur-[120px] rounded-full" style={{ background: `${ACCENT}1A` }} />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] blur-[120px] rounded-full" style={{ background: `${GOLD}14` }} />
 
-      <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">
+      <div className="flex absolute top-[10%] opacity-[0.05] w-full overflow-hidden">
         <motion.div 
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           className="flex gap-24 pr-24 whitespace-nowrap flex-nowrap"
         >
-          {row1.map((Icon, i) => <Icon key={i} size={70} className="text-red-900" strokeWidth={1} />)}
-          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} className="text-red-900" strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={i} size={70} style={{ color: ACCENT }} strokeWidth={1} />)}
+          {row1.map((Icon, i) => <Icon key={`dup-${i}`} size={70} style={{ color: ACCENT }} strokeWidth={1} />)}
         </motion.div>
       </div>
 
-      <div className="flex absolute top-[40%] opacity-[0.03] w-full overflow-hidden">
+      <div className="flex absolute top-[40%] opacity-[0.04] w-full overflow-hidden">
         <motion.div 
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           className="flex gap-32 pr-32 whitespace-nowrap flex-nowrap"
         >
-          {row2.map((Icon, i) => <Icon key={i} size={100} className="text-red-900" strokeWidth={0.5} />)}
-          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} className="text-red-900" strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={i} size={100} style={{ color: ACCENT }} strokeWidth={0.5} />)}
+          {row2.map((Icon, i) => <Icon key={`dup-${i}`} size={100} style={{ color: ACCENT }} strokeWidth={0.5} />)}
         </motion.div>
       </div>
 
@@ -63,7 +71,8 @@ const ContinuousSportsBackground = () => {
 }
 
 /* ---------------------------------------------------------------
-   PARALLAX IMAGE BACKGROUND
+   PARALLAX IMAGE BACKGROUND — same three-stop gradient as the other
+   pages, so depth/contrast is consistent site-wide.
 --------------------------------------------------------------- */
 const ParallaxImageBackground = ({ image }) => {
   const containerRef = useRef(null);
@@ -98,8 +107,49 @@ const ParallaxImageBackground = ({ image }) => {
         className="w-full h-full object-cover object-center will-change-transform"
         transition={{ type: "tween" }}
       />
-      <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/55 to-slate-950/80" />
+      <div className="absolute inset-0 bg-slate-950/30 mix-blend-multiply" />
     </div>
+  );
+};
+
+/* KIT-STRIPE DIVIDER — same diagonal jersey-trim seam used on About,
+   Package and Gallery. */
+const KitStripeDivider = () => (
+  <div className="relative h-8 sm:h-10 w-full overflow-hidden" aria-hidden="true">
+    <svg viewBox="0 0 1200 56" preserveAspectRatio="none" className="w-full h-full">
+      <polygon points="0,56 480,0 560,0 80,56" fill={ACCENT} />
+      <polygon points="560,56 1040,0 1120,0 640,56" fill={GOLD} opacity="0.85" />
+    </svg>
+  </div>
+);
+
+/* SCOREBOARD COUNTER — same device from About.jsx's stat bar, reused here
+   so "By The Numbers" reads as a live readout rather than static text. */
+const ScoreboardValue = ({ value }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const reduceMotion = useReducedMotion();
+  const [display, setDisplay] = useState(reduceMotion ? value : "0");
+
+  const match = value.match(/^([\d,]+)(.*)$/);
+  const numeric = match ? parseInt(match[1].replace(/,/g, ""), 10) : null;
+  const suffix = match ? match[2] : "";
+
+  useEffect(() => {
+    if (!inView || reduceMotion || numeric === null) return;
+    const controls = animate(0, numeric, {
+      duration: 1.4,
+      ease: "easeOut",
+      onUpdate: (v) => setDisplay(Math.round(v).toLocaleString()),
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, numeric]);
+
+  return (
+    <span ref={ref} className="font-mono tabular-nums">
+      {numeric === null ? value : `${display}${suffix}`}
+    </span>
   );
 };
 
@@ -171,7 +221,7 @@ export default function Clients() {
 
       <div className="relative z-10 w-full">
         {/* HERO SECTION */}
-        <section className="relative pt-20 pb-8">
+        <section className="relative pt-20 pb-6">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: -40 }}
@@ -179,11 +229,14 @@ export default function Clients() {
               transition={{ duration: 0.8 }}
             >
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-red-600 shadow-2xl shrink-0">
+                <div
+                  className="inline-flex items-center justify-center w-16 h-16 rounded-3xl shadow-2xl shrink-0"
+                  style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
+                >
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-                  Our <span className="text-red-500">Clients</span>
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+                  Our <span style={{ color: GOLD }}>Clients</span>
                 </h1>
               </div>
               <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-medium">
@@ -194,7 +247,9 @@ export default function Clients() {
           </div>
         </section>
 
-        {/* STATS SECTION */}
+        <KitStripeDivider />
+
+        {/* STATS SECTION — scoreboard readout, same device as About's stat bar */}
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
@@ -203,20 +258,20 @@ export default function Clients() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-lg backdrop-blur-sm mb-6">
-                <TrendingUp className="w-4 h-4 text-red-500" />
-                <span className="text-sm font-bold text-slate-200">Our Impact</span>
+              <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-slate-900 shadow-xl shadow-slate-200 mb-6">
+                <TrendingUp className="w-3.5 h-3.5" style={{ color: GOLD }} />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Our Impact</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white">
-                By The <span className="text-red-500">Numbers</span>
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-white">
+                By The <span style={{ color: GOLD }}>Numbers</span>
               </h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { icon: <Building className="h-6 w-6 text-red-700" />, label: "Companies Trust Us", value: "50+" },
-                { icon: <Users className="h-6 w-6 text-red-700" />, label: "Employees Engaged", value: "10K+" },
-                { icon: <Award className="h-6 w-6 text-red-700" />, label: "Events Delivered", value: "500+" },
+                { icon: <Building className="h-6 w-6" style={{ color: ACCENT }} />, label: "Companies Trust Us", value: "50+" },
+                { icon: <Users className="h-6 w-6" style={{ color: ACCENT }} />, label: "Employees Engaged", value: "10,000+" },
+                { icon: <Award className="h-6 w-6" style={{ color: ACCENT }} />, label: "Events Delivered", value: "500+" },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
@@ -226,10 +281,13 @@ export default function Clients() {
                   viewport={{ once: true }}
                   className="group relative text-center bg-slate-800/90 backdrop-blur-md p-10 rounded-3xl shadow-xl border border-slate-700 transition-all duration-500"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-600/20 mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                  <span className="absolute top-0 left-6 right-6 h-[3px] rounded-full" style={{ background: HAIRLINE }} />
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform" style={{ background: `${ACCENT}26` }}>
                     {stat.icon}
                   </div>
-                  <h3 className="text-2xl sm:text-4xl font-extrabold text-white mb-3 group-hover:text-red-400 transition-colors">{stat.value}</h3>
+                  <h3 className="font-serif text-2xl sm:text-4xl font-black text-white mb-3 transition-colors" style={{ color: GOLD }}>
+                    <ScoreboardValue value={stat.value} />
+                  </h3>
                   <p className="text-slate-300 font-medium">{stat.label}</p>
                 </motion.div>
               ))}
@@ -244,9 +302,9 @@ export default function Clients() {
         ].map((section, idx) => (
           <section key={idx} className="py-12 w-full overflow-hidden">
             <div className="text-center mb-8 px-6">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900/80 border border-slate-700 shadow-md">
-                <span className="text-red-500">{section.icon}</span>
-                <span className="text-sm font-bold text-slate-200">{section.label}</span>
+              <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-slate-900 shadow-xl shadow-slate-200">
+                <span style={{ color: GOLD }}>{section.icon}</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">{section.label}</span>
               </div>
             </div>
             

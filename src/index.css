@@ -172,13 +172,6 @@ section {
   }
 }
 
-/* ================================
-   Custom cursor (blob + drip)
-   ================================ */
-* {
-  cursor: auto;
-}
-
 @media (hover: hover) and (pointer: fine) {
   * {
     cursor: none;
@@ -189,64 +182,31 @@ section {
   position: fixed;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
+  width: 15px;
+  height: 15px;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
   will-change: transform;
   transition: opacity 0.2s ease;
   opacity: 0;
+  mix-blend-mode: difference;
 }
 
-/* Outer ring — hollow, subtle, expands on hover */
 .custom-cursor-dot {
-  position: relative;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  background: transparent;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              background 0.25s ease;
+  background: #fff;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Inner filled dot — the red accent, sits at the center of the ring */
-.custom-cursor-dot::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary, #E50914);
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.75);
-  transform: translate(-50%, -50%);
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-/* Hover state — ring grows and fills faintly, inner dot fades so the ring reads clearly */
 .custom-cursor.is-hover .custom-cursor-dot {
-  transform: scale(1.8);
-  border-color: rgba(229, 9, 20, 0.7);
-  background: rgba(229, 9, 20, 0.08);
+  transform: scale(2);
 }
 
-.custom-cursor.is-hover .custom-cursor-dot::after {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.4);
-}
-
-/* Click state — quick punchy compression */
 .custom-cursor.is-click .custom-cursor-dot {
   transform: scale(0.7);
-  border-color: var(--color-primary, #E50914);
-}
-
-.custom-cursor-drip {
-  display: none;
 }
 
 .custom-cursor-trail {
@@ -257,11 +217,11 @@ section {
   height: 100vh;
   pointer-events: none;
   z-index: 9998;
+  mix-blend-mode: difference;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .custom-cursor-dot,
-  .custom-cursor-dot::after {
+  .custom-cursor-dot {
     transition: none;
   }
 }

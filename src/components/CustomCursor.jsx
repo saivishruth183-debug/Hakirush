@@ -1,7 +1,3 @@
-// CustomCursor.jsx
-// Render this once near the top of App.jsx (or your root layout).
-// Make sure index.css (with the cursor styles) is imported globally.
-
 import { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
@@ -21,10 +17,9 @@ export default function CustomCursor() {
     const ctx = canvas.getContext('2d');
     let rafId;
 
-    // --- Config for the trail ---
-    const MAX_POINTS = prefersReducedMotion.matches ? 0 : 40; // how many points make up the trail
-    const POINT_LIFE = 40;       // frames before a point fully fades
-    const LINE_WIDTH = 5;        // trail thickness
+    const MAX_POINTS = prefersReducedMotion.matches ? 0 : 25;
+    const POINT_LIFE = 32;
+    const LINE_WIDTH = 1.5;
 
     const resizeCanvas = () => {
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -76,7 +71,6 @@ export default function CustomCursor() {
     document.addEventListener('pointerover', handlePointerOver);
     document.addEventListener('pointerout', handlePointerOut);
 
-    // --- Draw loop: single continuous red-fading trail (no joint "dots") ---
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -93,8 +87,8 @@ export default function CustomCursor() {
         const head = points[points.length - 1];
 
         const gradient = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
-        gradient.addColorStop(0, 'rgba(229, 9, 20, 0)');
-        gradient.addColorStop(1, 'rgba(229, 9, 20, 0.85)');
+        gradient.addColorStop(0, 'rgba(136, 136, 136, 0)');
+        gradient.addColorStop(1, 'rgba(136, 136, 136, 0.8)');
 
         ctx.beginPath();
         ctx.moveTo(points[0].x, points[0].y);
@@ -135,7 +129,6 @@ export default function CustomCursor() {
       <canvas ref={canvasRef} className="custom-cursor-trail" />
       <div className="custom-cursor" ref={cursorRef}>
         <div className="custom-cursor-dot"></div>
-        <div className="custom-cursor-drip"></div>
       </div>
     </>
   );

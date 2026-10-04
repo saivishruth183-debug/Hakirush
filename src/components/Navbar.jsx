@@ -37,7 +37,7 @@ const useTilt = (strength = 16) => {
 /* ------------------------------------------------------------------ */
 /*  LOGO — plain, no 3D treatment                                      */
 /* ------------------------------------------------------------------ */
-const Logo3D = () => {
+const Logo3D = ({ isRed }) => {
   return (
     <Link to="/" className="flex items-center gap-2 group">
       <div className="relative flex items-center justify-center h-20 w-20 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 transition-all duration-300">
@@ -49,8 +49,8 @@ const Logo3D = () => {
         />
       </div>
 
-      <span className="hidden sm:block text-2xl md:text-3xl font-extrabold tracking-tight text-white group-hover:text-red-600 transition-colors uppercase drop-shadow-md">
-        Haki<span className="text-red-600 group-hover:text-white transition-colors">rush</span>
+      <span className={`hidden sm:block text-2xl md:text-3xl font-extrabold tracking-tight ${isRed ? 'text-red-600' : 'text-white'} group-hover:text-red-600 transition-colors uppercase drop-shadow-md`}>
+        Haki<span className={`${isRed ? 'text-red-600' : 'text-red-600 group-hover:text-white'} transition-colors`}>rush</span>
       </span>
     </Link>
   )
@@ -59,7 +59,7 @@ const Logo3D = () => {
 /* ------------------------------------------------------------------ */
 /*  3D NAV LINK — pill lifts and tilts toward the cursor on hover      */
 /* ------------------------------------------------------------------ */
-const NavLink3D = ({ item, isActive }) => {
+const NavLink3D = ({ item, isActive, isRed }) => {
   const { ref, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(10)
 
   return (
@@ -80,7 +80,7 @@ const NavLink3D = ({ item, isActive }) => {
           animate={{ y: isHovered ? -3 : 0, z: isHovered ? 10 : 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           className={`relative px-5 py-2 text-sm font-bold uppercase tracking-wide rounded-xl overflow-hidden ${
-            isActive ? 'text-red-600' : 'text-slate-200 hover:text-red-600'
+            isActive || isRed ? 'text-red-600' : 'text-slate-200 hover:text-red-600'
           }`}
         >
           <span className="relative z-10" style={{ transform: 'translateZ(6px)' }}>
@@ -111,7 +111,7 @@ const NavLink3D = ({ item, isActive }) => {
 /* ------------------------------------------------------------------ */
 /*  3D SOCIAL ICON — small pop + tilt toward cursor                    */
 /* ------------------------------------------------------------------ */
-const SocialIcon3D = ({ item }) => {
+const SocialIcon3D = ({ item, isRed }) => {
   const { ref, rotateX, rotateY, isHovered, setIsHovered, handleMouseMove, handleMouseLeave } = useTilt(24)
   const Icon = item.icon
 
@@ -132,7 +132,7 @@ const SocialIcon3D = ({ item }) => {
         }}
         animate={{ y: isHovered ? -3 : 0, scale: isHovered ? 1.15 : 1 }}
         transition={{ type: 'spring', stiffness: 320, damping: 18 }}
-        className="relative block p-2 text-slate-400 hover:text-red-600 transition-colors"
+        className={`relative block p-2 ${isRed ? 'text-red-600' : 'text-slate-400'} hover:text-red-600 transition-colors`}
       >
         <span style={{ transform: 'translateZ(10px)', display: 'block' }}>
           <Icon size={20} />
@@ -231,7 +231,7 @@ const JoinUsButton3D = () => {
   )
 }
 
-const BottomNav = ({ items }) => {
+const BottomNav = ({ items, isRed }) => {
   const { pathname } = useLocation()
 
   return (
@@ -258,7 +258,7 @@ const BottomNav = ({ items }) => {
                 size={19}
                 strokeWidth={isActive ? 2.5 : 2}
                 className={`relative z-10 transition-colors duration-200 ${
-                  isActive ? 'text-red-500' : 'text-slate-400'
+                  isActive || isRed ? 'text-red-500' : 'text-slate-400'
                 }`}
               />
             </Link>
@@ -277,10 +277,17 @@ const Navbar = () => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => {
+      const hero = document.getElementById('home-hero')
+      setScrolled(pathname === '/' && hero ? hero.getBoundingClientRect().bottom <= 80 : false)
+    }
+
     window.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
+
+  const isHomeScrolled = pathname === '/' && scrolled
 
   const navigation = [
     { name: 'About', href: '/about' },
@@ -318,20 +325,20 @@ const Navbar = () => {
         <nav className="px-9 sm:px-15">
           <div className="flex justify-between items-center h-16">
             {/* LOGO — full 3D extruded badge */}
-            <Logo3D />
+            <Logo3D isRed={isHomeScrolled} />
 
             {/* DESKTOP NAV — each pill tilts toward the cursor */}
             <div className="hidden md:flex items-center px-2 py-1">
               {navigation.map((item) => (
-                <NavLink3D key={item.name} item={item} isActive={pathname === item.href} />
+                <NavLink3D key={item.name} item={item} isActive={pathname === item.href} isRed={isHomeScrolled} />
               ))}
             </div>
 
             {/* RIGHT ACTION AREA */}
             <div className="flex items-center gap-3">
-              <div className="hidden lg:flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
+              <div className={`hidden lg:flex items-center gap-2 ${isHomeScrolled ? 'border-r border-red-600/20' : 'border-r border-white/10'} pr-4 mr-2`}>
                 {socialmedia.map((item, index) => (
-                  <SocialIcon3D key={index} item={item} />
+                  <SocialIcon3D key={index} item={item} isRed={isHomeScrolled} />
                 ))}
               </div>
 
@@ -341,7 +348,7 @@ const Navbar = () => {
         </nav>
       </header>
 
-      <BottomNav items={bottomNavItems} />
+      <BottomNav items={bottomNavItems} isRed={isHomeScrolled} />
     </>
   )
 }

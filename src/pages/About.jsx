@@ -72,7 +72,7 @@ const ParallaxBackground = ({ image }) => {
         className="w-full h-full object-cover object-center will-change-transform"
         transition={{ type: "tween" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/55 to-slate-950/80" />
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950/75 via-slate-950/55 to-slate-950/80" />
       <div className="absolute inset-0 bg-slate-950/30 mix-blend-multiply" />
     </div>
   );
@@ -187,6 +187,7 @@ const founding = [
 
 const team = [
   { image: Krishna, name: "Krishna", role: "Founder/CEO - Strategy & Growth", linkedin: "https://www.linkedin.com/in/sudireddy-krishna-sai-reddy-566087192" },
+  //{ image: Vishruth, name: "Vishruth", role: "Technical Manager", linkedin: "https://www.linkedin.com/in/sai-vishruth-89b9261b6" },
   { image: Arushi, name: "Arushi Shreya", role: "HR Manager", linkedin: "https://www.linkedin.com/in/arushi-shreya/" },
   { image: Sharavanthi, name: "Sharavanthi", role: "Digital Marketing", linkedin: "https://www.linkedin.com/in/d-sravanthi-21240a383" },
   { image: Umesh, name: "Umesh", role: "Operations Manager", linkedin: "https://www.linkedin.com/in/umesh-alla-8435a13a7" },
@@ -246,7 +247,7 @@ export default function About() {
               One bold move rather than scattered decoration. */}
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none absolute -top-6 sm:-top-10 left-1/2 -translate-x-1/2 font-serif font-black text-white/[0.05] leading-none text-[9rem] sm:text-[13rem] md:text-[16rem] tracking-tighter"
+            className="pointer-events-none select-none absolute -top-6 sm:-top-10 left-1/2 -translate-x-1/2 font-serif font-black text-white/5 leading-none text-[9rem] sm:text-[13rem] md:text-[16rem] tracking-tighter"
           >
             01
           </span>
@@ -263,7 +264,7 @@ export default function About() {
                   className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center shadow-lg ring-1 ring-black/5 overflow-hidden"
                   style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
                 >
-                  <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+                  <span className="absolute inset-x-0 top-0 h-1/2 bg-linear-to-b from-white/25 to-transparent" />
                   <Zap className="relative w-6 h-6 sm:w-7 sm:h-7 text-white" />
                 </div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.35em]" style={{ color: GOLD }}>
@@ -351,7 +352,7 @@ export default function About() {
                     style={{ background: `linear-gradient(180deg, ${GOLD}00, ${GOLD}99, ${GOLD}00)` }}
                   />
 
-                  <div className="relative h-full bg-gradient-to-b from-slate-900 to-slate-950 rounded-xl sm:rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] group-hover:-translate-y-2">
+                  <div className="relative h-full bg-linear-to-b from-slate-900 to-slate-950 rounded-xl sm:rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] group-hover:-translate-y-2">
 
                     {/* Signature hairline — same device as every other card on the page */}
                     <span className="absolute top-0 left-0 right-0 h-[3px] z-10" style={{ background: HAIRLINE }} />
@@ -372,9 +373,9 @@ export default function About() {
                         <motion.img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.08]"
+                          className="w-full h-full object-cover grayscale-40 group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.08]"
                         />
-                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
 
                         {/* Thin gold corner accent */}
                         <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 border-t border-l opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: GOLD }} />
@@ -415,11 +416,11 @@ export default function About() {
 
                     {/* ID footer strip — barcode + employee (jersey) number */}
                     <div className="mt-2 sm:mt-2.5 px-1.5 sm:px-2 pb-1.5 sm:pb-2 flex items-center justify-between gap-1 border-t border-white/10 pt-1.5 sm:pt-2">
-                      <div className="flex items-end gap-[1.5px] sm:gap-[2px] h-2.5 sm:h-3">
+                      <div className="flex items-end gap-[1.5px] sm:gap-0.5 h-2.5 sm:h-3">
                         {[3,1,2,1,3,2,1,2,1,3,1,2].map((h, i) => (
                           <span
                             key={i}
-                            className="w-[1.5px] sm:w-[2px] bg-white/25"
+                            className="w-[1.5px] sm:w-0.5 bg-white/25"
                             style={{ height: `${h * 25}%` }}
                           />
                         ))}
@@ -544,7 +545,7 @@ export default function About() {
                       className="relative z-10 shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-serif font-black text-white text-base sm:text-lg shadow-md overflow-hidden"
                       style={{ background: `linear-gradient(135deg, ${ACCENT}, #4a0d13)` }}
                     >
-                      <span className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
+                      <span className="absolute inset-x-0 top-0 h-1/2 bg-linear-to-b from-white/25 to-transparent" />
                       <span className="relative">0{step.id}</span>
                     </div>
                     <div className="pt-1">

@@ -1,10 +1,9 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import Whyhakirush from '../components/Whyhakirush'
+import WhyHakirush from '../components/WhyHakirush'
 import Newsletter from '../components/Newsletter'
 import Sponsor from '../components/Sponsor';
 import Roadtoglory from '../components/Roadtoglory';
-import Partners from '../components/Partners';
 import backgroundVideo from '../assets/Hero/Home.mp4';
 
 const Home = () => {
@@ -23,10 +22,9 @@ const Home = () => {
               className="w-full h-full object-cover"
             />
           </div>
-        <Whyhakirush />
+        <WhyHakirush />
         <Roadtoglory />
         <Sponsor />
-        <Partners />
         <Newsletter />
       </div>
     </div>

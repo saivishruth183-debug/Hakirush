@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import {
@@ -7,13 +6,8 @@ import {
   Instagram, Youtube, Star, Facebook, Trophy, Activity, 
   Target, CircleDot, Dumbbell, Flag, Zap
 } from "lucide-react";
-import backgroundImage from "../assets/Hero/Backimage.png"; // Kept consistent with visual template parallax assets
+import backgroundImage from "../assets/Hero/Backimage.png";
 
-/* ------------------------------------------------------------------ */
-/*  Same accent pair + hairline signature as About.jsx, Package.jsx,    */
-/*  GalleryPage.jsx and Clients.jsx, so Contact reads as the same site   */
-/*  rather than a different template.                                   */
-/* ------------------------------------------------------------------ */
 const ACCENT = "#8C1D2B"; // deep burgundy
 const GOLD = "#D4AF37";   // highlight gold
 const HAIRLINE = `linear-gradient(90deg, ${ACCENT}, ${GOLD}, ${ACCENT})`;
@@ -132,8 +126,6 @@ const socialLinks = [
   { icon: Youtube, url: "https://www.youtube.com/@HakirushSportsEvents" },
 ];
 
-/* Shared dark card shell — same hairline signature as the white
-   PremiumCard on About.jsx, adapted for dark glass surfaces. */
 const PremiumDarkCard = ({ children, className = "" }) => (
   <div className={`relative overflow-hidden rounded-2xl bg-slate-800/90 backdrop-blur-md border border-slate-700 ${className}`}>
     <span className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: HAIRLINE }} />
@@ -145,10 +137,6 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (emailjs && emailjs.init) emailjs.init("pcWFF4SE3MMUSZ8RT");
-  }, []);
-
   const handleInput = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
@@ -158,17 +146,21 @@ export default function Contact() {
     if (!canSubmit) return;
     setLoading(true);
     try {
-      await emailjs.send("service_6nnmjta", "template_ugyileq", {
-        from_name: formData.name,
-        from_email: formData.email,
-        company: formData.company,
-        phone: formData.phone,
-        message: formData.message,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-      Swal.fire({ icon: "success", title: "Submitted 🎉", text: "We’ll get back to you soon!", timer: 2500, showConfirmButton: false });
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result.error || "Unable to send message");
+      }
+
+      Swal.fire({ icon: "success", title: "Submitted", text: "We'll get back to you soon!", timer: 2500, showConfirmButton: false });
       setFormData({ name: "", email: "", company: "", phone: "", message: "" });
-    } catch (err) {
-      Swal.fire({ icon: "error", title: "Oops...", text: "Something went wrong. Try later.", timer: 3000, showConfirmButton: false });
+    } catch (error) {
+      Swal.fire({ icon: "error", title: "Message not sent", text: error.message, timer: 3500, showConfirmButton: false });
     } finally {
       setLoading(false);
     }
@@ -187,9 +179,6 @@ export default function Contact() {
         <section className="pt-24 pb-6">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              {/* Eyebrow pill now matches the solid Kicker style used on
-                  About/Package/Gallery/Clients instead of the lighter
-                  bordered pill. */}
               <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-slate-900 shadow-xl shadow-slate-200 mb-8">
                 <MessageSquare className="w-3.5 h-3.5" style={{ color: GOLD }} />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">We're Here to Help</span>

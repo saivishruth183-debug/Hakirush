@@ -6,16 +6,14 @@ import {
   Newspaper, Briefcase,
 } from "lucide-react";
 
-
-const FONT_DISPLAY = "'Oswald', 'Arial Narrow', sans-serif";
 const FONT_MONO = "'JetBrains Mono', 'IBM Plex Mono', monospace";
-const FONT_SERIF = "'Fraunces', Georgia, serif";
 
-const FontImports = () => (
-  <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&display=swap');
-  `}</style>
-);
+const careers = [
+  { code: "01", title: "Event Coordinator", location: "Bengaluru", type: "Full-time" },
+  { code: "02", title: "Content Producer", location: "Hyderabad", type: "Contract" },
+  { code: "03", title: "Sales & Partnerships", location: "Remote", type: "Full-time" },
+];
+
 
 // ── Scrolling Icon Belt ──────────────────────────────────────────────────────
 const Belt = ({ icons, directionX, speed, opacity }) => (
@@ -61,26 +59,6 @@ const ContinuousSportsBackground = () => {
   );
 };
 
-// ── Fine grain texture (matched to Sponsorship.jsx dark panel) ─────────────
-const GRAIN_BG =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E\")";
-
-// ── Data ─────────────────────────────────────────────────────────────────────
-const partners = [
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+1" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+2" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+3" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+4" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+5" },
-  { img: "https://placehold.co/150x80/e5e7eb/6b7280?text=Partner+6" },
-];
-
-const careers = [
-  { code: "01", title: "Event Coordinator", location: "Bengaluru", type: "Full-time" },
-  { code: "02", title: "Content Producer", location: "Hyderabad", type: "Contract" },
-  { code: "03", title: "Sales & Partnerships", location: "Remote", type: "Full-time" },
-];
-
 // ── Section eyebrow (matched to Sponsorship.jsx badge pattern) ─────────────
 const Eyebrow = ({ icon: Icon, children, accent = "#C21807", dark = false }) => (
   <div
@@ -117,7 +95,6 @@ const CareerCard = ({ job, index, onApply }) => (
       </div>
       <span
         className="text-2xl tabular-nums text-white/15 transition-colors duration-500 group-hover:text-[#C21807]/40"
-        style={{ fontFamily: FONT_MONO, fontWeight: 600 }}
       >
         {job.code}
       </span>
@@ -125,7 +102,6 @@ const CareerCard = ({ job, index, onApply }) => (
 
     <h4
       className="mb-6 text-2xl uppercase tracking-tight text-white transition-colors group-hover:text-[#E2634F]"
-      style={{ fontFamily: FONT_DISPLAY, fontWeight: 600 }}
     >
       {job.title}
     </h4>
@@ -142,7 +118,6 @@ const CareerCard = ({ job, index, onApply }) => (
     <button
       onClick={onApply}
       className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C21807] to-[#8F1204] py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-red-900/20 transition-all duration-300 hover:shadow-red-900/40 active:scale-95"
-      style={{ fontFamily: FONT_MONO }}
     >
       Apply Now
       <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -150,109 +125,20 @@ const CareerCard = ({ job, index, onApply }) => (
   </motion.div>
 );
 
-// ── Main Component ───────────────────────────────────────────────────────────
-const Partners = () => {
-  const handleApplyClick = () => {
-    window.location.href = "mailto:careers@hakirush.com?subject=Job Application";
-  };
-
-  return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent">
-      <FontImports />
-      <ContinuousSportsBackground />
-
-      <div className="relative z-10">
-        {/* ── PARTNERS SECTION ── */}
-        {/* <section className="overflow-hidden py-20">
-          <div className="mx-auto mb-14 max-w-7xl px-4 text-center sm:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center"
-            >
-              <Eyebrow icon={Newspaper} accent="#B8923D">In The Media</Eyebrow>
-              <h2
-                className="text-4xl uppercase leading-[0.92] tracking-tight text-slate-950 md:text-5xl"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
-              >
-                Partners & <span className="text-[#C21807]">Press.</span>
-              </h2>
-            </motion.div>
-          </div>
-
-          <div
-            className="flex overflow-hidden"
-            style={{
-              WebkitMaskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
-              maskImage: "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
-            }}
-          >
-            <motion.div
-              className="flex gap-8 whitespace-nowrap"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            >
-              {[...partners, ...partners].map((partner, index) => (
-                <div
-                  key={index}
-                  className="group shrink-0 rounded-2xl border border-slate-100 bg-white/80 px-8 py-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-[#B8923D]/40 hover:shadow-lg"
-                >
-                  <img
-                    src={partner.img}
-                    alt="Partner"
-                    className="h-12 w-auto opacity-60 grayscale transition-all group-hover:opacity-100 group-hover:grayscale-0"
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </section> */}
-
-        {/* ── CAREERS SECTION ── */}
-        <section className="relative mx-4 mb-20 overflow-hidden rounded-[3rem] bg-[#0A0A0A] py-24 shadow-2xl sm:mx-8">
-          {/* Grain */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
-            style={{ backgroundImage: GRAIN_BG }}
-          />
-          {/* Glow */}
-          <div className="pointer-events-none absolute right-[-10%] top-[-20%] h-96 w-96 rounded-full bg-[#C21807]/[0.15] blur-[100px]" />
-
-          <div className="relative z-10 mx-auto max-w-7xl px-6">
-            <div className="mb-16 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="flex flex-col items-center"
-              >
-                <Eyebrow icon={Award} accent="#E2634F" dark>We're Hiring</Eyebrow>
-                <h2
-                  className="mb-5 text-4xl uppercase leading-[0.92] tracking-tight text-white md:text-5xl"
-                  style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
-                >
-                  Join The <span className="text-[#C21807]">Rush.</span>
-                </h2>
-                <p
-                  className="max-w-md text-lg leading-relaxed text-slate-400"
-                  style={{ fontFamily: FONT_SERIF, fontStyle: "italic" }}
-                >
-                  We're always looking for high-energy talent.
-                </p>
-              </motion.div>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-3">
-              {careers.map((job, index) => (
-                <CareerCard key={index} job={job} index={index} onApply={handleApplyClick} />
-              ))}
-            </div>
-          </div>
-        </section>
+const Partners = () => (
+  <section className="relative overflow-hidden bg-white px-6 py-20 sm:py-24">
+    <ContinuousSportsBackground />
+    <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="mb-10 text-center">
+        <Eyebrow icon={Newspaper}>Careers at Hakirush</Eyebrow>
+      </div>
+      <div className="grid gap-5 lg:grid-cols-3">
+        {careers.map((job, index) => (
+          <CareerCard key={job.code} job={job} index={index} />
+        ))}
       </div>
     </div>
-  );
-};
+  </section>
+);
 
 export default Partners;

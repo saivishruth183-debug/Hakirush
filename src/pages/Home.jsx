@@ -1,6 +1,6 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import WhyHakirush from '../components/WhyHakirush'
+import WhyHakirush from '../components/Whyhakirush'
 import Newsletter from '../components/Newsletter'
 import Sponsor from '../components/Sponsor';
 import Roadtoglory from '../components/Roadtoglory';

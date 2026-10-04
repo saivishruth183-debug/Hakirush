@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion, useInView, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
+import backgroundImage from '../assets/Hero/Backimage.png';
 import {
   Trophy, Users, Store, ShoppingBag, CheckCircle2,
   TrendingUp, ArrowUpRight, Crown, ScanLine,

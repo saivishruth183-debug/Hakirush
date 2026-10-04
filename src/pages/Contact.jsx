@@ -137,7 +137,55 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
 
+  const handleInput = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
+  const canSubmit =
+    formData.name.trim().length > 0 &&
+    formData.email.trim().length > 0 &&
+    formData.message.trim().length > 0 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim());
+
+  const sendMail = () => {
+    if (!canSubmit) {
+      Swal.fire({
+        icon: "error",
+        title: "Please complete the form",
+        text: "Name, a valid email and a message are required before sending.",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    const mailtoBody = [
+      `Name: ${formData.name.trim()}`,
+      `Email: ${formData.email.trim()}`,
+      `Company: ${formData.company.trim() || "Not provided"}`,
+      `Phone: ${formData.phone.trim() || "Not provided"}`,
+      "",
+      "Message:",
+      formData.message.trim(),
+    ].join("\n");
+
+    const mailtoLink = `mailto:${contactDetails.email}?subject=${encodeURIComponent(
+      `Enquiry from ${formData.name.trim()}`
+    )}&body=${encodeURIComponent(mailtoBody)}`;
+
+    window.location.href = mailtoLink;
+
+    setTimeout(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Your message is ready",
+        text: "Your email app has been opened so you can send the inquiry.",
+      });
+      setFormData({ name: "", email: "", company: "", phone: "", message: "" });
+      setLoading(false);
+    }, 200);
+  };
 
   return (
     <div className="relative overflow-hidden min-h-screen">

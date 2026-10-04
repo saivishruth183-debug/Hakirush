@@ -35,8 +35,8 @@ export default async function handler(request, response) {
 
   const env = globalThis.process?.env || {};
   const text = messageText({ name, email, company, phone, message });
-  const mailFrom = env.MAIL_FROM || env.SMTP_USER;
-  const mailTo = env.MAIL_TO || "vishruth@hakirush.com";
+  const mailFrom = env.MAIL_FROM || env.SMTP_USER || "admin@hakirush.com";
+  const mailTo = env.MAIL_TO || env.SMTP_USER || "admin@hakirush.com";
 
   if (env.RESEND_API_KEY) {
     try {

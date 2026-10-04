@@ -105,7 +105,7 @@ const KitStripeDivider = () => (
 );
 
 const contactDetails = {
-  email: "Support@hakirush.com",
+  email: "admin@hakirush.com",
   phone: "+91 7997110210",
   whatsapp: "+91 7997110210",
   address: "No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka -560095",

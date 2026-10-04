@@ -137,34 +137,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleInput = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
-  const canSubmit = formData.name.trim() && isValidEmail(formData.email) && formData.message.trim() && !loading;
-
-  const sendMail = async () => {
-    if (!canSubmit) return;
-    setLoading(true);
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const result = await response.json().catch(() => ({}));
-        throw new Error(result.error || "Unable to send message");
-      }
-
-      Swal.fire({ icon: "success", title: "Submitted", text: "We'll get back to you soon!", timer: 2500, showConfirmButton: false });
-      setFormData({ name: "", email: "", company: "", phone: "", message: "" });
-    } catch (error) {
-      Swal.fire({ icon: "error", title: "Message not sent", text: error.message, timer: 3500, showConfirmButton: false });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="relative overflow-hidden min-h-screen">

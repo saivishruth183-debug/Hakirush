@@ -144,15 +144,16 @@ const SocialIcon3D = ({ item }) => {
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={item.label}
+        title={item.label}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX: isHovered ? rotateX : 0, rotateY: isHovered ? rotateY : 0, transformStyle: 'preserve-3d' }}
         animate={{ y: isHovered ? -5 : 0, scale: isHovered ? 1.1 : 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-        className="relative w-11 h-11 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 overflow-hidden group"
+        className="relative w-11 h-11 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-[0_18px_35px_rgba(0,0,0,0.2)] group"
       >
-        {/* sweeping conic gold ring */}
         <motion.span
           className="absolute -inset-6 rounded-full pointer-events-none"
           style={{
@@ -163,7 +164,7 @@ const SocialIcon3D = ({ item }) => {
         />
         <span
           className="absolute inset-[1.5px] rounded-2xl transition-colors duration-300"
-          style={{ background: isHovered ? INK : 'transparent' }}
+          style={{ background: isHovered ? 'rgba(15, 23, 42, 0.92)' : 'rgba(15, 23, 42, 0.25)' }}
         />
         <motion.span
           className="absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/20 to-transparent pointer-events-none"
@@ -171,8 +172,8 @@ const SocialIcon3D = ({ item }) => {
           style={{ transform: 'translateZ(6px)' }}
         />
         <Icon
-          className="relative w-5 h-5 transition-colors"
-          style={{ transform: 'translateZ(14px)', color: isHovered ? RED_LIGHT : '#94a3b8' }}
+          className="relative w-[18px] h-[18px] transition-all duration-300"
+          style={{ transform: 'translateZ(14px)', color: isHovered ? '#fff7ed' : '#cbd5e1' }}
         />
       </motion.a>
     </div>
@@ -187,23 +188,20 @@ const FooterLink3D = ({ link }) => {
 
   return (
     <li style={{ perspective: 300 }}>
-      <Link to={link.href} ref={ref} onMouseMove={handleMouseMove} onMouseEnter={() => setIsHovered(true)} onMouseLeave={handleMouseLeave}>
+      <Link to={link.href} ref={ref} onMouseMove={handleMouseMove} onMouseEnter={() => setIsHovered(true)} onMouseLeave={handleMouseLeave} className="group inline-block">
         <motion.span
           style={{ rotateX: isHovered ? rotateX : 0, rotateY: isHovered ? rotateY : 0, transformStyle: 'preserve-3d' }}
           animate={{ x: isHovered ? 4 : 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="flex items-center gap-2 group transition-colors text-sm font-bold uppercase tracking-wider"
+          className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-slate-300 transition-colors duration-300 group-hover:text-white"
         >
           <motion.span
-            className="h-px"
+            className="h-px rounded-full"
             style={{ background: RED }}
-            animate={{ width: isHovered ? 16 : 0 }}
+            animate={{ width: isHovered ? 20 : 10 }}
             transition={{ duration: 0.25 }}
           />
-          <span
-            style={{ transform: 'translateZ(6px)', color: isHovered ? '#fff' : '#94a3b8' }}
-            className="transition-colors"
-          >
+          <span style={{ transform: 'translateZ(8px)' }} className="transition-colors duration-300">
             {link.name}
           </span>
         </motion.span>
@@ -226,10 +224,10 @@ const ContactIcon3D = ({ Icon }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX: isHovered ? rotateX : 0, rotateY: isHovered ? rotateY : 0, transformStyle: 'preserve-3d' }}
-        animate={{ boxShadow: isHovered ? `0 0 0 1px ${RED}88, 0 8px 20px -8px ${RED}55` : '0 0 0 1px transparent' }}
-        className="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 transition-colors duration-300"
+        animate={{ boxShadow: isHovered ? `0 0 0 1px ${RED}88, 0 14px 30px -12px ${RED}66` : '0 0 0 1px transparent' }}
+        className="w-12 h-12 shrink-0 flex items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/2 shadow-[0_18px_35px_rgba(0,0,0,0.2)] transition-colors duration-300"
       >
-        <Icon className="w-5 h-5 transition-colors" style={{ transform: 'translateZ(12px)', color: RED }} />
+        <Icon className="w-5 h-5 transition-all duration-300" style={{ transform: 'translateZ(12px)', color: isHovered ? '#fff7ed' : RED }} />
       </motion.div>
     </div>
   );
@@ -278,11 +276,11 @@ const Footer = () => {
   );
 
   const socials = [
-    { icon: Facebook, href: 'https://www.facebook.com/share/1DKbJRWQtq/' },
-    { icon: Instagram, href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
-    { icon: Linkedin, href: 'https://linkedin.com/company/hakirush' },
-    { icon: TwitterIcon, href: 'https://x.com/Hakirush_sports' },
-    { icon: Youtube, href: 'https://www.youtube.com/@HakirushSportsEvents' },
+    { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/1DKbJRWQtq/' },
+    { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/hakirush' },
+    { icon: TwitterIcon, label: 'X / Twitter', href: 'https://x.com/Hakirush_sports' },
+    { icon: Youtube, label: 'YouTube', href: 'https://www.youtube.com/@HakirushSportsEvents' },
   ];
 
   return (
@@ -310,15 +308,15 @@ const Footer = () => {
           >
             <div className="flex items-center gap-5">
               <Link to="/" className="inline-block group shrink-0">
-                <div className="flex items-center">
-                  <div className="relative p-1">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
                     <div
-                      className="absolute inset-0 rounded-xl blur-md opacity-20 group-hover:opacity-50 transition-opacity"
+                      className="absolute inset-0 rounded-2xl blur-md opacity-25 group-hover:opacity-60 transition-opacity duration-300"
                       style={{ background: RED }}
                     />
-                    <img src="/favicon.png" alt="Logo" className="relative h-18 w-18 object-contain" />
+                    <img src="/favicon.png" alt="Hakirush logo" className="relative h-16 w-16 object-contain drop-shadow-[0_0_18px_rgba(239,68,68,0.45)]" />
                   </div>
-                  <span className="text-4xl font-black italic tracking-tighter uppercase">
+                  <span className="text-4xl font-black italic tracking-[-0.08em] uppercase leading-none text-white drop-shadow-[0_10px_20px_rgba(239,68,68,0.18)]">
                     Haki
                     <span className="text-transparent bg-clip-text" style={{ backgroundImage: `linear-gradient(135deg, ${RED_LIGHT}, ${RED})` }}>
                       rush
@@ -329,9 +327,9 @@ const Footer = () => {
               <ChampionSeal />
             </div>
 
-            <p className="text-slate-400 text-lg leading-relaxed max-w-sm">
+            <p className="text-slate-300 text-lg leading-relaxed max-w-sm">
               India's premier corporate sports platform. We don't just organize events; we build{' '}
-              <span className="text-white font-bold">champions</span>.
+              <span className="text-white font-extrabold">champions</span>.
             </p>
 
             <div className="flex gap-4">
@@ -349,7 +347,7 @@ const Footer = () => {
             transition={{ delay: 0.1 }}
             className="md:col-span-3"
           >
-            <h3 className="text-sm font-black uppercase tracking-[0.3em] mb-8" style={{ color: RED }}>
+            <h3 className="text-sm font-black uppercase tracking-[0.28em] mb-8 text-red-500/90">
               Navigation
             </h3>
             <ul className="space-y-4">
@@ -367,7 +365,7 @@ const Footer = () => {
             transition={{ delay: 0.2 }}
             className="md:col-span-4 space-y-8"
           >
-            <h3 className="text-sm font-black uppercase tracking-[0.3em] mb-8" style={{ color: RED }}>
+            <h3 className="text-sm font-black uppercase tracking-[0.28em] mb-8 text-red-500/90">
               Get In Touch
             </h3>
             <div className="space-y-6">
@@ -377,13 +375,13 @@ const Footer = () => {
               ].map((item, i) => (
                 <a key={i} href={item.href} className="flex items-center gap-4 group">
                   <ContactIcon3D Icon={item.icon} />
-                  <span className="text-slate-300 font-bold group-hover:text-white transition-colors">{item.label}</span>
+                  <span className="text-slate-300 text-base font-semibold tracking-wide group-hover:text-white transition-colors duration-300">{item.label}</span>
                 </a>
               ))}
 
               <div className="flex gap-4 group">
                 <ContactIcon3D Icon={MapPin} />
-                <p className="text-slate-400 text-sm leading-relaxed font-medium group-hover:text-slate-200 transition-colors">
+                <p className="text-slate-300 text-sm leading-relaxed font-medium group-hover:text-slate-100 transition-colors duration-300">
                   No. 472/7 Balaji Arcade, A.V.S. Compound, Ejipura, Koramangala, Bengaluru - 560095.
                 </p>
               </div>
@@ -395,7 +393,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-2 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
+          <p className="text-slate-400 text-xs font-bold uppercase tracking-[0.26em]">
             &copy; {new Date().getFullYear()} <span className="text-white">HAKIRUSH</span>. Engineered for Excellence.
           </p>
           <div className="flex gap-8">
@@ -403,9 +401,7 @@ const Footer = () => {
               <a
                 key={text}
                 href="#"
-                className="text-slate-500 text-[10px] font-black uppercase tracking-widest transition-colors"
-                onMouseEnter={(e) => (e.target.style.color = RED)}
-                onMouseLeave={(e) => (e.target.style.color = '')}
+                className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-300 hover:text-red-400"
               >
                 {text}
               </a>

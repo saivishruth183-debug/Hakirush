@@ -45,7 +45,7 @@ const Logo3D = ({ isRed }) => {
         <img
           src="/favicon.png"
           alt="Logo"
-          className="relative z-10 h-16 w-16 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-18 lg:w-18 object-contain drop-shadow-xl transition-all duration-300"
+          className="relative z-10 h-10 w-10 sm:h-6 sm:w-6 md:h-10 md:w-10 lg:h-14 lg:w-14 object-contain drop-shadow-xl transition-all duration-300"
         />
       </div>
 

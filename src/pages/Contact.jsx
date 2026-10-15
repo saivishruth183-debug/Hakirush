@@ -53,7 +53,7 @@ const contactDetails = {
   whatsapp: '+91 7997110210',
   address:
     'No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka -560095',
-  hours: 'Mon-Sat: 9:00 AM - 7:00 PM',
+  hours: 'Mon-Fri: 9:00 AM - 7:00 PM',
 }
 
 const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactDetails.address)}`

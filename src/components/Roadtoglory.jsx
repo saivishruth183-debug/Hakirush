@@ -10,7 +10,7 @@ import {
   useScroll,
   useInView,
 } from 'framer-motion';
-import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Download, Sparkles, Trophy, Users2 } from 'lucide-react';
+import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Download, Medal, Sparkles, TrendingDown, TrendingUp, Trophy, Users2 } from 'lucide-react';
 
 const GOLD = '#D4AF37';
 const SILVER = '#C7CBD1';
@@ -242,6 +242,7 @@ const RollingDigit = ({ char, play, delay }) => {
     return (
       <motion.span
         className="inline-block"
+        style={{ height: `${DIGIT_HEIGHT_EM}em`, lineHeight: `${DIGIT_HEIGHT_EM}em` }}
         initial={{ opacity: 0, y: 8 }}
         animate={play ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
         transition={{ duration: 0.35, delay: reduceMotion ? 0 : delay, ease: 'easeOut' }}
@@ -327,7 +328,6 @@ const leaderboardData = [
   { rank: 9, name: 'Zenith Global', xp: '16,740 XP', level: 'Level 6', badges: '10', movement: '▲ +1' },
   { rank: 10, name: 'Horizon Digital', xp: '15,980 XP', level: 'Level 6', badges: '9', movement: '▼ -3' },
 ];
-const LEADERBOARD_PREVIEW = 5;
 
 const xpRules = [
   'Event Participation', 'Team Registration', 'Match Victory', 'Tournament Winner', 'Runner Up',
@@ -807,94 +807,6 @@ const XPBar = ({ xp, max, tierColor }) => {
   );
 };
 
-const LEADERBOARD_COLS = '52px minmax(0,1fr) 160px 84px 64px 92px';
-
-const rowMotion = (i) => ({
-  initial: { opacity: 0, x: -18 },
-  whileInView: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -12, transition: { duration: 0.2 } },
-  viewport: { once: true, margin: '-5% 0px' },
-  transition: { duration: 0.5, delay: (i % LEADERBOARD_PREVIEW) * 0.06, ease: EASE },
-});
-
-const LeaderboardRow = ({ entry, maxXP, i }) => {
-  const tier = tierFor(entry.rank);
-  return (
-    <motion.div
-      {...rowMotion(i)}
-      whileHover={{ x: 4 }}
-      className="grid items-center gap-4 px-4 py-3.5 transition-colors hover:bg-white/[0.03] sm:px-5"
-      style={{
-        gridTemplateColumns: LEADERBOARD_COLS,
-        borderLeft: `2px solid ${tier ? tier.color : 'transparent'}`,
-        background: tier ? `linear-gradient(90deg, ${tier.color}12, transparent 45%)` : 'transparent',
-      }}
-    >
-      <RankBadge rank={entry.rank} />
-      <div className="flex min-w-0 items-center gap-3">
-        <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
-          style={{
-            background: tier ? `linear-gradient(135deg, ${tier.color}30, ${tier.color}0A)` : 'rgba(255,255,255,0.06)',
-            color: tier ? tier.color : '#CFCFCF',
-            border: `1px solid ${tier ? `${tier.color}45` : 'rgba(255,255,255,0.1)'}`,
-          }}
-        >
-          {initials(entry.name)}
-        </div>
-        <span className="truncate text-sm font-medium text-white">{entry.name}</span>
-      </div>
-      <div className="min-w-0">
-        <div className="text-sm font-semibold tabular-nums text-white">{entry.xp}</div>
-        <XPBar xp={entry.xp} max={maxXP} tierColor={tier?.color} />
-      </div>
-      <div className="text-sm text-[#A8A8A8]">{entry.level}</div>
-      <div className="text-sm tabular-nums text-[#A8A8A8]">{entry.badges}</div>
-      <MovementPill movement={entry.movement} />
-    </motion.div>
-  );
-};
-
-const LeaderboardCardMobile = ({ entry, maxXP, i }) => {
-  const tier = tierFor(entry.rank);
-  return (
-    <motion.div
-      {...rowMotion(i)}
-      className="rounded-2xl border border-white/5 bg-[#171717]/60 p-3.5"
-      style={tier ? { boxShadow: `inset 0 0 0 1px ${tier.color}40`, background: `linear-gradient(135deg, ${tier.color}10, #171717)` } : undefined}
-    >
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <RankBadge rank={entry.rank} />
-          <div
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
-            style={{
-              background: tier ? `linear-gradient(135deg, ${tier.color}30, ${tier.color}0A)` : 'rgba(255,255,255,0.06)',
-              color: tier ? tier.color : '#CFCFCF',
-              border: `1px solid ${tier ? `${tier.color}45` : 'rgba(255,255,255,0.1)'}`,
-            }}
-          >
-            {initials(entry.name)}
-          </div>
-          <span className="truncate text-sm font-semibold text-white">{entry.name}</span>
-        </div>
-        <MovementPill movement={entry.movement} />
-      </div>
-      <div className="mt-3">
-        <div className="flex items-center justify-between text-xs text-[#A8A8A8]">
-          <span className="font-semibold tabular-nums text-white">{entry.xp}</span>
-          <span>{entry.level}</span>
-        </div>
-        <XPBar xp={entry.xp} max={maxXP} tierColor={tier?.color} />
-      </div>
-      <div className="mt-2.5 flex items-center justify-between border-t border-white/5 pt-2.5 text-xs text-[#A8A8A8]">
-        <span>{entry.badges} Badges</span>
-        <span className="text-[10px] uppercase tracking-[0.25em] text-[#6E6E6E]">{tier ? tier.label : `#${entry.rank}`}</span>
-      </div>
-    </motion.div>
-  );
-};
-
 /* Weighting bar — the five criteria as one stacked bar */
 const CriteriaBar = () => {
   const ref = useRef(null);
@@ -913,6 +825,415 @@ const CriteriaBar = () => {
           transition={{ duration: 0.9, delay: reduceMotion ? 0 : i * 0.12, ease: EASE }}
         />
       ))}
+    </div>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  HAKI RANK leaderboard — podium + standings                          */
+/* ------------------------------------------------------------------ */
+
+const moveValue = (movement) => {
+  const n = parseInt(String(movement).replace(/[^\d]/g, ''), 10) || 0;
+  if (movement.startsWith('▲')) return n;
+  if (movement.startsWith('▼')) return -n;
+  return 0;
+};
+
+const formatXP = (n) => n.toLocaleString('en-IN');
+
+/* Team crest — initials on a ring; podium tiers get a slowly turning foil ring */
+const Crest = ({ name, size = 40, tier, spin = false }) => {
+  const reduceMotion = useReducedMotion();
+  const color = tier ? tier.color : '#8E8E8E';
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <motion.span
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: tier
+            ? `conic-gradient(from 0deg, ${color}, ${color}22 30%, ${color} 50%, ${color}22 80%, ${color})`
+            : 'linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04))',
+        }}
+        animate={spin && !reduceMotion ? { rotate: 360 } : undefined}
+        transition={spin ? { duration: 6, repeat: Infinity, ease: 'linear' } : undefined}
+      />
+      <span
+        className="absolute inset-[2px] flex items-center justify-center rounded-full font-bold"
+        style={{
+          background: tier ? `radial-gradient(circle at 35% 30%, #2a2a2a, #0d0d0d 70%)` : '#141414',
+          color: tier ? color : '#CFCFCF',
+          fontSize: size * 0.32,
+          boxShadow: tier ? `inset 0 0 ${size * 0.25}px ${color}33` : 'none',
+        }}
+      >
+        {initials(name)}
+      </span>
+    </div>
+  );
+};
+
+/* ---------------- Podium ---------------- */
+
+const PODIUM = {
+  1: { h: 'h-[118px] sm:h-[150px]', crest: 76, range: [0.3, 1] },
+  2: { h: 'h-[86px] sm:h-[112px]', crest: 60, range: [0.15, 0.8] },
+  3: { h: 'h-[64px] sm:h-[86px]', crest: 60, range: [0, 0.65] },
+};
+
+const PodiumColumn = ({ entry, progress, maxXP }) => {
+  const reduceMotion = useReducedMotion();
+  const tier = tierFor(entry.rank);
+  const cfg = PODIUM[entry.rank];
+  const [a, b] = cfg.range;
+  const isFirst = entry.rank === 1;
+
+  // the block rises out of the floor, then the team drops onto it — all scroll-scrubbed
+  const blockScale = useTransform(progress, [a, b], [0, 1]);
+  const teamOpacity = useTransform(progress, [b - 0.12, b], [0, 1]);
+  const teamY = useTransform(progress, [b - 0.12, b], [-30, 0]);
+
+  return (
+    <motion.div
+      className="group relative flex min-w-0 flex-1 flex-col items-center"
+      whileHover={reduceMotion ? undefined : { y: -6 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+    >
+      {/* team */}
+      <motion.div
+        className="relative z-10 flex w-full flex-col items-center px-1 pb-3 text-center"
+        style={reduceMotion ? undefined : { opacity: teamOpacity, y: teamY }}
+      >
+        {isFirst && (
+          <motion.div
+            className="mb-1"
+            animate={reduceMotion ? undefined : { y: [0, -5, 0], rotate: [0, -4, 0] }}
+            transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <Crown size={26} style={{ color: GOLD, filter: `drop-shadow(0 0 10px ${GOLD}AA)` }} fill={`${GOLD}55`} />
+          </motion.div>
+        )}
+
+        <div className="relative">
+          <div
+            className="absolute -inset-3 rounded-full opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-100"
+            style={{ background: `${tier.color}${isFirst ? '55' : '33'}` }}
+          />
+          <Crest name={entry.name} size={cfg.crest} tier={tier} spin />
+          <span
+            className="absolute -bottom-2 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-black text-[#0D0D0D]"
+            style={{ background: `linear-gradient(135deg, ${tier.color}, ${tier.color}BB)`, boxShadow: `0 0 12px ${tier.color}88` }}
+          >
+            {entry.rank}
+          </span>
+        </div>
+
+        <div className="mt-4 w-full truncate text-xs font-semibold text-white sm:text-sm">{entry.name}</div>
+        <div className="mt-1 flex items-baseline gap-1 text-sm font-bold tabular-nums sm:text-lg" style={{ color: tier.color }}>
+          <RollingNumber value={formatXP(parseXP(entry.xp))} />
+          <span className="text-[10px] font-semibold tracking-[0.15em] opacity-70">XP</span>
+        </div>
+        <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
+          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] text-[#A8A8A8]">
+            {entry.level}
+          </span>
+          <span className="hidden sm:inline-flex">
+            <MovementPill movement={entry.movement} />
+          </span>
+        </div>
+      </motion.div>
+
+      {/* 3D block: lit top face + front face with the big rank numeral */}
+      <motion.div
+        className={`relative w-full ${cfg.h}`}
+        style={{ transformOrigin: '50% 100%', scaleY: reduceMotion ? 1 : blockScale }}
+      >
+        <div
+          className="absolute inset-x-0 -top-3 h-3"
+          style={{
+            clipPath: 'polygon(7% 0, 93% 0, 100% 100%, 0 100%)',
+            background: `linear-gradient(180deg, ${tier.color}66, ${tier.color}33)`,
+          }}
+        />
+        <div
+          className="relative h-full overflow-hidden rounded-b-md border-x border-b"
+          style={{
+            borderColor: `${tier.color}33`,
+            background: `linear-gradient(180deg, ${tier.color}2E, #121212 55%, #0B0B0B)`,
+            boxShadow: `inset 0 1px 0 ${tier.color}66`,
+          }}
+        >
+          <div
+            className="absolute inset-0 opacity-60"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 9px)',
+            }}
+          />
+          <span
+            className="absolute inset-x-0 top-2 select-none text-center font-black leading-none"
+            style={{
+              fontSize: isFirst ? '4.2rem' : '3.2rem',
+              color: 'transparent',
+              WebkitTextStroke: `1.5px ${tier.color}AA`,
+            }}
+          >
+            {entry.rank}
+          </span>
+          {/* sheen sweep on hover */}
+          <span
+            className="absolute inset-0 -translate-x-full transition-transform duration-700 group-hover:translate-x-full"
+            style={{ background: `linear-gradient(115deg, transparent 35%, ${tier.color}30 50%, transparent 65%)` }}
+          />
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const Podium = ({ entries, maxXP }) => {
+  const reduceMotion = useReducedMotion();
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'start 0.4'] });
+  const progress = useSpring(scrollYProgress, SCRUB);
+  const byRank = Object.fromEntries(entries.map((e) => [e.rank, e]));
+
+  return (
+    <div ref={ref} className="relative mx-auto max-w-3xl pt-6">
+      {/* spotlight on the champion */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-full w-[46%] -translate-x-1/2"
+        style={{
+          clipPath: 'polygon(38% 0, 62% 0, 100% 100%, 0 100%)',
+          background: `linear-gradient(180deg, ${GOLD}2E, ${GOLD}0A 60%, transparent)`,
+        }}
+        animate={reduceMotion ? undefined : { opacity: [0.6, 1, 0.6] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      {/* rising gold sparks behind #1 */}
+      {!reduceMotion &&
+        [0, 1, 2, 3, 4, 5].map((i) => (
+          <motion.span
+            key={i}
+            aria-hidden
+            className="pointer-events-none absolute bottom-24 h-1 w-1 rounded-full"
+            style={{ left: `${44 + i * 2.4}%`, background: GOLD, boxShadow: `0 0 6px ${GOLD}` }}
+            animate={{ y: [0, -140], opacity: [0, 1, 0] }}
+            transition={{ duration: 3 + (i % 3), repeat: Infinity, delay: i * 0.55, ease: 'easeOut' }}
+          />
+        ))}
+
+      <div className="relative flex items-end gap-2 sm:gap-4">
+        {[2, 1, 3].map((rank) => byRank[rank] && <PodiumColumn key={rank} entry={byRank[rank]} progress={progress} maxXP={maxXP} />)}
+      </div>
+
+      {/* reflective floor */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+      <div className="h-6 w-full bg-gradient-to-b from-[#D4AF37]/10 to-transparent" />
+    </div>
+  );
+};
+
+/* ---------------- Standings rows ---------------- */
+
+const STANDINGS_COLS = '64px minmax(0,1.6fr) minmax(180px,1.2fr) 110px 80px 90px';
+
+const StandingRow = ({ entry, maxXP, i }) => {
+  const reduceMotion = useReducedMotion();
+  const value = parseXP(entry.xp);
+  const gap = maxXP - value;
+  const mv = moveValue(entry.movement);
+
+  return (
+    <motion.div
+      layout={!reduceMotion}
+      initial={reduceMotion ? false : { opacity: 0, x: -24, rotateX: -12 }}
+      animate={{ opacity: 1, x: 0, rotateX: 0 }}
+      exit={{ opacity: 0, x: 24, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+      whileHover={reduceMotion ? undefined : { y: -2 }}
+      style={{ transformPerspective: 900 }}
+      className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#111111] transition-colors duration-300 hover:border-[#E50914]/30 hover:bg-[#151515]"
+    >
+      {/* red accent bar grows on hover */}
+      <span className="absolute inset-y-2 left-0 w-[3px] origin-center scale-y-0 rounded-r-full bg-gradient-to-b from-[#E50914] to-[#D4AF37] transition-transform duration-300 group-hover:scale-y-100" />
+      {/* hover glow */}
+      <span className="pointer-events-none absolute -left-10 top-1/2 h-24 w-40 -translate-y-1/2 rounded-full bg-[#E50914]/0 blur-2xl transition-colors duration-500 group-hover:bg-[#E50914]/15" />
+
+      {/* desktop */}
+      <div className="relative hidden items-center gap-4 px-5 py-3.5 md:grid" style={{ gridTemplateColumns: STANDINGS_COLS }}>
+        <span
+          className="text-2xl font-black tabular-nums leading-none transition-colors duration-300"
+          style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.35)' }}
+        >
+          {String(entry.rank).padStart(2, '0')}
+        </span>
+
+        <div className="flex min-w-0 items-center gap-3">
+          <Crest name={entry.name} size={38} />
+          <div className="min-w-0">
+            <div className="truncate text-sm font-semibold text-white">{entry.name}</div>
+            <div className="text-[11px] text-[#7A7A7A]">{entry.level}</div>
+          </div>
+        </div>
+
+        <div className="min-w-0">
+          <div className="text-sm font-semibold tabular-nums text-white">{entry.xp}</div>
+          <XPBar xp={entry.xp} max={maxXP} />
+        </div>
+
+        <div className="text-xs tabular-nums text-[#7A7A7A]">
+          <span className="text-[#A8A8A8]">−{formatXP(gap)}</span>
+          <div className="text-[10px] uppercase tracking-[0.2em]">to #1</div>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-sm tabular-nums text-[#CFCFCF]">
+          <Medal size={14} style={{ color: GOLD }} />
+          {entry.badges}
+        </div>
+
+        <div className="flex justify-end">
+          <motion.span
+            animate={reduceMotion || mv === 0 ? undefined : { y: mv > 0 ? [0, -2, 0] : [0, 2, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 }}
+          >
+            <MovementPill movement={entry.movement} />
+          </motion.span>
+        </div>
+      </div>
+
+      {/* mobile */}
+      <div className="relative flex items-center gap-3 px-3.5 py-3 md:hidden">
+        <span className="w-6 text-center text-lg font-black tabular-nums" style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.35)' }}>
+          {entry.rank}
+        </span>
+        <Crest name={entry.name} size={34} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <span className="truncate text-sm font-semibold text-white">{entry.name}</span>
+            <MovementPill movement={entry.movement} />
+          </div>
+          <div className="mt-1 flex items-center justify-between text-[11px] text-[#7A7A7A]">
+            <span className="tabular-nums text-[#CFCFCF]">{entry.xp}</span>
+            <span className="flex items-center gap-1">
+              <Medal size={11} style={{ color: GOLD }} /> {entry.badges} · {entry.level}
+            </span>
+          </div>
+          <XPBar xp={entry.xp} max={maxXP} />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const FILTERS = [
+  { id: 'all', label: 'All', test: () => true },
+  { id: 'up', label: 'Climbers', icon: TrendingUp, test: (e) => moveValue(e.movement) > 0 },
+  { id: 'down', label: 'Fallers', icon: TrendingDown, test: (e) => moveValue(e.movement) < 0 },
+];
+
+const LEADERBOARD_ROWS_PREVIEW = 4;
+
+const HakiLeaderboard = () => {
+  const reduceMotion = useReducedMotion();
+  const [filter, setFilter] = useState('all');
+  const [expanded, setExpanded] = useState(false);
+  const maxXP = Math.max(...leaderboardData.map((e) => parseXP(e.xp)));
+
+  const podium = leaderboardData.filter((e) => e.rank <= 3);
+  const rest = leaderboardData.filter((e) => e.rank > 3);
+  const active = FILTERS.find((f) => f.id === filter);
+  const filtered = rest.filter(active.test);
+  const rows = expanded ? filtered : filtered.slice(0, LEADERBOARD_ROWS_PREVIEW);
+  const hiddenCount = filtered.length - rows.length;
+
+  return (
+    <div className="relative overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0A0A]">
+      {/* header strip */}
+      <div className="flex flex-col gap-3 border-b border-white/10 bg-white/[0.02] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2 w-2">
+            {!reduceMotion && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E50914] opacity-60" />}
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E50914]" />
+          </span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white">Live Standings</span>
+          <span className="text-[11px] text-[#6E6E6E]">· Current season</span>
+        </div>
+
+        <div className="relative flex w-fit gap-1 rounded-full border border-white/10 bg-[#111111] p-1" role="tablist" aria-label="Filter standings">
+          {FILTERS.map((f) => {
+            const on = filter === f.id;
+            const Icon = f.icon;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => setFilter(f.id)}
+                className="relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors"
+                style={{ color: on ? '#FFFFFF' : '#8E8E8E' }}
+              >
+                {on && (
+                  <motion.span
+                    layoutId="haki-filter-pill"
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: `linear-gradient(135deg, ${RED}, #A3060E)`, boxShadow: `0 6px 18px -6px ${RED}AA` }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                {Icon && <Icon size={12} className="relative" />}
+                <span className="relative">{f.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="px-3 pb-4 pt-2 sm:px-5 sm:pb-5">
+        <Podium entries={podium} maxXP={maxXP} />
+
+        {/* column labels */}
+        <div
+          className="mb-2 mt-2 hidden items-center gap-4 px-5 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#5E5E5E] md:grid"
+          style={{ gridTemplateColumns: STANDINGS_COLS }}
+        >
+          <span>Rank</span>
+          <span>Company</span>
+          <span>Current XP</span>
+          <span>Gap</span>
+          <span>Badges</span>
+          <span className="text-right">Move</span>
+        </div>
+
+        <motion.div layout={!reduceMotion} className="space-y-2">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {rows.map((entry, i) => (
+              <StandingRow key={entry.rank} entry={entry} maxXP={maxXP} i={i} />
+            ))}
+          </AnimatePresence>
+          {rows.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/10 py-6 text-center text-xs text-[#7A7A7A]">
+              No teams {filter === 'up' ? 'climbing' : 'dropping'} outside the podium right now.
+            </div>
+          )}
+        </motion.div>
+
+        {(hiddenCount > 0 || expanded) && filtered.length > LEADERBOARD_ROWS_PREVIEW && (
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] py-2.5 text-xs font-medium text-[#A8A8A8] transition-colors hover:border-[#D4AF37]/40 hover:text-white"
+          >
+            {expanded ? 'Show Less' : `View Full Leaderboard · ${hiddenCount} more`}
+            <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.3 }} className="inline-flex">
+              <ChevronDown size={14} />
+            </motion.span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -1052,11 +1373,7 @@ const Roadtoglory = () => {
   const reduceMotion = useReducedMotion();
   const monthCols = useResponsiveCols(MONTH_BREAKPOINTS);
   const stepCols = useResponsiveCols(STEP_BREAKPOINTS);
-  const maxXP = Math.max(...leaderboardData.map((e) => parseXP(e.xp)));
   const monthGridRef = useRef(null);
-  const [expanded, setExpanded] = useState(false);
-
-  const visibleRows = expanded ? leaderboardData : leaderboardData.slice(0, LEADERBOARD_PREVIEW);
   const leader = leaderboardData[0]; // profile preview always matches the real #1
 
   return (
@@ -1181,7 +1498,7 @@ const Roadtoglory = () => {
               </p>
             </div>
 
-            <div className="mt-8 grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
+            <div className="mt-8 grid gap-6">
               {/* Leaderboard */}
               <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0D0D0D] p-4 sm:p-6">
                 <div className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#E50914]">Ranking Criteria</div>
@@ -1202,53 +1519,11 @@ const Roadtoglory = () => {
                   ))}
                 </div>
 
-                {/* Desktop table */}
-                <div className="hidden overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0A0A] md:block">
-                  <div
-                    className="grid items-center gap-4 border-b border-white/10 bg-white/[0.02] px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#7A7A7A] sm:px-5"
-                    style={{ gridTemplateColumns: LEADERBOARD_COLS }}
-                  >
-                    <span>Rank</span>
-                    <span>Company</span>
-                    <span>Current XP</span>
-                    <span>Level</span>
-                    <span>Badges</span>
-                    <span>Move</span>
-                  </div>
-                  <div className="divide-y divide-white/[0.05]">
-                    <AnimatePresence initial={false}>
-                      {visibleRows.map((entry, i) => (
-                        <LeaderboardRow key={entry.rank} entry={entry} maxXP={maxXP} i={i} />
-                      ))}
-                    </AnimatePresence>
-                  </div>
-                </div>
-
-                {/* Mobile cards */}
-                <div className="block space-y-3 md:hidden">
-                  <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-[#A8A8A8]">Standings</div>
-                  <AnimatePresence initial={false}>
-                    {visibleRows.map((entry, i) => (
-                      <LeaderboardCardMobile key={entry.rank} entry={entry} maxXP={maxXP} i={i} />
-                    ))}
-                  </AnimatePresence>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setExpanded((v) => !v)}
-                  aria-expanded={expanded}
-                  className="mt-5 flex w-full items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.03] py-2.5 text-xs font-medium text-[#A8A8A8] transition-colors hover:border-[#D4AF37]/40 hover:text-white"
-                >
-                  {expanded ? `Show Top ${LEADERBOARD_PREVIEW}` : 'View Full Leaderboard'}
-                  <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.3 }} className="inline-flex">
-                    <ChevronDown size={14} />
-                  </motion.span>
-                </button>
+                <HakiLeaderboard />
               </div>
 
               {/* Side panels */}
-              <div className="space-y-6">
+              <div className="grid gap-6 lg:grid-cols-2">
                 <div className="relative rounded-[24px] border border-white/10 bg-[#0D0D0D] p-5">
                   <div className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#E50914]">Company Profile Preview</div>
                   <motion.div

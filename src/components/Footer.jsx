@@ -705,15 +705,6 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} <span className="text-white">HAKIRUSH</span>. Engineered for Excellence.
           </p>
           <div className="flex items-center gap-8">
-            {['Privacy Policy', 'Terms of Service'].map((text) => (
-              <a
-                key={text}
-                href="#"
-                className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 transition-colors duration-300 hover:text-red-400"
-              >
-                {text}
-              </a>
-            ))}
             <BackToTop />
           </div>
         </div>

@@ -46,27 +46,26 @@ const EXTRUDE_RED =
 /* ------------------------------------------------------------------ */
 /*  CONTENT                                                            */
 /* ------------------------------------------------------------------ */
-// NOTE: "City A / B / C" are placeholders — replace them with real city names.
 const galleryData = {
   annual: [
-    { id: 1, type: 'video', img: Cricket, city: 'City A' },
-    { id: 2, type: 'video', img: Badminton, city: 'City A' },
+    { id: 1, type: 'video', img: Cricket },
+    { id: 2, type: 'video', img: Badminton },
   ],
   quarterly: [
-    { id: 4, type: 'image', img: Basketball, city: 'City C' },
-    { id: 5, type: 'image', img: Ground, city: 'City A' },
-    { id: 6, type: 'image', img: Batemention, city: 'City B' },
+    { id: 4, type: 'image', img: Basketball },
+    { id: 5, type: 'image', img: Ground },
+    { id: 6, type: 'image', img: Batemention },
   ],
   celebration: [
-    { id: 7, type: 'image', img: Celebration1, city: 'City C' },
-    { id: 8, type: 'image', img: Celebration2, city: 'City B' },
-    { id: 9, type: 'image', img: Celebration3, city: 'City C' },
-    { id: 13, type: 'image', img: Celebration4, city: 'City A' },
+    { id: 7, type: 'image', img: Celebration1 },
+    { id: 8, type: 'image', img: Celebration2 },
+    { id: 9, type: 'image', img: Celebration3 },
+    { id: 13, type: 'image', img: Celebration4 },
   ],
   behindthescenes: [
-    { id: 10, type: 'image', img: Behind1, city: 'City A' },
-    { id: 11, type: 'image', img: Behind2, city: 'City B' },
-    { id: 12, type: 'image', img: Behind3, city: 'City C' },
+    { id: 10, type: 'image', img: Behind1 },
+    { id: 11, type: 'image', img: Behind2 },
+    { id: 12, type: 'image', img: Behind3 },
   ],
 }
 
@@ -328,7 +327,7 @@ const Tile = ({ item, idx, total, label, onOpen }) => {
       }}
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
-      aria-label={`Open ${isVideo ? 'video' : 'photo'} ${idx + 1} of ${total} — ${label}, ${item.city}`}
+      aria-label={`Open ${isVideo ? 'video' : 'photo'} ${idx + 1} of ${total} — ${label}`}
       style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 900, transformStyle: 'preserve-3d' }}
       animate={{ z: hover ? 30 : 0 }}
       transition={SPRING}
@@ -400,7 +399,7 @@ const Tile = ({ item, idx, total, label, onOpen }) => {
             hover ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
           }`}
         >
-          {item.city}
+          {label}
         </span>
       </span>
 
@@ -535,7 +534,7 @@ const Lightbox = ({ items, index, dir, label, onClose, onStep }) => {
             ) : (
               <img
                 src={item.img}
-                alt={`${label} — ${item.city}`}
+                alt={`${label} event photo ${index + 1}`}
                 draggable="false"
                 className="max-h-[78vh] max-w-[92vw] select-none rounded-2xl border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.9)]"
               />
@@ -545,8 +544,6 @@ const Lightbox = ({ items, index, dir, label, onClose, onStep }) => {
 
         <div className="mt-5 flex items-center gap-3 text-xs tracking-wide text-slate-300">
           <span className="font-bold text-red-400">{label}</span>
-          <span className="h-1 w-1 rounded-full bg-slate-500" />
-          <span>{item.city}</span>
           <span className="h-1 w-1 rounded-full bg-slate-500" />
           <span aria-live="polite">
             {index + 1} / {items.length}

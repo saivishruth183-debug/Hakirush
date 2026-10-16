@@ -28,7 +28,6 @@ import {
 import PageBackground from '../components/PageBackground'
 
 import Krishna from '../assets/Team/krishna.png'
-import Vishruth from '../assets/Team/vishruth.png' // eslint-disable-line no-unused-vars
 import Arushi from '../assets/Team/arushi.png'
 import Sharavanthi from '../assets/Team/sharvanthi.jpeg'
 import Umesh from '../assets/Team/Umesh.jpeg'

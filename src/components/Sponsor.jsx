@@ -228,7 +228,7 @@ const HeroHeading = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
   return (
-    <h2
+    <h1
       ref={ref}
       className="text-4xl uppercase leading-[0.92] tracking-tight md:text-6xl"
       style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
@@ -236,7 +236,7 @@ const HeroHeading = () => {
       <RiseWords text="Get Your" play={inView} />
       <br />
       <RiseWords text="Access Level." style={{ color: FLARE }} delayOffset={0.2} play={inView} />
-    </h2>
+    </h1>
   );
 };
 

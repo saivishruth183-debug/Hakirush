@@ -27,6 +27,7 @@ import {
 /*  DATA                                                               */
 /* ------------------------------------------------------------------ */
 const NAV_LINKS = [
+  { name: 'Home', href: '/', icon: Home },
   { name: 'About', href: '/about', icon: Info },
   { name: 'Services', href: '/services', icon: Briefcase },
   { name: 'Gallery', href: '/gallery', icon: ImageIcon },

@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -9,13 +9,6 @@ const CREAM = '#F5F3EC';
 const SAGE = '#8B948C';
 const SIGNAL = '#DC2626';
 const GOLD = '#D9A441';
-
-const stats = [
-  { value: '25K+', label: 'EMPLOYEES ENGAGED' },
-  { value: '180+', label: 'ACTIVITIES CONDUCTED' },
-  { value: '120+', label: 'CORPORATE CLIENTS' },
-  { value: '18', label: 'CITIES SERVED' },
-];
 
 const HEADLINE = [
   { text: 'BUILDING', indentPct: 0, color: CREAM, drift: -140 },
@@ -66,8 +59,6 @@ const Hero = () => {
   const lineX1 = useTransform(scrollYProgress, [0, 0.75], prefersReducedMotion ? [0, 0] : [0, HEADLINE[1].drift]);
   const lineX2 = useTransform(scrollYProgress, [0, 0.75], prefersReducedMotion ? [0, 0] : [0, HEADLINE[2].drift]);
   const lineXs = [lineX0, lineX1, lineX2];
-
-  const tickerItems = useMemo(() => [...stats, ...stats], []);
 
   return (
     <section

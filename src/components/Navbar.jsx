@@ -34,7 +34,7 @@ const NAV_LINKS = [
   { name: 'Clients', href: '/clients', icon: Users },
 ]
 
-const DOCK_LINKS = [{ name: 'Home', href: '/', icon: Home }, ...NAV_LINKS]
+const DOCK_LINKS = [ ...NAV_LINKS]
 
 const XIcon = ({ size = 17 }) => (
   <svg viewBox="0 0 1200 1227" width={size} height={size} fill="currentColor" aria-hidden="true">

@@ -6,7 +6,19 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const DEFAULT_ORIGINS = ["https://hakirush1-orcin.vercel.app"];
+const allowedOrigins = (process.env.CORS_ORIGINS || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+    cors({
+      origin: allowedOrigins.length ? allowedOrigins : DEFAULT_ORIGINS,
+      credentials: true,
+    })
+  );
+
 app.use(express.json());
 
 const transporter = nodemailer.createTransport({

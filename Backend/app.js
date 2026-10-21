@@ -10,7 +10,7 @@ const {
   SMTP_USER,
   SMTP_PASS,
   MAIL_TO,
-  ALLOWED_ORIGINS = 'http://localhost:5173',
+  ALLOWED_ORIGINS = 'https://hakirush-1.vercel.app',
   PORT = '5000',
   AUTO_REPLY = 'false',
   DRY_RUN = 'false',

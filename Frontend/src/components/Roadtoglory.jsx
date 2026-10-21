@@ -881,7 +881,7 @@ const PODIUM = {
   3: { h: 'h-[64px] sm:h-[86px]', crest: 60, range: [0, 0.65] },
 };
 
-const PodiumColumn = ({ entry, progress, maxXP }) => {
+const PodiumColumn = ({ entry, progress }) => {
   const reduceMotion = useReducedMotion();
   const tier = tierFor(entry.rank);
   const cfg = PODIUM[entry.rank];
@@ -991,7 +991,7 @@ const PodiumColumn = ({ entry, progress, maxXP }) => {
   );
 };
 
-const Podium = ({ entries, maxXP }) => {
+const Podium = ({ entries }) => {
   const reduceMotion = useReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'start 0.4'] });
@@ -1025,7 +1025,7 @@ const Podium = ({ entries, maxXP }) => {
         ))}
 
       <div className="relative flex items-end gap-2 sm:gap-4">
-        {[2, 1, 3].map((rank) => byRank[rank] && <PodiumColumn key={rank} entry={byRank[rank]} progress={progress} maxXP={maxXP} />)}
+        {[2, 1, 3].map((rank) => byRank[rank] && <PodiumColumn key={rank} entry={byRank[rank]} progress={progress} />)}
       </div>
 
       {/* reflective floor */}
@@ -1192,7 +1192,7 @@ const HakiLeaderboard = () => {
       </div>
 
       <div className="px-3 pb-4 pt-2 sm:px-5 sm:pb-5">
-        <Podium entries={podium} maxXP={maxXP} />
+        <Podium entries={podium} />
 
         {/* column labels */}
         <div

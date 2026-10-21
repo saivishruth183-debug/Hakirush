@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import {
   AnimatePresence,
@@ -27,6 +28,13 @@ import {
   Navigation,
 } from 'lucide-react'
 import backgroundImage from '../assets/Hero/Backimage.png'
+
+/* ------------------------------------------------------------------ */
+/*  BACKEND CONFIG                                                     */
+/* ------------------------------------------------------------------ */
+// Set VITE_API_URL in the frontend .env for production; falls back to the local backend.
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the rest of the site            */
@@ -495,11 +503,6 @@ const SocialSlab = () => {
 /* ------------------------------------------------------------------ */
 /*  FORM                                                               */
 /* ------------------------------------------------------------------ */
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-
-const API_URL = (import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || '').replace(/\/+$/, '')
-
 const fieldClass = (hasError) =>
   `w-full rounded-2xl border bg-black/40 p-4 text-white placeholder-slate-500 outline-none shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)] transition-all duration-300 focus:-translate-y-0.5 focus:bg-black/60 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_10px_24px_-10px_rgba(220,38,38,0.6)] focus:ring-2 ${
     hasError ? 'border-red-500/70 focus:ring-red-500' : 'border-white/10 focus:border-red-500/60 focus:ring-red-500/70'
@@ -620,38 +623,25 @@ const ContactForm = () => {
     setLaunched(true)
 
     try {
-      let res
-      try {
-        res = await fetch(`${API_URL}/api/contact`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            company: formData.company.trim(),
-            phone: formData.phone.trim(),
-            message: formData.message.trim(),
-            website: formData.website, // honeypot — stays empty for real visitors
-          }),
-        })
-      } catch {
-        throw new Error('Could not connect to the contact service. Check that the API is available and correctly configured.')
-      }
+      const { data } = await axios.post(
+        `${API_URL}/api/contact`,
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+          website: formData.website, // honeypot — stays empty for real visitors
+        },
+        { timeout: 20000 }
+      )
 
-      const contentType = res.headers.get('content-type') || ''
-      if (!contentType.includes('application/json')) {
-        throw new Error('The mail server returned an unexpected response. Check the backend URL and deployment configuration.')
-      }
-
-      const data = await res.json()
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || (data.errors && Object.values(data.errors)[0]) || 'Something went wrong.')
-      }
+      if (!data?.ok) throw new Error(data?.error || 'Something went wrong.')
 
       Swal.fire({
         icon: 'success',
         title: 'Message sent!',
-        text: "Thanks for reaching out — our team will get back to you within one business day.",
+        text: 'Thanks for reaching out — our team will get back to you within one business day.',
         background: '#0b0d12',
         color: '#fff',
         confirmButtonColor: RED,
@@ -659,10 +649,23 @@ const ContactForm = () => {
       setFormData(empty)
       setTouched({})
     } catch (err) {
+      let msg
+      if (err.response) {
+        // backend replied with an error status (400 / 500)
+        msg = err.response.data?.error || `Server error (${err.response.status}).`
+      } else if (err.code === 'ECONNABORTED') {
+        msg = 'The server took too long to respond. Please try again.'
+      } else if (err.request) {
+        // request went out but nothing came back — backend not running or wrong URL
+        msg = 'Could not reach the contact service. Please try again in a moment.'
+      } else {
+        msg = err.message || 'Please try again.'
+      }
+
       Swal.fire({
         icon: 'error',
         title: "Couldn't send your message",
-        html: `${err.message || 'Please try again.'}<br/><br/>You can also email us directly at <a href="mailto:${contactDetails.email}" style="color:${RED_LIGHT}">${contactDetails.email}</a>.`,
+        html: `${msg}<br/><br/>You can also email us directly at <a href="mailto:${contactDetails.email}" style="color:${RED_LIGHT}">${contactDetails.email}</a>.`,
         background: '#0b0d12',
         color: '#fff',
         confirmButtonColor: RED,

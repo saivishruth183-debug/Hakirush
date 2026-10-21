@@ -20,12 +20,12 @@
    npm run dev
    ```
 
-   The Vite development server proxies `/api` requests to `http://localhost:5000`; leave `VITE_API_URL` empty for local development.
+   Set `VITE_BACKEND_URL=http://localhost:5000` in `Frontend/.env` for local development. If this variable is left empty, Vite proxies `/api` requests to `http://localhost:5000`.
 
 ## Deploy separately
 
 - Deploy `Backend` as a Node.js web service and configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`, `PORT` (if required by the host), and `ALLOWED_ORIGINS` in the service's environment settings. Set `ALLOWED_ORIGINS` to the exact frontend origin, such as `https://your-site.vercel.app` (no path). Do not put SMTP credentials in the frontend.
-- Deploy `Frontend` to Vercel and set the build environment variable `VITE_API_URL` to the backend's public base URL, with no trailing slash or `/api` suffix (for example, `https://your-backend.example.com`). Redeploy after changing it.
-- The frontend sends requests to `${VITE_API_URL}/api/contact`. The backend health check is `${VITE_API_URL}/api/health`.
+- Deploy `Frontend` to Vercel and set the build environment variable `VITE_BACKEND_URL` to the backend's public base URL, with no trailing slash or `/api` suffix (for example, `https://your-backend.example.com`). Redeploy after changing it. The older `VITE_API_URL` name is still supported as a fallback.
+- The frontend sends requests to `${VITE_BACKEND_URL}/api/contact`. The backend health check is `${VITE_BACKEND_URL}/api/health`.
 
 The Vercel configuration serves frontend routes only; it does not host or proxy the Express backend. Both services must be deployed and reachable over HTTPS for the production contact form to send mail.

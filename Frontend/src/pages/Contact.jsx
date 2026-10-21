@@ -498,7 +498,7 @@ const SocialSlab = () => {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 
-const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || '').replace(/\/+$/, '')
 
 const fieldClass = (hasError) =>
   `w-full rounded-2xl border bg-black/40 p-4 text-white placeholder-slate-500 outline-none shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)] transition-all duration-300 focus:-translate-y-0.5 focus:bg-black/60 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_10px_24px_-10px_rgba(220,38,38,0.6)] focus:ring-2 ${

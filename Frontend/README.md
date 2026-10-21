@@ -10,12 +10,15 @@ npm install
 npm run dev
 ```
 
-Set `VITE_BACKEND_URL` in `.env` only when connecting to a separately hosted
-backend. Leave it empty to use the local proxy.
+Leave `VITE_API_URL` unset to use the local proxy during development and the
+same-origin Vercel API in production. Set `VITE_API_URL` only when connecting
+to a separately hosted backend.
 
 ## Vercel
 
-Set this directory as the Vercel project's **Root Directory**. The site uses
+Set this directory (`Frontend`) as the Vercel project's **Root Directory**.
+Use `npm run build` as the build command and `dist` as the output directory.
+The site uses
 `api/contact.js` as its same-origin serverless contact endpoint. Configure
 `RESEND_API_KEY`, `MAIL_TO`, and `MAIL_FROM` as server-side Vercel environment
 variables, then redeploy. `MAIL_FROM` must use a sender domain verified with

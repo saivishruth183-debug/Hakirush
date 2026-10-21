@@ -32,8 +32,7 @@ import backgroundImage from '../assets/Hero/Backimage.png'
 /* ------------------------------------------------------------------ */
 /*  BACKEND CONFIG                                                     */
 /* ------------------------------------------------------------------ */
-// Set VITE_API_URL in the frontend .env for production; falls back to the local backend.
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 /* ------------------------------------------------------------------ */

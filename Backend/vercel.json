@@ -1,18 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-        { "src": "app.js", "use": "@vercel/node"}
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/app.js"
-        }
-    ],
-    "crons": [
-        {
-            "path": "/api/contact/jobs/close-day",
-            "schedule": "0 19 * * *"
-        }
-    ]
+  "version": 2,
+  "builds": [{ "src": "app.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "app.js" }]
 }

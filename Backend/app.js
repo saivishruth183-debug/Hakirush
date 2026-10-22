@@ -6,21 +6,46 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const DEFAULT_ORIGINS = ["https://hakirush1-orcin.vercel.app"];
-const allowedOrigins = (process.env.CORS_ORIGINS || "")
-  .split(",")
-  .map((o) => o.trim())
-  .filter(Boolean);
+/* ------------------------------------------------------------------ */
+/*  CORS                                                               */
+/* ------------------------------------------------------------------ */
+// Production site + local dev servers. Add more via CORS_ORIGINS (comma-separated).
+const DEFAULT_ORIGINS = [
+    'https://hakirush1-orcin.vercel.app',
+    'http://localhost:5173', // Vite
+    'http://localhost:3000', // CRA / Next
+    'http://127.0.0.1:5173',
+];
 
-app.use(
-    cors({
-      origin: allowedOrigins.length ? allowedOrigins : DEFAULT_ORIGINS,
-      credentials: true,
-    })
-  );
+const allowedOrigins = [
+    ...DEFAULT_ORIGINS,
+    ...(process.env.CORS_ORIGINS || '')
+        .split(',')
+        .map((o) => o.trim().replace(/\/$/, '')) // a trailing slash would never match
+        .filter(Boolean),
+];
 
-app.use(express.json());
+const corsOptions = {
+    credentials: true,
+    origin(origin, callback) {
+        // No origin = Postman, curl, server-to-server: allow
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        // Vercel preview deployments, e.g. https://hakirush1-orcin-git-main-xyz.vercel.app
+        if (/^https:\/\/hakirush1-orcin(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) return callback(null, true);
+        return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+};
 
+app.use(cors(corsOptions)); // also answers browser preflight (OPTIONS) requests
+
+app.use(express.json({ limit: '50kb' }));
+
+/* ------------------------------------------------------------------ */
+/*  MAIL                                                               */
+/* ------------------------------------------------------------------ */
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -52,23 +77,35 @@ const mailHtml = (name, email, company, phone, message) => `
     </div>
 `;
 
-app.get('/api/health', (req, res) => res.json({ ok: true }));
+/* ------------------------------------------------------------------ */
+/*  ROUTES                                                             */
+/* ------------------------------------------------------------------ */
+app.get('/', (req, res) => res.json({ ok: true, service: 'hakirush-backend' }));
+
+app.get('/api/health', (req, res) =>
+    res.json({
+        ok: true,
+        emailConfigured: Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS),
+    })
+);
 
 app.post('/api/contact', async (req, res) => {
     const { name, email, company = '', phone = '', message, website = '' } = req.body || {};
 
     // Honeypot: real visitors never fill this hidden field, bots do.
-    // Pretend success so bots don't retry.
     if (website) {
         return res.status(200).json({ ok: true, message: 'Email sent successfully' });
     }
 
-    // Name, email and message are required; company and phone are optional (matches the form)
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
         return res.status(400).json({ ok: false, error: 'Name, email and message are required.' });
     }
     if (!EMAIL_RE.test(email.trim())) {
         return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
+    }
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('EMAIL_USER / EMAIL_PASS are not set');
+        return res.status(500).json({ ok: false, error: 'Mail service is not configured.' });
     }
 
     const mailOptions = {
@@ -77,7 +114,7 @@ app.post('/api/contact', async (req, res) => {
         to: process.env.EMAIL_USER,
         subject: `New Contact Form Submission from ${name.trim()}`,
         text: `Name: ${name}\nEmail: ${email}\nCompany: ${company || '-'}\nPhone: ${phone || '-'}\nMessage: ${message}`,
-        html: mailHtml(name.trim(), email.trim(), company.trim(), phone.trim(), message.trim()),
+        html: mailHtml(name.trim(), email.trim(), String(company).trim(), String(phone).trim(), message.trim()),
     };
 
     try {
@@ -90,6 +127,18 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+// 404 + error handler: always reply with JSON (the form expects JSON)
+app.use((req, res) => res.status(404).json({ ok: false, error: 'Not found' }));
+app.use((err, req, res, next) => {
+    console.error(err.message);
+    const status = err.message?.includes('CORS') ? 403 : 500;
+    res.status(status).json({ ok: false, error: err.message || 'Server error' });
+});
+
+/* ------------------------------------------------------------------ */
+/*  START                                                              */
+/* ------------------------------------------------------------------ */
+// Local: `node app.js` starts a server. Vercel: imports the app as a serverless function.
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);

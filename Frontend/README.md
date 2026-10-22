@@ -24,5 +24,13 @@ The site uses
 variables, then redeploy. `MAIL_FROM` must use a sender domain verified with
 Resend. Do not add these secrets to `VITE_` variables.
 
+For the same-origin endpoint, the Vercel **Root Directory** must be `Frontend`
+(not `/api/contact`), and `VITE_API_URL` should be unset so the form posts to
+`/api/contact` on the site. Make sure all three Resend variables are enabled for
+the deployment's environment (Production or Preview) and redeploy after changing
+them. A 404 usually means the function route was not deployed or the form is
+pointing at the wrong API URL; a 503 response from the function means its Resend
+environment variables are missing.
+
 See the repository [README](../README.md) for local backend setup and the
 alternative of deploying the Express mailer separately.

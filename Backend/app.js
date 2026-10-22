@@ -18,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 /* ------------------------------------------------------------------ */
 // Production site + local dev servers. Add more via CORS_ORIGINS (comma-separated).
 const DEFAULT_ORIGINS = [
+    'https://hakirush1.vercel.app', // live frontend
     'https://hakirush1-orcin.vercel.app',
     'https://hakirush.com',
     'https://www.hakirush.com',
@@ -40,8 +41,8 @@ const corsOptions = {
         // No origin = Postman, curl, server-to-server, opening the URL in a browser tab: allow
         if (!origin) return callback(null, true);
         if (allowedOrigins.includes(origin)) return callback(null, true);
-        // Vercel preview deployments, e.g. https://hakirush1-orcin-git-main-xyz.vercel.app
-        if (/^https:\/\/hakirush1-orcin(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) return callback(null, true);
+        // Any hakirush1 Vercel deployment, e.g. https://hakirush1-git-main-xyz.vercel.app
+        if (/^https:\/\/hakirush1(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) return callback(null, true);
         console.warn(`Blocked by CORS: ${origin}`);
         return callback(new Error(`Origin ${origin} not allowed by CORS`));
     },

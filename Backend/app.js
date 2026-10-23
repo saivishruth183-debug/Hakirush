@@ -5,7 +5,6 @@ import contactRoutes from './routes/contactRoutes.js'
 import mailRoutes from './routes/mailRoutes.js'
 
 const app = express()
-const PORT = process.env.PORT || 5000
 
 // Allow the React site to call this API (comma-separated list in CLIENT_URL)
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
@@ -20,4 +19,4 @@ app.get('/api/health', (req, res) => res.json({ ok: true }))
 app.use('/api/contact', contactRoutes)
 app.use('/api/mail', mailRoutes)
 
-app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`))
+export default app

@@ -1,11 +1,18 @@
 {
-<<<<<<< HEAD
-{
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
-}
-=======
-  "version": 2,
-  "builds": [{ "src": "app.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "app.js" }]
->>>>>>> 9236b664b3046244a965cf71c1518ab8a912bbee
+    "version": 2,
+    "builds": [
+        { "src": "index.js", "use": "@vercel/node"}
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ],
+    "crons": [
+        {
+            "path": "/api/attendance/jobs/close-day",
+            "schedule": "0 19 * * *"
+        }
+    ]
 }

@@ -30,12 +30,6 @@ import {
 import backgroundImage from '../assets/Hero/Backimage.png'
 
 /* ------------------------------------------------------------------ */
-/*  BACKEND CONFIG                                                     */
-/* ------------------------------------------------------------------ */
-const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-/* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the rest of the site            */
 /* ------------------------------------------------------------------ */
 const RED_LIGHT = '#F87171'
@@ -45,6 +39,10 @@ const RED_DARK = '#7F1D1D'
 const SPRING = { type: 'spring', stiffness: 400, damping: 30 }
 const TILT_SPRING = { stiffness: 260, damping: 22, mass: 0.6 }
 const EASE_OUT = [0.22, 1, 0.36, 1]
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const REQUEST_TIMEOUT_MS = 20000
 
 const EXTRUDE_WHITE =
   '0 1px 0 #3a0c0c, 0 2px 0 #320a0a, 0 3px 0 #2a0909, 0 4px 0 #220707, 0 5px 0 #1a0505, 0 6px 0 #120404, 0 18px 30px rgba(0,0,0,0.6)'
@@ -500,7 +498,7 @@ const SocialSlab = () => {
 }
 
 /* ------------------------------------------------------------------ */
-/*  FORM                                                               */
+/*  FORM — submits contact enquiries to the backend                    */
 /* ------------------------------------------------------------------ */
 const fieldClass = (hasError) =>
   `w-full rounded-2xl border bg-black/40 p-4 text-white placeholder-slate-500 outline-none shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)] transition-all duration-300 focus:-translate-y-0.5 focus:bg-black/60 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_10px_24px_-10px_rgba(220,38,38,0.6)] focus:ring-2 ${
@@ -537,7 +535,7 @@ function InputField({ label, name, type = 'text', value, onChange, onBlur, requi
   )
 }
 
-const SendButton = ({ loading, launched }) => {
+const SendButton = ({ launched, loading }) => {
   const reduce = useReducedMotion()
   const [hover, setHover] = useState(false)
 
@@ -551,7 +549,7 @@ const SendButton = ({ loading, launched }) => {
       animate={{ y: hover ? -2 : 0 }}
       whileTap={{ y: 4 }}
       transition={SPRING}
-      className="relative block w-full cursor-pointer overflow-hidden rounded-2xl outline-none ring-1 ring-inset ring-white/25 focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-wait"
+      className="relative block w-full cursor-pointer overflow-hidden rounded-2xl outline-none ring-1 ring-inset ring-white/25 focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-wait disabled:opacity-70"
       style={{
         background: `linear-gradient(135deg, ${RED_LIGHT}, ${RED} 45%, ${RED_DARK})`,
         boxShadow: hover
@@ -603,14 +601,17 @@ const ContactForm = () => {
   }
   const handleBlur = (e) => setTouched((t) => ({ ...t, [e.target.name]: true }))
 
-  const sendMail = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
     if (loading) return
+
     if (!isValid) {
       setTouched({ name: true, email: true, message: true })
       Swal.fire({
         icon: 'error',
         title: 'Please complete the form',
-        text: 'Name, a valid email and a message are required before sending.',
+        text: 'Name, a valid email and a message are required.',
         background: '#0b0d12',
         color: '#fff',
         confirmButtonColor: RED,
@@ -620,9 +621,8 @@ const ContactForm = () => {
 
     setLoading(true)
     setLaunched(true)
-
     try {
-      const { data } = await axios.post(
+      const { data: result } = await axios.post(
         `${API_URL}/api/contact`,
         {
           name: formData.name.trim(),
@@ -630,12 +630,15 @@ const ContactForm = () => {
           company: formData.company.trim(),
           phone: formData.phone.trim(),
           message: formData.message.trim(),
-          website: formData.website, // honeypot — stays empty for real visitors
+          website: formData.website,
         },
-        { timeout: 20000 }
+        { timeout: REQUEST_TIMEOUT_MS },
       )
 
-      if (!data?.ok) throw new Error(data?.error || 'Something went wrong.')
+      if (!result?.ok) {
+        const fieldErrors = Object.values(result?.errors || {}).join(' ')
+        throw new Error(result?.error || fieldErrors || 'The contact service could not send your message.')
+      }
 
       Swal.fire({
         icon: 'success',
@@ -647,31 +650,26 @@ const ContactForm = () => {
       })
       setFormData(empty)
       setTouched({})
-    } catch (err) {
-      let msg
-      if (err.response) {
-        // backend replied with an error status (400 / 500)
-        msg = err.response.data?.error || `Server error (${err.response.status}).`
-      } else if (err.code === 'ECONNABORTED') {
-        msg = 'The server took too long to respond. Please try again.'
-      } else if (err.request) {
-        // request went out but nothing came back — backend not running or wrong URL
-        msg = 'Could not reach the contact service. Please try again in a moment.'
-      } else {
-        msg = err.message || 'Please try again.'
-      }
+    } catch (error) {
+      const responseData = axios.isAxiosError(error) ? error.response?.data : null
+      const fieldErrors = Object.values(responseData?.errors || {}).join(' ')
+      const message =
+        error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT'
+          ? 'The server took too long to respond. Please try again.'
+          : axios.isAxiosError(error) && !error.response
+            ? 'Could not reach the contact service. Please try again in a moment.'
+            : responseData?.error || fieldErrors || error.message || 'Please try again.'
 
       Swal.fire({
         icon: 'error',
         title: "Couldn't send your message",
-        html: `${msg}<br/><br/>You can also email us directly at <a href="mailto:${contactDetails.email}" style="color:${RED_LIGHT}">${contactDetails.email}</a>.`,
+        text: `${message} You can also email us directly at ${contactDetails.email}.`,
         background: '#0b0d12',
         color: '#fff',
         confirmButtonColor: RED,
       })
     } finally {
       setLoading(false)
-      // let the paper-plane finish its flight before resetting
       setTimeout(() => setLaunched(false), 900)
     }
   }
@@ -691,18 +689,18 @@ const ContactForm = () => {
         <h2 className="mb-8 font-serif text-3xl font-black text-white" style={{ textShadow: EXTRUDE_WHITE }}>
           Send a <span style={{ color: RED, textShadow: EXTRUDE_RED }}>Message</span>
         </h2>
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault()
-            sendMail()
-          }}
-          className="space-y-5"
-        >
-          {/* honeypot: hidden from people, irresistible to spam bots */}
+        <form noValidate onSubmit={handleSubmit} className="space-y-5">
           <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
             <label htmlFor="contact-website">Website</label>
-            <input id="contact-website" type="text" name="website" tabIndex={-1} autoComplete="off" value={formData.website} onChange={handleInput} />
+            <input
+              id="contact-website"
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.website}
+              onChange={handleInput}
+            />
           </div>
           <div className="grid gap-5 md:grid-cols-2">
             <InputField label="Name" name="name" value={formData.name} onChange={handleInput} onBlur={handleBlur} required error={show('name')} autoComplete="name" />
@@ -736,7 +734,7 @@ const ContactForm = () => {
             )}
           </div>
           <div className="pt-2 pb-2">
-            <SendButton loading={loading} launched={launched} />
+            <SendButton launched={launched} loading={loading} />
           </div>
         </form>
       </TiltCard>

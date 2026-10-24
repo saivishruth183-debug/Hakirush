@@ -297,17 +297,17 @@ const ChampionSeal = () => {
 /* ------------------------------------------------------------------ */
 const TILE_DEPTH = 5
 
-const Tile3D = ({ icon: Icon, active, size = 'md', onMouseMove, onMouseLeave, rotateX, rotateY }) => {
+// Purely visual: pointer-events-none means the moving/tilting tile can never
+// "steal" the click from the link around it (the cause of the dead icons).
+const Tile3D = ({ icon: Icon, active, pressed = false, size = 'md', rotateX, rotateY }) => {
   const reduce = useReducedMotion()
   const dims = size === 'lg' ? 'h-12 w-12' : 'h-11 w-11'
 
   return (
     <motion.span
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className={`relative block shrink-0 ${dims}`}
+      className={`pointer-events-none relative block shrink-0 ${dims}`}
       style={{ rotateX, rotateY, transformPerspective: 500, transformStyle: 'preserve-3d' }}
-      animate={{ y: active ? -5 : 0 }}
+      animate={{ y: active ? -5 : 0, scale: pressed ? 0.9 : 1 }}
       transition={SPRING}
     >
       {/* extrusion */}
@@ -365,30 +365,32 @@ const Tile3D = ({ icon: Icon, active, size = 'md', onMouseMove, onMouseLeave, ro
 const SocialTile = ({ item }) => {
   const tilt = useTilt({ max: 22 })
   const [hover, setHover] = useState(false)
+  const [pressed, setPressed] = useState(false)
 
   return (
-    <motion.a
+    <a
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={item.label}
+      aria-label={`${item.label} (opens in a new tab)`}
       title={item.label}
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={() => {
+        setHover(false)
+        setPressed(false)
+        tilt.reset()
+      }}
+      onPointerDown={() => setPressed(true)}
+      onPointerUp={() => setPressed(false)}
+      onPointerCancel={() => setPressed(false)}
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
-      whileTap={{ scale: 0.9 }}
-      className="block rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+      // the link itself never moves, scales or tilts — so press and release always land on it
+      className="relative block h-11 w-11 shrink-0 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-red-500"
     >
-      <Tile3D
-        icon={item.icon}
-        active={hover}
-        rotateX={tilt.rotateX}
-        rotateY={tilt.rotateY}
-        onMouseMove={tilt.onMouseMove}
-        onMouseLeave={tilt.reset}
-      />
-    </motion.a>
+      <Tile3D icon={item.icon} active={hover} pressed={pressed} rotateX={tilt.rotateX} rotateY={tilt.rotateY} />
+    </a>
   )
 }
 
@@ -411,14 +413,9 @@ const ContactRow = ({ item }) => {
         item.small ? 'items-start' : 'items-center'
       }`}
     >
-      <Tile3D
-        icon={item.icon}
-        size="lg"
-        active={hover}
-        rotateX={tilt.rotateX}
-        rotateY={tilt.rotateY}
-        onMouseMove={tilt.onMouseMove}
-      />
+      <span className="shrink-0" onMouseMove={tilt.onMouseMove}>
+        <Tile3D icon={item.icon} size="lg" active={hover} rotateX={tilt.rotateX} rotateY={tilt.rotateY} />
+      </span>
       <motion.span
         animate={{ x: hover ? 4 : 0 }}
         transition={SPRING}
@@ -512,9 +509,10 @@ const BackToTop = () => {
   const reduce = useReducedMotion()
   const tilt = useTilt({ max: 22 })
   const [hover, setHover] = useState(false)
+  const [pressed, setPressed] = useState(false)
 
   return (
-    <motion.button
+    <button
       type="button"
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })}
@@ -523,37 +521,46 @@ const BackToTop = () => {
       onMouseLeave={() => {
         tilt.reset()
         setHover(false)
+        setPressed(false)
       }}
-      whileTap={{ scale: 0.9 }}
-      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 500, transformStyle: 'preserve-3d' }}
+      onPointerDown={() => setPressed(true)}
+      onPointerUp={() => setPressed(false)}
+      onPointerCancel={() => setPressed(false)}
       className="relative h-11 w-11 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-red-500"
     >
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="absolute inset-0 rounded-full bg-red-900"
-          style={{ transform: `translateZ(${-(i + 1) * 2}px)`, filter: `brightness(${0.9 - i * 0.12})` }}
-        />
-      ))}
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 via-red-600 to-red-700 ring-1 ring-inset ring-white/25"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-1.5 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/30 to-transparent"
-        style={{ transform: 'translateZ(1px)' }}
-      />
       <motion.span
-        className="absolute inset-0 grid place-items-center text-white"
-        style={{ z: 14 }}
-        animate={{ y: hover && !reduce ? [0, -3, 0] : 0 }}
-        transition={{ duration: 0.8, repeat: hover && !reduce ? Infinity : 0 }}
+        className="pointer-events-none absolute inset-0 block"
+        style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 500, transformStyle: 'preserve-3d' }}
+        animate={{ scale: pressed ? 0.9 : 1 }}
+        transition={SPRING}
       >
-        <ArrowUp size={18} strokeWidth={2.5} />
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span
+            key={i}
+            aria-hidden="true"
+            className="absolute inset-0 rounded-full bg-red-900"
+            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, filter: `brightness(${0.9 - i * 0.12})` }}
+          />
+        ))}
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 via-red-600 to-red-700 ring-1 ring-inset ring-white/25"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-1.5 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/30 to-transparent"
+          style={{ transform: 'translateZ(1px)' }}
+        />
+        <motion.span
+          className="absolute inset-0 grid place-items-center text-white"
+          style={{ z: 14 }}
+          animate={{ y: hover && !reduce ? [0, -3, 0] : 0 }}
+          transition={{ duration: 0.8, repeat: hover && !reduce ? Infinity : 0 }}
+        >
+          <ArrowUp size={18} strokeWidth={2.5} />
+        </motion.span>
       </motion.span>
-    </motion.button>
+    </button>
   )
 }
 
@@ -629,9 +636,6 @@ const Footer = () => {
             setHovering(false)
           }}
           style={{
-            rotateX: tilt.rotateX,
-            rotateY: tilt.rotateY,
-            transformPerspective: 1400,
             transformStyle: 'preserve-3d',
           }}
           className="relative mb-14 rounded-3xl p-6 sm:p-10"
@@ -657,7 +661,9 @@ const Footer = () => {
 
           <div className="relative grid grid-cols-1 gap-14 md:grid-cols-12 md:gap-10" style={{ transformStyle: 'preserve-3d' }}>
             {/* Brand */}
-            <motion.div {...columnAnim(0)} style={{ z: 40, transformStyle: 'preserve-3d' }} className="space-y-8 md:col-span-5">
+            {/* no preserve-3d here: nested 3D contexts confuse the browser about what's under the
+                pointer, which made the social links unclickable. Logo + seal keep their own 3D. */}
+            <motion.div {...columnAnim(0)} style={{ z: 40 }} className="space-y-8 md:col-span-5">
               <div className="flex items-center gap-5">
                 <Logo3D />
                 <ChampionSeal />

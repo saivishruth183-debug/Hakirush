@@ -10,7 +10,7 @@ import {
   useScroll,
   useInView,
 } from 'framer-motion';
-import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Download, Medal, Sparkles, TrendingDown, TrendingUp, Trophy, Users2 } from 'lucide-react';
+import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Download, Medal, Sparkles, Trophy, Users2 } from 'lucide-react';
 
 const GOLD = '#D4AF37';
 const SILVER = '#C7CBD1';
@@ -316,18 +316,42 @@ const rankingCriteria = [
 ];
 const CRITERIA_COLORS = [RED, GOLD, SILVER, BRONZE, '#6E6E6E'];
 
-const leaderboardData = [
-  { rank: 1, name: 'TechNova Solutions', xp: '24,850 XP', level: 'Level 10', badges: '18', movement: '▲ +3' },
-  { rank: 2, name: 'Skyline Innovations', xp: '23,740 XP', level: 'Level 10', badges: '17', movement: '▲ +1' },
-  { rank: 3, name: 'Quantum Dynamics', xp: '22,980 XP', level: 'Level 9', badges: '16', movement: '—' },
-  { rank: 4, name: 'Vertex Technologies', xp: '21,860 XP', level: 'Level 9', badges: '15', movement: '▼ -1' },
-  { rank: 5, name: 'Fusion Enterprises', xp: '20,940 XP', level: 'Level 8', badges: '14', movement: '▲ +2' },
-  { rank: 6, name: 'Pinnacle Industries', xp: '19,830 XP', level: 'Level 8', badges: '13', movement: '▼ -2' },
-  { rank: 7, name: 'NovaEdge Corp', xp: '18,920 XP', level: 'Level 7', badges: '12', movement: '▲ +4' },
-  { rank: 8, name: 'Elevate Systems', xp: '17,610 XP', level: 'Level 7', badges: '11', movement: '—' },
-  { rank: 9, name: 'Zenith Global', xp: '16,740 XP', level: 'Level 6', badges: '10', movement: '▲ +1' },
-  { rank: 10, name: 'Horizon Digital', xp: '15,980 XP', level: 'Level 6', badges: '9', movement: '▼ -3' },
-];
+/* HAKI RANK data comes live from the portal's shared client standings
+   (Admin → Clients → Performance). Only the data is shared; the UI is ours. */
+const PORTAL_API_URL = (import.meta.env.VITE_PORTAL_API_URL || 'https://hakirush-portal-backend.vercel.app').replace(/\/$/, '');
+
+const toEntry = (row) => ({
+  rank: row.rank,
+  name: row.name,
+  played: row.played ?? 0,
+  won: row.won ?? 0,
+  lost: row.lost ?? 0,
+  points: row.points ?? 0,
+  xp: String(row.points ?? 0), // numeric string: feeds the existing bars / gap maths
+});
+
+const useHakiRank = () => {
+  const [state, setState] = useState({ status: 'loading', entries: [], updatedAt: null });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${PORTAL_API_URL}/api/public/haki-rank`, { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        const entries = (data?.standings || []).map(toEntry);
+        setState({ status: entries.length ? 'ready' : 'empty', entries, updatedAt: data?.updatedAt || null });
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') setState({ status: 'error', entries: [], updatedAt: null });
+      });
+    return () => controller.abort();
+  }, []);
+
+  return state;
+};
 
 const xpRules = [
   'Event Participation', 'Team Registration', 'Match Victory', 'Tournament Winner', 'Runner Up',
@@ -771,21 +795,6 @@ const RankBadge = ({ rank }) => {
   );
 };
 
-const MovementPill = ({ movement }) => {
-  const isUp = movement.startsWith('▲');
-  const isDown = movement.startsWith('▼');
-  const color = isUp ? GREEN : isDown ? RED : '#8E8E8E';
-  const bg = isUp ? `${GREEN}1A` : isDown ? `${RED}1A` : 'rgba(255,255,255,0.05)';
-  return (
-    <span
-      className="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-semibold tabular-nums"
-      style={{ color, background: bg }}
-    >
-      {movement}
-    </span>
-  );
-};
-
 const XPBar = ({ xp, max, tierColor }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
@@ -832,13 +841,6 @@ const CriteriaBar = () => {
 /* ------------------------------------------------------------------ */
 /*  HAKI RANK leaderboard — podium + standings                          */
 /* ------------------------------------------------------------------ */
-
-const moveValue = (movement) => {
-  const n = parseInt(String(movement).replace(/[^\d]/g, ''), 10) || 0;
-  if (movement.startsWith('▲')) return n;
-  if (movement.startsWith('▼')) return -n;
-  return 0;
-};
 
 const formatXP = (n) => n.toLocaleString('en-IN');
 
@@ -930,15 +932,12 @@ const PodiumColumn = ({ entry, progress }) => {
 
         <div className="mt-4 w-full truncate text-xs font-semibold text-white sm:text-sm">{entry.name}</div>
         <div className="mt-1 flex items-baseline gap-1 text-sm font-bold tabular-nums sm:text-lg" style={{ color: tier.color }}>
-          <RollingNumber value={formatXP(parseXP(entry.xp))} />
-          <span className="text-[10px] font-semibold tracking-[0.15em] opacity-70">XP</span>
+          <RollingNumber value={formatXP(entry.points)} />
+          <span className="text-[10px] font-semibold tracking-[0.15em] opacity-70">PTS</span>
         </div>
         <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] text-[#A8A8A8]">
-            {entry.level}
-          </span>
-          <span className="hidden sm:inline-flex">
-            <MovementPill movement={entry.movement} />
+          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] tabular-nums text-[#A8A8A8]">
+            {entry.won}W · {entry.lost}L
           </span>
         </div>
       </motion.div>
@@ -1043,7 +1042,6 @@ const StandingRow = ({ entry, maxXP, i }) => {
   const reduceMotion = useReducedMotion();
   const value = parseXP(entry.xp);
   const gap = maxXP - value;
-  const mv = moveValue(entry.movement);
 
   return (
     <motion.div
@@ -1074,12 +1072,12 @@ const StandingRow = ({ entry, maxXP, i }) => {
           <Crest name={entry.name} size={38} />
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-white">{entry.name}</div>
-            <div className="text-[11px] text-[#7A7A7A]">{entry.level}</div>
+            <div className="text-[11px] tabular-nums text-[#7A7A7A]">{entry.played} played</div>
           </div>
         </div>
 
         <div className="min-w-0">
-          <div className="text-sm font-semibold tabular-nums text-white">{entry.xp}</div>
+          <div className="text-sm font-semibold tabular-nums text-white">{formatXP(entry.points)} PTS</div>
           <XPBar xp={entry.xp} max={maxXP} />
         </div>
 
@@ -1090,17 +1088,10 @@ const StandingRow = ({ entry, maxXP, i }) => {
 
         <div className="flex items-center gap-1.5 text-sm tabular-nums text-[#CFCFCF]">
           <Medal size={14} style={{ color: GOLD }} />
-          {entry.badges}
+          {entry.won}
         </div>
 
-        <div className="flex justify-end">
-          <motion.span
-            animate={reduceMotion || mv === 0 ? undefined : { y: mv > 0 ? [0, -2, 0] : [0, 2, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 }}
-          >
-            <MovementPill movement={entry.movement} />
-          </motion.span>
-        </div>
+        <div className="text-right text-sm tabular-nums text-[#8E8E8E]">{entry.lost}</div>
       </div>
 
       {/* mobile */}
@@ -1112,12 +1103,12 @@ const StandingRow = ({ entry, maxXP, i }) => {
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="truncate text-sm font-semibold text-white">{entry.name}</span>
-            <MovementPill movement={entry.movement} />
+            <span className="shrink-0 text-xs font-semibold tabular-nums text-white">{formatXP(entry.points)} PTS</span>
           </div>
-          <div className="mt-1 flex items-center justify-between text-[11px] text-[#7A7A7A]">
-            <span className="tabular-nums text-[#CFCFCF]">{entry.xp}</span>
+          <div className="mt-1 flex items-center justify-between text-[11px] tabular-nums text-[#7A7A7A]">
+            <span>{entry.played} played</span>
             <span className="flex items-center gap-1">
-              <Medal size={11} style={{ color: GOLD }} /> {entry.badges} · {entry.level}
+              <Medal size={11} style={{ color: GOLD }} /> {entry.won}W · {entry.lost}L
             </span>
           </div>
           <XPBar xp={entry.xp} max={maxXP} />
@@ -1127,24 +1118,23 @@ const StandingRow = ({ entry, maxXP, i }) => {
   );
 };
 
-const FILTERS = [
-  { id: 'all', label: 'All', test: () => true },
-  { id: 'up', label: 'Climbers', icon: TrendingUp, test: (e) => moveValue(e.movement) > 0 },
-  { id: 'down', label: 'Fallers', icon: TrendingDown, test: (e) => moveValue(e.movement) < 0 },
-];
-
 const LEADERBOARD_ROWS_PREVIEW = 4;
 
-const HakiLeaderboard = () => {
-  const reduceMotion = useReducedMotion();
-  const [filter, setFilter] = useState('all');
-  const [expanded, setExpanded] = useState(false);
-  const maxXP = Math.max(...leaderboardData.map((e) => parseXP(e.xp)));
+const formatUpdated = (iso) => {
+  if (!iso) return 'Current season';
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? 'Current season'
+    : `Updated ${d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+};
 
-  const podium = leaderboardData.filter((e) => e.rank <= 3);
-  const rest = leaderboardData.filter((e) => e.rank > 3);
-  const active = FILTERS.find((f) => f.id === filter);
-  const filtered = rest.filter(active.test);
+const HakiLeaderboard = ({ entries = [], status = 'loading', updatedAt = null }) => {
+  const reduceMotion = useReducedMotion();
+  const [expanded, setExpanded] = useState(false);
+  const maxXP = entries.length ? Math.max(...entries.map((e) => e.points)) : 0;
+
+  const podium = entries.filter((e) => e.rank <= 3);
+  const filtered = entries.filter((e) => e.rank > 3);
   const rows = expanded ? filtered : filtered.slice(0, LEADERBOARD_ROWS_PREVIEW);
   const hiddenCount = filtered.length - rows.length;
 
@@ -1158,39 +1148,17 @@ const HakiLeaderboard = () => {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E50914]" />
           </span>
           <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white">Live Standings</span>
-          <span className="text-[11px] text-[#6E6E6E]">· Current season</span>
-        </div>
-
-        <div className="relative flex w-fit gap-1 rounded-full border border-white/10 bg-[#111111] p-1" role="tablist" aria-label="Filter standings">
-          {FILTERS.map((f) => {
-            const on = filter === f.id;
-            const Icon = f.icon;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                role="tab"
-                aria-selected={on}
-                onClick={() => setFilter(f.id)}
-                className="relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold transition-colors"
-                style={{ color: on ? '#FFFFFF' : '#8E8E8E' }}
-              >
-                {on && (
-                  <motion.span
-                    layoutId="haki-filter-pill"
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: `linear-gradient(135deg, ${RED}, #A3060E)`, boxShadow: `0 6px 18px -6px ${RED}AA` }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                  />
-                )}
-                {Icon && <Icon size={12} className="relative" />}
-                <span className="relative">{f.label}</span>
-              </button>
-            );
-          })}
+          <span className="text-[11px] text-[#6E6E6E]">· {formatUpdated(updatedAt)}</span>
         </div>
       </div>
 
+      {status !== 'ready' ? (
+        <div className="px-4 py-12 text-center text-sm text-[#7A7A7A]" role="status">
+          {status === 'loading' && 'Loading standings…'}
+          {status === 'empty' && 'Standings will appear here once the season kicks off.'}
+          {status === 'error' && 'Standings are unavailable right now. Please check back soon.'}
+        </div>
+      ) : (
       <div className="px-3 pb-4 pt-2 sm:px-5 sm:pb-5">
         <Podium entries={podium} />
 
@@ -1201,10 +1169,10 @@ const HakiLeaderboard = () => {
         >
           <span>Rank</span>
           <span>Company</span>
-          <span>Current XP</span>
+          <span>Points</span>
           <span>Gap</span>
-          <span>Badges</span>
-          <span className="text-right">Move</span>
+          <span>Won</span>
+          <span className="text-right">Lost</span>
         </div>
 
         <motion.div layout={!reduceMotion} className="space-y-2">
@@ -1213,11 +1181,6 @@ const HakiLeaderboard = () => {
               <StandingRow key={entry.rank} entry={entry} maxXP={maxXP} i={i} />
             ))}
           </AnimatePresence>
-          {rows.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-white/10 py-6 text-center text-xs text-[#7A7A7A]">
-              No teams {filter === 'up' ? 'climbing' : 'dropping'} outside the podium right now.
-            </div>
-          )}
         </motion.div>
 
         {(hiddenCount > 0 || expanded) && filtered.length > LEADERBOARD_ROWS_PREVIEW && (
@@ -1234,6 +1197,7 @@ const HakiLeaderboard = () => {
           </button>
         )}
       </div>
+      )}
     </div>
   );
 };
@@ -1374,7 +1338,8 @@ const Roadtoglory = () => {
   const monthCols = useResponsiveCols(MONTH_BREAKPOINTS);
   const stepCols = useResponsiveCols(STEP_BREAKPOINTS);
   const monthGridRef = useRef(null);
-  const leader = leaderboardData[0]; // profile preview always matches the real #1
+  const hakiRank = useHakiRank();
+  const leader = hakiRank.entries[0]; // profile preview always matches the real #1
 
   return (
     <section className="relative overflow-hidden bg-transparent px-4 py-16 text-white md:py-[120px]">
@@ -1519,13 +1484,15 @@ const Roadtoglory = () => {
                   ))}
                 </div>
 
-                <HakiLeaderboard />
+                <HakiLeaderboard entries={hakiRank.entries} status={hakiRank.status} updatedAt={hakiRank.updatedAt} />
               </div>
 
               {/* Side panels */}
               <div className="grid gap-6 lg:grid-cols-2">
                 <div className="relative rounded-[24px] border border-white/10 bg-[#0D0D0D] p-5">
                   <div className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#E50914]">Company Profile Preview</div>
+                  {leader ? (
+                  <>
                   <motion.div
                     whileHover={reduceMotion ? undefined : { scale: 1.015 }}
                     className="relative flex items-center gap-4 overflow-hidden rounded-[16px] border p-4"
@@ -1543,16 +1510,16 @@ const Roadtoglory = () => {
                         {leader.name}
                       </div>
                       <div className="text-xs text-[#A8A8A8]">
-                        Rank #{leader.rank} • {leader.xp}
+                        Rank #{leader.rank} • {formatXP(leader.points)} PTS
                       </div>
                     </div>
                   </motion.div>
                   <div className="mt-4 space-y-2.5 text-xs text-[#A8A8A8] sm:text-sm">
                     {[
-                      ['Company Level', leader.level],
-                      ['Participation', '94%'],
-                      ['Events Completed', '32'],
-                      ['Badges Earned', leader.badges],
+                      ['Matches Played', leader.played],
+                      ['Won', leader.won],
+                      ['Lost', leader.lost],
+                      ['Points', formatXP(leader.points)],
                       ['Next Milestone', 'Hold Rank #1'],
                     ].map(([k, v]) => (
                       <div key={k} className="flex items-center justify-between border-b border-white/[0.04] pb-2 last:border-0 last:pb-0">
@@ -1561,6 +1528,12 @@ const Roadtoglory = () => {
                       </div>
                     ))}
                   </div>
+                  </>
+                  ) : (
+                    <div className="rounded-[16px] border border-white/10 bg-[#171717] p-6 text-center text-sm text-[#7A7A7A]">
+                      {hakiRank.status === 'loading' ? 'Loading…' : 'The season leader will appear here.'}
+                    </div>
+                  )}
                   <motion.button
                     whileHover={reduceMotion ? undefined : { y: -2 }}
                     whileTap={{ scale: 0.98 }}

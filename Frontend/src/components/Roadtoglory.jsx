@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect, createContext, useContext } from 'react';
+import React, { useRef, useState, useEffect, useCallback, createContext, useContext } from 'react';
+import { createPortal } from 'react-dom';
 import {
   motion,
   AnimatePresence,
@@ -10,7 +11,7 @@ import {
   useScroll,
   useInView,
 } from 'framer-motion';
-import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, Crown, Download, Medal, Sparkles, Trophy, Users2 } from 'lucide-react';
+import { ArrowRight, BadgeCheck, BarChart3, ChevronDown, ChevronLeft, ChevronRight, Crown, Download, Medal, Sparkles, Trophy, Users2, X } from 'lucide-react';
 
 const GOLD = '#D4AF37';
 const SILVER = '#C7CBD1';
@@ -885,6 +886,7 @@ const PODIUM = {
 
 const PodiumColumn = ({ entry, progress }) => {
   const reduceMotion = useReducedMotion();
+  const openProfile = useOpenProfile();
   const tier = tierFor(entry.rank);
   const cfg = PODIUM[entry.rank];
   const [a, b] = cfg.range;
@@ -897,7 +899,8 @@ const PodiumColumn = ({ entry, progress }) => {
 
   return (
     <motion.div
-      className="group relative flex min-w-0 flex-1 flex-col items-center"
+      {...profileTrigger(openProfile, entry)}
+      className="group relative flex min-w-0 flex-1 cursor-pointer flex-col items-center rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
       whileHover={reduceMotion ? undefined : { y: -6 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
     >
@@ -1040,6 +1043,7 @@ const STANDINGS_COLS = '64px minmax(0,1.6fr) minmax(180px,1.2fr) 110px 80px 90px
 
 const StandingRow = ({ entry, maxXP, i }) => {
   const reduceMotion = useReducedMotion();
+  const openProfile = useOpenProfile();
   const value = parseXP(entry.xp);
   const gap = maxXP - value;
 
@@ -1052,7 +1056,8 @@ const StandingRow = ({ entry, maxXP, i }) => {
       transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
       whileHover={reduceMotion ? undefined : { y: -2 }}
       style={{ transformPerspective: 900 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#111111] transition-colors duration-300 hover:border-[#E50914]/30 hover:bg-[#151515]"
+      {...profileTrigger(openProfile, entry)}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.06] bg-[#111111] outline-none transition-colors duration-300 hover:border-[#E50914]/30 hover:bg-[#151515] focus-visible:ring-2 focus-visible:ring-[#E50914]"
     >
       {/* red accent bar grows on hover */}
       <span className="absolute inset-y-2 left-0 w-[3px] origin-center scale-y-0 rounded-r-full bg-gradient-to-b from-[#E50914] to-[#D4AF37] transition-transform duration-300 group-hover:scale-y-100" />
@@ -1203,6 +1208,384 @@ const HakiLeaderboard = ({ entries = [], status = 'loading', updatedAt = null })
 };
 
 /* ------------------------------------------------------------------ */
+/*  Team profile — big 3D overlay opened from "View Profile", the      */
+/*  podium, or any standings row. Built only from the live portal data */
+/*  (rank, played, won, lost, points), so it always matches the table. */
+/* ------------------------------------------------------------------ */
+
+const ProfileContext = createContext(() => {});
+const useOpenProfile = () => useContext(ProfileContext);
+
+// keyboard + click props that turn any block into an accessible "open profile" control
+const profileTrigger = (open, entry) => ({
+  role: 'button',
+  tabIndex: 0,
+  'aria-label': `View ${entry.name} profile`,
+  onClick: () => open(entry),
+  onKeyDown: (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      open(entry);
+    }
+  },
+});
+
+const placeLabel = (rank) =>
+  rank === 1 ? 'Season Leader' : rank === 2 ? 'Runner-up' : rank === 3 ? 'Third Place' : `Rank #${rank}`;
+
+/* win-rate ring — draws itself in */
+const WinRing = ({ won, played, color }) => {
+  const reduceMotion = useReducedMotion();
+  const pct = played > 0 ? Math.round((won / played) * 100) : 0;
+  const R = 52;
+  const C = 2 * Math.PI * R;
+  return (
+    <div className="relative h-36 w-36 shrink-0">
+      <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
+        <circle cx="60" cy="60" r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+        <motion.circle
+          cx="60"
+          cy="60"
+          r={R}
+          fill="none"
+          stroke={color}
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          initial={{ strokeDashoffset: C }}
+          animate={{ strokeDashoffset: C * (1 - pct / 100) }}
+          transition={{ duration: reduceMotion ? 0 : 1.2, delay: 0.35, ease: EASE }}
+          style={{ filter: `drop-shadow(0 0 8px ${color}88)` }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-3xl font-black tabular-nums text-white">
+          <RollingNumber value={`${pct}%`} />
+        </span>
+        <span className="text-[10px] uppercase tracking-[0.25em] text-[#8E8E8E]">Win rate</span>
+      </div>
+    </div>
+  );
+};
+
+const StatTile = ({ label, value, accent, delay }) => {
+  const reduceMotion = useReducedMotion();
+  return (
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: 24, rotateX: -40 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      style={{ transformPerspective: 700, transformOrigin: '50% 100%' }}
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+    >
+      <span className="absolute inset-x-4 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }} />
+      <div className="text-3xl font-black tabular-nums text-white sm:text-4xl">
+        <RollingNumber value={String(value)} />
+      </div>
+      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#8E8E8E]">{label}</div>
+    </motion.div>
+  );
+};
+
+const TeamProfileModal = ({ entry, entries, updatedAt, onClose, onSelect }) => {
+  const reduceMotion = useReducedMotion();
+  const closeRef = useRef(null);
+  const lastFocus = useRef(null);
+
+  /* header tilts gently toward the pointer */
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const tiltX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 140, damping: 18 });
+  const tiltY = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), { stiffness: 140, damping: 18 });
+
+  const open = !!entry;
+  const index = open ? entries.findIndex((e) => e.rank === entry.rank && e.name === entry.name) : -1;
+  const prev = index > 0 ? entries[index - 1] : null;
+  const next = index >= 0 && index < entries.length - 1 ? entries[index + 1] : null;
+
+  // lock page scroll, close on Esc, browse with ← →, restore focus afterwards
+  useEffect(() => {
+    if (!open) return undefined;
+    lastFocus.current = document.activeElement;
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+    const t = setTimeout(() => closeRef.current?.focus(), 50);
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft' && prev) onSelect(prev);
+      if (e.key === 'ArrowRight' && next) onSelect(next);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      clearTimeout(t);
+      document.body.style.overflow = overflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open, prev, next, onClose, onSelect]);
+
+  useEffect(() => {
+    if (!open && lastFocus.current) lastFocus.current.focus?.();
+  }, [open]);
+
+  if (typeof document === 'undefined') return null;
+
+  let body = null;
+  if (open) {
+    const tier = tierFor(entry.rank);
+    const color = tier ? tier.color : RED;
+    const leaderPts = entries[0]?.points ?? entry.points;
+    const draws = Math.max(0, entry.played - entry.won - entry.lost);
+    const gapToLeader = Math.max(0, leaderPts - entry.points);
+    const above = prev;
+    const below = next;
+    const toClimb = above ? Math.max(1, above.points - entry.points + 1) : 0;
+    const lead = !above && below ? entry.points - below.points : 0;
+    const share = leaderPts > 0 ? Math.max(4, Math.round((entry.points / leaderPts) * 100)) : 0;
+    const ladder = entries.slice(Math.max(0, index - 2), Math.min(entries.length, index + 3));
+
+    body = (
+      <motion.div
+        key="profile-root"
+        className="fixed inset-0 z-[1000] flex items-start justify-center overflow-y-auto p-3 sm:items-center sm:p-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${entry.name} — HAKI RANK profile`}
+      >
+        {/* backdrop */}
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
+
+        <motion.div
+          className="relative my-auto w-full max-w-5xl"
+          style={{ perspective: 1600 }}
+          initial={reduceMotion ? false : { y: 60, scale: 0.9, rotateX: -18, opacity: 0 }}
+          animate={{ y: 0, scale: 1, rotateX: 0, opacity: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { y: 40, scale: 0.94, rotateX: 12, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 170, damping: 22 }}
+        >
+          {/* gradient frame */}
+          <div className="rounded-[30px] p-px" style={{ background: `linear-gradient(135deg, ${color}AA, rgba(255,255,255,0.06) 45%, ${RED}77)` }}>
+            <div className="relative overflow-hidden rounded-[29px] bg-[#0B0B0C]">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${entry.rank}-${entry.name}`}
+                  initial={reduceMotion ? false : { opacity: 0, rotateY: 14, x: 40 }}
+                  animate={{ opacity: 1, rotateY: 0, x: 0 }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, rotateY: -14, x: -40 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  style={{ transformPerspective: 1400 }}
+                  className="grid lg:grid-cols-[0.95fr_1.05fr]"
+                >
+                  {/* ---------------- hero side ---------------- */}
+                  <div
+                    className="relative overflow-hidden p-7 sm:p-10"
+                    style={{ background: `radial-gradient(120% 90% at 30% 0%, ${color}38, transparent 60%), linear-gradient(180deg, #141414, #0B0B0C)` }}
+                    onPointerMove={(e) => {
+                      if (reduceMotion) return;
+                      const r = e.currentTarget.getBoundingClientRect();
+                      mx.set((e.clientX - r.left) / r.width - 0.5);
+                      my.set((e.clientY - r.top) / r.height - 0.5);
+                    }}
+                    onPointerLeave={() => {
+                      mx.set(0);
+                      my.set(0);
+                    }}
+                  >
+                    {/* giant outlined rank behind everything */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-10 -right-4 select-none font-black leading-none"
+                      style={{ fontSize: '15rem', color: 'transparent', WebkitTextStroke: `2px ${color}33` }}
+                    >
+                      {entry.rank}
+                    </span>
+                    {/* spotlight sparks for podium teams */}
+                    {tier &&
+                      !reduceMotion &&
+                      [0, 1, 2, 3, 4].map((i) => (
+                        <motion.span
+                          key={i}
+                          aria-hidden
+                          className="pointer-events-none absolute bottom-10 h-1 w-1 rounded-full"
+                          style={{ left: `${22 + i * 9}%`, background: color, boxShadow: `0 0 8px ${color}` }}
+                          animate={{ y: [0, -220], opacity: [0, 1, 0] }}
+                          transition={{ duration: 3 + (i % 3), repeat: Infinity, delay: i * 0.6, ease: 'easeOut' }}
+                        />
+                      ))}
+
+                    <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color }}>
+                      <Crown size={13} />
+                      HAKI RANK · {placeLabel(entry.rank)}
+                    </div>
+
+                    <motion.div
+                      className="relative mt-8 flex flex-col items-center text-center sm:items-start sm:text-left"
+                      style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: 'preserve-3d' }}
+                    >
+                      <div className="relative" style={{ transform: 'translateZ(50px)' }}>
+                        {entry.rank === 1 && (
+                          <motion.div
+                            className="absolute -top-9 left-1/2 -translate-x-1/2"
+                            animate={reduceMotion ? undefined : { y: [0, -6, 0], rotate: [0, -6, 0] }}
+                            transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                          >
+                            <Crown size={34} style={{ color: GOLD, filter: `drop-shadow(0 0 12px ${GOLD})` }} fill={`${GOLD}55`} />
+                          </motion.div>
+                        )}
+                        <div className="absolute -inset-6 rounded-full blur-2xl" style={{ background: `${color}40` }} />
+                        <Crest name={entry.name} size={128} tier={tier || { color: RED }} spin />
+                        <span
+                          className="absolute -bottom-3 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full text-base font-black text-[#0D0D0D]"
+                          style={{ background: `linear-gradient(135deg, ${color}, ${color}BB)`, boxShadow: `0 0 18px ${color}AA` }}
+                        >
+                          {entry.rank}
+                        </span>
+                      </div>
+
+                      <h3
+                        className="mt-9 text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl"
+                        style={{ transform: 'translateZ(30px)', textShadow: '0 6px 30px rgba(0,0,0,0.6)' }}
+                      >
+                        {entry.name}
+                      </h3>
+                      <div className="mt-3 flex flex-wrap items-center justify-center gap-2 sm:justify-start" style={{ transform: 'translateZ(20px)' }}>
+                        <span className="rounded-full px-3 py-1 text-xs font-bold text-[#0D0D0D]" style={{ background: color }}>
+                          {formatXP(entry.points)} PTS
+                        </span>
+                        <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-[#CFCFCF]">
+                          {entry.won}W · {entry.lost}L{draws ? ` · ${draws}D` : ''}
+                        </span>
+                        <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-[#8E8E8E]">{formatUpdated(updatedAt)}</span>
+                      </div>
+                    </motion.div>
+
+                    {/* points vs the leader */}
+                    <div className="relative mt-10">
+                      <div className="flex items-end justify-between text-xs">
+                        <span className="uppercase tracking-[0.25em] text-[#8E8E8E]">Points vs #1</span>
+                        <span className="font-semibold tabular-nums text-white">
+                          {entry.rank === 1 ? 'Leading the season' : `−${formatXP(gapToLeader)} behind`}
+                        </span>
+                      </div>
+                      <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/[0.06]">
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ background: `linear-gradient(90deg, ${RED}, ${color})`, boxShadow: `0 0 12px ${color}88` }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${share}%` }}
+                          transition={{ duration: reduceMotion ? 0 : 1.1, delay: 0.3, ease: EASE }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ---------------- stats side ---------------- */}
+                  <div className="relative p-7 sm:p-10">
+                    <div className="grid grid-cols-2 gap-3">
+                      <StatTile label="Points" value={formatXP(entry.points)} accent={color} delay={0.1} />
+                      <StatTile label="Matches played" value={entry.played} accent={RED} delay={0.16} />
+                      <StatTile label="Won" value={entry.won} accent={GREEN} delay={0.22} />
+                      <StatTile label="Lost" value={entry.lost} accent="#8E8E8E" delay={0.28} />
+                    </div>
+
+                    <div className="mt-6 flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:flex-row">
+                      <WinRing won={entry.won} played={entry.played} color={color} />
+                      <div className="w-full">
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#E50914]">Next milestone</div>
+                        <div className="mt-2 text-xl font-bold text-white">
+                          {above ? `Overtake ${above.name}` : 'Hold Rank #1'}
+                        </div>
+                        <p className="mt-1 text-sm text-[#A8A8A8]">
+                          {above
+                            ? `${formatXP(toClimb)} more points to climb to #${above.rank}.`
+                            : below
+                              ? `Leading #2 ${below.name} by ${formatXP(lead)} points.`
+                              : 'Top of the table.'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* mini ladder — click a neighbour to switch profiles */}
+                    <div className="mt-6">
+                      <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8E8E8E]">Around them in the table</div>
+                      <div className="space-y-1.5">
+                        {ladder.map((t) => {
+                          const me = t.rank === entry.rank && t.name === entry.name;
+                          const tTier = tierFor(t.rank);
+                          return (
+                            <button
+                              key={`${t.rank}-${t.name}`}
+                              type="button"
+                              disabled={me}
+                              onClick={() => onSelect(t)}
+                              className="flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#E50914] disabled:cursor-default"
+                              style={{
+                                borderColor: me ? `${color}66` : 'rgba(255,255,255,0.06)',
+                                background: me ? `linear-gradient(90deg, ${color}22, transparent)` : 'rgba(255,255,255,0.02)',
+                              }}
+                            >
+                              <span className="w-6 text-center text-sm font-black tabular-nums" style={{ color: tTier ? tTier.color : '#8E8E8E' }}>
+                                {t.rank}
+                              </span>
+                              <span className={`min-w-0 flex-1 truncate text-sm ${me ? 'font-semibold text-white' : 'text-[#BDBDBD]'}`}>{t.name}</span>
+                              <span className="text-xs tabular-nums text-[#8E8E8E]">{formatXP(t.points)} PTS</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* close */}
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="Close profile"
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white outline-none backdrop-blur-md transition-colors hover:border-[#E50914] hover:bg-[#E50914] focus-visible:ring-2 focus-visible:ring-[#E50914]"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
+
+          {/* browse teams */}
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <button
+              type="button"
+              disabled={!prev}
+              onClick={() => prev && onSelect(prev)}
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-black/50 px-4 py-2 text-xs font-semibold text-white outline-none backdrop-blur-md transition-colors hover:border-[#D4AF37]/60 focus-visible:ring-2 focus-visible:ring-[#E50914] disabled:opacity-30"
+            >
+              <ChevronLeft size={15} />
+              {prev ? `#${prev.rank} ${prev.name}` : 'Top of the table'}
+            </button>
+            <span className="hidden text-[10px] uppercase tracking-[0.3em] text-[#6E6E6E] sm:block">← → to browse · Esc to close</span>
+            <button
+              type="button"
+              disabled={!next}
+              onClick={() => next && onSelect(next)}
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-black/50 px-4 py-2 text-xs font-semibold text-white outline-none backdrop-blur-md transition-colors hover:border-[#D4AF37]/60 focus-visible:ring-2 focus-visible:ring-[#E50914] disabled:opacity-30"
+            >
+              {next ? `#${next.rank} ${next.name}` : 'End of the table'}
+              <ChevronRight size={15} />
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  }
+
+  // portal: renders at <body>, so the page's 3D/transformed panels can't trap or clip it
+  return createPortal(<AnimatePresence>{body}</AnimatePresence>, document.body);
+};
+
+/* ------------------------------------------------------------------ */
 /*  CTA banner                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -1340,8 +1723,12 @@ const Roadtoglory = () => {
   const monthGridRef = useRef(null);
   const hakiRank = useHakiRank();
   const leader = hakiRank.entries[0]; // profile preview always matches the real #1
+  const [profile, setProfile] = useState(null);
+  const openProfile = useCallback((entry) => setProfile(entry), []);
+  const closeProfile = useCallback(() => setProfile(null), []);
 
   return (
+    <ProfileContext.Provider value={openProfile}>
     <section className="relative overflow-hidden bg-transparent px-4 py-16 text-white md:py-[120px]">
       <div className="section-shell relative mx-auto max-w-7xl space-y-12">
         {/* Header */}
@@ -1494,8 +1881,9 @@ const Roadtoglory = () => {
                   {leader ? (
                   <>
                   <motion.div
+                    {...profileTrigger(openProfile, leader)}
                     whileHover={reduceMotion ? undefined : { scale: 1.015 }}
-                    className="relative flex items-center gap-4 overflow-hidden rounded-[16px] border p-4"
+                    className="relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-[16px] border p-4 outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
                     style={{ borderColor: `${GOLD}40`, background: `linear-gradient(135deg, ${GOLD}12, #171717)` }}
                   >
                     <div
@@ -1534,13 +1922,17 @@ const Roadtoglory = () => {
                       {hakiRank.status === 'loading' ? 'Loading…' : 'The season leader will appear here.'}
                     </div>
                   )}
-                  <motion.button
-                    whileHover={reduceMotion ? undefined : { y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="mt-5 w-full rounded-xl bg-[#E50914] py-2.5 text-sm font-semibold text-white shadow-[0_10px_26px_-10px_rgba(229,9,20,0.7)]"
+                  <button
+                    type="button"
+                    disabled={!leader}
+                    onClick={() => leader && openProfile(leader)}
+                    className="group relative mt-5 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl py-3 text-sm font-semibold text-white shadow-[0_10px_26px_-10px_rgba(229,9,20,0.7)] outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[#D4AF37] disabled:cursor-not-allowed disabled:opacity-50"
+                    style={{ background: `linear-gradient(135deg, ${RED}, #A3060E)` }}
                   >
-                    View Profile
-                  </motion.button>
+                    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                    <span className="relative">View Full Profile</span>
+                    <ArrowRight size={16} className="relative transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                 </div>
 
                 <div className="rounded-[24px] border border-white/10 bg-[#0D0D0D] p-5">
@@ -1616,6 +2008,15 @@ const Roadtoglory = () => {
         <CTABanner />
       </div>
     </section>
+
+      <TeamProfileModal
+        entry={profile}
+        entries={hakiRank.entries}
+        updatedAt={hakiRank.updatedAt}
+        onClose={closeProfile}
+        onSelect={setProfile}
+      />
+    </ProfileContext.Provider>
   );
 };
 

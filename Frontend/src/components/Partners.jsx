@@ -52,9 +52,9 @@ const ContinuousSportsBackground = () => {
       <div className="absolute bottom-[37%] left-0 w-full"><Belt icons={row2} directionX={[1500, 0]}   speed={70} opacity={0.025} /></div>
       <div className="absolute bottom-[10%] left-0 w-full"><Belt icons={row2} directionX={[-1500, 0]}  speed={65} opacity={0.02}/></div>
 
-      <div className="absolute top-0    right-0 w-[500px] h-[500px] bg-red-50/40   blur-[120px] rounded-full" />
-      <div className="absolute bottom-0 left-0  w-[600px] h-[600px] bg-slate-50/60 blur-[100px] rounded-full" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#B8923D]/[0.04] blur-[140px] rounded-full" />
+      <div className="absolute -top-40 -right-40 w-[800px] h-[800px] rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(254,242,242,0.4), transparent)' }} />
+      <div className="absolute -bottom-40 -left-40 w-[880px] h-[880px] rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(248,250,252,0.6), transparent)' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(184,146,61,0.04), transparent)' }} />
     </div>
   );
 };

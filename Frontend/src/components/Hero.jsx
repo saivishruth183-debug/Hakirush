@@ -11,7 +11,7 @@ import {
 } from 'framer-motion';
 import { ArrowRight, CalendarDays } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import heroVideo from '../assets/Hero/Cricket.mp4';
+import heroVideo from '../assets/Hero/Cricket-web.mp4';
 
 const PITCH = '#0E1712';
 const CREAM = '#F5F3EC';
@@ -284,6 +284,24 @@ const Hero = () => {
   useHeroFonts();
   const navigate = useNavigate();
   const sectionRef = useRef(null);
+  const videoRef = useRef(null);
+
+  // Pause the hero video once it's scrolled away — no point decoding video nobody can see
+  // (the home page already plays a second, full-screen background video behind the content).
+  useEffect(() => {
+    const el = sectionRef.current;
+    const video = videoRef.current;
+    if (!el || !video || !('IntersectionObserver' in window)) return undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const reduceMotion = useReducedMotion();
   const canHover = useMediaQuery('(hover: hover) and (pointer: fine)');
   const pointerFx = canHover && !reduceMotion;
@@ -351,7 +369,7 @@ const Hero = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
       >
-        <video className="h-full w-full object-cover" src={heroVideo} autoPlay muted loop playsInline preload="auto" />
+        <video ref={videoRef} className="h-full w-full object-cover" src={heroVideo} autoPlay muted loop playsInline preload="auto" />
         {/* legibility wash — darkest behind the headline, opens up toward the top-right */}
         <div
           className="absolute inset-0"

@@ -10,6 +10,7 @@ import {
   useTransform,
 } from 'framer-motion'
 import { Mail, Phone, MapPin, Linkedin, Instagram, Youtube, Facebook, ArrowUp } from 'lucide-react'
+import { shade, RED_900 } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS + DATA                                               */
@@ -265,8 +266,7 @@ const ChampionSeal = () => {
               className="absolute inset-0 rounded-full"
               style={{
                 transform: `translateZ(${z}px)`,
-                background: `linear-gradient(135deg, ${RED}, ${RED_DARK})`,
-                filter: `brightness(${0.75 + (i % 3) * 0.12})`,
+                background: `linear-gradient(135deg, ${shade(RED, 0.75 + (i % 3) * 0.12)}, ${shade(RED_DARK, 0.75 + (i % 3) * 0.12)})`,
               }}
             />
           )
@@ -318,8 +318,7 @@ const Tile3D = ({ icon: Icon, active, pressed = false, size = 'md', rotateX, rot
           className="absolute inset-0 rounded-2xl transition-colors duration-300"
           style={{
             transform: `translateZ(${-(i + 1) * 2}px)`,
-            background: active ? RED_DARK : '#0b0d12',
-            filter: `brightness(${1 - i * 0.12})`,
+            background: shade(active ? RED_DARK : '#0b0d12', 1 - i * 0.12),
           }}
         />
       ))}
@@ -538,8 +537,8 @@ const BackToTop = () => {
           <span
             key={i}
             aria-hidden="true"
-            className="absolute inset-0 rounded-full bg-red-900"
-            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, filter: `brightness(${0.9 - i * 0.12})` }}
+            className="absolute inset-0 rounded-full"
+            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_900, 0.9 - i * 0.12) }}
           />
         ))}
         <span
@@ -617,12 +616,12 @@ const Footer = () => {
     >
       {/* ambient glows */}
       <div
-        className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/4 rounded-full"
-        style={{ background: RED, opacity: 0.07, filter: 'blur(120px)' }}
+        className="pointer-events-none absolute right-0 top-0 h-[800px] w-[800px] -translate-y-1/2 translate-x-1/4 rounded-full"
+        style={{ background: `radial-gradient(closest-side, ${RED}, transparent)`, opacity: 0.07 }}
       />
       <div
-        className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/2 rounded-full"
-        style={{ background: RED, opacity: 0.05, filter: 'blur(110px)' }}
+        className="pointer-events-none absolute bottom-0 left-0 h-[660px] w-[660px] -translate-x-1/4 translate-y-1/2 rounded-full"
+        style={{ background: `radial-gradient(closest-side, ${RED}, transparent)`, opacity: 0.05 }}
       />
       <AmbientParticles />
 

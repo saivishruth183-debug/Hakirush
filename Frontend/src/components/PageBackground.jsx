@@ -15,8 +15,8 @@ const PageBackground = () => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-20">
       {/* Blurred gradient backgrounds */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-red-100/60 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-red-50/80 blur-[120px] rounded-full" />
+      <div className="absolute top-[-30%] left-[-30%] w-[100%] h-[100%] rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(254,226,226,0.6), transparent)' }} />
+      <div className="absolute bottom-[-30%] right-[-30%] w-[90%] h-[90%] rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(254,242,242,0.8), transparent)' }} />
 
       {/* First animated row of icons */}
       <div className="flex absolute top-[10%] opacity-[0.04] w-full overflow-hidden">

@@ -302,8 +302,21 @@ export default function CustomCursor() {
     const dust = []
     let raf
     let last = performance.now()
+    // Sleep when nothing is happening: a still mouse with no trail/particles/bounce stops the
+    // loop entirely, so the full-screen canvas isn't cleared + recomposited 60×/sec for nothing.
+    let lastActive = performance.now()
+    let sleeping = false
+    const wake = () => {
+      lastActive = performance.now()
+      if (sleeping) {
+        sleeping = false
+        last = performance.now()
+        raf = requestAnimationFrame(tick)
+      }
+    }
 
     const resize = () => {
+      wake()
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = innerWidth * dpr
       canvas.height = innerHeight * dpr
@@ -336,12 +349,15 @@ export default function CustomCursor() {
         visible = true
       }
       readTarget(e.target)
+      wake()
     }
     // content moves under a still mouse while scrolling
     const onScroll = () => {
       if (visible) readTarget(document.elementFromPoint(mouse.x, mouse.y))
+      wake()
     }
     const onDown = () => {
+      wake()
       pressed = true
       squash = 1
       if (!reduce) {
@@ -360,12 +376,14 @@ export default function CustomCursor() {
       }
     }
     const onUp = () => {
+      wake()
       pressed = false
       if (!reduce) vHeight = 5.5 // pop up, then bounce on the turf
     }
     const onLeave = () => {
       visible = false
       trail.length = 0
+      wake() // let the fade-out finish
     }
     const onOut = (e) => {
       if (!e.relatedTarget) onLeave() // left the window or entered an iframe
@@ -454,9 +472,16 @@ export default function CustomCursor() {
       const show = visible && !overText
       alpha += ((show ? 1 : 0) - alpha) * ease(0.25)
 
+      const settled =
+        now - lastActive > 1500 &&
+        !trail.length && !bursts.length && !dust.length &&
+        vHeight === 0 && squash < 0.01 && swap >= 1 && nextType === ballType &&
+        Math.abs(alpha - (show ? 1 : 0)) < 0.01
+
       ctx.clearRect(0, 0, innerWidth, innerHeight)
       if (alpha < 0.01) {
-        raf = requestAnimationFrame(tick)
+        if (settled) sleeping = true
+        else raf = requestAnimationFrame(tick)
         return
       }
 
@@ -584,7 +609,8 @@ export default function CustomCursor() {
         ctx.fill()
       }
 
-      raf = requestAnimationFrame(tick)
+      if (settled) sleeping = true // last frame stays on screen; any input wakes the loop
+      else raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
 

@@ -152,7 +152,6 @@ const CornerMark = ({ corner, active, accent = FLARE }) => {
       initial={false}
       animate={{
         ...shift,
-        z: active ? 30 : 8,
         opacity: active ? 1 : 0.5,
         borderColor: active ? accent : 'rgba(212,175,55,0.35)',
       }}
@@ -206,29 +205,40 @@ const RiseWords = ({ text, style, delayOffset = 0, play }) => {
   const reduceMotion = useReducedMotion();
   const shown = reduceMotion || play;
   const hidden = { y: '105%', rotateX: -75, opacity: 0 };
+  const words = text.split(' ');
+  // once the last word has landed, render plain text: keeping the 3D setup after the reveal
+  // left every headline word as its own GPU layer for the rest of the visit
+  const [done, setDone] = useState(false);
 
-  return text.split(' ').map((word, i) => (
+  return words.map((word, i) => (
     <React.Fragment key={i}>
-      <span className="inline-block overflow-hidden pb-[0.08em] align-bottom" style={{ perspective: 600 }}>
-        <motion.span
-          className="inline-block"
-          style={{ transformOrigin: '50% 100%', ...style }}
-          initial={reduceMotion ? false : hidden}
-          animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
-          transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.07 : 0, ease: EASE }}
-        >
-          {word}
-        </motion.span>
+      <span className="inline-block overflow-hidden pb-[0.08em] align-bottom" style={done ? undefined : { perspective: 600 }}>
+        {done ? (
+          <span className="inline-block" style={style}>{word}</span>
+        ) : (
+          <motion.span
+            className="inline-block"
+            style={{ transformOrigin: '50% 100%', ...style }}
+            initial={reduceMotion ? false : hidden}
+            animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
+            transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.07 : 0, ease: EASE }}
+            onAnimationComplete={() => {
+              if (shown && i === words.length - 1) setDone(true);
+            }}
+          >
+            {word}
+          </motion.span>
+        )}
       </span>{' '}
     </React.Fragment>
   ));
 };
 
-const HeroHeading = () => {
+const HeroHeading = ({ as: Tag = 'h1' }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
   return (
-    <h1
+    <Tag
       ref={ref}
       className="text-4xl uppercase leading-[0.92] tracking-tight md:text-6xl"
       style={{ fontFamily: FONT_DISPLAY, fontWeight: 700 }}
@@ -236,7 +246,7 @@ const HeroHeading = () => {
       <RiseWords text="Get Your" play={inView} />
       <br />
       <RiseWords text="Access Level." style={{ color: FLARE }} delayOffset={0.2} play={inView} />
-    </h1>
+    </Tag>
   );
 };
 
@@ -390,20 +400,22 @@ const ScrollCard3D = ({ index, cols, to, radius = 20, tilt = 12, surface = '#111
   const blendedX = useTransform([rotateX, travelTiltX, hoverMix], ([t, sc, m]) => t * m + sc * (1 - m));
   const blendedY = useTransform([rotateY, travelTiltY, hoverMix], ([t, sc, m]) => t * m + sc * (1 - m));
 
-  const landed = useTransform(enter, [0.7, 1], [0, 1]);
-  const pop = useTransform([landed, hoverMix], ([p, m]) => p * (1 + 0.5 * m));
+  // content lifts onto its depth planes on hover only: permanent depth turned every piece of
+  // text/icon in every card into its own GPU layer for the whole page
+  const pop = useTransform(hoverMix, (m) => m * 1.5);
 
   const glareX = useTransform(x, (v) => `${(v + 0.5) * 100}%`);
   const glareY = useTransform(y, (v) => `${(v + 0.5) * 100}%`);
   const glare = useMotionTemplate`radial-gradient(380px circle at ${glareX} ${glareY}, rgba(255,255,255,0.10), rgba(229,9,20,0.12) 30%, transparent 60%)`;
 
-  const shadow = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  // pointer tilt only (0 unless hovered): tying these to scroll repainted every card each scroll frame
+  const shadow = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const sx = -ry * 2.2;
     const sy = 24 + rx * 2.2;
     return `${sx}px ${sy}px 56px -22px rgba(0,0,0,0.95), ${sx * 0.4}px ${sy * 0.4}px 28px -16px rgba(229,9,20,0.28)`;
   });
 
-  const rim = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  const rim = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const angle = Math.atan2(rx, -ry) * (180 / Math.PI) + 90;
     const strength = Math.min(1, Math.hypot(rx, ry) / 16);
     return `linear-gradient(${angle}deg, rgba(255,255,255,${0.18 * strength}), transparent 35%)`;
@@ -688,7 +700,8 @@ const CheckList = ({ items, accent, color }) => {
 /*  Page                                                                */
 /* ------------------------------------------------------------------ */
 
-const Sponsorship = () => {
+// `embedded` = shown inside another page (Home), so its title must not be a second <h1>
+const Sponsorship = ({ embedded = false }) => {
   const reduceMotion = useReducedMotion();
   const tierCols = useResponsiveCols(TIER_BREAKPOINTS);
 
@@ -725,7 +738,7 @@ const Sponsorship = () => {
                 </span>
               </motion.div>
 
-              <HeroHeading />
+              <HeroHeading as={embedded ? 'h2' : 'h1'} />
 
               <ScrollRevealText
                 className="mt-5 max-w-sm text-base leading-relaxed"

@@ -187,19 +187,30 @@ const RiseWords = ({ text, className = '', delayOffset = 0, play }) => {
   const reduceMotion = useReducedMotion();
   const shown = reduceMotion || play;
   const hidden = { y: '105%', rotateX: -75, opacity: 0 };
+  const words = text.split(' ');
+  // once the last word has landed, render plain text: keeping the 3D setup after the reveal
+  // left every headline word as its own GPU layer for the rest of the visit
+  const [done, setDone] = useState(false);
 
-  return text.split(' ').map((word, i) => (
+  return words.map((word, i) => (
     <React.Fragment key={i}>
-      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={{ perspective: 600 }}>
-        <motion.span
-          className={`inline-block ${className}`}
-          style={{ transformOrigin: '50% 100%' }}
-          initial={reduceMotion ? false : hidden}
-          animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
-          transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.06 : 0, ease: EASE }}
-        >
-          {word}
-        </motion.span>
+      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={done ? undefined : { perspective: 600 }}>
+        {done ? (
+          <span className={`inline-block ${className}`}>{word}</span>
+        ) : (
+          <motion.span
+            className={`inline-block ${className}`}
+            style={{ transformOrigin: '50% 100%' }}
+            initial={reduceMotion ? false : hidden}
+            animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
+            transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.06 : 0, ease: EASE }}
+            onAnimationComplete={() => {
+              if (shown && i === words.length - 1) setDone(true);
+            }}
+          >
+            {word}
+          </motion.span>
+        )}
       </span>{' '}
     </React.Fragment>
   ));
@@ -290,7 +301,6 @@ const CornerMark = ({ corner, active }) => {
       initial={false}
       animate={{
         ...shift,
-        z: active ? 30 : 10,
         opacity: active ? 1 : 0.55,
         borderColor: active ? RED : 'rgba(212,175,55,0.35)',
       }}
@@ -340,10 +350,6 @@ const ReasonCard3D = ({ item, index, fromLeft, delay, canHover }) => {
   const exitOpacity = useTransform(travel, [0.8, 1], [1, 0.4]);
   const combinedY = useTransform([enterY, exitY], ([a, b]) => a + b);
 
-  // Layers "pop" off the surface in the last stretch of the entrance
-  const iconZ = useTransform(enter, [0.65, 1], [0, 80]);
-  const titleZ = useTransform(enter, [0.7, 1], [0, 50]);
-  const bodyZ = useTransform(enter, [0.75, 1], [0, 28]);
   const combinedOpacity = useTransform([enterOpacity, exitOpacity], ([a, b]) => a * b);
 
   // Smoothly hand control from scroll-tilt to pointer-tilt on hover
@@ -354,6 +360,11 @@ const ReasonCard3D = ({ item, index, fromLeft, delay, canHover }) => {
   const blendedX = useTransform([rotateX, scrollTiltX, hoverMix], ([t, s, m]) => t * m + s * (1 - m));
   const blendedY = useTransform([rotateY, scrollTiltY, hoverMix], ([t, s, m]) => t * m + s * (1 - m));
 
+  // Content lifts off the surface on hover (permanent depth made every piece of each card its own GPU layer)
+  const iconZ = useTransform(hoverMix, [0, 1], [0, 80]);
+  const titleZ = useTransform(hoverMix, [0, 1], [0, 50]);
+  const bodyZ = useTransform(hoverMix, [0, 1], [0, 28]);
+
   const Icon = item.icon;
   const num = String(index + 1).padStart(2, '0');
 
@@ -363,7 +374,8 @@ const ReasonCard3D = ({ item, index, fromLeft, delay, canHover }) => {
   const glare = useMotionTemplate`radial-gradient(420px circle at ${glareX} ${glareY}, rgba(255,255,255,0.11), rgba(229,9,20,0.12) 28%, transparent 60%)`;
 
   // Shadow falls opposite the tilt, like a real object under a key light
-  const shadow = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  // pointer tilt only (0 unless hovered): tying these to scroll repainted every card each scroll frame
+  const shadow = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const sx = -ry * 2.4;
     const sy = 30 + rx * 2.4;
     return `${sx}px ${sy}px 70px -24px rgba(0,0,0,0.95), ${sx * 0.4}px ${sy * 0.4}px 34px -18px rgba(229,9,20,0.3)`;
@@ -371,7 +383,7 @@ const ReasonCard3D = ({ item, index, fromLeft, delay, canHover }) => {
 
   // Edge thickness: a light rim on the side tilted toward the viewer,
   // which is what makes a flat card read as a physical slab.
-  const rim = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  const rim = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const angle = Math.atan2(rx, -ry) * (180 / Math.PI) + 90;
     const strength = Math.min(1, Math.hypot(rx, ry) / 18);
     return `linear-gradient(${angle}deg, rgba(255,255,255,${0.18 * strength}), transparent 35%)`;
@@ -629,7 +641,7 @@ const TrustPlaque = ({ canHover }) => {
 
 const SectionBackdrop = ({ progress }) => {
   const reduceMotion = useReducedMotion();
-  const gridShift = useTransform(progress, [0, 1], ['0px', '-256px']);
+  const gridShift = useTransform(progress, [0, 1], [0, -256]);
 
   const gridLine = 'rgba(212,175,55,0.09)';
 
@@ -639,17 +651,26 @@ const SectionBackdrop = ({ progress }) => {
       {/* stadium-floor grid receding into the distance */}
       <div className="absolute inset-x-0 bottom-0 h-[65%]" style={{ perspective: 900 }}>
         <motion.div
-          className="absolute -inset-x-1/2 -bottom-[10%] h-[140%]"
+          className="absolute -inset-x-1/2 -bottom-[10%] h-[140%] overflow-hidden"
           style={{
             rotateX: 68,
             transformOrigin: '50% 100%',
-            backgroundImage: `linear-gradient(${gridLine} 1px, transparent 1px), linear-gradient(90deg, ${gridLine} 1px, transparent 1px)`,
-            backgroundSize: '64px 64px',
-            backgroundPositionY: reduceMotion ? '0px' : gridShift,
             maskImage: 'linear-gradient(to top, black 5%, transparent 70%)',
             WebkitMaskImage: 'linear-gradient(to top, black 5%, transparent 70%)',
           }}
-        />
+        >
+          {/* the grid slides with a GPU transform (4 tiles = 256px, so the loop is seamless);
+              animating background-position repainted this 2880px-wide layer every scroll frame */}
+          <motion.div
+            className="absolute inset-x-0 top-0"
+            style={{
+              height: 'calc(100% + 256px)',
+              backgroundImage: `linear-gradient(${gridLine} 1px, transparent 1px), linear-gradient(90deg, ${gridLine} 1px, transparent 1px)`,
+              backgroundSize: '64px 64px',
+              y: reduceMotion ? 0 : gridShift,
+            }}
+          />
+        </motion.div>
       </div>
 
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />

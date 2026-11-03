@@ -11,21 +11,21 @@ import {
 } from 'framer-motion'
 import { Camera, X, Play, ChevronLeft, ChevronRight, Film } from 'lucide-react'
 import PageBackground from '../components/PageBackground'
-import backgroundImage from '../assets/Hero/Backimage.png'
+import backgroundImage from '../assets/Hero/Backimage.webp'
 
 import Cricket from '../assets/Gallery/Annual/Cricket.mp4'
 import Badminton from '../assets/Gallery/Annual/Badminton.mp4'
-import Basketball from '../assets/Gallery/Quarterly/basketball.png'
-import Ground from '../assets/Gallery/Quarterly/ground.png'
-import Batemention from '../assets/Gallery/Quarterly/batemention.png'
-import Celebration1 from '../assets/Gallery/Celebration/celeb1.JPG'
-import Celebration2 from '../assets/Gallery/Celebration/celeb2.JPG'
-import Celebration3 from '../assets/Gallery/Celebration/celeb3.JPG'
-import Celebration4 from '../assets/Gallery/Celebration/celeb4.JPG'
-import Behind1 from '../assets/Gallery/BehindTheSceans/behind1.JPG'
-import Behind2 from '../assets/Gallery/BehindTheSceans/behind2.JPG'
-import Behind3 from '../assets/Gallery/BehindTheSceans/behind3.JPG'
-import PilotVideo from '../assets/Pilot/Video 1.mp4'
+import Basketball from '../assets/Gallery/Quarterly/basketball.webp'
+import Ground from '../assets/Gallery/Quarterly/ground.webp'
+import Batemention from '../assets/Gallery/Quarterly/batemention.webp'
+import Celebration1 from '../assets/Gallery/Celebration/celeb1.webp'
+import Celebration2 from '../assets/Gallery/Celebration/celeb2.webp'
+import Celebration3 from '../assets/Gallery/Celebration/celeb3.webp'
+import Celebration4 from '../assets/Gallery/Celebration/celeb4.webp'
+import Behind1 from '../assets/Gallery/BehindTheSceans/behind1.webp'
+import Behind2 from '../assets/Gallery/BehindTheSceans/behind2.webp'
+import Behind3 from '../assets/Gallery/BehindTheSceans/behind3.webp'
+import PilotVideo from '../assets/Pilot/pilot-720.mp4'
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the rest of the site            */
@@ -108,28 +108,10 @@ function useTilt({ max = 10 } = {}) {
 /* ------------------------------------------------------------------ */
 const ParallaxBackground = ({ image }) => {
   const reduce = useReducedMotion()
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const cfg = { damping: 30, stiffness: 80, mass: 0.6 }
-  const sx = useSpring(mouseX, cfg)
-  const sy = useSpring(mouseY, cfg)
-
-  const x = useTransform(sx, [-1, 1], [-30, 30])
-  const my = useTransform(sy, [-1, 1], [-20, 20])
-  const scale = useTransform(sx, [-1, 1], [1.08, 1.12])
+  // Gentle scroll drift only. The old mouse-follow + animated scale kept this full-screen
+  // photo moving all the time, forcing every blurred glass card above it to re-blur each frame.
   const { scrollY } = useScroll()
-  const scrollShift = useTransform(scrollY, [0, 1500], [0, 150])
-  const y = useTransform([my, scrollShift], ([a, b]) => a + b)
-
-  useEffect(() => {
-    if (reduce) return
-    const onMove = (e) => {
-      mouseX.set((e.clientX / window.innerWidth) * 2 - 1)
-      mouseY.set((e.clientY / window.innerHeight) * 2 - 1)
-    }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [reduce, mouseX, mouseY])
+  const y = useTransform(scrollY, [0, 1500], [0, reduce ? 0 : 150])
 
   return (
     <div
@@ -137,7 +119,7 @@ const ParallaxBackground = ({ image }) => {
       className="pointer-events-none fixed left-0 -z-10 w-full overflow-hidden"
       style={{ top: '-10vh', height: '130vh' }}
     >
-      <motion.img src={image} alt="" style={{ x, y, scale }} className="h-full w-full object-cover object-center will-change-transform" />
+      <motion.img src={image} alt="" style={{ y, scale: 1.08 }} className="h-full w-full object-cover object-center will-change-transform" />
       <div className="absolute inset-0 bg-linear-to-b from-slate-950/80 via-slate-950/65 to-slate-950/90" />
       <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at top, ${RED}26, transparent 60%)` }} />
     </div>

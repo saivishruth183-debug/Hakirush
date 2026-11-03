@@ -147,7 +147,6 @@ const CornerMark = ({ corner, active }) => {
       initial={false}
       animate={{
         ...shift,
-        z: active ? 30 : 8,
         opacity: active ? 1 : 0.5,
         borderColor: active ? RED : 'rgba(212,175,55,0.35)',
       }}
@@ -173,19 +172,30 @@ const RiseWords = ({ text, className = '', delayOffset = 0, play }) => {
   const reduceMotion = useReducedMotion();
   const shown = reduceMotion || play;
   const hidden = { y: '105%', rotateX: -75, opacity: 0 };
+  const words = text.split(' ');
+  // once the last word has landed, render plain text: keeping the 3D setup after the reveal
+  // left every headline word as its own GPU layer for the rest of the visit
+  const [done, setDone] = useState(false);
 
-  return text.split(' ').map((word, i) => (
+  return words.map((word, i) => (
     <React.Fragment key={i}>
-      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={{ perspective: 600 }}>
-        <motion.span
-          className={`inline-block ${className}`}
-          style={{ transformOrigin: '50% 100%' }}
-          initial={reduceMotion ? false : hidden}
-          animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
-          transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.05 : 0, ease: EASE }}
-        >
-          {word}
-        </motion.span>
+      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={done ? undefined : { perspective: 600 }}>
+        {done ? (
+          <span className={`inline-block ${className}`}>{word}</span>
+        ) : (
+          <motion.span
+            className={`inline-block ${className}`}
+            style={{ transformOrigin: '50% 100%' }}
+            initial={reduceMotion ? false : hidden}
+            animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
+            transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.05 : 0, ease: EASE }}
+            onAnimationComplete={() => {
+              if (shown && i === words.length - 1) setDone(true);
+            }}
+          >
+            {word}
+          </motion.span>
+        )}
       </span>{' '}
     </React.Fragment>
   ));
@@ -264,20 +274,22 @@ const ScrollCard3D = ({ index, cols, radius = 24, tilt = 10, surface = '#0D0D0D'
   const blendedX = useTransform([rotateX, travelTiltX, hoverMix], ([t, sc, m]) => t * m + sc * (1 - m));
   const blendedY = useTransform([rotateY, travelTiltY, hoverMix], ([t, sc, m]) => t * m + sc * (1 - m));
 
-  const landed = useTransform(enter, [0.7, 1], [0, 1]);
-  const pop = useTransform([landed, hoverMix], ([p, m]) => p * (1 + 0.5 * m));
+  // content lifts onto its depth planes on hover only: permanent depth turned every piece of
+  // text/icon in every card into its own GPU layer for the whole page
+  const pop = useTransform(hoverMix, (m) => m * 1.5);
 
   const glareX = useTransform(x, (v) => `${(v + 0.5) * 100}%`);
   const glareY = useTransform(y, (v) => `${(v + 0.5) * 100}%`);
   const glare = useMotionTemplate`radial-gradient(420px circle at ${glareX} ${glareY}, rgba(255,255,255,0.10), rgba(229,9,20,0.12) 30%, transparent 60%)`;
 
-  const shadow = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  // pointer tilt only (0 unless hovered): tying these to scroll repainted every card each scroll frame
+  const shadow = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const sx = -ry * 2.2;
     const sy = 26 + rx * 2.2;
     return `${sx}px ${sy}px 60px -22px rgba(0,0,0,0.95), ${sx * 0.4}px ${sy * 0.4}px 30px -16px rgba(229,9,20,0.28)`;
   });
 
-  const rim = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  const rim = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const angle = Math.atan2(rx, -ry) * (180 / Math.PI) + 90;
     const strength = Math.min(1, Math.hypot(rx, ry) / 14);
     return `linear-gradient(${angle}deg, rgba(255,255,255,${0.18 * strength}), transparent 35%)`;

@@ -23,20 +23,21 @@ import {
   Dumbbell,
   Flag,
 } from 'lucide-react'
-import backgroundImage from '../assets/Hero/Backimage.png'
+import backgroundImage from '../assets/Hero/Backimage.webp'
 
-import Marathon from '../assets/Annual/Run.png'
-import Football from '../assets/Annual/football.png'
-import Badminton from '../assets/Annual/doublebadmention.png'
-import Cricket from '../assets/Annual/cricket.png'
-import Table from '../assets/Annual/Tabletennis.png'
-import Yoga from '../assets/Annual/yoga.png'
-import Volleyball from '../assets/Annual/volleyball.png'
-import Chess from '../assets/Annual/chess.png'
-import Fitness from '../assets/Annual/bootcamp.png'
-import Relay from '../assets/Annual/relayrun.png'
-import Olympics from '../assets/Annual/Olympics.png'
-import Finale from '../assets/Annual/allstar.png'
+import Marathon from '../assets/Annual/Run.webp'
+import Football from '../assets/Annual/football.webp'
+import Badminton from '../assets/Annual/doublebadmention.webp'
+import Cricket from '../assets/Annual/cricket.webp'
+import Table from '../assets/Annual/Tabletennis.webp'
+import Yoga from '../assets/Annual/yoga.webp'
+import Volleyball from '../assets/Annual/volleyball.webp'
+import Chess from '../assets/Annual/chess.webp'
+import Fitness from '../assets/Annual/bootcamp.webp'
+import Relay from '../assets/Annual/relayrun.webp'
+import Olympics from '../assets/Annual/Olympics.webp'
+import Finale from '../assets/Annual/allstar.webp'
+import { shade, RED_900 } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the rest of the site            */
@@ -139,8 +140,8 @@ const ScoreboardBackground = () => {
   const reduce = useReducedMotion()
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-20 overflow-hidden" style={{ background: ONYX }}>
-      <div className="absolute -left-[10%] -top-[15%] h-[55%] w-[55%] rounded-full blur-[140px]" style={{ background: `${RED}1f` }} />
-      <div className="absolute -bottom-[15%] -right-[10%] h-[45%] w-[45%] rounded-full blur-[140px]" style={{ background: `${RED_DARK}26` }} />
+      <div className="absolute -left-[30%] -top-[35%] h-[95%] w-[95%] rounded-full" style={{ background: `radial-gradient(closest-side, ${RED}1f, transparent)` }} />
+      <div className="absolute -bottom-[35%] -right-[30%] h-[85%] w-[85%] rounded-full" style={{ background: `radial-gradient(closest-side, ${RED_DARK}26, transparent)` }} />
       <div
         className="absolute inset-0 opacity-[0.05]"
         style={{
@@ -166,28 +167,10 @@ const ScoreboardBackground = () => {
 
 const ParallaxBackground = ({ image }) => {
   const reduce = useReducedMotion()
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const cfg = { damping: 30, stiffness: 80, mass: 0.6 }
-  const sx = useSpring(mouseX, cfg)
-  const sy = useSpring(mouseY, cfg)
-
-  const x = useTransform(sx, [-1, 1], [-24, 24])
-  const my = useTransform(sy, [-1, 1], [-16, 16])
-  const scale = useTransform(sx, [-1, 1], [1.06, 1.1])
+  // Gentle scroll drift only. The old mouse-follow + animated scale kept this full-screen
+  // photo moving all the time, forcing every blurred glass card above it to re-blur each frame.
   const { scrollY } = useScroll()
-  const scrollShift = useTransform(scrollY, [0, 1500], [0, 150])
-  const y = useTransform([my, scrollShift], ([a, b]) => a + b)
-
-  useEffect(() => {
-    if (reduce) return
-    const onMove = (e) => {
-      mouseX.set((e.clientX / window.innerWidth) * 2 - 1)
-      mouseY.set((e.clientY / window.innerHeight) * 2 - 1)
-    }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [reduce, mouseX, mouseY])
+  const y = useTransform(scrollY, [0, 1500], [0, reduce ? 0 : 150])
 
   return (
     <div
@@ -198,7 +181,7 @@ const ParallaxBackground = ({ image }) => {
       <motion.img
         src={image}
         alt=""
-        style={{ x, y, scale }}
+        style={{ y, scale: 1.06 }}
         className="h-full w-full object-cover object-center grayscale-[25%] will-change-transform"
       />
       <div className="absolute inset-0 bg-linear-to-b from-[#0B0C0E]/60 via-[#0B0C0E]/75 to-[#0B0C0E]" />
@@ -256,7 +239,7 @@ const IconTile = ({ icon: Icon, size = 48 }) => (
         key={i}
         aria-hidden="true"
         className="absolute inset-0 rounded-xl"
-        style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: RED_DARK, filter: `brightness(${0.9 - i * 0.1})` }}
+        style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_DARK, 0.9 - i * 0.1) }}
       />
     ))}
     <span
@@ -614,8 +597,8 @@ const CTAButton3D = () => {
           <span
             key={i}
             aria-hidden="true"
-            className="absolute inset-0 rounded-2xl bg-red-900"
-            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, filter: `brightness(${0.95 - i * 0.08})` }}
+            className="absolute inset-0 rounded-2xl"
+            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_900, 0.95 - i * 0.08) }}
           />
         ))}
         <span

@@ -22,6 +22,7 @@ import {
   Image as ImageIcon,
   Users,
 } from 'lucide-react'
+import { shade, RED_900 } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
 /*  DATA                                                               */
@@ -294,10 +295,10 @@ const JoinButton3D = () => {
           <span
             key={i}
             aria-hidden="true"
-            className="absolute inset-0 rounded-full bg-red-900"
+            className="absolute inset-0 rounded-full"
             style={{
               transform: `translateZ(${-(i + 1) * 2}px)`,
-              filter: `brightness(${0.95 - i * 0.08})`,
+              background: shade(RED_900, 0.95 - i * 0.08),
             }}
           />
         ))}

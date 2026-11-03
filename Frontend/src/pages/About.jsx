@@ -27,11 +27,12 @@ import {
 } from 'lucide-react'
 import PageBackground from '../components/PageBackground'
 
-import Krishna from '../assets/Team/krishna.png'
-import Arushi from '../assets/Team/arushi.png'
-import Sharavanthi from '../assets/Team/sharvanthi.jpeg'
-import Umesh from '../assets/Team/Umesh.jpeg'
-import backgroundImage from '../assets/Hero/Backimage.png'
+import Krishna from '../assets/Team/krishna.webp'
+import Arushi from '../assets/Team/arushi.webp'
+import Sharavanthi from '../assets/Team/sharvanthi.webp'
+import Umesh from '../assets/Team/Umesh.webp'
+import backgroundImage from '../assets/Hero/Backimage.webp'
+import { shade, RED_900 } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the Navbar and Footer           */
@@ -143,28 +144,10 @@ function useTilt({ max = 10 } = {}) {
 /* ------------------------------------------------------------------ */
 const ParallaxBackground = ({ image }) => {
   const reduce = useReducedMotion()
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const cfg = { damping: 30, stiffness: 80, mass: 0.6 }
-  const sx = useSpring(mouseX, cfg)
-  const sy = useSpring(mouseY, cfg)
-
-  const x = useTransform(sx, [-1, 1], [-30, 30])
-  const my = useTransform(sy, [-1, 1], [-20, 20])
-  const scale = useTransform(sx, [-1, 1], [1.08, 1.12])
+  // Gentle scroll drift only. The old mouse-follow + animated scale kept this full-screen
+  // photo moving all the time, forcing every blurred glass card above it to re-blur each frame.
   const { scrollY } = useScroll()
-  const scrollShift = useTransform(scrollY, [0, 1500], [0, 150])
-  const y = useTransform([my, scrollShift], ([a, b]) => a + b)
-
-  useEffect(() => {
-    if (reduce) return
-    const onMove = (e) => {
-      mouseX.set((e.clientX / window.innerWidth) * 2 - 1)
-      mouseY.set((e.clientY / window.innerHeight) * 2 - 1)
-    }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [reduce, mouseX, mouseY])
+  const y = useTransform(scrollY, [0, 1500], [0, reduce ? 0 : 150])
 
   return (
     <div
@@ -175,7 +158,7 @@ const ParallaxBackground = ({ image }) => {
       <motion.img
         src={image}
         alt=""
-        style={{ x, y, scale }}
+        style={{ y, scale: 1.08 }}
         className="h-full w-full object-cover object-center will-change-transform"
       />
       <div className="absolute inset-0 bg-linear-to-b from-slate-950/80 via-slate-950/65 to-slate-950/90" />
@@ -293,7 +276,7 @@ const IconTile = ({ icon: Icon, size = 56 }) => (
         key={i}
         aria-hidden="true"
         className="absolute inset-0 rounded-2xl"
-        style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: RED_DARK, filter: `brightness(${0.9 - i * 0.1})` }}
+        style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_DARK, 0.9 - i * 0.1) }}
       />
     ))}
     <span
@@ -329,7 +312,7 @@ const NumberTile = ({ n }) => {
           key={i}
           aria-hidden="true"
           className="absolute inset-0 rounded-xl"
-          style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: RED_DARK, filter: `brightness(${0.9 - i * 0.1})` }}
+          style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_DARK, 0.9 - i * 0.1) }}
         />
       ))}
       <span
@@ -428,8 +411,8 @@ const CTAButton3D = ({ to, children }) => {
           <span
             key={i}
             aria-hidden="true"
-            className="absolute inset-0 rounded-full bg-red-900"
-            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, filter: `brightness(${0.95 - i * 0.08})` }}
+            className="absolute inset-0 rounded-full"
+            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_900, 0.95 - i * 0.08) }}
           />
         ))}
         <span
@@ -630,18 +613,27 @@ const StripeDivider = () => {
   const mask = 'linear-gradient(90deg, transparent, black 15%, black 85%, transparent)'
   return (
     <div aria-hidden="true" className="relative h-20 overflow-hidden" style={{ perspective: 600 }}>
-      <motion.div
-        className="absolute -inset-x-[10%] top-5 h-10"
+      <div
+        className="absolute -inset-x-[10%] top-5 h-10 overflow-hidden"
         style={{
           transform: 'rotateX(55deg) skewX(-30deg)',
-          background: `repeating-linear-gradient(90deg, ${RED} 0 22px, transparent 22px 44px, ${RED_DARK} 44px 66px, transparent 66px 88px)`,
           maskImage: mask,
           WebkitMaskImage: mask,
           boxShadow: `0 0 40px ${RED}55`,
         }}
-        animate={reduce ? undefined : { backgroundPosition: ['0px 0px', '88px 0px'] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
-      />
+      >
+        {/* slides by one stripe period (88px) and loops — a GPU transform instead of
+            animating background-position, which repainted the stripe every frame */}
+        <motion.div
+          className="absolute inset-y-0 left-0"
+          style={{
+            width: 'calc(100% + 88px)',
+            background: `repeating-linear-gradient(90deg, ${RED} 0 22px, transparent 22px 44px, ${RED_DARK} 44px 66px, transparent 66px 88px)`,
+          }}
+          animate={reduce ? undefined : { x: [-88, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
     </div>
   )
 }
@@ -863,8 +855,8 @@ const TeamSection = () => (
   <section className="relative overflow-hidden py-16 md:py-24">
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/4 rounded-full"
-      style={{ background: RED, opacity: 0.08, filter: 'blur(120px)' }}
+      className="pointer-events-none absolute right-0 top-0 h-[800px] w-[800px] -translate-y-1/2 translate-x-1/4 rounded-full"
+      style={{ background: `radial-gradient(closest-side, ${RED}, transparent)`, opacity: 0.08 }}
     />
     <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
       <SectionHeading kicker="The Leadership" icon={Users} accent="Dream Team">

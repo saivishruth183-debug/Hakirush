@@ -4,7 +4,7 @@ import WhyHakirush from '../components/Whyhakirush'
 import Newsletter from '../components/Newsletter'
 import Sponsor from '../components/Sponsor';
 import Roadtoglory from '../components/Roadtoglory';
-import backgroundVideo from '../assets/Hero/Home.mp4';
+import backgroundVideo from '../assets/Hero/Home-1080.mp4';
 
 const Home = () => {
   return (
@@ -24,7 +24,7 @@ const Home = () => {
           </div>
         <WhyHakirush />
         <Roadtoglory />
-        <Sponsor />
+        <Sponsor embedded />
         <Newsletter />
       </div>
     </div>

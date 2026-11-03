@@ -133,7 +133,6 @@ const CornerMark = ({ corner, active }) => {
       initial={false}
       animate={{
         ...shift,
-        z: active ? 30 : 8,
         opacity: active ? 1 : 0.5,
         borderColor: active ? RED : 'rgba(212,175,55,0.35)',
       }}
@@ -200,19 +199,30 @@ const RiseWords = ({ text, className = '', delayOffset = 0, play }) => {
   const reduceMotion = useReducedMotion();
   const shown = reduceMotion || play;
   const hidden = { y: '105%', rotateX: -75, opacity: 0 };
+  const words = text.split(' ');
+  // once the last word has landed, render plain text: keeping the 3D setup after the reveal
+  // left every headline word as its own GPU layer for the rest of the visit
+  const [done, setDone] = useState(false);
 
-  return text.split(' ').map((word, i) => (
+  return words.map((word, i) => (
     <React.Fragment key={i}>
-      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={{ perspective: 600 }}>
-        <motion.span
-          className={`inline-block ${className}`}
-          style={{ transformOrigin: '50% 100%' }}
-          initial={reduceMotion ? false : hidden}
-          animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
-          transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.05 : 0, ease: EASE }}
-        >
-          {word}
-        </motion.span>
+      <span className="inline-block overflow-hidden pb-[0.12em] align-bottom" style={done ? undefined : { perspective: 600 }}>
+        {done ? (
+          <span className={`inline-block ${className}`}>{word}</span>
+        ) : (
+          <motion.span
+            className={`inline-block ${className}`}
+            style={{ transformOrigin: '50% 100%' }}
+            initial={reduceMotion ? false : hidden}
+            animate={shown ? { y: '0%', rotateX: 0, opacity: 1 } : hidden}
+            transition={{ duration: 0.85, delay: shown ? delayOffset + i * 0.05 : 0, ease: EASE }}
+            onAnimationComplete={() => {
+              if (shown && i === words.length - 1) setDone(true);
+            }}
+          >
+            {word}
+          </motion.span>
+        )}
       </span>{' '}
     </React.Fragment>
   ));
@@ -475,20 +485,22 @@ const ScrollCard3D = ({
   const blendedY = useTransform([rotateY, travelTiltY, hoverMix], ([t, sc, m]) => t * m + sc * (1 - m));
 
   // Layer separation: 0 while flat, 1 once landed, 1.5 on hover
-  const landed = useTransform(enter, [0.7, 1], [0, 1]);
-  const pop = useTransform([landed, hoverMix], ([p, m]) => p * (1 + 0.5 * m));
+  // content lifts onto its depth planes on hover only: permanent depth turned every piece of
+  // text/icon in every card into its own GPU layer for the whole page
+  const pop = useTransform(hoverMix, (m) => m * 1.5);
 
   const glareX = useTransform(x, (v) => `${(v + 0.5) * 100}%`);
   const glareY = useTransform(y, (v) => `${(v + 0.5) * 100}%`);
   const glare = useMotionTemplate`radial-gradient(380px circle at ${glareX} ${glareY}, rgba(255,255,255,0.10), rgba(229,9,20,0.12) 30%, transparent 60%)`;
 
-  const shadow = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  // pointer tilt only (0 unless hovered): tying these to scroll repainted every card each scroll frame
+  const shadow = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const sx = -ry * 2.2;
     const sy = 24 + rx * 2.2;
     return `${sx}px ${sy}px 56px -22px rgba(0,0,0,0.95), ${sx * 0.4}px ${sy * 0.4}px 28px -16px rgba(229,9,20,0.28)`;
   });
 
-  const rim = useTransform([blendedX, blendedY], ([rx, ry]) => {
+  const rim = useTransform([rotateX, rotateY], ([rx, ry]) => {
     const angle = Math.atan2(rx, -ry) * (180 / Math.PI) + 90;
     const strength = Math.min(1, Math.hypot(rx, ry) / 16);
     return `linear-gradient(${angle}deg, rgba(255,255,255,${0.18 * strength}), transparent 35%)`;
@@ -1612,8 +1624,8 @@ const CTABanner = () => {
         className="relative overflow-hidden rounded-[32px] p-8 sm:p-12"
         style={{ background: 'linear-gradient(135deg, rgba(23,7,8,0.92), rgba(10,10,11,0.97) 55%, rgba(26,20,4,0.88))' }}
       >
-        <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full blur-[110px]" style={{ background: `${RED}30` }} />
-        <div className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full blur-[100px]" style={{ background: `${GOLD}22` }} />
+        <div className="pointer-events-none absolute -right-48 -top-52 h-[30rem] w-[30rem] rounded-full" style={{ background: `radial-gradient(closest-side, ${RED}30, transparent)` }} />
+        <div className="pointer-events-none absolute -bottom-44 -left-40 h-[28rem] w-[28rem] rounded-full" style={{ background: `radial-gradient(closest-side, ${GOLD}22, transparent)` }} />
         <motion.div
           className="pointer-events-none absolute -right-8 -top-10"
           animate={reduceMotion ? undefined : { rotate: [0, 6, 0], y: [0, -8, 0] }}
@@ -1778,7 +1790,7 @@ const Roadtoglory = () => {
         </div>
 
         {/* Timeline */}
-        <PanelReveal className="rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,rgba(8,8,8,0.95),rgba(20,20,20,0.9))] p-5 shadow-[0_30px_80px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:p-8">
+        <PanelReveal className="rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,rgba(8,8,8,0.95),rgba(20,20,20,0.9))] p-5 shadow-[0_30px_80px_rgba(0,0,0,0.3)] sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <div className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">Journey Timeline</div>
@@ -1804,7 +1816,7 @@ const Roadtoglory = () => {
         </PanelReveal>
 
         {/* Steps */}
-        <PanelReveal className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(5,5,5,0.96),rgba(18,18,18,0.9))] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:p-8">
+        <PanelReveal className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(5,5,5,0.96),rgba(18,18,18,0.9))] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] sm:p-8">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.35em] text-[#E50914]">How the journey unfolds</div>

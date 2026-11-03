@@ -335,8 +335,6 @@ const toEntry = (row) => ({
   rank: row.rank,
   name: row.name,
   logo: row.logo || row.logoUrl || row.companyLogo || row.image || row.avatar || null,
-  // company logo from the portal (accepts whichever field name the API uses)
-  logo: row.logo || row.logoUrl || row.companyLogo || row.image || row.avatar || null,
   played: row.played ?? 0,
   won: row.won ?? 0,
   lost: row.lost ?? 0,
@@ -863,9 +861,7 @@ const formatXP = (n) => n.toLocaleString('en-IN');
 /* Team crest — initials on a ring; podium tiers get a slowly turning foil ring */
 const Crest = ({ name, logo, size = 40, tier, spin = false }) => {
   const reduceMotion = useReducedMotion();
-  const [logoFailed, setLogoFailed] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false); const showLogo = logo && !logoFailed; const color = tier ? tier.color : '#8E8E8E';
-  const showLogo = logo && !logoFailed;
   return (
     <div className="relative shrink-0" style={{ width: size, height: size }}>
       <motion.span
@@ -887,18 +883,7 @@ const Crest = ({ name, logo, size = 40, tier, spin = false }) => {
           boxShadow: tier ? `inset 0 0 ${size * 0.25}px ${color}33` : 'none',
         }}
       >
-        {showLogo ? (
-          <img
-            src={logo}
-            alt={`${name} logo`}
-            loading="lazy"
-            draggable={false}
-            onError={() => setLogoFailed(true)}
-            className="h-full w-full object-contain p-[12%]"
-          />
-        ) : (
-          initials(name)
-        )}
+        {showLogo ? <img src={logo} alt={`${name} logo`} loading="lazy" draggable={false} onError={() => setLogoFailed(true)} className="h-full w-full object-contain p-[12%]" /> : initials(name)}
       </span>
     </div>
   );
@@ -952,7 +937,7 @@ const PodiumColumn = ({ entry, progress }) => {
             className="absolute -inset-3 rounded-full opacity-60 blur-xl transition-opacity duration-500 group-hover:opacity-100"
             style={{ background: `${tier.color}${isFirst ? '55' : '33'}` }}
           />
-          <Crest name={entry.name} logo={entry.logo} logo={entry.logo} size={cfg.crest} tier={tier} spin />
+          <Crest name={entry.name} logo={entry.logo} size={cfg.crest} tier={tier} spin />
           <span
             className="absolute -bottom-2 left-1/2 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-black text-[#0D0D0D]"
             style={{ background: `linear-gradient(135deg, ${tier.color}, ${tier.color}BB)`, boxShadow: `0 0 12px ${tier.color}88` }}
@@ -1102,7 +1087,7 @@ const StandingRow = ({ entry, maxXP, i }) => {
         </span>
 
         <div className="flex min-w-0 items-center gap-3">
-          <Crest name={entry.name} logo={entry.logo} logo={entry.logo} size={38} />
+          <Crest name={entry.name} logo={entry.logo} size={38} />
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-white">{entry.name}</div>
             <div className="text-[11px] tabular-nums text-[#7A7A7A]">{entry.played} played</div>
@@ -1132,7 +1117,7 @@ const StandingRow = ({ entry, maxXP, i }) => {
         <span className="w-6 text-center text-lg font-black tabular-nums" style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.35)' }}>
           {entry.rank}
         </span>
-        <Crest name={entry.name} logo={entry.logo} logo={entry.logo} size={34} />
+        <Crest name={entry.name} logo={entry.logo} size={34} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span className="truncate text-sm font-semibold text-white">{entry.name}</span>
@@ -1464,7 +1449,7 @@ const TeamProfileModal = ({ entry, entries, updatedAt, onClose, onSelect }) => {
                           </motion.div>
                         )}
                         <div className="absolute -inset-6 rounded-full blur-2xl" style={{ background: `${color}40` }} />
-                        <Crest name={entry.name} logo={entry.logo} logo={entry.logo} size={128} tier={tier || { color: RED }} spin />
+                        <Crest name={entry.name} logo={entry.logo} size={128} tier={tier || { color: RED }} spin />
                         <span
                           className="absolute -bottom-3 left-1/2 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full text-base font-black text-[#0D0D0D]"
                           style={{ background: `linear-gradient(135deg, ${color}, ${color}BB)`, boxShadow: `0 0 18px ${color}AA` }}
@@ -1914,7 +1899,12 @@ const Roadtoglory = () => {
                     className="relative flex cursor-pointer items-center gap-4 overflow-hidden rounded-[16px] border p-4 outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]"
                     style={{ borderColor: `${GOLD}40`, background: `linear-gradient(135deg, ${GOLD}12, #171717)` }}
                   >
-                    <Crest name={leader.name} logo={leader.logo} size={48} tier={{ color: GOLD }} />
+                    <div
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-bold text-[#0D0D0D]"
+                      style={{ background: `linear-gradient(135deg, ${GOLD}, ${GOLD}CC)`, boxShadow: `0 0 22px ${GOLD}55` }}
+                    >
+                      <Crest name={leader.name} logo={leader.logo} size={48} tier={{ color: GOLD }} />
+                    </div>
                     <div>
                       <div className="flex items-center gap-1.5 text-base font-semibold text-white">
                         <Crown size={14} style={{ color: GOLD }} />

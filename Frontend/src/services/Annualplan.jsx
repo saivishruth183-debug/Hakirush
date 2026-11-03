@@ -486,7 +486,7 @@ const SeasonTrack = () => {
         <div className="mx-auto mb-4 w-full max-w-7xl">
           <div className="grid grid-cols-12 gap-1">
             {plans.map((p, i) => {
-              const done = i <= active
+              const done = i === active
               return (
                 <button
                   key={p.month}

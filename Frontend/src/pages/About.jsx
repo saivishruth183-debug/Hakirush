@@ -27,11 +27,12 @@ import {
 } from 'lucide-react'
 import PageBackground from '../components/PageBackground'
 
-import Krishna from '../assets/Team/krishna.webp'
-import Arushi from '../assets/Team/arushi.webp'
-import Sharavanthi from '../assets/Team/sharvanthi.webp'
-import Umesh from '../assets/Team/Umesh.webp'
-import backgroundImage from '../assets/Hero/Backimage.webp'
+import Krishna from '../assets/Team/krishna.png';
+import Vishruth from '../assets/Team/vishruth.png';
+import Arushi from '../assets/Team/arushi.png';
+import Sharavanthi from '../assets/Team/sharvanthi.webp';
+import Umesh from '../assets/Team/Umesh.webp';
+import backgroundImage from '../assets/Hero/Backimage.webp';
 import { shade, RED_900 } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
@@ -91,7 +92,7 @@ const founding = [
 
 const team = [
   { image: Krishna, name: 'Krishna', role: 'Founder/CEO - Strategy & Growth', linkedin: 'https://www.linkedin.com/in/sudireddy-krishna-sai-reddy-566087192' },
-  // { image: Vishruth, name: 'Vishruth', role: 'Technical Manager', linkedin: 'https://www.linkedin.com/in/sai-vishruth-89b9261b6' },
+  { image: Vishruth, name: 'Vishruth', role: 'Technical Manager', linkedin: 'https://www.linkedin.com/in/sai-vishruth-89b9261b6' },
   { image: Arushi, name: 'Arushi Shreya', role: 'HR Manager', linkedin: 'https://www.linkedin.com/in/arushi-shreya/' },
   { image: Sharavanthi, name: 'Sharavanthi', role: 'Digital Marketing', linkedin: 'https://www.linkedin.com/in/d-sravanthi-21240a383' },
   { image: Umesh, name: 'Umesh', role: 'Operations Manager', linkedin: 'https://www.linkedin.com/in/umesh-alla-8435a13a7' },

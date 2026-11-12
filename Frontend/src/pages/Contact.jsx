@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 import {
   AnimatePresence,
-  animate,
   motion,
-  useInView,
   useMotionTemplate,
   useMotionValue,
   useReducedMotion,
@@ -13,36 +12,23 @@ import {
   useTransform,
 } from 'framer-motion'
 import {
-  Star,
-  Users,
-  Building,
-  Award,
-  TrendingUp,
-  Quote,
-  MessageCircle,
-  Handshake,
-  ArrowRight,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  MessageSquare,
+  Linkedin,
+  Instagram,
+  Youtube,
+  Facebook,
+  Copy,
+  Check,
   ExternalLink,
+  Navigation,
 } from 'lucide-react'
 import backgroundImage from '../assets/Hero/Backimage.webp'
-
-import Client1 from '../assets/Clients/Vessella.webp'
-import Client2 from '../assets/Clients/Goldsikka.png'
-import Client3 from '../assets/Clients/Simplify.png'
-import Client4 from '../assets/Clients/SVLA.webp'
-
-import Amit from '../assets/Terminals/Amit.png'
-import Priya from '../assets/Terminals/Priya.png'
-import Rajesh from '../assets/Terminals/Rajesh.webp'
-import Sarah from '../assets/Terminals/Sarah.webp'
-import { shade, RED_900 } from '../utils/shade'
-
-/* ------------------------------------------------------------------ */
-/*  SWITCHES — these sections were turned off on your old page.        */
-/*  Flip to true once the content is real.                              */
-/* ------------------------------------------------------------------ */
-const SHOW_SPONSORS = false
-const SHOW_TESTIMONIALS = false
+import { shade } from '../utils/shade'
 
 /* ------------------------------------------------------------------ */
 /*  DESIGN TOKENS — same red system as the rest of the site            */
@@ -55,6 +41,10 @@ const SPRING = { type: 'spring', stiffness: 400, damping: 30 }
 const TILT_SPRING = { stiffness: 260, damping: 22, mass: 0.6 }
 const EASE_OUT = [0.22, 1, 0.36, 1]
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const API_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const REQUEST_TIMEOUT_MS = 20000
+
 const EXTRUDE_WHITE =
   '0 1px 0 #3a0c0c, 0 2px 0 #320a0a, 0 3px 0 #2a0909, 0 4px 0 #220707, 0 5px 0 #1a0505, 0 6px 0 #120404, 0 18px 30px rgba(0,0,0,0.6)'
 const EXTRUDE_RED =
@@ -63,66 +53,49 @@ const EXTRUDE_RED =
 /* ------------------------------------------------------------------ */
 /*  CONTENT                                                            */
 /* ------------------------------------------------------------------ */
-const stats = [
-  { icon: Building, label: 'Companies Trust Us', value: '50+' },
-  { icon: Users, label: 'Employees Engaged', value: '10,000+' },
-  { icon: Award, label: 'Events Delivered', value: '500+' },
+const contactDetails = {
+  email: 'admin@hakirush.com',
+  phone: '+91 7997110210',
+  whatsapp: '+91 7997110210',
+  address:
+    'No. 472/7 Balaji Arcade, A.V.S. Compound, 20th L Cross Road, AVS Layout, Ejipura, Koramangala, Bengaluru, Karnataka -560095',
+  hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+}
+
+const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactDetails.address)}`
+
+const XIcon = ({ size = 18 }) => (
+  <svg viewBox="0 0 1200 1227" width={size} height={size} fill="currentColor" aria-hidden="true">
+    <path d="M714.2 519.1L1160.9 0H1055.7L667.1 450.2L358.1 0H0L468.6 681.8L0 1226.4H105.3L515.8 750.8L842 1226.4H1200L714.2 519.1ZM570.9 687.5L523.4 620.1L146.7 79.7H311.5L615.4 520.2L662.9 587.6L1055.7 1146.7H890.9L570.9 687.5Z" />
+  </svg>
+)
+
+const socialLinks = [
+  { icon: Facebook, label: 'Facebook', url: 'https://www.facebook.com/share/1DKbJRWQtq/' },
+  { icon: Instagram, label: 'Instagram', url: 'https://www.instagram.com/hakirush.sports_events/?hl=en' },
+  { icon: Linkedin, label: 'LinkedIn', url: 'https://linkedin.com/company/hakirush' },
+  { icon: XIcon, label: 'X / Twitter', url: 'https://x.com/Hakirush_sports' },
+  { icon: Youtube, label: 'YouTube', url: 'https://www.youtube.com/@HakirushSportsEvents' },
 ]
 
-const sponsors = [
-  { id: 1, href: '/sponsors/sponsor1', name: 'Sponsor 1', logo: 'https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+1' },
-  { id: 2, href: '/sponsors/sponsor2', name: 'Sponsor 2', logo: 'https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+2' },
-  { id: 3, href: '/sponsors/sponsor3', name: 'Sponsor 3', logo: 'https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+3' },
-  { id: 4, href: '/sponsors/sponsor4', name: 'Sponsor 4', logo: 'https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+4' },
-  { id: 5, href: '/sponsors/sponsor5', name: 'Sponsor 5', logo: 'https://placehold.co/150x80/e5e7eb/6b7280?text=Sponsor+5' },
-]
-
-const clients = [
-  { id: 1, href: 'https://vessella.com', name: 'Vessella', logo: Client1 },
-  { id: 2, href: 'https://goldsikka.com', name: 'Goldsikka', logo: Client2 },
-  { id: 3, href: 'https://simplifyhome.in', name: 'Simplify', logo: Client3 },
-  { id: 4, href: 'https://thesvla.com', name: 'SVLA', logo: Client4 },
-]
-
-const testimonials = [
+const contactRows = [
+  { icon: Mail, label: 'Email', value: contactDetails.email, href: `mailto:${contactDetails.email}`, copy: true },
+  { icon: Phone, label: 'Phone', value: contactDetails.phone, href: `tel:${contactDetails.phone.replace(/\s/g, '')}`, copy: true },
   {
-    person: 'Rajesh Kumar',
-    position: 'HR Director',
-    message:
-      'HAKIRUSH has revolutionized our employee engagement. The biweekly tournaments have created a buzz in the office that we never had before. Team morale is at an all-time high!',
-    avatar: Rajesh,
-    rating: 5,
+    icon: MessageSquare,
+    label: 'WhatsApp',
+    value: contactDetails.whatsapp,
+    href: `https://wa.me/${contactDetails.whatsapp.replace(/\D/g, '')}`,
+    external: true,
   },
-  {
-    person: 'Priya Sharma',
-    position: 'CEO',
-    message:
-      'The professional organization and competitive spirit that HAKIRUSH brings has made our company culture more vibrant. Our employees look forward to every tournament!',
-    avatar: Priya,
-    rating: 5,
-  },
-  {
-    person: 'Amit Patel',
-    position: 'Operations Manager',
-    message:
-      'Outstanding service delivery! Every tournament is executed flawlessly. The branded kits, professional coverage, and seamless coordination exceed our expectations.',
-    avatar: Amit,
-    rating: 5,
-  },
-  {
-    person: 'Sarah Johnson',
-    position: 'Head of People Operations',
-    message:
-      'HAKIRUSH has transformed how our teams collaborate. The inter-department competitions have broken down silos and created lasting friendships across our organization.',
-    avatar: Sarah,
-    rating: 5,
-  },
+  { icon: MapPin, label: 'Address', value: contactDetails.address, href: MAPS_LINK, external: true, small: true },
+  { icon: Clock, label: 'Hours', value: contactDetails.hours },
 ]
 
 /* ------------------------------------------------------------------ */
 /*  HOOK — cursor-driven 3D tilt                                       */
 /* ------------------------------------------------------------------ */
-function useTilt({ max = 10 } = {}) {
+function useTilt({ max = 10, disabled = false } = {}) {
   const reduce = useReducedMotion()
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -132,22 +105,27 @@ function useTilt({ max = 10 } = {}) {
   const gx = useTransform(mx, (v) => (v + 0.5) * 100)
   const gy = useTransform(my, (v) => (v + 0.5) * 100)
 
-  const onMouseMove = (e) => {
-    if (reduce) return
-    const r = e.currentTarget.getBoundingClientRect()
-    mx.set((e.clientX - r.left) / r.width - 0.5)
-    my.set((e.clientY - r.top) / r.height - 0.5)
-  }
   const reset = () => {
     mx.set(0)
     my.set(0)
   }
+  const onMouseMove = (e) => {
+    if (reduce || disabled) return
+    const r = e.currentTarget.getBoundingClientRect()
+    mx.set((e.clientX - r.left) / r.width - 0.5)
+    my.set((e.clientY - r.top) / r.height - 0.5)
+  }
+
+  useEffect(() => {
+    if (disabled) reset()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled])
 
   return { rotateX, rotateY, gx, gy, onMouseMove, reset }
 }
 
 /* ------------------------------------------------------------------ */
-/*  BACKGROUNDS                                                        */
+/*  BACKGROUND                                                         */
 /* ------------------------------------------------------------------ */
 const ParallaxBackground = ({ image }) => {
   const reduce = useReducedMotion()
@@ -157,15 +135,23 @@ const ParallaxBackground = ({ image }) => {
   const y = useTransform(scrollY, [0, 1500], [0, reduce ? 0 : 150])
 
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed left-0 -z-10 w-full overflow-hidden"
-      style={{ top: '-10vh', height: '130vh' }}
-    >
-      <motion.img src={image} alt="" style={{ y, scale: 1.08 }} className="h-full w-full object-cover object-center will-change-transform" />
-      <div className="absolute inset-0 bg-linear-to-b from-slate-950/80 via-slate-950/65 to-slate-950/90" />
-      <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at top, ${RED}26, transparent 60%)` }} />
-    </div>
+    <>
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-20 bg-[#05070a]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 -z-10 w-full overflow-hidden"
+        style={{ top: '-10vh', height: '130vh' }}
+      >
+        <motion.img
+          src={image}
+          alt=""
+          style={{ y, scale: 1.08 }}
+          className="h-full w-full object-cover object-center opacity-70 will-change-transform"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-slate-950/75 via-slate-950/60 to-slate-950/90" />
+        <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at top, ${RED}26, transparent 60%)` }} />
+      </div>
+    </>
   )
 }
 
@@ -206,27 +192,27 @@ const Letters3D = ({ text, color, extrude, delay = 0 }) => {
   )
 }
 
-const IconTile = ({ icon: Icon, size = 56 }) => (
+const IconTile = ({ icon: Icon, size = 48, spin = false }) => (
   <span
-    className="relative block shrink-0 transition-transform duration-700 ease-out group-hover:[transform:rotateY(360deg)]"
+    className={`relative block shrink-0 transition-transform duration-700 ease-out ${spin ? '[transform:rotateY(360deg)]' : ''}`}
     style={{ width: size, height: size, transformStyle: 'preserve-3d' }}
   >
     {Array.from({ length: 6 }).map((_, i) => (
       <span
         key={i}
         aria-hidden="true"
-        className="absolute inset-0 rounded-2xl"
+        className="absolute inset-0 rounded-xl"
         style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_DARK, 0.9 - i * 0.1) }}
       />
     ))}
     <span
       aria-hidden="true"
-      className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/20"
+      className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/20"
       style={{ background: `linear-gradient(145deg, ${RED_LIGHT}, ${RED} 45%, ${RED_DARK})` }}
     />
     <span
       aria-hidden="true"
-      className="absolute inset-x-1 top-0 h-1/2 rounded-t-2xl bg-linear-to-b from-white/30 to-transparent"
+      className="absolute inset-x-1 top-0 h-1/2 rounded-t-xl bg-linear-to-b from-white/30 to-transparent"
       style={{ transform: 'translateZ(1px)' }}
     />
     <span className="absolute inset-0 grid place-items-center text-white" style={{ transform: 'translateZ(12px)' }}>
@@ -235,8 +221,9 @@ const IconTile = ({ icon: Icon, size = 56 }) => (
   </span>
 )
 
-const TiltCard = ({ children, className = '', innerClassName = '', max = 8 }) => {
-  const tilt = useTilt({ max })
+// Dark slab card; tilt can be switched off (e.g. while typing)
+const TiltCard = ({ children, className = '', innerClassName = '', max = 8, tiltDisabled = false, rounded = 'rounded-3xl', flat = false }) => {
+  const tilt = useTilt({ max, disabled: tiltDisabled })
   const [hover, setHover] = useState(false)
   const glare = useMotionTemplate`radial-gradient(500px circle at ${tilt.gx}% ${tilt.gy}%, rgba(220,38,38,0.16), transparent 45%)`
 
@@ -248,93 +235,36 @@ const TiltCard = ({ children, className = '', innerClassName = '', max = 8 }) =>
         tilt.reset()
         setHover(false)
       }}
-      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 1000, transformStyle: 'preserve-3d' }}
-      animate={{ y: hover ? -8 : 0 }}
-      transition={SPRING}
-      className={`group relative rounded-3xl ${className}`}
+      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 1200, transformStyle: 'preserve-3d' }}
+      className={`group relative ${rounded} ${className}`}
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-3xl bg-black/60"
+        className={`pointer-events-none absolute inset-0 ${rounded} bg-black/60`}
         style={{ transform: 'translateZ(-16px) translateY(8px)' }}
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-3xl border border-white/10 bg-linear-to-br from-slate-900/90 via-slate-950/90 to-black/90 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.9)] backdrop-blur-md"
+        className={`pointer-events-none absolute inset-0 ${rounded} border border-white/10 bg-linear-to-br from-slate-900/90 via-slate-950/90 to-black/90 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.9)] backdrop-blur-md`}
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-6 top-0 h-[2px] rounded-full"
+        className="pointer-events-none absolute inset-x-8 top-0 h-[2px] rounded-full"
         style={{ background: `linear-gradient(90deg, transparent, ${RED}, transparent)` }}
       />
       <motion.span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-3xl"
+        className={`pointer-events-none absolute inset-0 ${rounded}`}
         style={{ background: glare }}
-        animate={{ opacity: hover ? 1 : 0 }}
+        animate={{ opacity: hover && !tiltDisabled ? 1 : 0 }}
       />
-      <div className={`relative h-full ${innerClassName}`} style={{ transform: 'translateZ(30px)', transformStyle: 'preserve-3d' }}>
+      <div
+        className={`relative h-full ${innerClassName}`}
+        style={flat ? { transform: 'translateZ(24px)' } : { transform: 'translateZ(24px)', transformStyle: 'preserve-3d' }}
+      >
         {children}
       </div>
     </motion.div>
-  )
-}
-
-const Kicker = ({ icon: Icon, children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 15 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/40 px-4 py-1.5 text-white shadow-[0_4px_0_rgba(0,0,0,0.5),0_12px_30px_-10px_rgba(220,38,38,0.5)] backdrop-blur-sm"
-  >
-    {Icon && <Icon className="h-3.5 w-3.5 text-red-400" />}
-    <span className="text-[10px] font-black uppercase tracking-[0.3em]">{children}</span>
-  </motion.div>
-)
-
-const SectionHeading = ({ kicker, icon, children, accent }) => (
-  <div className="mb-12 text-center">
-    <Kicker icon={icon}>{kicker}</Kicker>
-    <motion.h2
-      initial={{ opacity: 0, y: 30, rotateX: -50 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: EASE_OUT }}
-      style={{ transformPerspective: 800, transformOrigin: '50% 100%', textShadow: EXTRUDE_WHITE }}
-      className="font-serif text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl"
-    >
-      {children} <span style={{ color: RED, textShadow: EXTRUDE_RED }}>{accent}</span>
-    </motion.h2>
-  </div>
-)
-
-/* ------------------------------------------------------------------ */
-/*  SCOREBOARD COUNTER                                                 */
-/* ------------------------------------------------------------------ */
-const ScoreboardValue = ({ value }) => {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10% 0px' })
-  const reduce = useReducedMotion()
-  const [display, setDisplay] = useState('0')
-
-  const match = value.match(/^([\d,]+)(.*)$/)
-  const numeric = match ? parseInt(match[1].replace(/,/g, ''), 10) : null
-  const suffix = match ? match[2] : ''
-
-  useEffect(() => {
-    if (!inView || reduce || numeric === null) return
-    const controls = animate(0, numeric, {
-      duration: 1.6,
-      ease: 'easeOut',
-      onUpdate: (v) => setDisplay(Math.round(v).toLocaleString()),
-    })
-    return () => controls.stop()
-  }, [inView, reduce, numeric])
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {numeric === null || reduce ? value : `${display}${suffix}`}
-    </span>
   )
 }
 
@@ -344,7 +274,7 @@ const ScoreboardValue = ({ value }) => {
 const Hero = () => {
   const tilt = useTilt({ max: 6 })
   return (
-    <section className="relative pb-14 pt-32 md:pt-36" onMouseMove={tilt.onMouseMove} onMouseLeave={tilt.reset}>
+    <section className="relative pb-10 pt-32 md:pt-36" onMouseMove={tilt.onMouseMove} onMouseLeave={tilt.reset}>
       <div className="mx-auto max-w-5xl px-6 text-center" style={{ perspective: 1200 }}>
         <motion.div style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformStyle: 'preserve-3d' }} className="relative">
           <span
@@ -352,21 +282,41 @@ const Hero = () => {
             className="pointer-events-none absolute left-1/2 -top-24 text-white/[0.05] sm:-top-32"
             style={{ transform: 'translateX(-50%) translateZ(-140px)' }}
           >
-            <Handshake strokeWidth={0.6} className="h-64 w-64 sm:h-96 sm:w-96" />
+            <Mail strokeWidth={0.6} className="h-64 w-64 sm:h-96 sm:w-96" />
           </span>
 
           <div className="relative space-y-7" style={{ transformStyle: 'preserve-3d' }}>
-            <div className="group flex justify-center" style={{ transform: 'translateZ(40px)', transformStyle: 'preserve-3d' }}>
-              <IconTile icon={Users} size={60} />
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE_OUT }}
+              className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/40 px-5 py-1.5 shadow-[0_4px_0_rgba(0,0,0,0.5),0_12px_30px_-10px_rgba(220,38,38,0.5)] backdrop-blur-sm"
+              style={{ transform: 'translateZ(40px)' }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+              </span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">We're Here to Help</span>
+            </motion.div>
+
+            <div className="flex justify-center" style={{ transform: 'translateZ(50px)', transformStyle: 'preserve-3d' }}>
+              <motion.div
+                animate={{ y: [0, -6, 0], rotateY: [0, 18, 0, -18, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <IconTile icon={Mail} size={64} />
+              </motion.div>
             </div>
 
             <h1
               className="font-serif text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl md:text-7xl"
               style={{ transform: 'translateZ(70px)', transformStyle: 'preserve-3d' }}
             >
-              <span className="sr-only">Our Clients</span>
-              <Letters3D text="Our" color="#ffffff" extrude={EXTRUDE_WHITE} />{' '}
-              <Letters3D text="Clients" color={RED} extrude={EXTRUDE_RED} delay={0.2} />
+              <span className="sr-only">Get in Touch</span>
+              <Letters3D text="Get in" color="#ffffff" extrude={EXTRUDE_WHITE} />{' '}
+              <Letters3D text="Touch" color={RED} extrude={EXTRUDE_RED} delay={0.3} />
             </h1>
 
             <motion.div
@@ -376,16 +326,6 @@ const Hero = () => {
               className="mx-auto h-1 w-20 rounded-full"
               style={{ background: `linear-gradient(90deg, ${RED_DARK}, ${RED}, ${RED_LIGHT})`, boxShadow: `0 0 16px ${RED}` }}
             />
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.7 }}
-              className="mx-auto max-w-3xl text-sm font-medium text-slate-300 sm:text-base md:text-lg"
-              style={{ transform: 'translateZ(30px)' }}
-            >
-              Trusted by leading companies to deliver exceptional corporate sports experiences and build vibrant workplace cultures.
-            </motion.p>
           </div>
         </motion.div>
       </div>
@@ -394,334 +334,512 @@ const Hero = () => {
 }
 
 /* ------------------------------------------------------------------ */
-/*  STATS                                                              */
+/*  CONTACT ROW — 3D card with spinning icon (+ copy button)            */
 /* ------------------------------------------------------------------ */
-const StatsSection = () => (
-  <section className="py-14">
-    <div className="mx-auto max-w-7xl px-6">
-      <SectionHeading kicker="Our Impact" icon={TrendingUp} accent="Numbers">
-        By The
-      </SectionHeading>
-
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 50, rotateX: -40 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.9, delay: i * 0.12, ease: EASE_OUT }}
-            style={{ transformPerspective: 1000, transformOrigin: '50% 100%' }}
-          >
-            <TiltCard innerClassName="flex flex-col items-center px-8 py-10 text-center">
-              <div className="mb-6" style={{ transformStyle: 'preserve-3d' }}>
-                <IconTile icon={stat.icon} size={64} />
-              </div>
-              <p
-                className="mb-3 font-serif text-4xl font-black text-white sm:text-5xl"
-                style={{ textShadow: EXTRUDE_RED, transform: 'translateZ(20px)' }}
-              >
-                <ScoreboardValue value={stat.value} />
-              </p>
-              <p className="font-medium text-slate-300">{stat.label}</p>
-            </TiltCard>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-)
-
-/* ------------------------------------------------------------------ */
-/*  PARTNER STRIP — continuous scrolling row of glass logo cards        */
-/* ------------------------------------------------------------------ */
-const MarqueeTile = ({ item, hidden }) => {
-  const tilt = useTilt({ max: 16 })
+const ContactRow = ({ item, index }) => {
   const [hover, setHover] = useState(false)
-  const internal = item.href.startsWith('/')
-  const props = internal ? { to: item.href } : { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
-  const Tag = internal ? Link : 'a'
+  const [copied, setCopied] = useState(false)
+  const Wrapper = item.href ? 'a' : 'div'
+  const wrapperProps = item.href
+    ? { href: item.href, ...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+    : {}
+
+  const copy = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      await navigator.clipboard.writeText(item.value)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch {
+      /* clipboard blocked — nothing to do */
+    }
+  }
 
   return (
-    <Tag
-      {...props}
-      aria-label={hidden ? undefined : `${item.name}${internal ? '' : ' (opens in a new tab)'}`}
-      aria-hidden={hidden || undefined}
-      tabIndex={hidden ? -1 : undefined}
+    <motion.div
+      initial={{ opacity: 0, x: -40, rotateY: -30 }}
+      whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: EASE_OUT }}
+      style={{ transformPerspective: 1000 }}
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => {
-        setHover(false)
-        tilt.reset()
-      }}
-      onFocus={() => setHover(true)}
-      onBlur={() => setHover(false)}
-      className="block shrink-0 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+      onMouseLeave={() => setHover(false)}
     >
-      <motion.span
-        onMouseMove={tilt.onMouseMove}
-        style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 600, transformStyle: 'preserve-3d' }}
-        animate={{ y: hover ? -8 : 0, scale: hover ? 1.05 : 1 }}
-        transition={SPRING}
-        className="relative block h-24 w-[150px] sm:h-28 sm:w-[190px] md:h-32 md:w-[230px]"
-      >
-        {/* face */}
-        <span
-          className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl border p-4 transition-[border-color,box-shadow] duration-300 sm:p-5"
-          style={{
-            // transparent glass card
-            background: hover
-              ? 'linear-gradient(160deg, rgba(220,38,38,0.18), rgba(255,255,255,0.04))'
-              : 'linear-gradient(160deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02))',
-            backdropFilter: 'blur(10px) saturate(140%)',
-            WebkitBackdropFilter: 'blur(10px) saturate(140%)',
-            borderColor: hover ? `${RED}cc` : 'rgba(255,255,255,0.14)',
-            boxShadow: hover
-              ? `0 22px 40px -14px ${RED}99, inset 0 1px 0 rgba(255,255,255,0.18)`
-              : '0 14px 28px -16px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12)',
-          }}
+      <TiltCard max={6} rounded="rounded-2xl">
+        <Wrapper
+          {...wrapperProps}
+          onFocus={() => setHover(true)}
+          onBlur={() => setHover(false)}
+          className={`flex items-center gap-5 rounded-2xl p-5 outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${item.copy ? 'pr-16' : ''}`}
         >
-          <span aria-hidden="true" className="absolute inset-x-6 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${RED}, transparent)` }} />
-          <img src={item.logo} alt="" draggable="false" className="h-full w-full object-contain" />
-        </span>
-        {!internal && (
-          <span
-            aria-hidden="true"
-            className={`absolute -right-2 -top-2 grid h-7 w-7 place-items-center rounded-full bg-red-600 text-white shadow-[0_3px_0_#7f1d1d] transition-opacity duration-300 ${
-              hover ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ transform: 'translateZ(20px)' }}
-          >
-            <ExternalLink className="h-3.5 w-3.5" />
+          <span style={{ transformStyle: 'preserve-3d' }}>
+            <IconTile icon={item.icon} size={48} spin={hover} />
           </span>
-        )}
-      </motion.span>
-    </Tag>
-  )
-}
-
-const PartnerMarquee = ({ data, label, icon, title, accent, speed = 6 }) => {
-  const reduce = useReducedMotion()
-  const [paused, setPaused] = useState(false)
-  // repeat the logos so one half of the strip is always wider than the screen → no gaps
-  const copies = Math.max(2, Math.ceil(10 / data.length))
-  const half = Array.from({ length: copies }).flatMap(() => data)
-  const loop = [...half, ...half]
-  const mask = 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)'
-
-  return (
-    <section className="w-full py-14">
-      <SectionHeading kicker={label} icon={icon} accent={accent}>
-        {title}
-      </SectionHeading>
-
-      <div
-        className="relative w-full overflow-hidden py-8"
-        style={{ maskImage: mask, WebkitMaskImage: mask }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        <div
-          className="flex w-max flex-nowrap items-center"
-          style={{
-            animation: reduce ? 'none' : `hakirush-partners ${half.length * speed}s linear infinite`,
-            animationPlayState: paused ? 'paused' : 'running',
-            willChange: 'transform',
-          }}
-        >
-          {loop.map((item, i) => (
-            <span key={`${item.id}-${i}`} className="block shrink-0 pr-6 md:pr-10">
-              <MarqueeTile item={item} hidden={i >= data.length} />
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* translateX(-50%) lands exactly on the start of the second half, so the loop is seamless */}
-      <style>{`@keyframes hakirush-partners { from { transform: translate3d(0,0,0) } to { transform: translate3d(-50%,0,0) } }`}</style>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  TESTIMONIALS — a 3D card stack (off until SHOW_TESTIMONIALS = true)  */
-/* ------------------------------------------------------------------ */
-const TestimonialStack = () => {
-  const reduce = useReducedMotion()
-  const [current, setCurrent] = useState(0)
-  const n = testimonials.length
-
-  useEffect(() => {
-    if (reduce) return
-    const id = setInterval(() => setCurrent((c) => (c + 1) % n), 10000)
-    return () => clearInterval(id)
-  }, [reduce, n])
-
-  return (
-    <section className="py-20">
-      <div className="mx-auto max-w-4xl px-6">
-        <SectionHeading kicker="Success Stories" icon={MessageCircle} accent="Clients Say">
-          What Our
-        </SectionHeading>
-
-        <div className="relative h-[460px] sm:h-[400px]" style={{ perspective: 1400 }}>
-          {testimonials.map((t, i) => {
-            const offset = (i - current + n) % n // 0 = front
-            return (
-              <motion.div
-                key={t.person}
-                aria-hidden={offset !== 0}
-                animate={{
-                  z: -offset * 70,
-                  y: -offset * 22,
-                  rotateX: offset * 4,
-                  opacity: offset > 2 ? 0 : 1 - offset * 0.25,
-                }}
-                transition={{ duration: reduce ? 0 : 0.7, ease: EASE_OUT }}
-                style={{ zIndex: n - offset, transformStyle: 'preserve-3d' }}
-                className="absolute inset-0"
-              >
-                <div className="relative h-full overflow-hidden rounded-[2rem] border border-white/10 bg-linear-to-br from-slate-900 via-slate-950 to-black p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)] sm:p-10 md:p-14">
-                  <span aria-hidden="true" className="absolute inset-x-10 top-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${RED}, transparent)` }} />
-                  <Quote className="absolute right-6 top-6 h-12 w-12 text-red-500/10" />
-                  <div className="mb-8 flex flex-col items-center gap-6 sm:flex-row">
-                    <img src={t.avatar} alt={t.person} className="h-20 w-20 shrink-0 rounded-2xl border-4 border-red-900/40 object-cover shadow-xl" />
-                    <div className="text-center sm:text-left">
-                      <h3 className="text-xl font-bold text-white sm:text-2xl">{t.person}</h3>
-                      <p className="text-sm font-semibold text-red-400 sm:text-base">{t.position}</p>
-                      <div className="mt-2 flex justify-center gap-1 sm:justify-start" aria-label={`${t.rating} out of 5 stars`}>
-                        {Array.from({ length: t.rating }).map((_, s) => (
-                          <Star key={s} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <blockquote className="border-l-4 border-red-500 pl-5 text-base italic leading-relaxed text-slate-200 sm:text-lg md:text-xl">
-                    “{t.message}”
-                  </blockquote>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
-
-        <div className="mt-8 flex justify-center gap-2">
-          {testimonials.map((t, i) => (
-            <button
-              key={t.person}
-              type="button"
-              onClick={() => setCurrent(i)}
-              aria-label={`Show testimonial from ${t.person}`}
-              aria-pressed={current === i}
-              className={`h-2.5 rounded-full outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-red-500 ${
-                current === i ? 'w-8 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.8)]' : 'w-2.5 bg-white/20 hover:bg-white/40'
+          <span className="min-w-0 flex-1">
+            <span className="block text-xs font-bold uppercase tracking-wider text-red-400">{item.label}</span>
+            <span
+              className={`block font-bold leading-snug transition-colors duration-300 ${item.small ? 'text-sm' : ''} ${
+                hover && item.href ? 'text-red-300' : 'text-white'
               }`}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+            >
+              {item.value}
+            </span>
+          </span>
+          {item.external && <ExternalLink aria-hidden="true" className={`h-4 w-4 shrink-0 transition-colors ${hover ? 'text-red-400' : 'text-white/30'}`} />}
+        </Wrapper>
+        {item.copy && (
+          <button
+            type="button"
+            onClick={copy}
+            aria-label={copied ? `${item.label} copied` : `Copy ${item.label.toLowerCase()}`}
+            className={`absolute right-4 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-xl border text-white shadow-[0_3px_0_rgba(0,0,0,0.6)] outline-none transition-all focus-visible:ring-2 focus-visible:ring-red-500 ${
+              copied ? 'border-green-400/50 bg-green-600' : 'border-white/10 bg-white/[0.06] hover:border-red-500/60 hover:bg-red-600'
+            }`}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={copied ? 'ok' : 'copy'}
+                initial={{ rotateY: -90, opacity: 0 }}
+                animate={{ rotateY: 0, opacity: 1 }}
+                exit={{ rotateY: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              </motion.span>
+            </AnimatePresence>
+          </button>
+        )}
+      </TiltCard>
+    </motion.div>
   )
 }
 
 /* ------------------------------------------------------------------ */
-/*  CTA                                                                */
+/*  SOCIAL SLAB — red 3D panel with coin-flip icons                     */
 /* ------------------------------------------------------------------ */
-const CTAButton3D = () => {
-  const tilt = useTilt({ max: 18 })
-  const [hover, setHover] = useState(false)
-  const glare = useMotionTemplate`radial-gradient(circle at ${tilt.gx}% ${tilt.gy}%, rgba(255,255,255,0.55), transparent 55%)`
+const SocialSlab = () => {
+  const reduce = useReducedMotion()
+  const tilt = useTilt({ max: 8 })
 
   return (
-    <Link to="/contact" className="inline-block rounded-full outline-none focus-visible:ring-2 focus-visible:ring-red-400">
-      <motion.span
+    <motion.div
+      initial={{ opacity: 0, y: 30, rotateX: -30 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: EASE_OUT }}
+      style={{ transformPerspective: 1000, transformOrigin: '50% 100%' }}
+    >
+      <motion.div
         onMouseMove={tilt.onMouseMove}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => {
-          tilt.reset()
-          setHover(false)
-        }}
-        whileTap={{ scale: 0.94 }}
-        style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 700, transformStyle: 'preserve-3d' }}
-        className="relative block select-none"
+        onMouseLeave={tilt.reset}
+        style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 1000, transformStyle: 'preserve-3d' }}
+        className="relative rounded-3xl"
       >
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <span
             key={i}
             aria-hidden="true"
-            className="absolute inset-0 rounded-full"
-            style={{ transform: `translateZ(${-(i + 1) * 2}px)`, background: shade(RED_900, 0.95 - i * 0.08) }}
+            className="absolute inset-0 rounded-3xl"
+            style={{ transform: `translateZ(${-(i + 1) * 2.5}px)`, background: shade('#450a0a', 0.9 - i * 0.1) }}
           />
         ))}
         <span
           aria-hidden="true"
-          className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/25"
-          style={{ background: `linear-gradient(135deg, ${RED_LIGHT}, ${RED} 45%, ${RED_DARK})` }}
+          className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/15 shadow-[0_30px_60px_-25px_rgba(220,38,38,0.6)]"
+          style={{ background: `linear-gradient(135deg, ${RED}, ${RED_DARK} 60%, #3b0a0a)` }}
         />
-        <motion.span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full" style={{ background: glare, z: 1 }} animate={{ opacity: hover ? 1 : 0 }} />
-        <motion.span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-3 top-0 h-1/2 rounded-t-full bg-linear-to-b from-white/30 to-transparent"
-          style={{ z: 1 }}
-        />
-        <motion.span
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-4 left-6 right-6 h-4 rounded-full bg-red-600/60 blur-lg"
-          style={{ z: -30 }}
-          animate={{ opacity: hover ? 1 : 0.55, scaleX: hover ? 1.12 : 1 }}
-        />
-        <span
-          className="relative flex items-center gap-2.5 whitespace-nowrap px-6 py-4 text-xs font-black uppercase tracking-[0.18em] text-white sm:px-8 sm:text-sm"
-          style={{ transform: 'translateZ(20px)', textShadow: '0 2px 6px rgba(0,0,0,0.35)' }}
-        >
-          Start a Conversation
-          <motion.span animate={{ x: hover ? 4 : 0 }} transition={SPRING}>
-            <ArrowRight className="h-4 w-4" />
-          </motion.span>
-        </span>
-      </motion.span>
-    </Link>
+        <span aria-hidden="true" className="absolute inset-x-4 top-0 h-1/2 rounded-t-3xl bg-linear-to-b from-white/15 to-transparent" />
+
+        <div className="relative p-6" style={{ transform: 'translateZ(24px)' }}>
+          <h3 className="mb-4 font-bold text-white" style={{ textShadow: '0 2px 0 #450a0a' }}>
+            Follow Our Journey
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            {socialLinks.map(({ icon: Icon, label, url }) => (
+              <motion.a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                whileHover={reduce ? { y: -3 } : { y: -5, rotateY: 360 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.6, ease: EASE_OUT }}
+                style={{ transformPerspective: 400 }}
+                className="grid h-11 w-11 place-items-center rounded-xl bg-white/10 text-white shadow-[0_4px_0_rgba(0,0,0,0.35)] outline-none transition-colors hover:bg-white hover:text-red-700 focus-visible:ring-2 focus-visible:ring-white"
+              >
+                <Icon size={20} />
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
 
-const CTASection = () => (
-  <section className="mx-auto max-w-4xl px-4 pb-28 pt-8 sm:px-6">
-    <motion.div
-      initial={{ opacity: 0, y: 40, rotateX: -30 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.9, ease: EASE_OUT }}
-      style={{ transformPerspective: 1200, transformOrigin: '50% 100%' }}
+/* ------------------------------------------------------------------ */
+/*  FORM — submits contact enquiries to the backend                    */
+/* ------------------------------------------------------------------ */
+const fieldClass = (hasError) =>
+  `w-full rounded-2xl border bg-black/40 p-4 text-white placeholder-slate-500 outline-none shadow-[inset_0_3px_8px_rgba(0,0,0,0.6)] transition-all duration-300 focus:-translate-y-0.5 focus:bg-black/60 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_10px_24px_-10px_rgba(220,38,38,0.6)] focus:ring-2 ${
+    hasError ? 'border-red-500/70 focus:ring-red-500' : 'border-white/10 focus:border-red-500/60 focus:ring-red-500/70'
+  }`
+
+function InputField({ label, name, type = 'text', value, onChange, onBlur, required, error, autoComplete, placeholder }) {
+  const id = `contact-${name}`
+  return (
+    <div className="space-y-2">
+      <label htmlFor={id} className="block text-sm font-bold text-slate-200">
+        {label} {required && <span className="text-red-400">*</span>}
+      </label>
+      <input
+        id={id}
+        type={type}
+        name={name}
+        required={required}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        autoComplete={autoComplete}
+        placeholder={placeholder}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className={fieldClass(!!error)}
+      />
+      {error && (
+        <p id={`${id}-error`} className="text-xs font-semibold text-red-400">
+          {error}
+        </p>
+      )}
+    </div>
+  )
+}
+
+const SendButton = ({ launched, loading }) => {
+  const reduce = useReducedMotion()
+  const [hover, setHover] = useState(false)
+
+  // thickness is drawn with stacked shadows (not 3D layers) so the button is always clickable
+  return (
+    <motion.button
+      type="submit"
+      disabled={loading}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      animate={{ y: hover ? -2 : 0 }}
+      whileTap={{ y: 4 }}
+      transition={SPRING}
+      className="relative block w-full cursor-pointer overflow-hidden rounded-2xl outline-none ring-1 ring-inset ring-white/25 focus-visible:ring-2 focus-visible:ring-red-300 disabled:cursor-wait disabled:opacity-70"
+      style={{
+        background: `linear-gradient(135deg, ${RED_LIGHT}, ${RED} 45%, ${RED_DARK})`,
+        boxShadow: hover
+          ? `0 8px 0 #5a1010, 0 9px 0 #3f0b0b, 0 24px 40px -12px ${RED}cc`
+          : `0 6px 0 #5a1010, 0 7px 0 #3f0b0b, 0 16px 30px -14px ${RED}99`,
+      }}
     >
-      <TiltCard max={5} innerClassName="flex flex-col items-center gap-8 px-6 py-12 text-center sm:px-12 sm:py-16">
-        <h3 className="font-serif text-3xl font-black tracking-tight text-white sm:text-4xl" style={{ textShadow: EXTRUDE_WHITE }}>
-          Want your team on this <span style={{ color: RED, textShadow: EXTRUDE_RED }}>list?</span>
-        </h3>
-        <div style={{ transform: 'translateZ(40px)' }}>
-          <CTAButton3D />
-        </div>
+      <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-1/2 rounded-t-2xl bg-linear-to-b from-white/25 to-transparent" />
+      <span className="relative flex items-center justify-center gap-3 py-4 font-black text-white" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.35)' }}>
+        <motion.span
+          animate={
+            launched && !reduce
+              ? { x: [0, 30, 320], y: [0, -10, -120], rotate: [0, -15, -35], opacity: [1, 1, 0] }
+              : { x: hover && !reduce ? 4 : 0, y: hover && !reduce ? -2 : 0, rotate: 0, opacity: 1 }
+          }
+          transition={launched ? { duration: 0.9, ease: 'easeIn' } : SPRING}
+        >
+          <Send size={20} />
+        </motion.span>
+        <span>{loading ? 'Sending…' : 'Send Message'}</span>
+      </span>
+    </motion.button>
+  )
+}
+
+const ContactForm = () => {
+  const empty = { name: '', email: '', company: '', phone: '', message: '', website: '' }
+  const [formData, setFormData] = useState(empty)
+  const [touched, setTouched] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [launched, setLaunched] = useState(false)
+  const [typing, setTyping] = useState(false)
+
+  const errors = {
+    name: !formData.name.trim() ? 'Please enter your name.' : '',
+    email: !formData.email.trim()
+      ? 'Please enter your email.'
+      : !EMAIL_RE.test(formData.email.trim())
+        ? 'That email doesn’t look right.'
+        : '',
+    message: !formData.message.trim() ? 'Please tell us how we can help.' : '',
+  }
+  const isValid = !errors.name && !errors.email && !errors.message
+  const show = (k) => (touched[k] ? errors[k] : '')
+
+  const handleInput = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+  const handleBlur = (e) => setTouched((t) => ({ ...t, [e.target.name]: true }))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (loading) return
+
+    if (!isValid) {
+      setTouched({ name: true, email: true, message: true })
+      Swal.fire({
+        icon: 'error',
+        title: 'Please complete the form',
+        text: 'Name, a valid email and a message are required.',
+        background: '#0b0d12',
+        color: '#fff',
+        confirmButtonColor: RED,
+      })
+      return
+    }
+
+    setLoading(true)
+    setLaunched(true)
+    try {
+      const { data: result } = await axios.post(
+        `${API_URL}/api/contact`,
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+          website: formData.website,
+        },
+        { timeout: REQUEST_TIMEOUT_MS },
+      )
+
+      if (!result?.ok) {
+        const fieldErrors = Object.values(result?.errors || {}).join(' ')
+        throw new Error(result?.error || fieldErrors || 'The contact service could not send your message.')
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Message sent!',
+        text: 'Thanks for reaching out — our team will get back to you within one business day.',
+        background: '#0b0d12',
+        color: '#fff',
+        confirmButtonColor: RED,
+      })
+      setFormData(empty)
+      setTouched({})
+    } catch (error) {
+      const responseData = axios.isAxiosError(error) ? error.response?.data : null
+      const fieldErrors = Object.values(responseData?.errors || {}).join(' ')
+      const message =
+        error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT'
+          ? 'The server took too long to respond. Please try again.'
+          : axios.isAxiosError(error) && !error.response
+            ? 'Could not reach the contact service. Please try again in a moment.'
+            : responseData?.error || fieldErrors || error.message || 'Please try again.'
+
+      Swal.fire({
+        icon: 'error',
+        title: "Couldn't send your message",
+        text: `${message} You can also email us directly at ${contactDetails.email}.`,
+        background: '#0b0d12',
+        color: '#fff',
+        confirmButtonColor: RED,
+      })
+    } finally {
+      setLoading(false)
+      setTimeout(() => setLaunched(false), 900)
+    }
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 40, rotateY: 25 }}
+      whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.9, ease: EASE_OUT }}
+      style={{ transformPerspective: 1400 }}
+      onFocusCapture={() => setTyping(true)}
+      onBlurCapture={() => setTyping(false)}
+    >
+      {/* tilt switches off while someone is typing so the form holds still */}
+      <TiltCard max={4} tiltDisabled={typing} rounded="rounded-[2.5rem]" innerClassName="p-8 md:p-10" flat>
+        <h2 className="mb-8 font-serif text-3xl font-black text-white" style={{ textShadow: EXTRUDE_WHITE }}>
+          Send a <span style={{ color: RED, textShadow: EXTRUDE_RED }}>Message</span>
+        </h2>
+        <form noValidate onSubmit={handleSubmit} className="space-y-5">
+          <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+            <label htmlFor="contact-website">Website</label>
+            <input
+              id="contact-website"
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.website}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <InputField label="Name" name="name" value={formData.name} onChange={handleInput} onBlur={handleBlur} required error={show('name')} autoComplete="name" />
+            <InputField label="Email" name="email" type="email" value={formData.email} onChange={handleInput} onBlur={handleBlur} required error={show('email')} autoComplete="email" />
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <InputField label="Company" name="company" value={formData.company} onChange={handleInput} autoComplete="organization" />
+            <InputField label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleInput} autoComplete="tel" />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="contact-message" className="block text-sm font-bold text-slate-200">
+              Message <span className="text-red-400">*</span>
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="5"
+              required
+              value={formData.message}
+              onChange={handleInput}
+              onBlur={handleBlur}
+              placeholder="How can we help you?"
+              aria-invalid={!!show('message')}
+              aria-describedby={show('message') ? 'contact-message-error' : undefined}
+              className={`${fieldClass(!!show('message'))} resize-y`}
+            />
+            {show('message') && (
+              <p id="contact-message-error" className="text-xs font-semibold text-red-400">
+                {show('message')}
+              </p>
+            )}
+          </div>
+          <div className="pt-2 pb-2">
+            <SendButton launched={launched} loading={loading} />
+          </div>
+        </form>
       </TiltCard>
     </motion.div>
-  </section>
-)
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  MAP — a 3D screen that straightens as you scroll, with a live pin   */
+/* ------------------------------------------------------------------ */
+const MapScreen = () => {
+  const ref = useRef(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'center center'] })
+  const rotateX = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 35, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [reduce ? 1 : 0.88, 1])
+
+  return (
+    <section className="mx-auto max-w-7xl px-6 pb-28 pt-16">
+      <div ref={ref} style={{ perspective: 1400 }}>
+        <motion.div style={{ rotateX, scale, transformStyle: 'preserve-3d', transformOrigin: '50% 100%' }} className="relative">
+          {/* frame thickness */}
+          {Array.from({ length: 7 }).map((_, i) => (
+            <span
+              key={i}
+              aria-hidden="true"
+              className="absolute inset-0 rounded-[3rem]"
+              style={{ transform: `translateZ(${-(i + 1) * 2.5}px)`, background: i % 2 ? '#1a1d26' : '#0b0d12' }}
+            />
+          ))}
+
+          <div
+            className="relative overflow-hidden rounded-[3rem] border border-white/10 p-2 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)] sm:p-3"
+            style={{ background: 'linear-gradient(160deg, #1a1d26, #0b0d12)' }}
+          >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-16 top-0 z-10 h-[2px] rounded-full"
+              style={{ background: `linear-gradient(90deg, transparent, ${RED}, transparent)`, boxShadow: `0 0 14px ${RED}` }}
+            />
+            <iframe
+              title="HAKIRUSH office location on Google Maps"
+              className="h-[380px] w-full rounded-[2.4rem] border-0 sm:h-[450px]"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.514686411516!2d77.6256!3d12.9392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU2JzIxLjEiTiA3N8KwMzcnMzIuMiJF!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          {/* floating pin */}
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-8 left-1/2 -ml-7"
+            style={{ transform: 'translateZ(60px)' }}
+            animate={reduce ? undefined : { y: [0, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <IconTile icon={MapPin} size={56} />
+          </motion.div>
+
+          {/* directions button */}
+          <a
+            href={MAPS_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-6 left-6 z-10 inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-[0_4px_0_#7f1d1d,0_12px_24px_-8px_rgba(220,38,38,0.8)] outline-none transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-[0_6px_0_#7f1d1d,0_16px_28px_-8px_rgba(220,38,38,0.9)] active:translate-y-0.5 active:shadow-[0_1px_0_#7f1d1d] focus-visible:ring-2 focus-visible:ring-white sm:bottom-8 sm:left-8"
+            style={{ transform: 'translateZ(40px)' }}
+          >
+            <Navigation className="h-4 w-4" /> Get directions
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
 /* ------------------------------------------------------------------ */
 /*  PAGE                                                               */
 /* ------------------------------------------------------------------ */
-export default function Clients() {
+export default function Contact() {
   return (
     <div className="relative min-h-screen overflow-x-clip text-white">
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-20 bg-slate-950" />
       <ParallaxBackground image={backgroundImage} />
 
       <div className="relative z-10 w-full">
         <Hero />
-        <StatsSection />
-        {SHOW_SPONSORS && <PartnerMarquee data={sponsors} label="Our Sponsors" icon={Building} title="Backed By Our" accent="Sponsors" />}
-        <PartnerMarquee data={clients} label="Trusted By" icon={Handshake} title="Our" accent="Partners" />
-        <AnimatePresence>{SHOW_TESTIMONIALS && <TestimonialStack />}</AnimatePresence>
-        <CTASection />
+
+        <section className="mx-auto max-w-7xl px-6 py-12">
+          <div className="grid items-start gap-12 lg:grid-cols-2">
+            {/* LEFT: details */}
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: EASE_OUT }}
+                className="space-y-4"
+              >
+                <h2 className="font-serif text-3xl font-black text-white" style={{ textShadow: EXTRUDE_WHITE }}>
+                  Let's <span style={{ color: RED, textShadow: EXTRUDE_RED }}>Connect</span>
+                </h2>
+                <p className="font-medium text-slate-300">
+                  Ready to transform your workplace culture? Let's create sports experiences that inspire energy, unity &amp; performance.
+                </p>
+              </motion.div>
+
+              <div className="grid gap-4">
+                {contactRows.map((item, i) => (
+                  <ContactRow key={item.label} item={item} index={i} />
+                ))}
+              </div>
+
+              <SocialSlab />
+            </div>
+
+            {/* RIGHT: form */}
+            <ContactForm />
+          </div>
+        </section>
+
+        <MapScreen />
       </div>
     </div>
   )

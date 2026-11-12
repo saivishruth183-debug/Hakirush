@@ -719,7 +719,7 @@ export default function Clients() {
         <Hero />
         <StatsSection />
         {SHOW_SPONSORS && <PartnerMarquee data={sponsors} label="Our Sponsors" icon={Building} title="Backed By Our" accent="Sponsors" />}
-        <PartnerMarquee data={clients} label="Trusted By" icon={Handshake} title="Our" accent="Partners" />
+        {/* <PartnerMarquee data={clients} label="Trusted By" icon={Handshake} title="Our" accent="Partners" /> */}
         <AnimatePresence>{SHOW_TESTIMONIALS && <TestimonialStack />}</AnimatePresence>
         <CTASection />
       </div>
